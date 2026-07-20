@@ -1,0 +1,16 @@
+generated: '2026-07-19'
+method: searched
+source: https://api.kamino.finance/openapi/json ; https://kamino.com/build/api-reference/introduction
+docs: https://kamino.com/build/api-reference/introduction
+summary:
+  types:
+  - none
+  api_key_in: []
+  oauth2_flows: []
+note: 'The Kamino Public API declares no securitySchemes in its OpenAPI: read/data
+  and unsigned-transaction-building endpoints are open. Requests are RATE-LIMITED
+  for unauthenticated users; API keys for higher limits are granted on request. A
+  small number of routes return 401 when elevated access is required. Transactions
+  are returned UNSIGNED and must be signed client-side with the user''s Solana wallet
+  — Kamino never holds keys.'
+schemes: []
