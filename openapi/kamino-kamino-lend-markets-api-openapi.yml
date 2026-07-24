@@ -1,0 +1,623 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Kamino Public Airdrop Kamino Lend Markets API
+  description: 'The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.
+
+
+    The API also provides the ability to fetch data that might not be available from just reading the chain.
+
+
+    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.
+
+    '
+servers:
+- url: https://api.kamino.finance
+tags:
+- name: Kamino Lend Markets
+paths:
+  /kamino-market/{pubkey}/metrics/history:
+    get:
+      summary: Get KLend Market metrics history
+      description: Get historical metrics (TVL and number of obligations) for a Kamino Lending market over a specified time range.
+      tags:
+      - Kamino Lend Markets
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Market public key
+            example: 7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF
+        required: true
+        description: Market public key
+        name: pubkey
+        in: path
+      - schema:
+          type: string
+          enum:
+          - mainnet-beta
+          - devnet
+          - localnet
+          default: mainnet-beta
+          description: Solana cluster environment
+          example: mainnet-beta
+        required: false
+        description: Solana cluster environment
+        name: env
+        in: query
+      - schema:
+          anyOf:
+          - type: string
+          - type: number
+          default: '1970-01-01T00:00:00.000Z'
+          description: Date input (ISO 8601 string or epoch in ms)
+          examples:
+          - '2024-01-01T00:00:00.000Z'
+          - 1704067200000
+          example: 2020-01-01T00:00Z
+        required: false
+        description: Date input (ISO 8601 string or epoch in ms)
+        name: start
+        in: query
+      - schema:
+          anyOf:
+          - type: string
+          - type: number
+          description: Date input (ISO 8601 string or epoch in ms)
+          examples:
+          - '2024-01-01T00:00:00.000Z'
+          - 1704067200000
+          example: 2020-02-01T00:00Z
+        required: false
+        description: Date input (ISO 8601 string or epoch in ms)
+        name: end
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MarketMetricsResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /kamino-market/{marketPubkey}/reserves/{reservePubkey}/metrics/history:
+    get:
+      summary: Get KLend reserve history
+      description: Get historical metrics for a specific reserve in a Kamino Lending market over a specified time range with configurable frequency (minute, hour, or day).
+      tags:
+      - Kamino Lend Markets
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Kamino Lend market public key
+            example: 7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF
+        required: true
+        description: Kamino Lend market public key
+        name: marketPubkey
+        in: path
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Kamino Lend reserve public key
+            example: FBSyPnxtHKLBZ4UeeUyAnbtFuAmTHLtso9YtsqRDRWpM
+        required: true
+        description: Kamino Lend reserve public key
+        name: reservePubkey
+        in: path
+      - schema:
+          type: string
+          enum:
+          - mainnet-beta
+          - devnet
+          - localnet
+          default: mainnet-beta
+          description: Solana cluster environment
+          example: mainnet-beta
+        required: false
+        description: Solana cluster environment
+        name: env
+        in: query
+      - schema:
+          anyOf:
+          - type: string
+          - type: number
+          default: '1970-01-01T00:00:00.000Z'
+          description: Date input (ISO 8601 string or epoch in ms)
+          examples:
+          - '2024-01-01T00:00:00.000Z'
+          - 1704067200000
+          example: 2020-01-01T00:00Z
+        required: false
+        description: Date input (ISO 8601 string or epoch in ms)
+        name: start
+        in: query
+      - schema:
+          anyOf:
+          - type: string
+          - type: number
+          description: Date input (ISO 8601 string or epoch in ms)
+          examples:
+          - '2024-01-01T00:00:00.000Z'
+          - 1704067200000
+          example: 2020-02-01T00:00Z
+        required: false
+        description: Date input (ISO 8601 string or epoch in ms)
+        name: end
+        in: query
+      - schema:
+          type: string
+          enum:
+          - hour
+          - day
+          default: hour
+          description: Frequency of the snapshots
+          example: hour
+        required: false
+        description: Frequency of the snapshots
+        name: frequency
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                nullable: true
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /kamino-market/{pubkey}/reserves/metrics:
+    get:
+      summary: Get metrics for market reserves
+      description: Get current metrics for all reserves in a Kamino Lending market, including APY, TVL, borrow/supply amounts, and LTV ratios.
+      tags:
+      - Kamino Lend Markets
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Market public key
+            example: 7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF
+        required: true
+        description: Market public key
+        name: pubkey
+        in: path
+      - schema:
+          type: string
+          enum:
+          - mainnet-beta
+          - devnet
+          - localnet
+          default: mainnet-beta
+          description: Solana cluster environment
+          example: mainnet-beta
+        required: false
+        description: Solana cluster environment
+        name: env
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReserveMetricsResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /kamino-market/{pubkey}/leverage/metrics:
+    get:
+      summary: Get metrics for leverage/multiply vaults
+      description: Get aggregated metrics for all leverage and multiply positions in a Kamino Lending market, including average leverage, total borrowed, total deposited, and number of obligations.
+      tags:
+      - Kamino Lend Markets
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Market public key
+            example: 7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF
+        required: true
+        description: Market public key
+        name: pubkey
+        in: path
+      - schema:
+          type: string
+          enum:
+          - mainnet-beta
+          - devnet
+          - localnet
+          default: mainnet-beta
+          description: Solana cluster environment
+          example: mainnet-beta
+        required: false
+        description: Solana cluster environment
+        name: env
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LeverageMetricsResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /kamino-market/reserves/account-data:
+    get:
+      summary: Get KLend market reserves account data
+      description: Fetch reserve account data for given Klend markets. Returns base64-encoded account data for all reserves in the specified markets.
+      tags:
+      - Kamino Lend Markets
+      parameters:
+      - schema:
+          type: string
+          default: KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD
+        required: false
+        name: programId
+        in: query
+      - schema:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        required: true
+        name: markets
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReserveAccountDataResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v2/kamino-market:
+    get:
+      summary: Get all Kamino Markets config
+      description: Get all Kamino Lending markets configuration for a specific program ID. This is the V2 endpoint that allows filtering by program ID instead of cluster.
+      tags:
+      - Kamino Lend Markets
+      parameters:
+      - schema:
+          type: string
+          default: KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD
+          description: KLend program ID
+          example: KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD
+        required: false
+        description: KLend program ID
+        name: programId
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MarketConfigResponseV2'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v2/kamino-market/{pubkey}:
+    get:
+      summary: Get Kamino Market config
+      description: Get configuration for a specific Kamino Lending market by market address. Optionally filter by program ID.
+      tags:
+      - Kamino Lend Markets
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Market public key
+            example: 7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF
+        required: true
+        description: Market public key
+        name: pubkey
+        in: path
+      - schema:
+          type: string
+          default: KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD
+          description: KLend program ID
+          example: KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD
+        required: false
+        description: KLend program ID
+        name: programId
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketConfigResponseV2'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
+    MarketMetricsResponse:
+      type: object
+      properties:
+        market:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Market public key
+            example: 9pMFoVgsG2cNiUCSBEE69iWFN7c1bz9gu9TtPeXkAMTs
+        timestamp:
+          $ref: '#/components/schemas/SnapshotDateTime'
+        metrics:
+          type: object
+          properties:
+            borrowTVL:
+              allOf:
+              - $ref: '#/components/schemas/Decimal'
+              - description: Total borrowed value in USD
+                example: '1.000099969999999979181237244607594483571'
+            depositTVL:
+              allOf:
+              - $ref: '#/components/schemas/Decimal'
+              - description: Total deposited value in USD
+                example: '8.357187000999999979181237244607594483571'
+            obligations:
+              type: integer
+              description: Number of obligations
+              example: 38
+          required:
+          - borrowTVL
+          - depositTVL
+          - obligations
+          description: Market metrics
+      required:
+      - market
+      - timestamp
+      - metrics
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
+    ReserveMetricsResponse:
+      type: object
+      properties:
+        reserve:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Reserve public key
+        liquidityToken:
+          type: string
+          description: Liquidity token symbol
+          example: SOL
+        liquidityTokenMint:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Liquidity token mint address
+        maxLtv:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Maximum loan-to-value ratio
+            example: '0.65'
+        borrowApy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Current borrow APY
+            example: '0.05450988511483601'
+        supplyApy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Current supply APY
+            example: '0.038266801210808055'
+        totalSupply:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total supply amount
+        totalBorrow:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total borrow amount
+        totalBorrowUsd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total borrow in USD
+        totalSupplyUsd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total supply in USD
+      required:
+      - reserve
+      - liquidityToken
+      - liquidityTokenMint
+      - maxLtv
+      - borrowApy
+      - supplyApy
+      - totalSupply
+      - totalBorrow
+      - totalBorrowUsd
+      - totalSupplyUsd
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
+    MarketConfigResponseV2:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Market name
+          example: SOL/BTC Market
+        isPrimary:
+          type: boolean
+          description: Whether this is a primary market
+          example: true
+        description:
+          type: string
+          description: Market description
+          example: Primary market on mainnet
+        lendingMarket:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Lending market public key
+            example: 7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF
+        lookupTable:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Lookup table address
+            example: FGMSBiyVE8TvZcdQnZETAAKw28tkQJ2ccZy6pyp95URb
+        isCurated:
+          type: boolean
+          description: Whether this market is curated
+          example: false
+      required:
+      - name
+      - isPrimary
+      - description
+      - lendingMarket
+      - lookupTable
+      - isCurated
+    SnapshotDateTime:
+      type: string
+      format: date-time
+      description: Timestamp of the metrics snapshot
+      example: '2023-06-29T15:15:26.464Z'
+    Apy:
+      type: string
+      description: Borrow interest APY
+      example: '0.027610992938039702'
+      examples:
+      - '0.123'
+      - '0'
+      - '1'
+      - '1.23'
+      - '-0.5'
+      - '999999.999999'
+    ReserveAccountDataResponse:
+      type: object
+      properties:
+        market:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Market public key
+        reserves:
+          type: array
+          items:
+            type: object
+            properties:
+              pubkey:
+                allOf:
+                - $ref: '#/components/schemas/AddressBase58'
+                - description: Reserve public key
+              data:
+                type: string
+                description: Base64 encoded reserve account data
+            required:
+            - pubkey
+            - data
+      required:
+      - market
+      - reserves
+    LeverageMetricsResponse:
+      type: object
+      properties:
+        avgLeverage:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Average leverage
+        totalBorrowed:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total borrowed amount
+        totalDeposited:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total deposited amount
+        totalBorrowedUsd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total borrowed in USD
+        totalObligations:
+          type: string
+          description: Total number of obligations
+        totalDepositedUsd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total deposited in USD
+        tvl:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total Value Locked
+        updatedOn:
+          type: string
+          format: date-time
+          description: Last update timestamp
+        depositReserve:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Deposit reserve public key
+        borrowReserve:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Borrow reserve public key
+        tag:
+          type: string
+          description: Tag (Multiply or Leverage)
+          example: Multiply
+      required:
+      - avgLeverage
+      - totalBorrowed
+      - totalDeposited
+      - totalBorrowedUsd
+      - totalObligations
+      - totalDepositedUsd
+      - tvl
+      - updatedOn
+      - depositReserve
+      - borrowReserve
+      - tag

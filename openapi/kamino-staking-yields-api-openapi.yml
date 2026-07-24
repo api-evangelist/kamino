@@ -1,0 +1,130 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Kamino Public Airdrop Staking Yields API
+  description: 'The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.
+
+
+    The API also provides the ability to fetch data that might not be available from just reading the chain.
+
+
+    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.
+
+    '
+servers:
+- url: https://api.kamino.finance
+tags:
+- name: Staking Yields
+paths:
+  /v2/staking-yields:
+    get:
+      summary: Get staking yields
+      description: Fetches the latest staking yields for all LSTs
+      tags:
+      - Staking Yields
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StakingYield'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v2/staking-yields/median:
+    get:
+      summary: Get median staking yields
+      description: Fetches staking yields and calculates median APY over the last 10 epochs
+      tags:
+      - Staking Yields
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StakingYield'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v2/staking-yields/mean:
+    get:
+      summary: Get mean staking yields
+      description: Fetches staking yields and calculates mean (average) APY over the last 10 epochs
+      tags:
+      - Staking Yields
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StakingYield'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
+    StakingYield:
+      type: object
+      properties:
+        apy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Staking APY in decimal format for the token
+            example: '0.2'
+        tokenMint:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Valid base58-encoded address of the liquid staking token mint
+            example: J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn
+            examples:
+            - J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn
+            - mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So
+            - pSo1f9nQXWgXibFtKf7NWYxb5enAM4qfP6UJSiXRQfL
+      required:
+      - apy
+      - tokenMint
+    Apy:
+      type: string
+      description: Borrow interest APY
+      example: '0.027610992938039702'
+      examples:
+      - '0.123'
+      - '0'
+      - '1'
+      - '1.23'
+      - '-0.5'
+      - '999999.999999'

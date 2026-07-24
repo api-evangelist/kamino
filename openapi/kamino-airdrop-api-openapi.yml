@@ -1,0 +1,250 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Kamino Public Airdrop API
+  description: 'The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.
+
+
+    The API also provides the ability to fetch data that might not be available from just reading the chain.
+
+
+    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.
+
+    '
+servers:
+- url: https://api.kamino.finance
+tags:
+- name: Airdrop
+paths:
+  /v2/airdrop/users/{pubkey}/allocations:
+    get:
+      summary: Get user airdrop allocations
+      description: Fetches airdrop allocation data for a specific user and source (Seasons...)
+      tags:
+      - Airdrop
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Valid base58-encoded address of the user wallet
+            example: AxqtG9SHDkZTLSWg81Sp7VqAzQpRqXtR9ziJ3VQAS8As
+        required: true
+        description: Valid base58-encoded address of the user wallet
+        name: pubkey
+        in: path
+      - schema:
+          type: string
+          description: Points source identifier
+          example: Season1
+          examples:
+          - Season1
+          - Season2
+          - Season3
+          - Season4
+        required: false
+        description: Points source identifier
+        name: source
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AirdropAllocation'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v2/airdrop/metrics:
+    get:
+      summary: Get airdrop metrics
+      description: Fetches aggregated airdrop metrics and metadata for a specific points source.
+      tags:
+      - Airdrop
+      parameters:
+      - schema:
+          type: string
+          description: Points source identifier
+          example: Season1
+          examples:
+          - Season1
+          - Season2
+          - Season3
+          - Season4
+        required: false
+        description: Points source identifier
+        name: source
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AirdropMetrics'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  metadata:
+                    type: string
+                    description: Error message describing why it was not found
+                    example: Account could not be found
+                required:
+                - metadata
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
+    SnapshotDateTime:
+      type: string
+      format: date-time
+      description: Timestamp of the metrics snapshot
+      example: '2023-06-29T15:15:26.464Z'
+    AirdropAllocation:
+      type: object
+      properties:
+        quantity:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Quantity of tokens allocated to the user for the airdrop
+        name:
+          type: string
+          description: Name of the airdrop allocation source
+          example: main
+      required:
+      - quantity
+      - name
+    AirdropMetrics:
+      type: object
+      properties:
+        totalAllocation:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total allocated amount across all users for this airdrop
+        totalUsers:
+          $ref: '#/components/schemas/Integer'
+        claimDate:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - description: Date when the airdrop claim becomes available or was executed
+            example: '2025-03-01T12:00:00.000Z'
+      required:
+      - totalAllocation
+      - totalUsers
+      - claimDate
+    Integer:
+      type: string
+      description: Total number of unique users participating in the airdrop
+      example: '1'
+      examples:
+      - '0'
+      - '1'
+      - '100'
+      - '-1'

@@ -1,0 +1,985 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Kamino Public Airdrop Kamino Lend Transactions API
+  description: 'The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.
+
+
+    The API also provides the ability to fetch data that might not be available from just reading the chain.
+
+
+    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.
+
+    '
+servers:
+- url: https://api.kamino.finance
+tags:
+- name: Kamino Lend Transactions
+paths:
+  /v2/kamino-market/{marketPubkey}/obligations/{obligationPubkey}/transactions:
+    get:
+      summary: Get obligation transactions
+      description: Get all Kamino Lend transactions for a given obligation.
+      tags:
+      - Kamino Lend Transactions
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Kamino Lend market public key
+            example: 7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF
+        required: true
+        description: Kamino Lend market public key
+        name: marketPubkey
+        in: path
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Kamino Lend obligation public key
+            example: 63QrAB1okxCc4FpsgcKYHjYTp1ua8ch6mLReyKRdc22o
+        required: true
+        description: Kamino Lend obligation public key
+        name: obligationPubkey
+        in: path
+      - schema:
+          type: string
+          enum:
+          - mainnet-beta
+          - devnet
+          - localnet
+          default: mainnet-beta
+          description: Solana cluster environment
+          example: mainnet-beta
+        required: false
+        description: Solana cluster environment
+        name: env
+        in: query
+      - schema:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+          default: 'false'
+          description: Use log prices for transaction values
+          example: 'false'
+        required: false
+        description: Use log prices for transaction values
+        name: useLogPrices
+        in: query
+      - schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+          description: Sort order (asc for oldest first, desc for newest first)
+          example: desc
+        required: false
+        description: Sort order (asc for oldest first, desc for newest first)
+        name: sort
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KlendTransactionsResponseV2'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v2/kamino-market/users/{userPubkey}/transactions:
+    get:
+      summary: Get user transactions across all markets
+      description: Get all Kamino Lend transactions for a given user across all markets.
+      tags:
+      - Kamino Lend Transactions
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: User wallet public key
+            example: AcNSmd5CxwLs21TYUmhWt7CW2v159TdYRkvQxb1iBYRj
+        required: true
+        description: User wallet public key
+        name: userPubkey
+        in: path
+      - schema:
+          type: string
+          enum:
+          - mainnet-beta
+          - devnet
+          - localnet
+          default: mainnet-beta
+          description: Solana cluster environment
+          example: mainnet-beta
+        required: false
+        description: Solana cluster environment
+        name: env
+        in: query
+      - schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+          description: Sort order (asc for oldest first, desc for newest first)
+          example: desc
+        required: false
+        description: Sort order (asc for oldest first, desc for newest first)
+        name: sort
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KlendAllMarketsUserTransactionsResponseV2'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v2/kamino-market/{marketPubkey}/users/{userPubkey}/transactions:
+    get:
+      summary: Get user transactions
+      description: Get all Kamino Lend transactions for a given user.
+      tags:
+      - Kamino Lend Transactions
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Kamino Lend market public key
+            example: 7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF
+        required: true
+        description: Kamino Lend market public key
+        name: marketPubkey
+        in: path
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: User wallet public key
+            example: AcNSmd5CxwLs21TYUmhWt7CW2v159TdYRkvQxb1iBYRj
+        required: true
+        description: User wallet public key
+        name: userPubkey
+        in: path
+      - schema:
+          type: string
+          enum:
+          - mainnet-beta
+          - devnet
+          - localnet
+          default: mainnet-beta
+          description: Solana cluster environment
+          example: mainnet-beta
+        required: false
+        description: Solana cluster environment
+        name: env
+        in: query
+      - schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+          description: Sort order (asc for oldest first, desc for newest first)
+          example: desc
+        required: false
+        description: Sort order (asc for oldest first, desc for newest first)
+        name: sort
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KlendUserTransactionsResponseV2'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v2/kamino-market/{pubkey}/transactions:
+    post:
+      summary: Get bulk market transactions
+      description: Get bulk Kamino Lend transactions for a given market, filtered by instruction name and date range. Private (authorized) API access only, please add a basic auth header to your request.
+      tags:
+      - Kamino Lend Transactions
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Market public key
+            example: 7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF
+        required: true
+        description: Market public key
+        name: pubkey
+        in: path
+      - schema:
+          type: string
+          default: KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD
+          description: KLend program ID
+          example: KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD
+        required: false
+        description: KLend program ID
+        name: programId
+        in: query
+      - schema:
+          type: string
+          default: 'false'
+          description: Whether to include raw JSON of the transaction
+          oneOf:
+          - type: string
+            enum:
+            - '1'
+            - 'true'
+            - 'yes'
+            - 'on'
+            - y
+            - enabled
+          - type: string
+            enum:
+            - '0'
+            - 'false'
+            - 'no'
+            - 'off'
+            - n
+            - disabled
+        required: false
+        description: Whether to include raw JSON of the transaction
+        name: includeRawJson
+        in: query
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KlendBulkTxBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KlendBulkTxResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message describing why it was not authorized
+                    example: Not authorized for this request. Please include the basic auth headers.
+                required:
+                - error
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v3/kamino-market/users/{userPubkey}/transactions:
+    get:
+      summary: Get user transactions across all markets (v3)
+      description: Get all Kamino Lend transactions for a given user across all markets, including withdraw-queue transactions.
+      tags:
+      - Kamino Lend Transactions
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: User wallet public key
+            example: AcNSmd5CxwLs21TYUmhWt7CW2v159TdYRkvQxb1iBYRj
+        required: true
+        description: User wallet public key
+        name: userPubkey
+        in: path
+      - schema:
+          type: string
+          enum:
+          - mainnet-beta
+          - devnet
+          - localnet
+          default: mainnet-beta
+          description: Solana cluster environment
+          example: mainnet-beta
+        required: false
+        description: Solana cluster environment
+        name: env
+        in: query
+      - schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+          description: Sort order (asc for oldest first, desc for newest first)
+          example: desc
+        required: false
+        description: Sort order (asc for oldest first, desc for newest first)
+        name: sort
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KlendAllMarketsUserTransactionsResponseV3'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v3/kamino-market/{marketPubkey}/users/{userPubkey}/transactions:
+    get:
+      summary: Get user transactions (v3)
+      description: Get all Kamino Lend transactions for a given user in a market, including withdraw-queue transactions.
+      tags:
+      - Kamino Lend Transactions
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Kamino Lend market public key
+            example: 7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF
+        required: true
+        description: Kamino Lend market public key
+        name: marketPubkey
+        in: path
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: User wallet public key
+            example: AcNSmd5CxwLs21TYUmhWt7CW2v159TdYRkvQxb1iBYRj
+        required: true
+        description: User wallet public key
+        name: userPubkey
+        in: path
+      - schema:
+          type: string
+          enum:
+          - mainnet-beta
+          - devnet
+          - localnet
+          default: mainnet-beta
+          description: Solana cluster environment
+          example: mainnet-beta
+        required: false
+        description: Solana cluster environment
+        name: env
+        in: query
+      - schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+          description: Sort order (asc for oldest first, desc for newest first)
+          example: desc
+        required: false
+        description: Sort order (asc for oldest first, desc for newest first)
+        name: sort
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KlendUserTransactionsResponseV3'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v3/kamino-market/{pubkey}/transactions:
+    post:
+      summary: Get bulk market transactions (v3)
+      description: Get bulk Kamino Lend transactions for a given market, filtered by instruction name and date range. Returns obligation transactions and withdraw-queue transactions as sibling arrays; exactly one is populated per request depending on the ix name. Private (authorized) API access only, please add a basic auth header to your request.
+      tags:
+      - Kamino Lend Transactions
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Market public key
+            example: 7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF
+        required: true
+        description: Market public key
+        name: pubkey
+        in: path
+      - schema:
+          type: string
+          default: KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD
+          description: KLend program ID
+          example: KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD
+        required: false
+        description: KLend program ID
+        name: programId
+        in: query
+      - schema:
+          type: string
+          default: false
+        required: false
+        name: includeRawJson
+        in: query
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KlendBulkTxBodyV3'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KlendBulkTxResponseV3'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message describing why it was not authorized
+                    example: Not authorized for this request. Please include the basic auth headers.
+                required:
+                - error
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    KlendTransactionsResponseV2:
+      type: object
+      properties:
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/KlendTransactionResponseV2'
+      required:
+      - transactions
+    KlendBulkTxResultItem:
+      type: object
+      properties:
+        ixs:
+          type: array
+          items:
+            nullable: true
+        timestamp:
+          type: string
+          nullable: true
+          format: date
+        signature:
+          type: string
+        obligation:
+          type: string
+        wallet:
+          type: string
+        rawJson:
+          type: string
+      required:
+      - ixs
+      - timestamp
+      - signature
+      - obligation
+      - wallet
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
+    KlendAllMarketsUserTransactionsResponseV2:
+      type: array
+      items:
+        $ref: '#/components/schemas/KlendAllMarketsUserTransactionsItem'
+    KlendTransactionUserResponseV3:
+      type: object
+      properties:
+        createdOn:
+          type: string
+          nullable: true
+          format: date
+        timestamp:
+          type: number
+        transactionSignature:
+          type: string
+        transactionName:
+          type: string
+        liquidityToken:
+          type: string
+        liquidityTokenMint:
+          $ref: '#/components/schemas/AddressBase58'
+        liquidityTokenAmount:
+          $ref: '#/components/schemas/Decimal'
+        liquidityTokenPrice:
+          $ref: '#/components/schemas/Decimal'
+        solPrice:
+          $ref: '#/components/schemas/Decimal'
+        liquidityUsdValue:
+          $ref: '#/components/schemas/Decimal'
+        isLiquidationWithdrawal:
+          type: boolean
+        obligationType:
+          type: string
+        transactionDisplayName:
+          type: string
+        isSecondPartOfCompositeIx:
+          type: boolean
+      required:
+      - createdOn
+      - timestamp
+      - transactionSignature
+      - transactionName
+      - liquidityToken
+      - liquidityTokenMint
+      - liquidityTokenAmount
+      - isLiquidationWithdrawal
+      - obligationType
+      - transactionDisplayName
+    KlendBulkTxResponseV3:
+      type: object
+      properties:
+        obligationTransactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/KlendBulkTxObligationResultItemV3'
+        withdrawQueueTransactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/KlendBulkTxWithdrawQueueResultItemV3'
+        paginationToken:
+          type: string
+          description: Token for next page. Absent when no more results.
+      required:
+      - obligationTransactions
+      - withdrawQueueTransactions
+    KlendBulkTxBodyV3:
+      type: object
+      properties:
+        start:
+          anyOf:
+          - type: string
+          - type: number
+          description: Date input (ISO 8601 string or epoch in ms)
+          examples:
+          - '2024-01-01T00:00:00.000Z'
+          - 1704067200000
+          example: 2020-01-01T00:00Z
+        end:
+          anyOf:
+          - type: string
+          - type: number
+          description: Date input (ISO 8601 string or epoch in ms)
+          examples:
+          - '2024-01-01T00:00:00.000Z'
+          - 1704067200000
+          example: 2020-02-01T00:00Z
+        instruction:
+          type: string
+          description: Instruction name to filter by
+          example: depositReserveLiquidityAndObligationCollateralV2
+        paginationToken:
+          type: string
+          example: eyJsYXN0SWQiOiIxMjM0In0=
+          description: Pagination token for next page
+      required:
+      - instruction
+    KlendBulkTxBody:
+      type: object
+      properties:
+        start:
+          anyOf:
+          - type: string
+          - type: number
+          description: Date input (ISO 8601 string or epoch in ms)
+          examples:
+          - '2024-01-01T00:00:00.000Z'
+          - 1704067200000
+          example: 2020-01-01T00:00Z
+        end:
+          anyOf:
+          - type: string
+          - type: number
+          description: Date input (ISO 8601 string or epoch in ms)
+          examples:
+          - '2024-01-01T00:00:00.000Z'
+          - 1704067200000
+          example: 2020-02-01T00:00Z
+        instruction:
+          type: string
+          description: Instruction name to filter by
+          example: depositReserveLiquidityAndObligationCollateralV2
+        paginationToken:
+          type: string
+          example: eyJsYXN0SWQiOiIxMjM0In0=
+          description: Pagination token for next page
+      required:
+      - instruction
+    KlendWithdrawQueueTransactionV3:
+      type: object
+      properties:
+        createdOn:
+          type: string
+          nullable: true
+          format: date
+        timestamp:
+          type: number
+        transactionSignature:
+          type: string
+        transactionName:
+          type: string
+        transactionDisplayName:
+          type: string
+        reserve:
+          $ref: '#/components/schemas/AddressBase58'
+        withdrawTicket:
+          $ref: '#/components/schemas/AddressBase58'
+        solPrice:
+          $ref: '#/components/schemas/Decimal'
+        liquidityToken:
+          type: string
+        liquidityTokenMint:
+          $ref: '#/components/schemas/AddressBase58'
+        liquidityTokenAmount:
+          $ref: '#/components/schemas/Decimal'
+        liquidityTokenPrice:
+          $ref: '#/components/schemas/Decimal'
+        liquidityUsdValue:
+          $ref: '#/components/schemas/Decimal'
+      required:
+      - createdOn
+      - timestamp
+      - transactionSignature
+      - transactionName
+      - transactionDisplayName
+      - reserve
+      - withdrawTicket
+      - solPrice
+      - liquidityToken
+      - liquidityTokenMint
+      - liquidityTokenAmount
+      - liquidityTokenPrice
+      - liquidityUsdValue
+    KlendAllMarketsUserTransactionsItem:
+      type: object
+      properties:
+        market:
+          $ref: '#/components/schemas/AddressBase58'
+        obligations:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/KlendTransactionUserResponseV2'
+      required:
+      - market
+      - obligations
+    KlendUserTransactionsResponseV3:
+      type: object
+      properties:
+        obligations:
+          $ref: '#/components/schemas/KlendUserObligationsMapV3'
+        withdrawQueueTransactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/KlendWithdrawQueueTransactionV3'
+      required:
+      - obligations
+      - withdrawQueueTransactions
+    KlendTransactionResponseV2:
+      type: object
+      properties:
+        createdOn:
+          type: string
+          nullable: true
+          format: date
+        timestamp:
+          type: number
+        transactionSignature:
+          type: string
+        transactionName:
+          type: string
+        liquidityToken:
+          type: string
+        liquidityTokenMint:
+          $ref: '#/components/schemas/AddressBase58'
+        liquidityTokenAmount:
+          $ref: '#/components/schemas/Decimal'
+        liquidityTokenPrice:
+          $ref: '#/components/schemas/Decimal'
+        solPrice:
+          $ref: '#/components/schemas/Decimal'
+        liquidityUsdValue:
+          $ref: '#/components/schemas/Decimal'
+        isLiquidationWithdrawal:
+          type: boolean
+        obligation:
+          $ref: '#/components/schemas/AddressBase58'
+        obligationType:
+          type: string
+        transactionDisplayName:
+          type: string
+        isSecondPartOfCompositeIx:
+          type: boolean
+      required:
+      - createdOn
+      - timestamp
+      - transactionSignature
+      - transactionName
+      - liquidityToken
+      - liquidityTokenMint
+      - liquidityTokenAmount
+      - isLiquidationWithdrawal
+      - obligation
+      - obligationType
+      - transactionDisplayName
+    KlendUserObligationsMapV3:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          $ref: '#/components/schemas/KlendTransactionUserResponseV3'
+    KlendBulkTxWithdrawQueueResultItemV3:
+      type: object
+      properties:
+        ixs:
+          type: array
+          items:
+            nullable: true
+        timestamp:
+          type: string
+          nullable: true
+          format: date
+        signature:
+          type: string
+        wallet:
+          type: string
+        reserve:
+          $ref: '#/components/schemas/AddressBase58'
+        withdrawTicket:
+          $ref: '#/components/schemas/AddressBase58'
+        rawJson:
+          type: string
+      required:
+      - ixs
+      - timestamp
+      - signature
+      - wallet
+      - reserve
+      - withdrawTicket
+    KlendBulkTxResponse:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/KlendBulkTxResultItem'
+        paginationToken:
+          type: string
+          description: Token for next page. Absent when no more results.
+      required:
+      - result
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
+    KlendUserTransactionsResponseV2:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          $ref: '#/components/schemas/KlendTransactionUserResponseV2'
+    KlendTransactionUserResponseV2:
+      type: object
+      properties:
+        createdOn:
+          type: string
+          nullable: true
+          format: date
+        timestamp:
+          type: number
+        transactionSignature:
+          type: string
+        transactionName:
+          type: string
+        liquidityToken:
+          type: string
+        liquidityTokenMint:
+          $ref: '#/components/schemas/AddressBase58'
+        liquidityTokenAmount:
+          $ref: '#/components/schemas/Decimal'
+        liquidityTokenPrice:
+          $ref: '#/components/schemas/Decimal'
+        solPrice:
+          $ref: '#/components/schemas/Decimal'
+        liquidityUsdValue:
+          $ref: '#/components/schemas/Decimal'
+        isLiquidationWithdrawal:
+          type: boolean
+        obligationType:
+          type: string
+        transactionDisplayName:
+          type: string
+        isSecondPartOfCompositeIx:
+          type: boolean
+      required:
+      - createdOn
+      - timestamp
+      - transactionSignature
+      - transactionName
+      - liquidityToken
+      - liquidityTokenMint
+      - liquidityTokenAmount
+      - isLiquidationWithdrawal
+      - obligationType
+      - transactionDisplayName
+    KlendAllMarketsUserTransactionsResponseV3:
+      type: array
+      items:
+        $ref: '#/components/schemas/KlendAllMarketsUserTransactionsItemV3'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
+    KlendBulkTxObligationResultItemV3:
+      type: object
+      properties:
+        ixs:
+          type: array
+          items:
+            nullable: true
+        timestamp:
+          type: string
+          nullable: true
+          format: date
+        signature:
+          type: string
+        obligation:
+          type: string
+        wallet:
+          type: string
+        rawJson:
+          type: string
+      required:
+      - ixs
+      - timestamp
+      - signature
+      - obligation
+      - wallet
+    KlendAllMarketsUserTransactionsItemV3:
+      type: object
+      properties:
+        market:
+          $ref: '#/components/schemas/AddressBase58'
+        obligations:
+          $ref: '#/components/schemas/KlendUserObligationsMapV3'
+        withdrawQueueTransactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/KlendWithdrawQueueTransactionV3'
+      required:
+      - market
+      - obligations
+      - withdrawQueueTransactions

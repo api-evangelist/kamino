@@ -1,0 +1,717 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Kamino Public Airdrop Kamino Lend User Loans API
+  description: 'The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.
+
+
+    The API also provides the ability to fetch data that might not be available from just reading the chain.
+
+
+    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.
+
+    '
+servers:
+- url: https://api.kamino.finance
+tags:
+- name: Kamino Lend User Loans
+paths:
+  /kamino-market/{marketPubkey}/users/{userPubkey}/obligations:
+    get:
+      summary: Get all user obligations
+      description: Get all obligations (loans) for a specific user wallet in a Kamino Lending market.
+      tags:
+      - Kamino Lend User Loans
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Kamino Lend market public key
+            example: 7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF
+        required: true
+        description: Kamino Lend market public key
+        name: marketPubkey
+        in: path
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: User wallet public key
+            example: AcNSmd5CxwLs21TYUmhWt7CW2v159TdYRkvQxb1iBYRj
+        required: true
+        description: User wallet public key
+        name: userPubkey
+        in: path
+      - schema:
+          type: string
+          enum:
+          - mainnet-beta
+          - devnet
+          - localnet
+          default: mainnet-beta
+          description: Solana cluster environment
+          example: mainnet-beta
+        required: false
+        description: Solana cluster environment
+        name: env
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                nullable: true
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v2/kamino-market/{marketPubkey}/obligations/{obligationPubkey}/pnl:
+    get:
+      summary: Get profit and loss for an obligation
+      description: Get profit and loss (PnL) for a specific obligation. For xSOL pairs, `useStakeRate` can be set to true to calculate the PnL using the stake rate.
+      tags:
+      - Kamino Lend User Loans
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Kamino Lend market public key
+            example: 7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF
+        required: true
+        description: Kamino Lend market public key
+        name: marketPubkey
+        in: path
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Kamino Lend obligation public key
+            example: 63QrAB1okxCc4FpsgcKYHjYTp1ua8ch6mLReyKRdc22o
+        required: true
+        description: Kamino Lend obligation public key
+        name: obligationPubkey
+        in: path
+      - schema:
+          type: string
+          enum:
+          - mainnet-beta
+          - devnet
+          - localnet
+          default: mainnet-beta
+          description: Solana cluster environment
+          example: mainnet-beta
+        required: false
+        description: Solana cluster environment
+        name: env
+        in: query
+      - schema:
+          type: string
+          default: KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD
+          description: KLend program ID
+          example: KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD
+        required: false
+        description: KLend program ID
+        name: programId
+        in: query
+      - schema:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+          default: 'false'
+          description: For xSOL pairs, calculate the PnL using the stake rate
+          example: 'true'
+        required: false
+        description: For xSOL pairs, calculate the PnL using the stake rate
+        name: useStakeRate
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PnlResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v2/kamino-market/{marketPubkey}/obligations/{obligationPubkey}/metrics/history:
+    get:
+      summary: Get KLend obligation history
+      description: Get historical metrics for a specific obligation in a Kamino Lending market. This V2 endpoint supports using stake rate for obligation value calculation when `useStakeRateForObligation` is true.
+      tags:
+      - Kamino Lend User Loans
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Kamino Lend market public key
+            example: 7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF
+        required: true
+        description: Kamino Lend market public key
+        name: marketPubkey
+        in: path
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Kamino Lend obligation public key
+            example: 63QrAB1okxCc4FpsgcKYHjYTp1ua8ch6mLReyKRdc22o
+        required: true
+        description: Kamino Lend obligation public key
+        name: obligationPubkey
+        in: path
+      - schema:
+          type: string
+          enum:
+          - mainnet-beta
+          - devnet
+          - localnet
+          default: mainnet-beta
+          description: Solana cluster environment
+          example: mainnet-beta
+        required: false
+        description: Solana cluster environment
+        name: env
+        in: query
+      - schema:
+          anyOf:
+          - type: string
+          - type: number
+          default: '1970-01-01T00:00:00.000Z'
+          description: Date input (ISO 8601 string or epoch in ms)
+          examples:
+          - '2024-01-01T00:00:00.000Z'
+          - 1704067200000
+          example: 2020-01-01T00:00Z
+        required: false
+        description: Date input (ISO 8601 string or epoch in ms)
+        name: start
+        in: query
+      - schema:
+          anyOf:
+          - type: string
+          - type: number
+          description: Date input (ISO 8601 string or epoch in ms)
+          examples:
+          - '2024-01-01T00:00:00.000Z'
+          - 1704067200000
+          example: 2020-02-01T00:00Z
+        required: false
+        description: Date input (ISO 8601 string or epoch in ms)
+        name: end
+        in: query
+      - schema:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+          default: 'false'
+          description: Use stake rate to calculate net SOL value
+          example: 'true'
+        required: false
+        description: Use stake rate to calculate net SOL value
+        name: useStakeRateForObligation
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObligationMetricsHistoryResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /klend/loans/{pubkey}:
+    get:
+      summary: Get information about a loan (obligation)
+      description: Fetches information about a loan
+      tags:
+      - Kamino Lend User Loans
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/AddressBase58'
+        required: true
+        description: Valid base58-encoded address
+        name: pubkey
+        in: path
+      - schema:
+          type: string
+          enum:
+          - mainnet-beta
+          - devnet
+          - localnet
+          default: mainnet-beta
+          description: Solana cluster environment
+          example: mainnet-beta
+        required: false
+        description: Solana cluster environment
+        name: env
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoanInfo'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  metadata:
+                    type: string
+                    description: Error message describing why it was not found
+                    example: Account could not be found
+                required:
+                - metadata
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    PnlResponse:
+      type: object
+      properties:
+        usd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: PnL in USD
+            example: '25.21'
+        sol:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: PnL in SOL
+            example: '1.0'
+        invested:
+          type: object
+          properties:
+            usd:
+              $ref: '#/components/schemas/Decimal'
+            sol:
+              $ref: '#/components/schemas/Decimal'
+          required:
+          - usd
+          - sol
+          description: Invested amounts
+      required:
+      - usd
+      - sol
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
+    ObligationSolValues:
+      type: object
+      properties:
+        netValueSol:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Net value in SOL
+            example: '0.009469142566566941841900274495955292427975'
+        collateralValueSol:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Collateral value in SOL
+            example: '0.01001842948854487210536205388880118310325'
+        debtValueSol:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Debt value in SOL
+            example: '0.0005492869219779302633519230615141419874818'
+        solPrice:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: SOL price in USD
+            example: '182.05596125'
+        timestampSolPrice:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - description: Timestamp of the SOL price
+            example: '2025-10-17T00:00:00.000Z'
+        timestampObligation:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - description: Timestamp of the obligation snapshot
+            example: '2025-10-17T00:00:00.000Z'
+      required:
+      - netValueSol
+      - collateralValueSol
+      - debtValueSol
+      - solPrice
+      - timestampSolPrice
+      - timestampObligation
+      description: Obligation values denominated in SOL
+    LoanDepositInfo:
+      type: object
+      properties:
+        tokenMint:
+          type: string
+          description: The token mint address
+          example: So11111111111111111111111111111111111111112
+        tokenName:
+          type: string
+          description: The token name/symbol from the reserve
+          example: SOL
+        tokenAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Token amount in decimal format (not lamports)
+            example: '0.0100002082771212'
+        tokenValue:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: USD value (tokenAmount × tokenPrice)
+            example: '1.80421579010444'
+        maxLtv:
+          type: number
+          description: Maximum loan-to-value ratio for this collateral reserve
+          example: 0.74
+        liquidationLtv:
+          type: number
+          description: Liquidation threshold LTV for this collateral reserve
+          example: 0.75
+        maxWithdrawableAmount:
+          type: number
+          description: Maximum token amount (decimals) that can be withdrawn while currentLtv <= maxLtv
+          example: 51225.5590659256
+        maxWithdrawableValue:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Maximum USD value that can be withdrawn while currentLtv <= maxLtv
+            example: '9242003.76257327'
+        tokenPrice:
+          type: number
+          description: Latest price from the oracle
+          example: 180.41782132
+      required:
+      - tokenMint
+      - tokenName
+      - tokenAmount
+      - tokenValue
+      - maxLtv
+      - liquidationLtv
+      - maxWithdrawableAmount
+      - maxWithdrawableValue
+      - tokenPrice
+    ObligationMetrics:
+      type: object
+      properties:
+        timestamp:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - example: '2025-10-17T00:00:00.000Z'
+        refreshedStats:
+          $ref: '#/components/schemas/ObligationStats'
+        deposits:
+          type: array
+          items:
+            $ref: '#/components/schemas/Position'
+          description: Array of deposit positions
+        borrows:
+          type: array
+          items:
+            $ref: '#/components/schemas/Position'
+          description: Array of borrow positions
+        tag:
+          type: integer
+          minimum: 0
+          maximum: 3
+          description: Obligation type tag (0 = Vanilla, 1 = Multiply, 2 = Lending, 3 = Leverage)
+          example: 0
+        obligationSolValues:
+          $ref: '#/components/schemas/ObligationSolValues'
+      required:
+      - timestamp
+      - refreshedStats
+      - deposits
+      - borrows
+      - tag
+      - obligationSolValues
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
+    SnapshotDateTime:
+      type: string
+      format: date-time
+      description: Timestamp of the metrics snapshot
+      example: '2023-06-29T15:15:26.464Z'
+    LoanBorrowInfo:
+      type: object
+      properties:
+        tokenMint:
+          type: string
+          description: The token mint address
+          example: EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
+        tokenName:
+          type: string
+          description: The token name/symbol
+          example: USDC
+        tokenAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Token amount in decimal format
+            example: '0.100002775657846'
+        tokenValue:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: USD value (tokenAmount × tokenPrice)
+            example: '0.0999921413626825'
+        maxBorrowableAmount:
+          type: number
+          description: Maximum amount that can be borrowed while currentLtv <= maxLtv
+          example: 1.30084031718889
+        maxBorrowableValue:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Maximum USD value that can be borrowed while currentLtv <= maxLtv
+            example: '1.30070198582957'
+        tokenPrice:
+          type: number
+          description: Latest price from the oracle
+          example: 0.99989366
+        borrowFactor:
+          type: number
+          description: Extra weight given to debt token in LTV calculation (debt value is multiplied by this factor))
+          example: 1
+      required:
+      - tokenMint
+      - tokenName
+      - tokenAmount
+      - tokenValue
+      - maxBorrowableAmount
+      - maxBorrowableValue
+      - tokenPrice
+      - borrowFactor
+    Position:
+      type: object
+      properties:
+        amount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Amount in the position
+            example: '10000708.005624756258'
+        mintAddress:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Token mint address
+            example: So11111111111111111111111111111111111111112
+        marketValueRefreshed:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Refreshed market value of the position
+            example: '1.8239148107523825549'
+      required:
+      - amount
+      - mintAddress
+      - marketValueRefreshed
+    ObligationStats:
+      type: object
+      properties:
+        leverage:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Leverage ratio of the obligation
+            example: '1.0580080950430842892'
+        borrowLimit:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Maximum borrow limit
+            example: '1.3496969599567630906'
+        loanToValue:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Current loan-to-value ratio
+            example: '0.054827647647367082766'
+        liquidationLtv:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Liquidation loan-to-value threshold
+            example: '0.75000000000000000001'
+        netAccountValue:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Net account value
+            example: '1.7239138521696367095'
+        userTotalBorrow:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total amount borrowed by the user
+            example: '0.10000095858274584538'
+        userTotalDeposit:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total amount deposited by the user
+            example: '1.8239148107523825549'
+        borrowUtilization:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Borrow utilization ratio
+            example: '0.074091415739685246983'
+        borrowLiquidationLimit:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Borrow liquidation limit
+            example: '1.3679361080642869162'
+        userTotalCollateralDeposit:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total collateral deposited by the user
+            example: '1.8239148107523825549'
+        userTotalLiquidatableDeposit:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total liquidatable deposit amount
+            example: '1.8239148107523825549'
+        potentialElevationGroupUpdate:
+          type: number
+          description: Potential elevation group update indicator
+          example: 0
+        userTotalBorrowBorrowFactorAdjusted:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total borrow adjusted by borrow factor
+            example: '0.10000095858274584538'
+      required:
+      - leverage
+      - borrowLimit
+      - loanToValue
+      - liquidationLtv
+      - netAccountValue
+      - userTotalBorrow
+      - userTotalDeposit
+      - borrowUtilization
+      - borrowLiquidationLimit
+      - userTotalCollateralDeposit
+      - userTotalLiquidatableDeposit
+      - potentialElevationGroupUpdate
+      - userTotalBorrowBorrowFactorAdjusted
+      description: Refreshed obligation statistics
+    LoanInfo:
+      type: object
+      properties:
+        loanId:
+          type: string
+          description: The loan (obligation) public key
+          example: wGzt1J5Nr182HHqAc1zsfD9SLoe1MJb25VWih5NRY
+        marketId:
+          type: string
+          description: The market public key
+          example: 6HT16972HHiY4RM33GfUc22pHZ3VLDPpXFWhQ7XJzA
+        user:
+          type: string
+          description: The loan owner public key
+          example: 7yexZcPbepXgWw3Cxc7YB2eLaxwyuyshRbAF8XHDi2g
+        timestamp:
+          type: number
+          description: UTC timestamp when this report was produced
+          example: 1760707165421
+        solanaSlot:
+          type: number
+          description: Solana slot when this report was produced
+          example: 373973788
+        elevationGroup:
+          type: number
+          description: The elevation group assigned to this obligation for isolation of risks
+          example: 0
+        leverage:
+          type: number
+          description: Current leverage ratio of the position
+          example: '0.5'
+        loanInfo:
+          type: object
+          properties:
+            collateral:
+              type: object
+              properties:
+                deposits:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/LoanDepositInfo'
+                  description: Array of collateral deposits
+              required:
+              - deposits
+            debt:
+              type: object
+              properties:
+                borrows:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/LoanBorrowInfo'
+                  description: Array of debt borrows
+              required:
+              - borrows
+            currentLtv:
+              type: number
+              description: Current loan-to-value ratio (debt value × borrow factor / collateral value); liquidate when >= liquidationLtv
+              example: 0.0554213869045533
+            maxLtv:
+              type: number
+              description: weighted average max LTV from all the collateral reserves (risks actions borrows or withdrawals are blocked when userLtv >= maxLtv)
+              example: 0.74
+            liquidationLtv:
+              type: number
+              description: LTV threshold when liquidation occurs
+              example: 0.75
+            closeFactor:
+              type: number
+              description: Maximum percentage of total debt that can be repaid in a single liquidation
+              example: 0.1
+          required:
+          - collateral
+          - debt
+          - currentLtv
+          - maxLtv
+          - liquidationLtv
+          - closeFactor
+      required:
+      - loanId
+      - marketId
+      - user
+      - timestamp
+      - solanaSlot
+      - elevationGroup
+      - leverage
+      - loanInfo
+    ObligationMetricsHistoryResponse:
+      type: object
+      properties:
+        obligation:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Obligation public key
+            example: 3HdrCvoJ91bwgVTejdDXfguo6S2A9jjUkBR5fasq4WhB
+        history:
+          type: array
+          items:
+            $ref: '#/components/schemas/ObligationMetrics'
+          description: Historical metrics for the obligation
+      required:
+      - obligation
+      - history

@@ -1,0 +1,1335 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Kamino Public Airdrop Kamino Earn User API
+  description: 'The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.
+
+
+    The API also provides the ability to fetch data that might not be available from just reading the chain.
+
+
+    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.
+
+    '
+servers:
+- url: https://api.kamino.finance
+tags:
+- name: Kamino Earn User
+paths:
+  /kvaults/users/{pubkey}/transactions:
+    get:
+      summary: Get user KVault transactions
+      description: Get all Kamino Earn Vault transactions for a given user
+      tags:
+      - Kamino Earn User
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Valid base58-encoded address of the user wallet
+            example: AxqtG9SHDkZTLSWg81Sp7VqAzQpRqXtR9ziJ3VQAS8As
+        required: true
+        description: Valid base58-encoded address of the user wallet
+        name: pubkey
+        in: path
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KVaultInstruction'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /kvaults/users/{pubkey}/positions:
+    get:
+      summary: Get all user KVault positions
+      description: Get a list of user positions for each Kamino Earn Vault the user has currently deposited into. Returns staked and unstaked shares.
+      tags:
+      - Kamino Earn User
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Valid base58-encoded address of the user wallet
+            example: AxqtG9SHDkZTLSWg81Sp7VqAzQpRqXtR9ziJ3VQAS8As
+        required: true
+        description: Valid base58-encoded address of the user wallet
+        name: pubkey
+        in: path
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/VaultStateArray'
+                - items:
+                    type: object
+                    properties:
+                      vaultAddress:
+                        allOf:
+                        - $ref: '#/components/schemas/AddressBase58'
+                        - description: Address of the Kamino Earn Vault
+                      stakedShares:
+                        allOf:
+                        - $ref: '#/components/schemas/Decimal'
+                        - description: The number of Kamino Earn Vault shares staked in a farm
+                      unstakedShares:
+                        allOf:
+                        - $ref: '#/components/schemas/Decimal'
+                        - description: The number of Kamino Earn Vault shares held in the user wallet
+                      totalShares:
+                        allOf:
+                        - $ref: '#/components/schemas/Decimal'
+                        - description: The total number of Kamino Earn Vault shares both held and staked by the user
+                    required:
+                    - vaultAddress
+                    - stakedShares
+                    - unstakedShares
+                    - totalShares
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /kvaults/users/{userPubkey}/positions/{vaultPubkey}:
+    get:
+      summary: Get user position for a specific KVault
+      description: Get a single user position for a Kamino Earn Vault the user currently has currently deposited into. Returns staked and unstaked shares.
+      tags:
+      - Kamino Earn User
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Valid base58-encoded address of the vault
+            example: HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E
+        required: true
+        description: Valid base58-encoded address of the vault
+        name: vaultPubkey
+        in: path
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Valid base58-encoded address of the user wallet
+            example: AxqtG9SHDkZTLSWg81Sp7VqAzQpRqXtR9ziJ3VQAS8As
+        required: true
+        description: Valid base58-encoded address of the user wallet
+        name: userPubkey
+        in: path
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  vaultAddress:
+                    allOf:
+                    - $ref: '#/components/schemas/AddressBase58'
+                    - description: Address of the Kamino Earn Vault
+                  stakedShares:
+                    allOf:
+                    - $ref: '#/components/schemas/Decimal'
+                    - description: The number of Kamino Earn Vault shares staked in a farm
+                  unstakedShares:
+                    allOf:
+                    - $ref: '#/components/schemas/Decimal'
+                    - description: The number of Kamino Earn Vault shares held in the user wallet
+                  totalShares:
+                    allOf:
+                    - $ref: '#/components/schemas/Decimal'
+                    - description: The total number of Kamino Earn Vault shares both held and staked by the user
+                required:
+                - vaultAddress
+                - stakedShares
+                - unstakedShares
+                - totalShares
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  metadata:
+                    type: string
+                    description: Error message describing why it was not found
+                    example: Account could not be found
+                required:
+                - metadata
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /kvaults/users/{pubkey}/metrics/history:
+    get:
+      summary: Get historical user metrics for all KVault positions
+      description: Get historical timeseries of total usd/sol/interest/apy for all user Kamino Earn Vault positions
+      tags:
+      - Kamino Earn User
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Valid base58-encoded address of the user wallet
+            example: AxqtG9SHDkZTLSWg81Sp7VqAzQpRqXtR9ziJ3VQAS8As
+        required: true
+        description: Valid base58-encoded address of the user wallet
+        name: pubkey
+        in: path
+      - schema:
+          anyOf:
+          - type: string
+          - type: number
+          default: '1970-01-01T00:00:00.000Z'
+          description: Start date of the range (defaults to Unix epoch). Accepts ISO string or epoch in ms.
+          examples:
+          - '1970-01-01T00:00:00.000Z'
+          - 0
+        required: false
+        description: Start date of the range (defaults to Unix epoch). Accepts ISO string or epoch in ms.
+        name: start
+        in: query
+      - schema:
+          anyOf:
+          - type: string
+          - type: number
+          description: End date of the range (defaults to current time). Accepts ISO string or epoch in ms.
+          examples:
+          - '2025-01-01T00:00:00.000Z'
+          - 1735689600000
+        required: false
+        description: End date of the range (defaults to current time). Accepts ISO string or epoch in ms.
+        name: end
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserKVaultTotal'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /kvaults/users/{userPubkey}/vaults/{vaultPubkey}/metrics/history:
+    get:
+      summary: Get historical user metrics for a single KVault
+      description: Get historical timeseries of total usd/sol/interest/apy for a single user Kamino Earn Vault position
+      tags:
+      - Kamino Earn User
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Valid base58-encoded address of the vault
+            example: HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E
+        required: true
+        description: Valid base58-encoded address of the vault
+        name: vaultPubkey
+        in: path
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Valid base58-encoded address of the user wallet
+            example: AxqtG9SHDkZTLSWg81Sp7VqAzQpRqXtR9ziJ3VQAS8As
+        required: true
+        description: Valid base58-encoded address of the user wallet
+        name: userPubkey
+        in: path
+      - schema:
+          anyOf:
+          - type: string
+          - type: number
+          default: '1970-01-01T00:00:00.000Z'
+          description: Start date of the range (defaults to Unix epoch). Accepts ISO string or epoch in ms.
+          examples:
+          - '1970-01-01T00:00:00.000Z'
+          - 0
+        required: false
+        description: Start date of the range (defaults to Unix epoch). Accepts ISO string or epoch in ms.
+        name: start
+        in: query
+      - schema:
+          anyOf:
+          - type: string
+          - type: number
+          description: End date of the range (defaults to current time). Accepts ISO string or epoch in ms.
+          examples:
+          - '2025-01-01T00:00:00.000Z'
+          - 1735689600000
+        required: false
+        description: End date of the range (defaults to current time). Accepts ISO string or epoch in ms.
+        name: end
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserKvaultMetrics'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /kvaults/users/{userPubkey}/vaults/{vaultPubkey}/pnl:
+    get:
+      summary: Get user KVault PnL
+      description: Get current PnL and cost basis of user vault position
+      tags:
+      - Kamino Earn User
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Valid base58-encoded address of the vault
+            example: HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E
+        required: true
+        description: Valid base58-encoded address of the vault
+        name: vaultPubkey
+        in: path
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Valid base58-encoded address of the user wallet
+            example: AxqtG9SHDkZTLSWg81Sp7VqAzQpRqXtR9ziJ3VQAS8As
+        required: true
+        description: Valid base58-encoded address of the user wallet
+        name: userPubkey
+        in: path
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KvaultPnl'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /kvaults/users/{userPubkey}/vaults/{vaultPubkey}/pnl/history:
+    get:
+      summary: Get user KVault PnL history
+      description: Get PnL and cost basis history of user vault position
+      tags:
+      - Kamino Earn User
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Valid base58-encoded address of the vault
+            example: HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E
+        required: true
+        description: Valid base58-encoded address of the vault
+        name: vaultPubkey
+        in: path
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Valid base58-encoded address of the user wallet
+            example: AxqtG9SHDkZTLSWg81Sp7VqAzQpRqXtR9ziJ3VQAS8As
+        required: true
+        description: Valid base58-encoded address of the user wallet
+        name: userPubkey
+        in: path
+      - schema:
+          anyOf:
+          - type: string
+          - type: number
+          description: Date input (ISO 8601 string or epoch in ms)
+          examples:
+          - '2024-01-01T00:00:00.000Z'
+          - 1704067200000
+        required: false
+        description: Date input (ISO 8601 string or epoch in ms)
+        name: start
+        in: query
+      - schema:
+          anyOf:
+          - type: string
+          - type: number
+          description: Date input (ISO 8601 string or epoch in ms)
+          examples:
+          - '2024-01-01T00:00:00.000Z'
+          - 1704067200000
+        required: false
+        description: Date input (ISO 8601 string or epoch in ms)
+        name: end
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  history:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/KvaultPnlTimeseriesValue'
+                  totalPnl:
+                    $ref: '#/components/schemas/KvaultMultiValue'
+                  totalCostBasis:
+                    $ref: '#/components/schemas/KvaultMultiValue'
+                required:
+                - history
+                - totalPnl
+                - totalCostBasis
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /kvaults/users/{pubkey}/rewards:
+    get:
+      summary: Get season user rewards
+      description: Get user season points rewards for each Kamino Earn Vault which the user has invested in
+      tags:
+      - Kamino Earn User
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/AddressBase58'
+        required: true
+        description: Valid base58-encoded address
+        name: pubkey
+        in: path
+      - schema:
+          type: string
+          description: Points source identifier
+          example: Season1
+          examples:
+          - Season1
+          - Season2
+          - Season3
+          - Season4
+        required: false
+        description: Points source identifier
+        name: source
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KvaultUserRewardMetrics'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
+    KvaultUserRewardMetrics:
+      type: array
+      items:
+        $ref: '#/components/schemas/KvaultUserRewardMetric'
+      description: List of kvault user reward metrics
+    KvaultPnlTimeseriesValue:
+      type: object
+      properties:
+        timestamp:
+          type: number
+          description: Unix timestamp in milliseconds
+        type:
+          anyOf:
+          - type: string
+            enum:
+            - buy
+          - type: string
+            enum:
+            - sell
+          - type: string
+            enum:
+            - mark-to-market
+        position:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Current position value
+        quantity:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Quantity involved in transaction
+        tokenPrice:
+          allOf:
+          - $ref: '#/components/schemas/KvaultMultiValue'
+          - description: Token price snapshot
+        sharePrice:
+          allOf:
+          - $ref: '#/components/schemas/KvaultMultiValue'
+          - description: Share price snapshot
+        costBasis:
+          allOf:
+          - $ref: '#/components/schemas/KvaultMultiValue'
+          - description: Cost basis for position
+        realizedPnl:
+          allOf:
+          - $ref: '#/components/schemas/KvaultMultiValue'
+          - description: Realized profit/loss
+        pnl:
+          allOf:
+          - $ref: '#/components/schemas/KvaultMultiValue'
+          - description: Total profit/loss
+        positionValue:
+          allOf:
+          - $ref: '#/components/schemas/KvaultMultiValue'
+          - description: Value of the position
+        investment:
+          allOf:
+          - $ref: '#/components/schemas/KvaultMultiValue'
+          - description: Total invested value
+      required:
+      - timestamp
+      - type
+      - position
+      - quantity
+      - tokenPrice
+      - sharePrice
+      - costBasis
+      - realizedPnl
+      - pnl
+      - positionValue
+      - investment
+    UserKVaultTotal:
+      type: object
+      properties:
+        createdOn:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - description: Timestamp when the snapshot was created (ISO 8601 format)
+            example: '2025-03-01T12:00:00.000Z'
+        usdAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: User's total amount across all vaults in USD
+        solAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: User's total amount across all vaults in SOL
+        weightedApy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Weighted average APY across all vaults in decimal format
+            example: '0.2'
+        cumulativeInterestEarnedUsd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total interest earned in USD across all vaults
+        cumulativeInterestEarnedSol:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total interest earned in SOL across all vaults
+        interestEarnedPerSecondUsd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Interest earned per second at that specific moment in USD
+        interestEarnedPerSecondSol:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Interest earned per second at that specific moment in SOL
+      required:
+      - createdOn
+      - usdAmount
+      - solAmount
+      - weightedApy
+      - cumulativeInterestEarnedUsd
+      - cumulativeInterestEarnedSol
+      - interestEarnedPerSecondUsd
+      - interestEarnedPerSecondSol
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
+    The vault state object:
+      type: object
+      properties:
+        vaultAdminAuthority:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Public key of the vault admin authority
+        baseVaultAuthority:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Public key of the base vault authority
+        baseVaultAuthorityBump:
+          type: number
+          description: Bump seed for the base vault authority
+        tokenMint:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Public key of the token mint
+        tokenMintDecimals:
+          type: number
+          description: Decimals of the token mint
+        tokenVault:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Public key of the token vault
+        tokenProgram:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Public key of the token program
+        sharesMint:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Public key of the shares mint
+        sharesMintDecimals:
+          type: number
+          description: Decimals of the shares mint
+        tokenAvailable:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Amount of tokens available in the vault
+        sharesIssued:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total shares issued by the vault
+        availableCrankFunds:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Available crank funds in the vault
+        performanceFeeBps:
+          type: number
+          description: Performance fee in basis points
+        managementFeeBps:
+          type: number
+          description: Management fee in basis points
+        lastFeeChargeTimestamp:
+          type: number
+          description: Timestamp of the last fee charge
+        prevAum:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Previous assets under management scaled factor
+        pendingFees:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Pending fees scaled factor
+        vaultAllocationStrategy:
+          type: array
+          items:
+            type: object
+            properties:
+              reserve:
+                allOf:
+                - $ref: '#/components/schemas/AddressBase58'
+                - description: Public key of the reserve
+              ctokenVault:
+                allOf:
+                - $ref: '#/components/schemas/AddressBase58'
+                - description: Public key of the cToken vault
+              targetAllocationWeight:
+                type: number
+                description: Target allocation weight as a whole number
+              tokenAllocationCap:
+                type: string
+                description: Token allocation cap in lamports
+              ctokenVaultBump:
+                type: number
+                description: cToken vault bump seed
+              ctokenAllocation:
+                type: string
+                description: cToken allocation in lamports
+              lastInvestSlot:
+                type: string
+                description: Last invest slot
+              tokenTargetAllocation:
+                allOf:
+                - $ref: '#/components/schemas/Decimal'
+                - description: Token target allocation scaled factor
+            required:
+            - reserve
+            - ctokenVault
+            - targetAllocationWeight
+            - tokenAllocationCap
+            - ctokenVaultBump
+            - ctokenAllocation
+            - lastInvestSlot
+            - tokenTargetAllocation
+            description: Vault allocation strategy entry
+          description: List of vault allocation strategies
+        minDepositAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Minimum deposit amount in lamports
+        minWithdrawAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Minimum withdraw amount in lamports
+        minInvestAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Minimum invest amount in lamports
+        minInvestDelaySlots:
+          type: number
+          description: Minimum invest delay in slots
+        crankFundFeePerReserve:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Crank fund fee per reserve
+        pendingAdmin:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Public key of the pending admin
+        cumulativeEarnedInterest:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Cumulative earned interest in decimal format
+        cumulativeMgmtFees:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Cumulative management fees in decimal format
+        cumulativePerfFees:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Cumulative performance fees in decimal format
+        name:
+          type: string
+          description: Name of the vault
+        vaultLookupTable:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Public key of the vault lookup table
+        vaultFarm:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Public key of the vault farm
+        creationTimestamp:
+          type: number
+          description: Timestamp of vault creation
+        allocationAdmin:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Public key of the allocation admin
+      required:
+      - vaultAdminAuthority
+      - baseVaultAuthority
+      - baseVaultAuthorityBump
+      - tokenMint
+      - tokenMintDecimals
+      - tokenVault
+      - tokenProgram
+      - sharesMint
+      - sharesMintDecimals
+      - tokenAvailable
+      - sharesIssued
+      - availableCrankFunds
+      - performanceFeeBps
+      - managementFeeBps
+      - lastFeeChargeTimestamp
+      - prevAum
+      - pendingFees
+      - vaultAllocationStrategy
+      - minDepositAmount
+      - minWithdrawAmount
+      - minInvestAmount
+      - minInvestDelaySlots
+      - crankFundFeePerReserve
+      - pendingAdmin
+      - cumulativeEarnedInterest
+      - cumulativeMgmtFees
+      - cumulativePerfFees
+      - name
+      - vaultLookupTable
+      - vaultFarm
+      - creationTimestamp
+      - allocationAdmin
+    KvaultMultiValue:
+      type: object
+      properties:
+        usd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Value in USD
+        sol:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Value in SOL
+        token:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Value in token denomination
+      required:
+      - usd
+      - sol
+      - token
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
+    SnapshotDateTime:
+      type: string
+      format: date-time
+      description: Timestamp of the metrics snapshot
+      example: '2023-06-29T15:15:26.464Z'
+    KVaultInstruction:
+      type: object
+      properties:
+        createdOn:
+          type: string
+          format: date
+          description: Date when the instruction was created
+        instruction:
+          type: string
+          description: Type of instruction
+        tokenMint:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Token mint address
+        tokenAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Amount of tokens involved
+        tokenPrice:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Price of the token at the time of instruction
+        solPrice:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Price of SOL at the time of instruction
+        sharePrice:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Price per share at the time of instruction
+        numberOfShares:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Number of shares involved
+        usdValue:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: USD value of the transaction
+        transaction:
+          type: string
+          description: Transaction signature
+        kvault:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: KVault identifier
+        latestPosition:
+          type: boolean
+          description: Indicates if this is the latest position
+      required:
+      - createdOn
+      - instruction
+      - tokenMint
+      - tokenAmount
+      - tokenPrice
+      - solPrice
+      - sharePrice
+      - numberOfShares
+      - usdValue
+      - transaction
+      - kvault
+      - latestPosition
+    VaultStateArray:
+      type: array
+      items:
+        type: object
+        properties:
+          address:
+            allOf:
+            - $ref: '#/components/schemas/AddressBase58'
+            - description: Public key of the vault
+          state:
+            $ref: '#/components/schemas/The vault state object'
+          programId:
+            allOf:
+            - $ref: '#/components/schemas/AddressBase58'
+            - description: Public key of the kvault program which owns the vault
+        required:
+        - address
+        - state
+        - programId
+    Apy:
+      type: string
+      description: Borrow interest APY
+      example: '0.027610992938039702'
+      examples:
+      - '0.123'
+      - '0'
+      - '1'
+      - '1.23'
+      - '-0.5'
+      - '999999.999999'
+    UserKvaultMetrics:
+      type: object
+      properties:
+        createdOn:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - description: Timestamp when the snapshot was created (ISO 8601 format)
+            example: '2025-03-01T12:00:00.000Z'
+        sharesAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: User's total shares amount
+        usdAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: User's USD amount in kvault
+        solAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: User's SOL amount in kvault
+        apy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: APY in decimal format (not percentage) represented as string. Multiply by 100 to get percentage (%) - 0.1 in API response is 10%.
+            example: '0.2'
+        cumulativeInterestEarned:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total interest earned in kvault token amount for kvault
+        cumulativeInterestEarnedUsd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total interest earned in USD for kvault
+        cumulativeInterestEarnedSol:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total interest earned in SOL for kvault
+        interestEarnedPerSecond:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Interest earned per second at that specific moment in token
+        interestEarnedPerSecondUsd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Interest earned per second at that specific moment in USD
+        interestEarnedPerSecondSol:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Interest earned per second at that specific moment in SOL
+      required:
+      - createdOn
+      - sharesAmount
+      - usdAmount
+      - solAmount
+      - apy
+      - cumulativeInterestEarned
+      - cumulativeInterestEarnedUsd
+      - cumulativeInterestEarnedSol
+      - interestEarnedPerSecond
+      - interestEarnedPerSecondUsd
+      - interestEarnedPerSecondSol
+    KvaultUserRewardMetric:
+      type: object
+      properties:
+        avgBaseApy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Average Base Annual Percentage Yield for the user
+            example: '0.2'
+        avgBoostedApy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Average Boosted Annual Percentage Yield for the user
+            example: '0.2'
+        avgMaxApy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Average Max Annual Percentage Yield for the user
+            example: '0.2'
+        rewardMint:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Mint address of the reward token
+        lastCalculated:
+          type: string
+          format: date
+          description: Timestamp of the last calculation
+        tokensEarned:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total number of reward tokens earned by the user
+        tokensPerSecond:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Number of reward tokens distributed per second to the user
+        stakingBoost:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Staking boost percentage applied to the user
+        effectiveStakingBoost:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Effective staking boost percentage for the user
+        baseApy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Base Annual Percentage Yield from rewards for the user
+            example: '0.2'
+        boostedApy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Boosted Annual Percentage Yield from rewards for the user
+            example: '0.2'
+        maxApy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Max Annual Percentage Yield from rewards for the user
+            example: '0.2'
+        usdAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total USD amount of rewards earned by the user without boost
+        usdAmountBoosted:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total USD amount of rewards earned by the user with boost applied
+      required:
+      - avgBaseApy
+      - avgBoostedApy
+      - avgMaxApy
+      - rewardMint
+      - lastCalculated
+      - tokensEarned
+      - tokensPerSecond
+      - stakingBoost
+      - effectiveStakingBoost
+      - baseApy
+      - boostedApy
+      - maxApy
+      - usdAmount
+      - usdAmountBoosted
+    KvaultPnl:
+      type: object
+      properties:
+        totalPnl:
+          $ref: '#/components/schemas/KvaultMultiValue'
+        totalCostBasis:
+          $ref: '#/components/schemas/KvaultMultiValue'
+      required:
+      - totalPnl
+      - totalCostBasis

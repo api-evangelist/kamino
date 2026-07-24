@@ -1,0 +1,244 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Kamino Public Airdrop Private Credit API
+  description: 'The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.
+
+
+    The API also provides the ability to fetch data that might not be available from just reading the chain.
+
+
+    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.
+
+    '
+servers:
+- url: https://api.kamino.finance
+tags:
+- name: Private Credit
+paths:
+  /kvaults/private-credit/metrics:
+    get:
+      summary: Get private credit metrics
+      description: Returns current aggregate metrics and active loans for private credit vaults
+      tags:
+      - Private Credit
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrivateCreditMetricsResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /kvaults/private-credit/metrics/history:
+    get:
+      summary: Get private credit metrics history
+      description: Returns timeseries of private credit metrics. Frequency is automatically selected based on date range.
+      tags:
+      - Private Credit
+      parameters:
+      - schema:
+          anyOf:
+          - type: string
+          - type: number
+          default: '1970-01-01T00:00:00.000Z'
+          description: Start date of the range (defaults to Unix epoch). Accepts ISO string or epoch in ms.
+          examples:
+          - '1970-01-01T00:00:00.000Z'
+          - 0
+        required: false
+        description: Start date of the range (defaults to Unix epoch). Accepts ISO string or epoch in ms.
+        name: start
+        in: query
+      - schema:
+          anyOf:
+          - type: string
+          - type: number
+          description: End date of the range (defaults to current time). Accepts ISO string or epoch in ms.
+          examples:
+          - '2025-01-01T00:00:00.000Z'
+          - 1735689600000
+        required: false
+        description: End date of the range (defaults to current time). Accepts ISO string or epoch in ms.
+        name: end
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrivateCreditHistoryResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    PrivateCreditHistoryPoint:
+      type: object
+      properties:
+        createdOn:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - description: Timestamp when the snapshot was created (ISO 8601 format)
+            example: '2025-03-01T12:00:00.000Z'
+        weightedAvgLtv:
+          $ref: '#/components/schemas/Decimal'
+        maxLtv:
+          $ref: '#/components/schemas/Decimal'
+        statusDistribution:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrivateCreditStatusDistribution'
+      required:
+      - createdOn
+      - weightedAvgLtv
+      - maxLtv
+      - statusDistribution
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
+    PrivateCreditStatusDistribution:
+      type: object
+      properties:
+        status:
+          type: string
+        share:
+          $ref: '#/components/schemas/Decimal'
+      required:
+      - status
+      - share
+    PrivateCreditAggregateMetrics:
+      type: object
+      properties:
+        activeLoans:
+          $ref: '#/components/schemas/Decimal'
+        totalBorrowedUsd:
+          $ref: '#/components/schemas/Decimal'
+        totalDepositedUsd:
+          $ref: '#/components/schemas/Decimal'
+        weightedAvgLtv:
+          $ref: '#/components/schemas/Decimal'
+        avgLtv:
+          $ref: '#/components/schemas/Decimal'
+        maxLtv:
+          $ref: '#/components/schemas/Decimal'
+        updatedOn:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - description: Timestamp when the snapshot was created (ISO 8601 format)
+            example: '2025-03-01T12:00:00.000Z'
+      required:
+      - activeLoans
+      - totalBorrowedUsd
+      - totalDepositedUsd
+      - weightedAvgLtv
+      - avgLtv
+      - maxLtv
+      - updatedOn
+    PrivateCreditMetricsResponse:
+      type: object
+      properties:
+        metrics:
+          $ref: '#/components/schemas/PrivateCreditAggregateMetrics'
+        loans:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrivateCreditLoan'
+      required:
+      - metrics
+      - loans
+    SnapshotDateTime:
+      type: string
+      format: date-time
+      description: Timestamp of the metrics snapshot
+      example: '2023-06-29T15:15:26.464Z'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
+    PrivateCreditLoan:
+      type: object
+      properties:
+        totalBorrowedUsd:
+          $ref: '#/components/schemas/Decimal'
+        totalDepositedUsd:
+          $ref: '#/components/schemas/Decimal'
+        ltv:
+          $ref: '#/components/schemas/Decimal'
+        createdOn:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - description: Timestamp when the snapshot was created (ISO 8601 format)
+            example: '2025-03-01T12:00:00.000Z'
+        collateralAsset:
+          type: string
+        maxLtv:
+          $ref: '#/components/schemas/Decimal'
+        liquidationStatus:
+          type: string
+      required:
+      - totalBorrowedUsd
+      - totalDepositedUsd
+      - ltv
+      - createdOn
+      - collateralAsset
+      - maxLtv
+      - liquidationStatus
+    PrivateCreditHistoryResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/PrivateCreditHistoryPoint'

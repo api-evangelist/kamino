@@ -1,0 +1,533 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Kamino Public Airdrop Season Rewards API
+  description: 'The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.
+
+
+    The API also provides the ability to fetch data that might not be available from just reading the chain.
+
+
+    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.
+
+    '
+servers:
+- url: https://api.kamino.finance
+tags:
+- name: Season Rewards
+paths:
+  /kvaults/rewards:
+    get:
+      summary: Get all KVault season rewards
+      description: Get all active season points rewards for each Kamino Earn Vault
+      tags:
+      - Season Rewards
+      parameters:
+      - schema:
+          type: string
+          description: Points source identifier
+          example: Season1
+          examples:
+          - Season1
+          - Season2
+          - Season3
+          - Season4
+        required: false
+        description: Points source identifier
+        name: source
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KvaultRewardMetrics'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /users/{pubkey}/staking-boosts:
+    get:
+      summary: Get user staking boosts
+      description: Fetches staking boost multipliers for a specific user
+      tags:
+      - Season Rewards
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/AddressBase58'
+        required: true
+        description: Valid base58-encoded address
+        name: pubkey
+        in: path
+      - schema:
+          type: string
+          description: Points source identifier
+          example: Season1
+          examples:
+          - Season1
+          - Season2
+          - Season3
+          - Season4
+        required: false
+        description: Points source identifier
+        name: source
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StakingBoost'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /kvaults/summary:
+    get:
+      summary: Get summary of the KVault program earnings
+      description: Get an aggregated all-time summary of all Kamino Earn Vault rewards and interest earned, in SOL and USD
+      tags:
+      - Season Rewards
+      parameters:
+      - schema:
+          type: string
+          enum:
+          - default
+          - private-credit
+          default: default
+          description: Type of vaults queried
+          example: default
+        required: false
+        description: Type of vaults queried
+        name: type
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  earnings:
+                    type: object
+                    properties:
+                      interest:
+                        type: object
+                        properties:
+                          usd:
+                            allOf:
+                            - $ref: '#/components/schemas/Decimal'
+                            - description: Amount in USD denomination
+                          sol:
+                            allOf:
+                            - $ref: '#/components/schemas/Decimal'
+                            - description: Amount in SOL denomination
+                        required:
+                        - usd
+                        - sol
+                        description: Earnings from interest
+                      rewards:
+                        type: object
+                        properties:
+                          usd:
+                            allOf:
+                            - $ref: '#/components/schemas/Decimal'
+                            - description: Amount in USD denomination
+                          sol:
+                            allOf:
+                            - $ref: '#/components/schemas/Decimal'
+                            - description: Amount in SOL denomination
+                        required:
+                        - usd
+                        - sol
+                        description: Earnings from vault farm rewards
+                      reserveRewards:
+                        type: object
+                        properties:
+                          usd:
+                            allOf:
+                            - $ref: '#/components/schemas/Decimal'
+                            - description: Amount in USD denomination
+                          sol:
+                            allOf:
+                            - $ref: '#/components/schemas/Decimal'
+                            - description: Amount in SOL denomination
+                        required:
+                        - usd
+                        - sol
+                        description: Earnings from reserve rewards
+                      total:
+                        type: object
+                        properties:
+                          usd:
+                            allOf:
+                            - $ref: '#/components/schemas/Decimal'
+                            - description: Amount in USD denomination
+                          sol:
+                            allOf:
+                            - $ref: '#/components/schemas/Decimal'
+                            - description: Amount in SOL denomination
+                        required:
+                        - usd
+                        - sol
+                        description: Total earnings
+                    required:
+                    - interest
+                    - rewards
+                    - reserveRewards
+                    - total
+                    description: Earnings summary
+                required:
+                - earnings
+                description: KVault Summary Data
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /season-rewards/users/{pubkey}:
+    get:
+      summary: Get user season rewards
+      description: Fetches combined season reward data from both KLend and KVault for a specific user
+      tags:
+      - Season Rewards
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/AddressBase58'
+        required: true
+        description: Valid base58-encoded address
+        name: pubkey
+        in: path
+      - schema:
+          type: string
+          description: Points source identifier
+          example: Season1
+          examples:
+          - Season1
+          - Season2
+          - Season3
+          - Season4
+        required: false
+        description: Points source identifier
+        name: source
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeasonUserReward'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /season-rewards/final-vesting-pool:
+    get:
+      summary: Get final vesting pool allocation
+      description: Calculates total forfeited rewards from all users who claimed early before full vesting
+      tags:
+      - Season Rewards
+      parameters:
+      - schema:
+          type: string
+          description: Points source identifier
+          example: Season1
+          examples:
+          - Season1
+          - Season2
+          - Season3
+          - Season4
+        required: false
+        description: Points source identifier
+        name: source
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeasonFinalVestingPoolAllocation'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
+    StakingBoost:
+      type: object
+      properties:
+        boost:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Boost multiplier value for the staking position in decimal format (multiply by 100 to get percentage %)
+        name:
+          type: string
+          description: Staking boost source name
+          example: staking_boost
+        farm:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Optional farm identifier associated with the boost
+      required:
+      - boost
+      - name
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
+    KvaultRewardMetric:
+      type: object
+      properties:
+        kvault:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Address of the kvault
+        rewardToken:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Mint address of the reward token
+        lastCalculated:
+          type: string
+          format: date
+          description: Timestamp of the last calculation
+        apy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Annual Percentage Yield from rewards in the kvault
+            example: '0.2'
+        tokensPerSecond:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Number of reward tokens distributed per second
+      required:
+      - kvault
+      - rewardToken
+      - lastCalculated
+      - apy
+      - tokensPerSecond
+    KvaultRewardMetrics:
+      type: array
+      items:
+        $ref: '#/components/schemas/KvaultRewardMetric'
+      description: List of kvault reward metrics
+    SeasonUserReward:
+      type: object
+      properties:
+        wallet:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Wallet address of the user
+        totalRewards:
+          type: object
+          properties:
+            amount:
+              allOf:
+              - $ref: '#/components/schemas/Decimal'
+              - description: Total reward amount
+            tokenMint:
+              allOf:
+              - $ref: '#/components/schemas/AddressBase58'
+              - description: Token mint address of the reward
+          required:
+          - amount
+          - tokenMint
+          description: Total combined season rewards from both KLend and KVault
+      required:
+      - wallet
+      - totalRewards
+    Apy:
+      type: string
+      description: Borrow interest APY
+      example: '0.027610992938039702'
+      examples:
+      - '0.123'
+      - '0'
+      - '1'
+      - '1.23'
+      - '-0.5'
+      - '999999.999999'
+    SeasonFinalVestingPoolAllocation:
+      type: object
+      properties:
+        totalForfeitedRewards:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total amount of forfeited rewards from all users who claimed early
+      required:
+      - totalForfeitedRewards

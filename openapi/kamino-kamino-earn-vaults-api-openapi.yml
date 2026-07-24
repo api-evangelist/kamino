@@ -1,0 +1,1480 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Kamino Public Airdrop Kamino Earn Vaults API
+  description: 'The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.
+
+
+    The API also provides the ability to fetch data that might not be available from just reading the chain.
+
+
+    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.
+
+    '
+servers:
+- url: https://api.kamino.finance
+tags:
+- name: Kamino Earn Vaults
+paths:
+  /kvaults/transactions:
+    post:
+      summary: Bulk get KVault transactions
+      description: Bulk get all Kamino Earn Vault transactions with paginated access (max 1000 transactions returned in each response). Private (authorized) API access only, please add a basic auth header to your request.
+      tags:
+      - Kamino Earn Vaults
+      parameters:
+      - schema:
+          type: string
+          default: KvauGMspG5k6rtzrqqn7WNn3oZdyKqLKwK2XWQ8FLjd
+          description: Fetch transactions from this program id
+        required: false
+        description: Fetch transactions from this program id
+        name: programId
+        in: query
+      - schema:
+          type: string
+          default: false
+        required: false
+        name: includeRawJson
+        in: query
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                start:
+                  anyOf:
+                  - type: string
+                  - type: number
+                  description: Date input (ISO 8601 string or epoch in ms)
+                  examples:
+                  - '2024-01-01T00:00:00.000Z'
+                  - 1704067200000
+                  example: 2020-01-01T00:00Z
+                end:
+                  anyOf:
+                  - type: string
+                  - type: number
+                  description: Date input (ISO 8601 string or epoch in ms)
+                  examples:
+                  - '2024-01-01T00:00:00.000Z'
+                  - 1704067200000
+                  example: 2020-02-01T00:00Z
+                instruction:
+                  type: string
+                  example: buy
+                  examples:
+                  - buy
+                  - sell
+                  - deposit
+                  - withdraw
+                  - invest
+                  - withdrawAvailable
+                  description: Kvault instruction name
+                paginationToken:
+                  type: string
+                  example: eyJsYXN0SWQiOjgxfQ==
+                  description: Optional pagination token
+              required:
+              - instruction
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/KvaultBulkTransaction'
+                  paginationToken:
+                    type: string
+                    example: eyJsYXN0SWQiOjgxfQ==
+                    description: Optional pagination token - if not present you have reached the end
+                required:
+                - result
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message describing why it was not authorized
+                    example: Not authorized for this request. Please include the basic auth headers.
+                required:
+                - error
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /kvaults/vaults/{pubkey}/transactions:
+    post:
+      summary: Get KVault transactions by vault
+      description: Get all Kamino Earn Vault transactions for a given vault address
+      tags:
+      - Kamino Earn Vaults
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/AddressBase58'
+        required: true
+        description: Valid base58-encoded address
+        name: pubkey
+        in: path
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                start:
+                  anyOf:
+                  - type: string
+                  - type: number
+                  description: Date input (ISO 8601 string or epoch in ms)
+                  examples:
+                  - '2024-01-01T00:00:00.000Z'
+                  - 1704067200000
+                  example: 2020-01-01T00:00Z
+                end:
+                  anyOf:
+                  - type: string
+                  - type: number
+                  description: Date input (ISO 8601 string or epoch in ms)
+                  examples:
+                  - '2024-01-01T00:00:00.000Z'
+                  - 1704067200000
+                  example: 2020-02-01T00:00Z
+                instruction:
+                  type: string
+                  example: withdraw
+                  description: Filter by instruction name
+                direction:
+                  type: string
+                  enum:
+                  - asc
+                  - desc
+                  default: desc
+                  description: Sort order (asc for oldest first, desc for newest first)
+                  example: desc
+                paginationToken:
+                  type: string
+                  example: eyJsYXN0SWQiOjgxfQ==
+                  description: Optional pagination token
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KvaultVaultTransactionsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /kvaults/vaults/{pubkey}/enqueued-withdraw-transactions:
+    get:
+      summary: Get currently queued withdraw-ticket redemptions for a vault
+      description: Returns `enqueueToWithdraw` klend transactions that were triggered by a kvault `redeemInKind` on this vault and whose underlying withdraw ticket is still queued on-chain (i.e. has not been fully redeemed or cancelled).
+      tags:
+      - Kamino Earn Vaults
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/AddressBase58'
+        required: true
+        description: Valid base58-encoded address
+        name: pubkey
+        in: path
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnqueuedWithdrawTransactionsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /kvaults/vaults:
+    get:
+      summary: Get all kvaults
+      description: Get all Kamino Earn Vaults
+      tags:
+      - Kamino Earn Vaults
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VaultStateArray'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /kvaults/vaults/{pubkey}:
+    get:
+      summary: Get KVault by address
+      description: Get a single Kamino Earn Vault by the KVault account address
+      tags:
+      - Kamino Earn Vaults
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/AddressBase58'
+        required: true
+        description: Valid base58-encoded address
+        name: pubkey
+        in: path
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  address:
+                    allOf:
+                    - $ref: '#/components/schemas/AddressBase58'
+                    - description: Public key of the vault
+                  state:
+                    $ref: '#/components/schemas/The vault state object'
+                  programId:
+                    allOf:
+                    - $ref: '#/components/schemas/AddressBase58'
+                    - description: Public key of the kvault program which owns the vault
+                required:
+                - address
+                - state
+                - programId
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  metadata:
+                    type: string
+                    description: Error message describing why it was not found
+                    example: Account could not be found
+                required:
+                - metadata
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /kvaults/vaults/{pubkey}/metrics/history:
+    get:
+      summary: Get historical KVault metrics
+      description: Get historical Kamino Earn Vault metrics for a given vault, between an optional range of dates
+      tags:
+      - Kamino Earn Vaults
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/AddressBase58'
+        required: true
+        description: Valid base58-encoded address
+        name: pubkey
+        in: path
+      - schema:
+          anyOf:
+          - type: string
+          - type: number
+          default: '1970-01-01T00:00:00.000Z'
+          description: Start date of the range (defaults to Unix epoch). Accepts ISO string or epoch in ms.
+          examples:
+          - '1970-01-01T00:00:00.000Z'
+          - 0
+        required: false
+        description: Start date of the range (defaults to Unix epoch). Accepts ISO string or epoch in ms.
+        name: start
+        in: query
+      - schema:
+          anyOf:
+          - type: string
+          - type: number
+          description: End date of the range (defaults to current time). Accepts ISO string or epoch in ms.
+          examples:
+          - '2025-01-01T00:00:00.000Z'
+          - 1735689600000
+        required: false
+        description: End date of the range (defaults to current time). Accepts ISO string or epoch in ms.
+        name: end
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    timestamp:
+                      type: number
+                      description: Unix timestamp in milliseconds
+                    tvl:
+                      allOf:
+                      - $ref: '#/components/schemas/Decimal'
+                      - description: Total Value Locked in token denomination
+                    solTvl:
+                      allOf:
+                      - $ref: '#/components/schemas/Decimal'
+                      - description: Total Value Locked in SOL
+                    apy:
+                      allOf:
+                      - $ref: '#/components/schemas/Apy'
+                      - description: Annual Percentage Yield
+                        example: '0.2'
+                    apyTheoretical:
+                      allOf:
+                      - $ref: '#/components/schemas/Apy'
+                      - description: Theoretical Annual Percentage Yield
+                        example: '0.2'
+                    apyActual:
+                      allOf:
+                      - $ref: '#/components/schemas/Apy'
+                      - description: Actual Annual Percentage Yield
+                        example: '0.2'
+                    apyFarmRewards:
+                      allOf:
+                      - $ref: '#/components/schemas/Apy'
+                      - description: Annual Percentage Yield from Farm Rewards
+                        example: '0.2'
+                    apyReservesIncentives:
+                      allOf:
+                      - $ref: '#/components/schemas/Apy'
+                      - description: Annual Percentage Yield from Reserves Incentives
+                        example: '0.2'
+                    apyIncentives:
+                      allOf:
+                      - $ref: '#/components/schemas/Apy'
+                      - description: Annual Percentage Yield from Incentives
+                        example: '0.2'
+                    sharePrice:
+                      allOf:
+                      - $ref: '#/components/schemas/Decimal'
+                      - description: Share Price of the vault
+                    interest:
+                      allOf:
+                      - $ref: '#/components/schemas/Decimal'
+                      - description: Interest earned in token denomination
+                    interestUsd:
+                      allOf:
+                      - $ref: '#/components/schemas/Decimal'
+                      - description: Interest earned in USD
+                    interestSol:
+                      allOf:
+                      - $ref: '#/components/schemas/Decimal'
+                      - description: Interest earned in SOL
+                    reserves:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          pubkey:
+                            allOf:
+                            - $ref: '#/components/schemas/AddressBase58'
+                            - description: Public key of the reserve
+                          supplyApy:
+                            allOf:
+                            - $ref: '#/components/schemas/Apy'
+                            - description: Supply Annual Percentage Yield
+                              example: '0.2'
+                          rewardsApy:
+                            allOf:
+                            - $ref: '#/components/schemas/Apy'
+                            - description: Rewards Annual Percentage Yield
+                              example: '0.2'
+                          allocationRatio:
+                            allOf:
+                            - $ref: '#/components/schemas/Decimal'
+                            - description: Allocation Ratio
+                          rewardTokens:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                tokenMint:
+                                  allOf:
+                                  - $ref: '#/components/schemas/AddressBase58'
+                                  - description: Token mint address
+                                apy:
+                                  allOf:
+                                  - $ref: '#/components/schemas/Apy'
+                                  - description: Annual Percentage Yield for the reward token
+                                    example: '0.2'
+                              required:
+                              - tokenMint
+                              - apy
+                            description: List of reward tokens for the reserve
+                        required:
+                        - pubkey
+                        - supplyApy
+                        - rewardsApy
+                        - allocationRatio
+                        - rewardTokens
+                      description: List of reserves with rewards
+                    vaultRewards:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          tokenMint:
+                            allOf:
+                            - $ref: '#/components/schemas/AddressBase58'
+                            - description: Token mint address
+                          apy:
+                            allOf:
+                            - $ref: '#/components/schemas/Apy'
+                            - description: Annual Percentage Yield for the vault reward token
+                              example: '0.2'
+                        required:
+                        - tokenMint
+                        - apy
+                      description: List of vault reward tokens
+                  required:
+                  - timestamp
+                  - tvl
+                  - solTvl
+                  - apy
+                  - apyTheoretical
+                  - apyActual
+                  - apyFarmRewards
+                  - apyReservesIncentives
+                  - apyIncentives
+                  - sharePrice
+                  - interest
+                  - interestUsd
+                  - interestSol
+                  - reserves
+                  - vaultRewards
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /kvaults/vaults/{pubkey}/metrics:
+    get:
+      summary: Get current KVault metrics
+      description: Get current Kamino Earn Vault metrics for a given vault
+      tags:
+      - Kamino Earn Vaults
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/AddressBase58'
+        required: true
+        description: Valid base58-encoded address
+        name: pubkey
+        in: path
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KvaultMetrics'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /kvaults/vaults/{pubkey}/allocation-volume/history:
+    get:
+      summary: Get historical KVault allocation volume
+      description: Get historical Kamino Earn Vault allocation volume for a given vault and date range (max 1 year)
+      tags:
+      - Kamino Earn Vaults
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/AddressBase58'
+        required: true
+        description: Valid base58-encoded address
+        name: pubkey
+        in: path
+      - schema:
+          anyOf:
+          - type: string
+          - type: number
+          description: Date input (ISO 8601 string or epoch in ms)
+          examples:
+          - '2024-01-01T00:00:00.000Z'
+          - 1704067200000
+          example: 2020-01-01T00:00Z
+        required: false
+        description: Date input (ISO 8601 string or epoch in ms)
+        name: start
+        in: query
+      - schema:
+          anyOf:
+          - type: string
+          - type: number
+          description: Date input (ISO 8601 string or epoch in ms)
+          examples:
+          - '2024-01-01T00:00:00.000Z'
+          - 1704067200000
+          example: 2020-02-01T00:00Z
+        required: false
+        description: Date input (ISO 8601 string or epoch in ms)
+        name: end
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    timestamp:
+                      type: string
+                      format: date
+                      description: Timestamp of the investment volume data point
+                    volumeUsd:
+                      allOf:
+                      - $ref: '#/components/schemas/Decimal'
+                      - description: Investment volume in USD
+                  required:
+                  - timestamp
+                  - volumeUsd
+                description: Array of investment volume data points
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    KvaultVaultTransactionsResponse:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/KvaultVaultTransaction'
+        paginationToken:
+          type: string
+          example: eyJsYXN0SWQiOjgxfQ==
+          description: Optional pagination token
+      required:
+      - result
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
+    EnqueuedWithdrawTransactionsResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/KlendWithdrawQueueTransactionV3'
+    KvaultEnrichedInstruction:
+      type: object
+      properties:
+        market:
+          type: string
+          description: KLend market public key
+          example: EyV4jxSMd6vpuRgrxMFem7CKRhcB4Vv6WMRDtxPQNP4
+        reserve:
+          type: string
+          description: KLend reserve public key
+          example: ALnjBHECcdBsSwgVJ6A8pFEZ15qxE5jJQriCXSKT3Bte
+        solPrice:
+          $ref: '#/components/schemas/Decimal'
+        sharePrice:
+          $ref: '#/components/schemas/Decimal'
+        tokenPrice:
+          $ref: '#/components/schemas/Decimal'
+        tokenAmount:
+          $ref: '#/components/schemas/Decimal'
+        numberOfShares:
+          $ref: '#/components/schemas/Decimal'
+      required:
+      - solPrice
+      - sharePrice
+      - tokenPrice
+      - tokenAmount
+      - numberOfShares
+      description: Enriched kvault instruction object
+      example:
+        tokenAmount: '835.924775'
+        numberOfShares: '814.34612'
+        solPrice: '138.7776002'
+        sharePrice: '1.0263403430350673002'
+        tokenPrice: '0.99984713'
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
+    The vault state object:
+      type: object
+      properties:
+        vaultAdminAuthority:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Public key of the vault admin authority
+        baseVaultAuthority:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Public key of the base vault authority
+        baseVaultAuthorityBump:
+          type: number
+          description: Bump seed for the base vault authority
+        tokenMint:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Public key of the token mint
+        tokenMintDecimals:
+          type: number
+          description: Decimals of the token mint
+        tokenVault:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Public key of the token vault
+        tokenProgram:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Public key of the token program
+        sharesMint:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Public key of the shares mint
+        sharesMintDecimals:
+          type: number
+          description: Decimals of the shares mint
+        tokenAvailable:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Amount of tokens available in the vault
+        sharesIssued:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total shares issued by the vault
+        availableCrankFunds:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Available crank funds in the vault
+        performanceFeeBps:
+          type: number
+          description: Performance fee in basis points
+        managementFeeBps:
+          type: number
+          description: Management fee in basis points
+        lastFeeChargeTimestamp:
+          type: number
+          description: Timestamp of the last fee charge
+        prevAum:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Previous assets under management scaled factor
+        pendingFees:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Pending fees scaled factor
+        vaultAllocationStrategy:
+          type: array
+          items:
+            type: object
+            properties:
+              reserve:
+                allOf:
+                - $ref: '#/components/schemas/AddressBase58'
+                - description: Public key of the reserve
+              ctokenVault:
+                allOf:
+                - $ref: '#/components/schemas/AddressBase58'
+                - description: Public key of the cToken vault
+              targetAllocationWeight:
+                type: number
+                description: Target allocation weight as a whole number
+              tokenAllocationCap:
+                type: string
+                description: Token allocation cap in lamports
+              ctokenVaultBump:
+                type: number
+                description: cToken vault bump seed
+              ctokenAllocation:
+                type: string
+                description: cToken allocation in lamports
+              lastInvestSlot:
+                type: string
+                description: Last invest slot
+              tokenTargetAllocation:
+                allOf:
+                - $ref: '#/components/schemas/Decimal'
+                - description: Token target allocation scaled factor
+            required:
+            - reserve
+            - ctokenVault
+            - targetAllocationWeight
+            - tokenAllocationCap
+            - ctokenVaultBump
+            - ctokenAllocation
+            - lastInvestSlot
+            - tokenTargetAllocation
+            description: Vault allocation strategy entry
+          description: List of vault allocation strategies
+        minDepositAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Minimum deposit amount in lamports
+        minWithdrawAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Minimum withdraw amount in lamports
+        minInvestAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Minimum invest amount in lamports
+        minInvestDelaySlots:
+          type: number
+          description: Minimum invest delay in slots
+        crankFundFeePerReserve:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Crank fund fee per reserve
+        pendingAdmin:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Public key of the pending admin
+        cumulativeEarnedInterest:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Cumulative earned interest in decimal format
+        cumulativeMgmtFees:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Cumulative management fees in decimal format
+        cumulativePerfFees:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Cumulative performance fees in decimal format
+        name:
+          type: string
+          description: Name of the vault
+        vaultLookupTable:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Public key of the vault lookup table
+        vaultFarm:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Public key of the vault farm
+        creationTimestamp:
+          type: number
+          description: Timestamp of vault creation
+        allocationAdmin:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Public key of the allocation admin
+      required:
+      - vaultAdminAuthority
+      - baseVaultAuthority
+      - baseVaultAuthorityBump
+      - tokenMint
+      - tokenMintDecimals
+      - tokenVault
+      - tokenProgram
+      - sharesMint
+      - sharesMintDecimals
+      - tokenAvailable
+      - sharesIssued
+      - availableCrankFunds
+      - performanceFeeBps
+      - managementFeeBps
+      - lastFeeChargeTimestamp
+      - prevAum
+      - pendingFees
+      - vaultAllocationStrategy
+      - minDepositAmount
+      - minWithdrawAmount
+      - minInvestAmount
+      - minInvestDelaySlots
+      - crankFundFeePerReserve
+      - pendingAdmin
+      - cumulativeEarnedInterest
+      - cumulativeMgmtFees
+      - cumulativePerfFees
+      - name
+      - vaultLookupTable
+      - vaultFarm
+      - creationTimestamp
+      - allocationAdmin
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
+    KlendWithdrawQueueTransactionV3:
+      type: object
+      properties:
+        createdOn:
+          type: string
+          nullable: true
+          format: date
+        timestamp:
+          type: number
+        transactionSignature:
+          type: string
+        transactionName:
+          type: string
+        transactionDisplayName:
+          type: string
+        reserve:
+          $ref: '#/components/schemas/AddressBase58'
+        withdrawTicket:
+          $ref: '#/components/schemas/AddressBase58'
+        solPrice:
+          $ref: '#/components/schemas/Decimal'
+        liquidityToken:
+          type: string
+        liquidityTokenMint:
+          $ref: '#/components/schemas/AddressBase58'
+        liquidityTokenAmount:
+          $ref: '#/components/schemas/Decimal'
+        liquidityTokenPrice:
+          $ref: '#/components/schemas/Decimal'
+        liquidityUsdValue:
+          $ref: '#/components/schemas/Decimal'
+      required:
+      - createdOn
+      - timestamp
+      - transactionSignature
+      - transactionName
+      - transactionDisplayName
+      - reserve
+      - withdrawTicket
+      - solPrice
+      - liquidityToken
+      - liquidityTokenMint
+      - liquidityTokenAmount
+      - liquidityTokenPrice
+      - liquidityUsdValue
+    SnapshotDateTime:
+      type: string
+      format: date-time
+      description: Timestamp of the metrics snapshot
+      example: '2023-06-29T15:15:26.464Z'
+    KvaultMetrics:
+      type: object
+      properties:
+        apy7d:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: 7-day Annual Percentage Yield of the kvault
+            example: '0.2'
+        apy24h:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: 24-hour Annual Percentage Yield of the kvault
+            example: '0.2'
+        apy30d:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: 30-day Annual Percentage Yield of the kvault
+            example: '0.2'
+        apy90d:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: 90-day Annual Percentage Yield of the kvault
+            example: '0.2'
+        apy180d:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: 180-day Annual Percentage Yield of the kvault
+            example: '0.2'
+        apy365d:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: 365-day Annual Percentage Yield of the kvault
+            example: '0.2'
+        tokenPrice:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Price of the kvault token
+        solPrice:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Price of SOL
+        tokensAvailable:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Number of tokens available in the kvault
+        tokensAvailableUsd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: USD value of tokens available in the kvault
+        tokensInvested:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Number of tokens invested in the kvault
+        tokensInvestedUsd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: USD value of tokens invested in the kvault
+        sharePrice:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Price per share of the kvault
+        tokensPerShare:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Number of tokens per share in the kvault
+        apy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Annual Percentage Yield of the kvault
+            example: '0.2'
+        apyTheoretical:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Theoretical Annual Percentage Yield of the kvault
+            example: '0.2'
+        apyActual:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Actual Annual Percentage Yield of the kvault
+            example: '0.2'
+        apyFarmRewards:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Annual Percentage Yield from farm rewards in the kvault
+            example: '0.2'
+        apyIncentives:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Annual Percentage Yield from incentives in the kvault
+            example: '0.2'
+        apyReservesIncentives:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Annual Percentage Yield from reserves incentives in the kvault
+            example: '0.2'
+        numberOfHolders:
+          type: number
+          description: Number of holders of the kvault
+        sharesIssued:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total shares issued by the kvault
+        cumulativeInterestEarned:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Cumulative interest earned in the kvault token amount
+        cumulativeInterestEarnedUsd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Cumulative interest earned in USD for the kvault
+        cumulativeInterestEarnedSol:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Cumulative interest earned in SOL for the kvault
+        interestEarnedPerSecond:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Interest earned per second in the kvault token amount
+        interestEarnedPerSecondUsd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Interest earned per second in USD for the kvault
+        interestEarnedPerSecondSol:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Interest earned per second in SOL for the kvault
+        cumulativePerformanceFees:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Cumulative performance fees in the kvault token amount
+        cumulativePerformanceFeesUsd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Cumulative performance fees in USD for the kvault
+        cumulativePerformanceFeesSol:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Cumulative performance fees in SOL for the kvault
+        cumulativeManagementFees:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Cumulative management fees in the kvault token amount
+        cumulativeManagementFeesUsd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Cumulative management fees in USD for the kvault
+        cumulativeManagementFeesSol:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Cumulative management fees in SOL for the kvault
+      required:
+      - apy7d
+      - apy24h
+      - apy30d
+      - apy90d
+      - apy180d
+      - apy365d
+      - tokenPrice
+      - solPrice
+      - tokensAvailable
+      - tokensAvailableUsd
+      - tokensInvested
+      - tokensInvestedUsd
+      - sharePrice
+      - tokensPerShare
+      - apy
+      - apyTheoretical
+      - apyActual
+      - apyFarmRewards
+      - apyIncentives
+      - apyReservesIncentives
+      - numberOfHolders
+      - sharesIssued
+      - cumulativeInterestEarned
+      - cumulativeInterestEarnedUsd
+      - cumulativeInterestEarnedSol
+      - interestEarnedPerSecond
+      - interestEarnedPerSecondUsd
+      - interestEarnedPerSecondSol
+      - cumulativePerformanceFees
+      - cumulativePerformanceFeesUsd
+      - cumulativePerformanceFeesSol
+      - cumulativeManagementFees
+      - cumulativeManagementFeesUsd
+      - cumulativeManagementFeesSol
+    KvaultVaultTransaction:
+      type: object
+      properties:
+        ix:
+          $ref: '#/components/schemas/KvaultVaultEnrichedInstruction'
+        timestamp:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - description: Timestamp when the transaction was executed (ISO 8601 format)
+            example: '2025-03-01T12:00:00.000Z'
+        signature:
+          type: string
+          description: Transaction signature
+          example: 2XWcSQVtR4NoHBhzYpDkYkmYtEFkFXC5ZwrKiPok1kvA86GvnN15qP7RNP6eTeNWgJqgnR1GA2M3QPp1hucW7e1v
+        kvault:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Valid base58-encoded address of the vault
+            example: HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E
+        wallet:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Valid base58-encoded address of the user wallet
+            example: AxqtG9SHDkZTLSWg81Sp7VqAzQpRqXtR9ziJ3VQAS8As
+      required:
+      - ix
+      - timestamp
+      - signature
+      - kvault
+      - wallet
+    VaultStateArray:
+      type: array
+      items:
+        type: object
+        properties:
+          address:
+            allOf:
+            - $ref: '#/components/schemas/AddressBase58'
+            - description: Public key of the vault
+          state:
+            $ref: '#/components/schemas/The vault state object'
+          programId:
+            allOf:
+            - $ref: '#/components/schemas/AddressBase58'
+            - description: Public key of the kvault program which owns the vault
+        required:
+        - address
+        - state
+        - programId
+    KvaultVaultEnrichedInstruction:
+      type: object
+      properties:
+        market:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: KLend market public key
+        reserve:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: KLend reserve public key
+        solPrice:
+          $ref: '#/components/schemas/Decimal'
+        sharePrice:
+          $ref: '#/components/schemas/Decimal'
+        tokenPrice:
+          $ref: '#/components/schemas/Decimal'
+        tokenAmount:
+          $ref: '#/components/schemas/Decimal'
+        numberOfShares:
+          $ref: '#/components/schemas/Decimal'
+      required:
+      - solPrice
+      - sharePrice
+      - tokenPrice
+      - tokenAmount
+      - numberOfShares
+    KvaultBulkTransaction:
+      type: object
+      properties:
+        ix:
+          $ref: '#/components/schemas/KvaultEnrichedInstruction'
+        timestamp:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - description: Timestamp when the transaction was executed (ISO 8601 format)
+            example: '2025-03-01T12:00:00.000Z'
+        signature:
+          type: string
+          description: Transaction signature
+          example: 2XWcSQVtR4NoHBhzYpDkYkmYtEFkFXC5ZwrKiPok1kvA86GvnN15qP7RNP6eTeNWgJqgnR1GA2M3QPp1hucW7e1v
+        kvault:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Valid base58-encoded address of the vault
+            example: HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E
+        wallet:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Valid base58-encoded address of the user wallet
+            example: AxqtG9SHDkZTLSWg81Sp7VqAzQpRqXtR9ziJ3VQAS8As
+        rawJson:
+          type: string
+          description: Entire raw JSON of the instruction
+      required:
+      - ix
+      - timestamp
+      - signature
+      - kvault
+      - wallet
+    Apy:
+      type: string
+      description: Borrow interest APY
+      example: '0.027610992938039702'
+      examples:
+      - '0.123'
+      - '0'
+      - '1'
+      - '1.23'
+      - '-0.5'
+      - '999999.999999'

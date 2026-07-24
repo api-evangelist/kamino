@@ -1,0 +1,222 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Kamino Public Airdrop Yields API
+  description: 'The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.
+
+
+    The API also provides the ability to fetch data that might not be available from just reading the chain.
+
+
+    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.
+
+    '
+servers:
+- url: https://api.kamino.finance
+tags:
+- name: Yields
+paths:
+  /yields/{yieldSource}/history:
+    get:
+      summary: Get yield history
+      description: Get historical yield data for a given source, between an optional range of dates (max 366 days). For extra farm yields specify the source as farmAddress-rewardMint.
+      tags:
+      - Yields
+      parameters:
+      - schema:
+          type: string
+          description: 'Yield source identifier. For regular yields use the token mint address. For extra farm yields use the format: farmAddress-rewardMint'
+          example: AvZZF1YaZDziPY2RCK4oJrRVrbN3mTD9NL24hPeaZeUj
+          examples:
+          - AvZZF1YaZDziPY2RCK4oJrRVrbN3mTD9NL24hPeaZeUj
+          - FciPo1fpNgStdnVvKT7abcFfyqn2sJijLrNLCkKtbsye-2u1tszSeqZ3qBWF3uNGPFc8TzMk2tdiwknnRMWGWjGWH
+        required: true
+        description: 'Yield source identifier. For regular yields use the token mint address. For extra farm yields use the format: farmAddress-rewardMint'
+        name: yieldSource
+        in: path
+      - schema:
+          anyOf:
+          - type: string
+          - type: number
+          description: Date input (ISO 8601 string or epoch in ms)
+          examples:
+          - '2024-01-01T00:00:00.000Z'
+          - 1704067200000
+          example: 2020-01-01T00:00Z
+        required: false
+        description: Date input (ISO 8601 string or epoch in ms)
+        name: start
+        in: query
+      - schema:
+          anyOf:
+          - type: string
+          - type: number
+          description: Date input (ISO 8601 string or epoch in ms)
+          examples:
+          - '2024-01-01T00:00:00.000Z'
+          - 1704067200000
+          example: 2020-02-01T00:00Z
+        required: false
+        description: Date input (ISO 8601 string or epoch in ms)
+        name: end
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/YieldHistoryResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /yields/principal-tokens:
+    get:
+      summary: Get principal token yields
+      description: Get current APY yields for principal tokens from various sources
+      tags:
+      - Yields
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PtYieldsResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    YieldHistoryResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/YieldHistoryItem'
+    PtYieldItem:
+      type: object
+      properties:
+        apy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: APY in decimal format (not percentage) represented as string. Multiply by 100 to get percentage (%) - 0.1 in API response is 10%.
+            example: '0.2'
+        tokenMint:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Valid base58-encoded address of the token mint
+            example: So11111111111111111111111111111111111111112
+            examples:
+            - So11111111111111111111111111111111111111112
+            - EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
+            - DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263
+      required:
+      - apy
+      - tokenMint
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
+    PtYieldsResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/PtYieldItem'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
+    SnapshotDateTime:
+      type: string
+      format: date-time
+      description: Timestamp of the metrics snapshot
+      example: '2023-06-29T15:15:26.464Z'
+    YieldHistoryItem:
+      type: object
+      properties:
+        createdOn:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - description: Timestamp when the snapshot was created (ISO 8601 format)
+            example: '2025-03-01T12:00:00.000Z'
+        apr:
+          $ref: '#/components/schemas/Apr'
+        apy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: APY in decimal format (not percentage) represented as string. Multiply by 100 to get percentage (%) - 0.1 in API response is 10%.
+            example: '0.2'
+      required:
+      - createdOn
+      - apr
+      - apy
+    Apy:
+      type: string
+      description: Borrow interest APY
+      example: '0.027610992938039702'
+      examples:
+      - '0.123'
+      - '0'
+      - '1'
+      - '1.23'
+      - '-0.5'
+      - '999999.999999'
+    Apr:
+      type: string
+      description: APR in decimal format (not percentage) represented as string. Multiply by 100 to get percentage (%) - 0.1 in API response is 10%.
+      example: '0.2'
+      examples:
+      - '0.123'
+      - '0'
+      - '1'
+      - '1.23'
+      - '-0.5'
+      - '999999.999999'

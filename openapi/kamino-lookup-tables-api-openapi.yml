@@ -1,0 +1,504 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Kamino Public Airdrop Lookup Tables API
+  description: 'The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.
+
+
+    The API also provides the ability to fetch data that might not be available from just reading the chain.
+
+
+    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.
+
+    '
+servers:
+- url: https://api.kamino.finance
+tags:
+- name: Lookup Tables
+paths:
+  /luts/find-minimal:
+    post:
+      summary: Find Lookup Tables for addresses
+      description: Finds the smallest set of Lookup Table (LUT) addresses that together cover all the provided Solana addresses. Optionally verifies active LUTs on-chain.
+      tags:
+      - Lookup Tables
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FindLutsForAddresses'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FoundLuts'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /luts/managed:
+    get:
+      summary: Get managed LUTs for a product
+      description: Returns active lookup table addresses associated with a given product identifier address.
+      tags:
+      - Lookup Tables
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: The product identifier address to look up LUTs for
+            example: 6KhEbVjFg8bNkpTSyEfGJhMGtv2bRQiAKKbKZLPvrBFm
+        required: true
+        description: The product identifier address to look up LUTs for
+        name: productIdentifierAddress
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManagedLutResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /luts/managed/batch:
+    get:
+      summary: Get managed LUTs for multiple products
+      description: Returns active lookup table addresses for multiple product identifier addresses in a single request.
+      tags:
+      - Lookup Tables
+      parameters:
+      - schema:
+          anyOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - type: array
+            items:
+              $ref: '#/components/schemas/AddressBase58'
+            minItems: 1
+            maxItems: 50
+          description: One or more product identifier addresses
+          example: 6KhEbVjFg8bNkpTSyEfGJhMGtv2bRQiAKKbKZLPvrBFm
+        required: true
+        description: One or more product identifier addresses
+        name: productIdentifierAddress
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManagedLutBatchResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /luts/managed/product-type/{productType}:
+    get:
+      summary: Get managed LUTs by product type
+      description: Returns all active lookup table addresses grouped by product for a given product type.
+      tags:
+      - Lookup Tables
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/LutProductType'
+        required: true
+        description: The type of product associated with a managed lookup table
+        name: productType
+        in: path
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManagedLutByTypeResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /luts/managed/new-vault:
+    post:
+      summary: Register a new vault with its on-chain LUT
+      description: Verifies the vault and LUT exist on-chain, then registers the vault product and LUT entry. Private (authorized) API access only, please add a basic auth header to your request.
+      tags:
+      - Lookup Tables
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                vaultAddress:
+                  allOf:
+                  - $ref: '#/components/schemas/AddressBase58'
+                  - description: Vault account address
+                    example: 6KhEbVjFg8bNkpTSyEfGJhMGtv2bRQiAKKbKZLPvrBFm
+                lutAddress:
+                  allOf:
+                  - $ref: '#/components/schemas/AddressBase58'
+                  - description: Lookup table address
+                    example: 3Kz4sMiBCxg7JdCCjwRTHtFsQRqJCSKh5pVERhPfMzYF
+              required:
+              - vaultAddress
+              - lutAddress
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewVaultResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error message describing why it was not authorized
+                    example: Not authorized for this request. Please include the basic auth headers.
+                required:
+                - error
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  metadata:
+                    type: string
+                    description: Error message describing why it was not found
+                    example: Account could not be found
+                required:
+                - metadata
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
+    ManagedLutBatchResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/ManagedLutResponse'
+    FoundLuts:
+      type: object
+      properties:
+        lutAddresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressBase58'
+          description: List of Lookup Table addresses that together cover the requested addresses
+      required:
+      - lutAddresses
+    ManagedLutByTypeResponse:
+      type: array
+      items:
+        type: object
+        properties:
+          productIdentifierAddress:
+            $ref: '#/components/schemas/AddressBase58'
+          productType:
+            $ref: '#/components/schemas/LutProductType'
+          lutAddresses:
+            type: array
+            items:
+              $ref: '#/components/schemas/AddressBase58'
+        required:
+        - productIdentifierAddress
+        - productType
+        - lutAddresses
+    ManagedLutResponse:
+      type: object
+      properties:
+        productIdentifierAddress:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: The product identifier address
+            example: 6KhEbVjFg8bNkpTSyEfGJhMGtv2bRQiAKKbKZLPvrBFm
+        lutAddresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressBase58'
+          description: Active lookup table addresses
+          example:
+          - 3Kz4sMiBCxg7JdCCjwRTHtFsQRqJCSKh5pVERhPfMzYF
+      required:
+      - productIdentifierAddress
+      - lutAddresses
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
+    FindLutsForAddresses:
+      type: object
+      properties:
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressBase58'
+          minItems: 1
+          maxItems: 100
+          description: Addresses to find in LUTs (max 100)
+        verify:
+          type: boolean
+          default: true
+          description: Whether to verify that LUTs are active on-chain (defaults to true)
+          example: false
+        userAccounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressBase58'
+          maxItems: 100
+          default: []
+          description: User-specific accounts (e.g. ATAs, token accounts). These are still searched in LUTs but are excluded from missing account tracking.
+      required:
+      - addresses
+    LutProductType:
+      type: string
+      enum:
+      - swap_pair
+      - vault
+      - strategy
+      - market
+      - meta_vault
+      description: The type of product associated with a managed lookup table
+      example: vault
+    NewVaultResponse:
+      type: object
+      properties:
+        productId:
+          type: number
+          description: The created/existing product ID
+          example: 1
+        vaultAddress:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Vault account address
+            example: 6KhEbVjFg8bNkpTSyEfGJhMGtv2bRQiAKKbKZLPvrBFm
+        lutAddress:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Lookup table address
+            example: 3Kz4sMiBCxg7JdCCjwRTHtFsQRqJCSKh5pVERhPfMzYF
+        lutEntryId:
+          type: number
+          description: The created/existing LUT entry ID
+          example: 1
+      required:
+      - productId
+      - vaultAddress
+      - lutAddress
+      - lutEntryId

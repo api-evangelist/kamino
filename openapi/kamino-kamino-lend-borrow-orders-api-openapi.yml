@@ -1,0 +1,318 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Kamino Public Airdrop Kamino Lend Borrow Orders API
+  description: 'The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.
+
+
+    The API also provides the ability to fetch data that might not be available from just reading the chain.
+
+
+    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.
+
+    '
+servers:
+- url: https://api.kamino.finance
+tags:
+- name: Kamino Lend Borrow Orders
+paths:
+  /v2/kamino-market/obligations/{pubkey}/borrow-order-fills:
+    get:
+      summary: Get borrow order fills for an obligation
+      description: Returns the fill history for the active borrow order of an obligation, in chronological order.
+      tags:
+      - Kamino Lend Borrow Orders
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/AddressBase58'
+        required: true
+        description: Valid base58-encoded address
+        name: pubkey
+        in: path
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BorrowOrderFillsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v2/kamino-market/{pubkey}/obligations-with-open-borrow-orders:
+    get:
+      summary: Get all obligations with open borrow orders in a market
+      description: Returns all obligations in the given market that have an active (unfilled or partially filled) borrow order.
+      tags:
+      - Kamino Lend Borrow Orders
+      parameters:
+      - schema:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Market public key
+            example: 7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF
+        required: true
+        description: Market public key
+        name: pubkey
+        in: path
+      - schema:
+          type: string
+          enum:
+          - mainnet-beta
+          - devnet
+          - localnet
+          default: mainnet-beta
+          description: Solana cluster environment
+          example: mainnet-beta
+        required: false
+        description: Solana cluster environment
+        name: env
+        in: query
+      - schema:
+          type: string
+          default: KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD
+          description: KLend program ID
+          example: KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD
+        required: false
+        description: KLend program ID
+        name: programId
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObligationsWithOpenBorrowOrdersResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: High-level error message describing the failure
+                    example: Invalid query params
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties:
+                        nullable: true
+                    description: Detailed validation issues (present only for validation errors)
+                required:
+                - error
+                description: Bad request response (400)
+                example:
+                  error: Invalid query request
+                  details:
+                  - code: invalid_union
+                    errors:
+                    - - code: custom
+                        path: []
+                        message: Invalid date string
+                    - - expected: number
+                        code: invalid_type
+                        path: []
+                        message: 'Invalid input: expected number, received string'
+                    path:
+                    - start
+                    message: Invalid input
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    BorrowOrderFill:
+      type: object
+      properties:
+        eventType:
+          type: string
+          enum:
+          - partial_fill
+          - full_fill
+          description: Type of fill event
+          example: partial_fill
+        eventTimestamp:
+          type: string
+          nullable: true
+          format: date
+          description: Timestamp of the on-chain transaction
+        transactionSignature:
+          type: string
+          description: Transaction signature
+          example: 2XWcSQVtR4NoHBhzYpDkYkmYtEFkFXC5ZwrKiPok1kvA86GvnN15qP7RNP6eTeNWgJqgnR1GA2M3QPp1hucW7e1v
+        debtLiquidityMint:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Debt liquidity token mint
+        filledAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Amount filled in this event (difference of remaining debt before and after)
+      required:
+      - eventType
+      - eventTimestamp
+      - transactionSignature
+      - debtLiquidityMint
+      - filledAmount
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
+    ObligationDeposit:
+      type: object
+      properties:
+        depositReserve:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Reserve address the collateral is deposited to
+        depositedAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Amount of collateral deposited
+      required:
+      - depositReserve
+      - depositedAmount
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
+    BorrowOrderFillsResponse:
+      type: object
+      properties:
+        fills:
+          type: array
+          items:
+            $ref: '#/components/schemas/BorrowOrderFill'
+      required:
+      - fills
+    OpenBorrowOrder:
+      type: object
+      properties:
+        obligationPubkey:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Obligation public key
+        owner:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Obligation owner wallet
+        deposits:
+          type: array
+          items:
+            $ref: '#/components/schemas/ObligationDeposit'
+          description: Active collateral deposits backing this obligation
+        debtLiquidityMint:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Debt liquidity token mint
+        remainingDebtAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Remaining debt amount to be filled, in lamports
+        requestedDebtAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Originally requested debt amount, in lamports
+        filledDebtDestination:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Token account where filled funds are sent
+        maxBorrowRateBps:
+          type: number
+          description: Maximum borrow rate the owner agrees to, in bps
+        minDebtTermSeconds:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Minimum debt term the owner agrees to, in seconds
+        fillableUntilTimestamp:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Unix timestamp until which the order can be filled
+        placedAtTimestamp:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Unix timestamp when the order was placed
+        lastUpdatedAtTimestamp:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Unix timestamp when the order was last updated
+      required:
+      - obligationPubkey
+      - owner
+      - deposits
+      - debtLiquidityMint
+      - remainingDebtAmount
+      - requestedDebtAmount
+      - filledDebtDestination
+      - maxBorrowRateBps
+      - minDebtTermSeconds
+      - fillableUntilTimestamp
+      - placedAtTimestamp
+      - lastUpdatedAtTimestamp
+    ObligationsWithOpenBorrowOrdersResponse:
+      type: object
+      properties:
+        obligations:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenBorrowOrder'
+      required:
+      - obligations

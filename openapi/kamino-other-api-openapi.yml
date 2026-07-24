@@ -1,0 +1,356 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Kamino Public Airdrop Other API
+  description: 'The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.
+
+
+    The API also provides the ability to fetch data that might not be available from just reading the chain.
+
+
+    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.
+
+    '
+servers:
+- url: https://api.kamino.finance
+tags:
+- name: Other
+paths:
+  /epochs:
+    get:
+      summary: Get Solana epochs metadata
+      description: Fetches all epoch start and end times, first/last slot numbers, and epoch identifiers
+      tags:
+      - Other
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Epoch'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /slots/duration:
+    get:
+      summary: Get median Solana slot duration
+      description: Fetches the median duration of a recent Solana slot (in milliseconds) from the last three epochs
+      tags:
+      - Other
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlotDuration'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /oracles/prices:
+    get:
+      summary: Get Kamino oracle prices
+      description: Fetches all oracle prices for all public Klend Market assets
+      tags:
+      - Other
+      parameters:
+      - schema:
+          type: string
+          enum:
+          - main
+          - all
+          default: main
+          description: 'Controls which market set to query. ''main'': select oracle prices from SOL/BTC Market assets, ''all'': select oracle prices from all public klend market assets.'
+          example: main
+        required: false
+        description: 'Controls which market set to query. ''main'': select oracle prices from SOL/BTC Market assets, ''all'': select oracle prices from all public klend market assets.'
+        name: markets
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/OraclePrices'
+                - type: array
+                  items:
+                    $ref: '#/components/schemas/OracleMarketPrices'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /benchmark-rates/usd:
+    get:
+      summary: Get USD benchmark lending rates
+      description: Returns USD benchmark lending rates aggregated across multiple protocols. Data is sourced from Allez and cached. Supports filtering by date range and downsampling by frequency.
+      tags:
+      - Other
+      parameters:
+      - schema:
+          anyOf:
+          - type: string
+          - type: number
+          default: '1970-01-01T00:00:00.000Z'
+          description: Date input (ISO 8601 string or epoch in ms)
+          examples:
+          - '2024-01-01T00:00:00.000Z'
+          - 1704067200000
+          example: 2020-01-01T00:00Z
+        required: false
+        description: Date input (ISO 8601 string or epoch in ms)
+        name: start
+        in: query
+      - schema:
+          anyOf:
+          - type: string
+          - type: number
+          description: Date input (ISO 8601 string or epoch in ms)
+          examples:
+          - '2024-01-01T00:00:00.000Z'
+          - 1704067200000
+          example: 2020-02-01T00:00Z
+        required: false
+        description: Date input (ISO 8601 string or epoch in ms)
+        name: end
+        in: query
+      - schema:
+          type: string
+          enum:
+          - hour
+          - day
+          default: hour
+          description: Data frequency/granularity. Defaults to hour.
+          example: hour
+        required: false
+        description: Data frequency/granularity. Defaults to hour.
+        name: frequency
+        in: query
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BenchmarkRatesResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
+    OraclePriceItem:
+      type: object
+      properties:
+        price:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Price value of the asset
+        mint:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Valid base58-encoded address of the token mint
+            example: So11111111111111111111111111111111111111112
+            examples:
+            - So11111111111111111111111111111111111111112
+            - EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
+            - DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263
+        maxAgeInSeconds:
+          allOf:
+          - $ref: '#/components/schemas/Integer'
+          - description: Maximum allowed age of the price feed in seconds
+            example: '120'
+        timestamp:
+          $ref: '#/components/schemas/UnixTimestamp'
+        name:
+          type: string
+          description: Name of the token
+          example: SOL
+      required:
+      - price
+      - mint
+      - maxAgeInSeconds
+      - timestamp
+      - name
+    BenchmarkRatesResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/BenchmarkRate'
+    BenchmarkRate:
+      type: object
+      properties:
+        index:
+          type: integer
+          description: Index of the data point
+        hour:
+          type: string
+          description: Timestamp of the data point
+        tracked_supply:
+          type: number
+          description: Total tracked USD supply
+        avg_rate:
+          type: number
+          description: Average lending rate
+        elements:
+          type: integer
+          description: Number of data elements
+        included_protocols:
+          type: integer
+          description: Number of protocols included
+      required:
+      - index
+      - hour
+      - tracked_supply
+      - avg_rate
+      - elements
+      - included_protocols
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
+    OraclePrices:
+      type: array
+      items:
+        $ref: '#/components/schemas/OraclePriceItem'
+      description: List of oracle prices for assets in the market
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
+    MarketConfigResponseV2:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Market name
+          example: SOL/BTC Market
+        isPrimary:
+          type: boolean
+          description: Whether this is a primary market
+          example: true
+        description:
+          type: string
+          description: Market description
+          example: Primary market on mainnet
+        lendingMarket:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Lending market public key
+            example: 7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF
+        lookupTable:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Lookup table address
+            example: FGMSBiyVE8TvZcdQnZETAAKw28tkQJ2ccZy6pyp95URb
+        isCurated:
+          type: boolean
+          description: Whether this market is curated
+          example: false
+      required:
+      - name
+      - isPrimary
+      - description
+      - lendingMarket
+      - lookupTable
+      - isCurated
+    OracleMarketPrices:
+      allOf:
+      - $ref: '#/components/schemas/MarketConfigResponseV2'
+      - type: object
+        properties:
+          prices:
+            type: array
+            items:
+              $ref: '#/components/schemas/OraclePriceItem'
+            description: Oracle prices for assets in this market
+        required:
+        - prices
+    SnapshotDateTime:
+      type: string
+      format: date-time
+      description: Timestamp of the metrics snapshot
+      example: '2023-06-29T15:15:26.464Z'
+    Integer:
+      type: string
+      description: Total number of unique users participating in the airdrop
+      example: '1'
+      examples:
+      - '0'
+      - '1'
+      - '100'
+      - '-1'
+    UnixTimestamp:
+      type: string
+      description: Epoch Unix timestamp in seconds
+      example: '1763568282'
+      examples:
+      - '0'
+      - '1'
+      - '100'
+      - '-1'
+    SlotDuration:
+      type: object
+      properties:
+        recentSlotDurationInMs:
+          type: number
+          description: Slot duration in milliseconds calculated from the median duration of the last 3 epoch slot durations
+          example: 400
+      required:
+      - recentSlotDurationInMs
+    Epoch:
+      type: object
+      properties:
+        epoch:
+          type: number
+          description: Epoch identifier
+          example: 678
+        firstSlot:
+          type: number
+          description: First slot number of the epoch
+          example: '123456789'
+        lastSlot:
+          type: number
+          description: Last slot number of the epoch
+          example: '123999999'
+        startBlockTime:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - description: UTC timestamp when the epoch started
+            example: '2025-03-01T12:00:00.000Z'
+        endBlockTime:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - description: UTC timestamp when the epoch ended
+            example: '2025-03-01T12:00:00.000Z'
+      required:
+      - epoch
+      - firstSlot
+      - lastSlot
+      - startBlockTime
+      - endBlockTime
