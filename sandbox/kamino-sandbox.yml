@@ -1,0 +1,25 @@
+generated: '2026-07-19'
+method: searched
+source: https://api.kamino.finance/openapi/json ; https://api.dev.kamino.finance/
+note: Kamino has no card/test-token sandbox (it is a Solana protocol). Test-vs-live
+  separation is the Solana CLUSTER, selected per request via the env parameter, plus
+  a separate dev API host.
+environments:
+- name: mainnet-beta
+  env_param: mainnet-beta
+  description: Production Solana cluster (default).
+  default: true
+- name: devnet
+  env_param: devnet
+  description: Solana devnet for testing against dev deployments.
+- name: localnet
+  env_param: localnet
+  description: Local Solana validator.
+hosts:
+- host: https://api.kamino.finance
+  role: production API
+- host: https://api.dev.kamino.finance
+  role: development/staging API
+time_simulation: null
+test_values: Use devnet market/reserve/vault pubkeys; no static magic values are published.
+  Airdrop devnet SOL via the Solana CLI for signing test transactions.

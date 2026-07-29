@@ -1,0 +1,35 @@
+# Kamino Public API
+
+> HTTPS endpoints for data, analytics, and unsigned transactions on Solana. Language-agnostic.
+
+Base URL: https://api.kamino.finance
+
+## Capabilities
+
+- Query real-time and historical data for Kamino Finance products on Solana
+- Track user positions, rewards, and portfolio values
+- Retrieve oracle prices, staking yields, epoch data, and protocol metrics
+- Build unsigned transactions for lending, borrowing, swaps, and liquidity operations (must be signed client-side)
+- All endpoints are language-agnostic HTTP/JSON
+
+## Complete Documentation
+
+For complete documentation https://kamino.com/build, including code examples, SDKs, TypeScript, Rust, API reference
+For detailed API documentation, visit https://kamino.com/build/api-reference/introduction
+
+## API Resources
+
+- OpenAPI spec (data endpoints): https://api.kamino.finance/openapi/json?openapi=3.0.0
+- OpenAPI spec (transaction building): https://api.kamino.finance/ktx/documentation/json
+- Swagger UI: https://api.kamino.finance/documentation
+
+## Products
+
+- Kamino Lend: supply assets to earn yield across lending markets
+- Borrow: borrow against collateral on Kamino lending markets
+- Swap: token swap aggregation
+- Multiply: leveraged yield strategies through looping
+- Liquidity: automated liquidity vaults for concentrated liquidity DEXs
+- Leverage: leveraged trading positions
+- User Holdings: user positions, rewards, and portfolio tracking
+- Data & Utilities: staking yields, oracle prices, epoch data, protocol metrics

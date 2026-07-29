@@ -1,0 +1,12 @@
+generated: '2026-07-19'
+method: searched
+source: https://www.npmjs.com/package/@kamino-finance/react-ui
+note: Client-side React components published by Kamino for embedding web3 alert/notification
+  UI.
+families:
+- family: react-ui
+  package: '@kamino-finance/react-ui'
+  version: 2.1.5
+  type: React component library
+  description: Reusable React UI components to integrate web3 alerts.
+  loader: npm install @kamino-finance/react-ui

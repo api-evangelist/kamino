@@ -1,0 +1,39 @@
+generated: '2026-07-19'
+method: derived
+status: candidate
+source: openapi/kamino-public-openapi-original.json
+note: No official Kamino MCP server was found (searched docs, npm @modelcontextprotocol,
+  MCP registries as of 2026-07). Candidate tool set derived from the Kamino Public
+  API data endpoints; not published by Kamino.
+server:
+  name: kamino
+  transport: http
+  base_api: https://api.kamino.finance
+tools:
+- name: get_market_metrics
+  description: Historical metrics for a Kamino lending market
+  source_operation: openapi/kamino-public-openapi-original.json#GET /v2/kamino-market/{pubkey}/metrics/history
+- name: list_reserves
+  description: List reserves for a lending market
+  source_operation: openapi/kamino-public-openapi-original.json#GET /kamino-market/reserves
+- name: get_user_loans
+  description: Fetch a wallet's klend loans/obligations
+  source_operation: openapi/kamino-public-openapi-original.json#GET /klend/loans
+- name: get_portfolio
+  description: Fetch a wallet portfolio across Kamino products
+  source_operation: openapi/kamino-public-openapi-original.json#GET /portfolio/{pubkey}
+- name: list_vaults
+  description: List Kamino Earn / kvault vaults
+  source_operation: openapi/kamino-public-openapi-original.json#GET /kvaults/vaults
+- name: get_oracle_prices
+  description: Scope oracle prices
+  source_operation: openapi/kamino-public-openapi-original.json#GET /oracles/prices
+- name: get_staking_yields
+  description: Solana staking yields
+  source_operation: openapi/kamino-public-openapi-original.json#GET /v2/staking-yields
+- name: build_borrow_tx
+  description: Build an unsigned klend borrow transaction
+  source_operation: openapi/kamino-transactions-openapi-original.json#POST /ktx/klend/borrow
+- name: build_deposit_tx
+  description: Build an unsigned klend/kvault deposit transaction
+  source_operation: openapi/kamino-transactions-openapi-original.json#POST /ktx/klend/deposit

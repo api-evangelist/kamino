@@ -1,0 +1,21 @@
+generated: '2026-07-19'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: kamino.finance
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct 15 00:48:08 2026 GMT
+  hsts: null
+- host: api.kamino.finance
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 18 20:11:59 2026 GMT
+  hsts: null
+domains:
+- domain: kamino.finance
+  dnssec: true
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject

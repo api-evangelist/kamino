@@ -1,0 +1,13 @@
+generated: '2026-07-19'
+method: searched
+source: https://www.npmjs.com/package/@kamino-finance/squads-kamino-cli ; https://github.com/Kamino-Finance
+note: Kamino publishes squads-kamino-cli, a first-party CLI (@kamino-finance org)
+  for executing Kamino operations through Squads multisig on Solana. General API access
+  is via the SDKs and REST API rather than a broad public CLI.
+clis:
+- name: squads-kamino-cli
+  package: '@kamino-finance/squads-kamino-cli'
+  version: 1.0.2
+  install: npm install -g @kamino-finance/squads-kamino-cli
+  purpose: Run Kamino lending/vault operations through a Squads multisig.
+  binary_catalogued_in: packages/kamino-packages.yml (npm org)

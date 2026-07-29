@@ -1,0 +1,81 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/kamino-public-openapi-original.json
+note: Entity graph derived from OpenAPI path groups, schema names and Solana pubkey/mint
+  reference fields. Kamino is a Solana on-chain protocol; entities are addressed by
+  base58 pubkeys, not integer ids.
+entities:
+- name: KaminoMarket
+  id: marketPubkey (base58)
+  description: A klend lending market; groups reserves.
+  path_group: /v2/kamino-market, /v3/kamino-market
+- name: Reserve
+  id: reservePubkey (base58)
+  description: A per-asset lending reserve inside a market.
+- name: Obligation
+  id: obligationPubkey (base58)
+  description: A user's borrow/lend position (loan) in a market.
+- name: Vault
+  id: vaultPubkey (base58)
+  description: A Kamino Earn / kvault automated liquidity or lending vault.
+  path_group: /kvaults/vaults
+- name: Farm
+  id: farmPubkey (base58)
+  description: A rewards farm distributing incentives.
+  path_group: /farms
+- name: User
+  id: pubkey (wallet, base58)
+  description: A Solana wallet holding positions, loans and rewards.
+  path_group: /portfolio/{pubkey}, /users/{pubkey}
+- name: OraclePrice
+  id: tokenMint (base58)
+  description: Scope oracle aggregator price for a token.
+  path_group: /oracles/prices
+- name: LookupTable
+  id: lutPubkey (base58)
+  description: Managed address lookup table for tx compression.
+  path_group: /luts
+relationships:
+- from: Reserve
+  to: KaminoMarket
+  type: belongs_to
+  via: marketPubkey
+- from: Obligation
+  to: KaminoMarket
+  type: belongs_to
+  via: marketPubkey
+- from: Obligation
+  to: User
+  type: belongs_to
+  via: owner
+- from: KaminoMarket
+  to: Reserve
+  type: has_many
+  via: reserves
+- from: User
+  to: Obligation
+  type: has_many
+  via: loans
+- from: Farm
+  to: User
+  type: has_many
+  via: users
+id_reference_fields:
+  market: 11
+  reserve: 8
+  tokenMint: 8
+  obligation: 7
+  mint: 6
+  liquidityTokenMint: 5
+  farm: 5
+  kvault: 4
+  vault: 3
+  debtLiquidityMint: 2
+  rewardMint: 2
+  depositMint: 2
+  borrowMint: 2
+  obligationPubkey: 1
+  owner: 1
+  sharesMint: 1
+  user: 1
+  shareMint: 1

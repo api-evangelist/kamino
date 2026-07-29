@@ -1,0 +1,30 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/kamino-public-openapi-original.json, openapi/kamino-transactions-openapi-original.json
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: Public API published as OpenAPI 3.0.0 at /openapi/json
+- id: openapi-3.1
+  conforms: true
+  evidence: Transactions (ktx) API published as OpenAPI 3.1.0 at /ktx/documentation/json
+- id: oauth2
+  conforms: false
+  evidence: No oauth2 securityScheme; public API, rate-limited unauthenticated, API
+    keys on request
+- id: oidc
+  conforms: false
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: 'Errors use a flat {"error": string} envelope, not application/problem+json'
+- id: rfc8594-sunset
+  conforms: false
+  evidence: No Sunset/Deprecation header policy documented
+- id: json-api
+  conforms: false
+- id: llmstxt
+  conforms: true
+  evidence: Publishes /llms.txt describing the API for language models
+- id: solana-mainnet-beta
+  conforms: true
+  evidence: env parameter supports mainnet-beta / devnet / localnet Solana clusters

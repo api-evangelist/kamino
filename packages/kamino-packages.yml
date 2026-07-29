@@ -1,0 +1,79 @@
+generated: '2026-07-19'
+method: searched
+source: https://www.npmjs.com/org/kamino-finance ; https://github.com/Kamino-Finance
+note: First-party TypeScript SDKs published under the @kamino-finance npm org. Third-party
+  Rust crates exist on crates.io (carbon-*, wp-solana-*, yellowstone-*) but are not
+  first-party and are omitted.
+packages:
+- language: javascript
+  registry: npm
+  name: '@kamino-finance/klend-sdk'
+  url: https://www.npmjs.com/package/@kamino-finance/klend-sdk
+  install: npm install @kamino-finance/klend-sdk
+  version: 9.1.5
+  official: true
+  description: TypeScript SDK for the Kamino Lending (klend) protocol
+- language: javascript
+  registry: npm
+  name: '@kamino-finance/kliquidity-sdk'
+  url: https://www.npmjs.com/package/@kamino-finance/kliquidity-sdk
+  install: npm install @kamino-finance/kliquidity-sdk
+  version: 14.0.0
+  official: true
+  description: TypeScript SDK for Kamino Liquidity (kliquidity) CLMM vaults
+- language: javascript
+  registry: npm
+  name: '@kamino-finance/farms-sdk'
+  url: https://www.npmjs.com/package/@kamino-finance/farms-sdk
+  install: npm install @kamino-finance/farms-sdk
+  version: 3.2.26
+  official: true
+  description: TypeScript SDK for Kamino Finance Farms on-chain data
+- language: javascript
+  registry: npm
+  name: '@kamino-finance/scope-sdk'
+  url: https://www.npmjs.com/package/@kamino-finance/scope-sdk
+  install: npm install @kamino-finance/scope-sdk
+  version: 11.0.0
+  official: true
+  description: TypeScript SDK for the Scope price-oracle aggregator
+- language: javascript
+  registry: npm
+  name: '@kamino-finance/limo-sdk'
+  url: https://www.npmjs.com/package/@kamino-finance/limo-sdk
+  install: npm install @kamino-finance/limo-sdk
+  version: 3.0.0
+  official: true
+  description: TypeScript SDK for Kamino Limit Orders (limo)
+- language: javascript
+  registry: npm
+  name: '@kamino-finance/kswap-sdk'
+  url: https://www.npmjs.com/package/@kamino-finance/kswap-sdk
+  install: npm install @kamino-finance/kswap-sdk
+  version: 2.8.3
+  official: true
+  description: TypeScript SDK for Kamino Swap
+- language: javascript
+  registry: npm
+  name: '@kamino-finance/metavault-sdk'
+  url: https://www.npmjs.com/package/@kamino-finance/metavault-sdk
+  install: npm install @kamino-finance/metavault-sdk
+  version: 0.1.0
+  official: true
+  description: TypeScript SDK for the Kamino MetaVault program
+- language: javascript
+  registry: npm
+  name: '@kamino-finance/distributor-sdk'
+  url: https://www.npmjs.com/package/@kamino-finance/distributor-sdk
+  install: npm install @kamino-finance/distributor-sdk
+  version: 0.5.3
+  official: true
+  description: TypeScript SDK for the Kamino token Distributor
+- language: javascript
+  registry: npm
+  name: '@kamino-finance/kamino-db'
+  url: https://www.npmjs.com/package/@kamino-finance/kamino-db
+  install: npm install @kamino-finance/kamino-db
+  version: 8.1.18
+  official: true
+  description: Kamino database models (TypeScript)

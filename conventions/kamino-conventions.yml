@@ -1,0 +1,51 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/kamino-public-openapi-original.json ; https://kamino.com/build/api-reference/introduction
+base_url: https://api.kamino.finance
+authentication:
+  style: none (public); API key on request for higher rate limits
+  ref: authentication/kamino-authentication.yml
+environment:
+  param: env
+  values:
+  - mainnet-beta
+  - devnet
+  - localnet
+  default: mainnet-beta
+  description: Solana cluster selector present on most endpoints.
+pagination:
+  style: time-window
+  params:
+  - start
+  - end
+  - frequency
+  - limit
+  note: History/metrics endpoints page by time window (start/end) and sampling frequency
+    rather than cursor/offset. Not all list endpoints paginate.
+versioning:
+  style: uri-path
+  examples:
+  - /v2/kamino-market
+  - /v3/kamino-market
+  ref: lifecycle/kamino-lifecycle.yml
+error_envelope:
+  field: error
+  shape: '{ "error": "<message>" }'
+  format: custom-json (not RFC 9457)
+  ref: errors/kamino-problem-types.yml
+idempotency:
+  supported: false
+  note: No Idempotency-Key header is documented. Data reads are naturally idempotent;
+    transaction-building endpoints return UNSIGNED transactions (no state mutation
+    server-side), so idempotency is enforced on-chain at signing/submission, not by
+    the API.
+rate_limiting:
+  signaled: unauthenticated requests are rate-limited
+  note: Exact limits are not published; request an API key for higher limits.
+identifiers:
+  style: Solana base58 pubkeys/mints
+  note: All markets, reserves, vaults, farms and users are addressed by base58 public
+    keys.
+transactions:
+  model: server builds UNSIGNED transactions (base64), client signs with wallet
+  ref: openapi/kamino-transactions-openapi-original.json

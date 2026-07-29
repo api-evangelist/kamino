@@ -1,0 +1,20 @@
+generated: '2026-07-19'
+method: searched
+source: https://api.kamino.finance/openapi/json ; https://kamino.com/docs/build
+versioning:
+  scheme: uri-path
+  current: mixed (v2 and v3 market endpoints alongside unversioned routes)
+  docs: https://kamino.com/build/api-reference/introduction
+  note: Newer market endpoints are under /v2 and /v3 path prefixes; the transaction-building
+    API is served under the /ktx prefix (OpenAPI 3.1, version 1.0.0).
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No formal deprecation/Sunset policy published; older /v2 endpoints coexist
+    with /v3.
+sla:
+  url: null
+  uptime_target: null
+  note: Rate-limited for unauthenticated users; contact Kamino for elevated access.
+status_page: null
+deprecated_operations: []

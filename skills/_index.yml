@@ -1,0 +1,30 @@
+generated: '2026-07-19'
+method: generated
+note: Agent Skills grounded in real Kamino Public/Transactions API endpoints. The
+  OpenAPI omits operationIds, so operations are referenced by HTTP method + verified
+  path.
+skills:
+- file: kamino-read-wallet-portfolio.md
+  name: Read a wallet's Kamino portfolio
+  api: openapi/kamino-public-openapi-original.json
+  operations:
+  - GET /portfolio/{pubkey}
+  - GET /portfolio/{pubkey}/rewards
+  - GET /klend/loans/{pubkey}
+  - GET /kvaults/users/{pubkey}/positions
+- file: kamino-supply-and-borrow.md
+  name: Supply collateral and borrow on Kamino Lend
+  api: openapi/kamino-transactions-openapi-original.json
+  operations:
+  - POST /ktx/klend/deposit
+  - POST /ktx/klend/borrow
+  - POST /ktx/klend/repay
+  - POST /ktx/klend/withdraw
+- file: kamino-earn-vault-deposit.md
+  name: Deposit into a Kamino Earn vault
+  api: openapi/kamino-transactions-openapi-original.json
+  operations:
+  - POST /ktx/kvault/deposit
+  - POST /ktx/kvault/withdraw
+  - GET /kvaults/vaults
+  - GET /kvaults/users/{pubkey}/positions

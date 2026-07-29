@@ -1,0 +1,26 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Kamino (transactions API)
+  version: 1.0.0
+extends: openapi/kamino-transactions-openapi-original.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-07-19'
+    x-apievangelist-provider: kamino
+    x-apievangelist-artifacts:
+    - authentication/kamino-authentication.yml
+    - conventions/kamino-conventions.yml
+    - errors/kamino-problem-types.yml
+    - data-model/kamino-data-model.yml
+    - agentic-access/kamino-agentic-access.yml
+    x-solana-clusters:
+    - mainnet-beta
+    - devnet
+    - localnet
+- target: $.servers
+  update:
+  - url: https://api.kamino.finance
+    description: Production
+  - url: https://api.dev.kamino.finance
+    description: Development

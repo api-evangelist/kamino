@@ -1,0 +1,33 @@
+generated: '2026-07-19'
+method: searched
+probe: true
+url: https://kamino.com/security
+note: Kamino publishes a security/audits program rather than enterprise compliance
+  certifications (SOC 2/ISO). Assurance is third-party smart-contract audits + an
+  Immunefi bug bounty.
+audit_firms:
+- OtterSec
+- Sec3
+- Offside Labs
+- Certora
+- Ackee Blockchain
+- RX Security
+certifications: []
+programs:
+- Third-party smart-contract audits
+- Immunefi bug bounty
+- CertiK Skynet monitoring
+evidence:
+- source: https://kamino.com/security
+  keywords:
+  - audits
+  - security
+- source: https://github.com/Kamino-Finance/audits
+  keywords:
+  - ottersec
+  - sec3
+  - certora
+- source: https://skynet.certik.com/projects/kamino-finance
+  keywords:
+  - certik
+  - skynet

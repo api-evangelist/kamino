@@ -1,0 +1,31 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/kamino-public-openapi-original.json, openapi/kamino-transactions-openapi-original.json
+format: custom-json
+envelope:
+  field: error
+  shape: '{ "error": "<message string>" }'
+  schema: components.schemas.Error
+  note: Kamino returns a flat JSON object with a single "error" string; it does NOT
+    use RFC 9457 application/problem+json.
+problems:
+- status: 400
+  title: Bad Request
+  description: Bad Request
+  remediation: Validate query/path/body parameters against the OpenAPI schema (valid
+    Solana base58 pubkeys, allowed env, sane date ranges).
+- status: 401
+  title: Unauthorized
+  description: Unauthorized
+  remediation: Route requires an API key; request elevated access from Kamino if you
+    hit authenticated endpoints or rate limits.
+- status: 404
+  title: Not Found
+  description: Not Found
+  remediation: The referenced market, reserve, vault, farm or wallet was not found
+    on the selected Solana cluster (env).
+- status: 500
+  title: Internal Server Error
+  description: Internal Server Error
+  remediation: Transient upstream/RPC failure; retry with exponential backoff. Persistent
+    errors should be reported to Kamino.
