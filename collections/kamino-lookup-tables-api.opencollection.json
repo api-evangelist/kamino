@@ -1,0 +1,105 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kamino Public Airdrop Lookup Tables API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Lookup Tables",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Find Lookup Tables for addresses",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.kamino.finance/luts/find-minimal",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Finds the smallest set of Lookup Table (LUT) addresses that together cover all the provided Solana addresses. Optionally verifies active LUTs on-chain."
+        },
+        {
+          "info": {
+            "name": "Get managed LUTs for a product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/luts/managed",
+            "params": [
+              {
+                "name": "productIdentifierAddress",
+                "value": "",
+                "type": "query",
+                "description": "The product identifier address to look up LUTs for"
+              }
+            ]
+          },
+          "docs": "Returns active lookup table addresses associated with a given product identifier address."
+        },
+        {
+          "info": {
+            "name": "Get managed LUTs for multiple products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/luts/managed/batch",
+            "params": [
+              {
+                "name": "productIdentifierAddress",
+                "value": "",
+                "type": "query",
+                "description": "One or more product identifier addresses"
+              }
+            ]
+          },
+          "docs": "Returns active lookup table addresses for multiple product identifier addresses in a single request."
+        },
+        {
+          "info": {
+            "name": "Get managed LUTs by product type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/luts/managed/product-type/:productType",
+            "params": [
+              {
+                "name": "productType",
+                "value": "",
+                "type": "path",
+                "description": "The type of product associated with a managed lookup table"
+              }
+            ]
+          },
+          "docs": "Returns all active lookup table addresses grouped by product for a given product type."
+        },
+        {
+          "info": {
+            "name": "Register a new vault with its on-chain LUT",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.kamino.finance/luts/managed/new-vault",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Verifies the vault and LUT exist on-chain, then registers the vault product and LUT entry. Private (authorized) API access only, please add a basic auth header to your request."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

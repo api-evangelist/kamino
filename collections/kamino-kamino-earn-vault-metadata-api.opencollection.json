@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kamino Public Airdrop Kamino Earn Vault Metadata API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Kamino Earn Vault Metadata",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get metadata for KVault token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/kvaults/mints/:pubkey/metadata",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "Valid base58-encoded address"
+              },
+              {
+                "name": "env",
+                "value": "",
+                "type": "query",
+                "description": "Solana cluster environment"
+              }
+            ]
+          },
+          "docs": "Get metadata for a given Kamino Earn Vault receipt token mint"
+        },
+        {
+          "info": {
+            "name": "Get icon for KVault token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/kvaults/mints/:pubkey/metadata/image.svg",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "Valid base58-encoded address"
+              },
+              {
+                "name": "env",
+                "value": "",
+                "type": "query",
+                "description": "Solana cluster environment"
+              }
+            ]
+          },
+          "docs": "Get the SVG icon for a given Kamino Earn Vault receipt token mint"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,54 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kamino Public Airdrop Private Credit API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Private Credit",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get private credit metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/kvaults/private-credit/metrics"
+          },
+          "docs": "Returns current aggregate metrics and active loans for private credit vaults"
+        },
+        {
+          "info": {
+            "name": "Get private credit metrics history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/kvaults/private-credit/metrics/history",
+            "params": [
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start date of the range (defaults to Unix epoch). Accepts ISO string or epoch in ms."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End date of the range (defaults to current time). Accepts ISO string or epoch in ms."
+              }
+            ]
+          },
+          "docs": "Returns timeseries of private credit metrics. Frequency is automatically selected based on date range."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

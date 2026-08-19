@@ -1,0 +1,523 @@
+{
+  "item": [
+    {
+      "id": "c26f63c3-89b0-41b7-8cb0-dea36ac1c3d2",
+      "name": "Other",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a4534a2a-38bc-4ddf-b57d-c9b192d5d26a",
+          "name": "Get Solana epochs metadata",
+          "request": {
+            "name": "Get Solana epochs metadata",
+            "description": {
+              "content": "Fetches all epoch start and end times, first/last slot numbers, and epoch identifiers",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "epochs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ed3ff365-2a46-4731-8a5c-b293d5d1ca82",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "epochs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"epoch\": 678,\n    \"firstSlot\": 4008.2275037444306,\n    \"lastSlot\": 3869.721725995744,\n    \"startBlockTime\": \"2023-06-29T15:15:26.464Z\",\n    \"endBlockTime\": \"2023-06-29T15:15:26.464Z\"\n  },\n  {\n    \"epoch\": 678,\n    \"firstSlot\": 6533.441610329651,\n    \"lastSlot\": 9511.672867669375,\n    \"startBlockTime\": \"2023-06-29T15:15:26.464Z\",\n    \"endBlockTime\": \"2023-06-29T15:15:26.464Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4394a4d6-d0b8-41d5-97c5-004e4631bde9",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "epochs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "358fb78f-cf23-463d-ad64-7d4aa0146b55",
+          "name": "Get median Solana slot duration",
+          "request": {
+            "name": "Get median Solana slot duration",
+            "description": {
+              "content": "Fetches the median duration of a recent Solana slot (in milliseconds) from the last three epochs",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "slots",
+                "duration"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c2578658-eb61-4275-92b0-6f1db0390041",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "slots",
+                    "duration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"recentSlotDurationInMs\": 400\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "08033bce-ec3b-4aff-b0ee-2e15f26a4529",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "slots",
+                    "duration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d4c9daff-db7e-405c-a2a2-15fea8869140",
+          "name": "Get Kamino oracle prices",
+          "request": {
+            "name": "Get Kamino oracle prices",
+            "description": {
+              "content": "Fetches all oracle prices for all public Klend Market assets",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "oracles",
+                "prices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "markets",
+                  "value": "main",
+                  "description": "Controls which market set to query. 'main': select oracle prices from SOL/BTC Market assets, 'all': select oracle prices from all public klend market assets."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3c66f0cf-8423-465d-9fbb-e4c01b93aab3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "oracles",
+                    "prices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "markets",
+                      "value": "main"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"price\": \"1234.56789\",\n    \"mint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"maxAgeInSeconds\": \"1\",\n    \"timestamp\": \"1763568282\",\n    \"name\": \"SOL\"\n  },\n  {\n    \"price\": \"1234.56789\",\n    \"mint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"maxAgeInSeconds\": \"1\",\n    \"timestamp\": \"1763568282\",\n    \"name\": \"SOL\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "715aafc8-1a15-4cb0-8aa2-4da5e98d08fa",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "oracles",
+                    "prices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "markets",
+                      "value": "main"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b7490858-bc7f-44c2-ac53-f8efa41b4a9c",
+          "name": "Get USD benchmark lending rates",
+          "request": {
+            "name": "Get USD benchmark lending rates",
+            "description": {
+              "content": "Returns USD benchmark lending rates aggregated across multiple protocols. Data is sourced from Allez and cached. Supports filtering by date range and downsampling by frequency.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "benchmark-rates",
+                "usd"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "Date input (ISO 8601 string or epoch in ms)"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "Date input (ISO 8601 string or epoch in ms)"
+                },
+                {
+                  "disabled": false,
+                  "key": "frequency",
+                  "value": "hour",
+                  "description": "Data frequency/granularity. Defaults to hour."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "79f4f5c7-febd-4dc7-aeab-e6704ca5b22b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "benchmark-rates",
+                    "usd"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "frequency",
+                      "value": "hour"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"index\": 396,\n    \"hour\": \"string\",\n    \"tracked_supply\": 6819.774517081856,\n    \"avg_rate\": 8946.774089376686,\n    \"elements\": 4376,\n    \"included_protocols\": 6677\n  },\n  {\n    \"index\": 3940,\n    \"hour\": \"string\",\n    \"tracked_supply\": 1847.6595733139723,\n    \"avg_rate\": 2232.7728682795732,\n    \"elements\": 8066,\n    \"included_protocols\": 4727\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "956ad869-f205-4d8a-89ee-b30f3301cef4",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "benchmark-rates",
+                    "usd"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "frequency",
+                      "value": "hour"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.kamino.finance",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "23ceb2f0-5334-4de7-8ad6-007cf2ad6607",
+    "name": "Kamino Public Airdrop Other API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.\n\nThe API also provides the ability to fetch data that might not be available from just reading the chain.\n\nThe API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.\n",
+      "type": "text/plain"
+    }
+  }
+}

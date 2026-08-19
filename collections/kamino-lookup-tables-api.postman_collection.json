@@ -1,0 +1,1008 @@
+{
+  "item": [
+    {
+      "id": "7cd0a59b-a4df-416c-9fc9-96e12a44376a",
+      "name": "Lookup Tables",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7f91a243-1c57-4187-b7c7-074ad3c31954",
+          "name": "Find Lookup Tables for addresses",
+          "request": {
+            "name": "Find Lookup Tables for addresses",
+            "description": {
+              "content": "Finds the smallest set of Lookup Table (LUT) addresses that together cover all the provided Solana addresses. Optionally verifies active LUTs on-chain.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "luts",
+                "find-minimal"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"addresses\": [\n    \"<string>\"\n  ],\n  \"verify\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b3d5f3fc-d463-4e35-9d7e-4f28bf487d30",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "luts",
+                    "find-minimal"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addresses\": [\n    \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\"\n  ],\n  \"verify\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"lutAddresses\": [\n    \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2812da9a-2911-411b-a918-840549b73e2e",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "luts",
+                    "find-minimal"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addresses\": [\n    \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\"\n  ],\n  \"verify\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid query params\",\n  \"details\": [\n    {\n      \"key_0\": {}\n    },\n    {\n      \"key_0\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "86ae2204-e9b3-433c-82b0-bc4f03f6325b",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "luts",
+                    "find-minimal"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addresses\": [\n    \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\"\n  ],\n  \"verify\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "645757c0-46f9-4aa2-9f41-ad7c59e21bee",
+          "name": "Get managed LUTs for a product",
+          "request": {
+            "name": "Get managed LUTs for a product",
+            "description": {
+              "content": "Returns active lookup table addresses associated with a given product identifier address.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "luts",
+                "managed"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "productIdentifierAddress",
+                  "value": "<string>",
+                  "description": "(Required) The product identifier address to look up LUTs for"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5c1e30f3-7bc2-4057-90d7-90207336b478",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "luts",
+                    "managed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "productIdentifierAddress",
+                      "value": "VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"productIdentifierAddress\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n  \"lutAddresses\": [\n    \"3Kz4sMiBCxg7JdCCjwRTHtFsQRqJCSKh5pVERhPfMzYF\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "867de03d-62c1-4612-8d3a-a4df977b2292",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "luts",
+                    "managed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "productIdentifierAddress",
+                      "value": "VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid query params\",\n  \"details\": [\n    {\n      \"key_0\": {}\n    },\n    {\n      \"key_0\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d342f14-8431-4ea2-867b-57cbf4368c9f",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "luts",
+                    "managed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "productIdentifierAddress",
+                      "value": "VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c2757be5-a5d4-47c5-b0f0-604dd290099f",
+          "name": "Get managed LUTs for multiple products",
+          "request": {
+            "name": "Get managed LUTs for multiple products",
+            "description": {
+              "content": "Returns active lookup table addresses for multiple product identifier addresses in a single request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "luts",
+                "managed",
+                "batch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "productIdentifierAddress",
+                  "value": "<string>",
+                  "description": "(Required) One or more product identifier addresses"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3cf1110f-22ac-4ab9-accc-e7ea21a7f3f9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "luts",
+                    "managed",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "productIdentifierAddress",
+                      "value": "VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"productIdentifierAddress\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"lutAddresses\": [\n      \"3Kz4sMiBCxg7JdCCjwRTHtFsQRqJCSKh5pVERhPfMzYF\"\n    ]\n  },\n  {\n    \"productIdentifierAddress\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"lutAddresses\": [\n      \"3Kz4sMiBCxg7JdCCjwRTHtFsQRqJCSKh5pVERhPfMzYF\"\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5d4b8931-5ab6-4e52-a551-22a4962cae2a",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "luts",
+                    "managed",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "productIdentifierAddress",
+                      "value": "VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid query params\",\n  \"details\": [\n    {\n      \"key_0\": {}\n    },\n    {\n      \"key_0\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58339b5f-ba72-44c5-a08b-7c26637469be",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "luts",
+                    "managed",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "productIdentifierAddress",
+                      "value": "VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "92dd48d3-552f-4a55-8ccb-eb64e6ecefc8",
+          "name": "Get managed LUTs by product type",
+          "request": {
+            "name": "Get managed LUTs by product type",
+            "description": {
+              "content": "Returns all active lookup table addresses grouped by product for a given product type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "luts",
+                "managed",
+                "product-type",
+                ":productType"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "productType",
+                  "description": "(Required) The type of product associated with a managed lookup table"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d369d699-3c89-4097-bc30-2027111948a9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "luts",
+                    "managed",
+                    "product-type",
+                    ":productType"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "productType",
+                      "description": "(Required) The type of product associated with a managed lookup table"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"productIdentifierAddress\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"productType\": \"vault\",\n    \"lutAddresses\": [\n      \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\"\n    ]\n  },\n  {\n    \"productIdentifierAddress\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"productType\": \"vault\",\n    \"lutAddresses\": [\n      \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\"\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "141cc9b4-5368-4f17-bef0-18434df7b1da",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "luts",
+                    "managed",
+                    "product-type",
+                    ":productType"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "productType",
+                      "description": "(Required) The type of product associated with a managed lookup table"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid query params\",\n  \"details\": [\n    {\n      \"key_0\": {}\n    },\n    {\n      \"key_0\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c948bc4-5ae6-45c1-9587-3625eaf1c0a4",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "luts",
+                    "managed",
+                    "product-type",
+                    ":productType"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "productType",
+                      "description": "(Required) The type of product associated with a managed lookup table"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e4297d80-d95f-4023-a6b7-9d92588e16fa",
+          "name": "Register a new vault with its on-chain LUT",
+          "request": {
+            "name": "Register a new vault with its on-chain LUT",
+            "description": {
+              "content": "Verifies the vault and LUT exist on-chain, then registers the vault product and LUT entry. Private (authorized) API access only, please add a basic auth header to your request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "luts",
+                "managed",
+                "new-vault"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vaultAddress\": \"<string>\",\n  \"lutAddress\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3a8c1d44-7b11-444e-ab05-8389568fd327",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "luts",
+                    "managed",
+                    "new-vault"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vaultAddress\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n  \"lutAddress\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"productId\": 1,\n  \"vaultAddress\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n  \"lutAddress\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n  \"lutEntryId\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a1e03070-53cd-41b0-88ee-4b3c756c9956",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "luts",
+                    "managed",
+                    "new-vault"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vaultAddress\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n  \"lutAddress\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid query params\",\n  \"details\": [\n    {\n      \"key_0\": {}\n    },\n    {\n      \"key_0\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f37c9634-8d00-452b-90eb-e6b9017b1044",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "luts",
+                    "managed",
+                    "new-vault"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vaultAddress\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n  \"lutAddress\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Not authorized for this request. Please include the basic auth headers.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d1969f73-3193-43f2-968d-8e01798c4417",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "luts",
+                    "managed",
+                    "new-vault"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vaultAddress\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n  \"lutAddress\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"metadata\": \"Account could not be found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ca6b5f20-2749-4334-b744-851d82404986",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "luts",
+                    "managed",
+                    "new-vault"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"vaultAddress\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n  \"lutAddress\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.kamino.finance",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e7f4c884-83f1-456e-9141-569b39bac921",
+    "name": "Kamino Public Airdrop Lookup Tables API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.\n\nThe API also provides the ability to fetch data that might not be available from just reading the chain.\n\nThe API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.\n",
+      "type": "text/plain"
+    }
+  }
+}

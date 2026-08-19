@@ -2,9 +2,9 @@ generated: '2026-07-19'
 method: derived
 status: candidate
 source: openapi/kamino-public-openapi-original.json
-note: No official Kamino MCP server was found (searched docs, npm @modelcontextprotocol,
-  MCP registries as of 2026-07). Candidate tool set derived from the Kamino Public
-  API data endpoints; not published by Kamino.
+note: No official Kamino MCP server was found (searched docs, npm @modelcontextprotocol, MCP registries
+  as of 2026-07). Candidate tool set derived from the Kamino Public API data endpoints; not published
+  by Kamino.
 server:
   name: kamino
   transport: http
@@ -37,3 +37,9 @@ tools:
 - name: build_deposit_tx
   description: Build an unsigned klend/kvault deposit transaction
   source_operation: openapi/kamino-transactions-openapi-original.json#POST /ktx/klend/deposit
+deployment:
+  mode: none
+  verified: derived
+  tools: 9
+  checked: '2026-08-12'
+  source: catalog MCP census

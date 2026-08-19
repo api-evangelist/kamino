@@ -1,0 +1,335 @@
+{
+  "item": [
+    {
+      "id": "88d62133-bca6-4d9e-a833-1e1a20b7c020",
+      "name": "Private Credit",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "69fc92e1-f816-49ec-8c57-65585db4078c",
+          "name": "Get private credit metrics",
+          "request": {
+            "name": "Get private credit metrics",
+            "description": {
+              "content": "Returns current aggregate metrics and active loans for private credit vaults",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "kvaults",
+                "private-credit",
+                "metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "01053cd3-3014-46a0-ba3c-3fe27dc40bfc",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "private-credit",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"metrics\": {\n    \"activeLoans\": \"1234.56789\",\n    \"totalBorrowedUsd\": \"1234.56789\",\n    \"totalDepositedUsd\": \"1234.56789\",\n    \"weightedAvgLtv\": \"1234.56789\",\n    \"avgLtv\": \"1234.56789\",\n    \"maxLtv\": \"1234.56789\",\n    \"updatedOn\": \"2023-06-29T15:15:26.464Z\"\n  },\n  \"loans\": [\n    {\n      \"totalBorrowedUsd\": \"1234.56789\",\n      \"totalDepositedUsd\": \"1234.56789\",\n      \"ltv\": \"1234.56789\",\n      \"createdOn\": \"2023-06-29T15:15:26.464Z\",\n      \"collateralAsset\": \"string\",\n      \"maxLtv\": \"1234.56789\",\n      \"liquidationStatus\": \"string\"\n    },\n    {\n      \"totalBorrowedUsd\": \"1234.56789\",\n      \"totalDepositedUsd\": \"1234.56789\",\n      \"ltv\": \"1234.56789\",\n      \"createdOn\": \"2023-06-29T15:15:26.464Z\",\n      \"collateralAsset\": \"string\",\n      \"maxLtv\": \"1234.56789\",\n      \"liquidationStatus\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0b8639c0-74e3-429f-b7bd-0dd5582422bc",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "private-credit",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9e6711be-08fe-4e31-8698-4fc1f90f6d4d",
+          "name": "Get private credit metrics history",
+          "request": {
+            "name": "Get private credit metrics history",
+            "description": {
+              "content": "Returns timeseries of private credit metrics. Frequency is automatically selected based on date range.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "kvaults",
+                "private-credit",
+                "metrics",
+                "history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "Start date of the range (defaults to Unix epoch). Accepts ISO string or epoch in ms."
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "End date of the range (defaults to current time). Accepts ISO string or epoch in ms."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "813b0a58-dcb2-4687-b49c-b6a04a858aad",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "private-credit",
+                    "metrics",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"createdOn\": \"2023-06-29T15:15:26.464Z\",\n    \"weightedAvgLtv\": \"1234.56789\",\n    \"maxLtv\": \"1234.56789\",\n    \"statusDistribution\": [\n      {\n        \"status\": \"string\",\n        \"share\": \"1234.56789\"\n      },\n      {\n        \"status\": \"string\",\n        \"share\": \"1234.56789\"\n      }\n    ]\n  },\n  {\n    \"createdOn\": \"2023-06-29T15:15:26.464Z\",\n    \"weightedAvgLtv\": \"1234.56789\",\n    \"maxLtv\": \"1234.56789\",\n    \"statusDistribution\": [\n      {\n        \"status\": \"string\",\n        \"share\": \"1234.56789\"\n      },\n      {\n        \"status\": \"string\",\n        \"share\": \"1234.56789\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cc021271-d2a2-4b48-adaf-1e5c4ef21993",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "private-credit",
+                    "metrics",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid query params\",\n  \"details\": [\n    {\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"key_0\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "03e1396d-6e27-4830-b317-de9416991d64",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "private-credit",
+                    "metrics",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.kamino.finance",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "6d22fe05-e495-40fc-b3eb-f2c39db54f89",
+    "name": "Kamino Public Airdrop Private Credit API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.\n\nThe API also provides the ability to fetch data that might not be available from just reading the chain.\n\nThe API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.\n",
+      "type": "text/plain"
+    }
+  }
+}

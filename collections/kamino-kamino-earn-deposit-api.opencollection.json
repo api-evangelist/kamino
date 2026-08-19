@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kamino Public Airdrop Kamino Earn Deposit API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Kamino Earn Deposit",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get transaction to deposit into a kvault",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.kamino.finance/ktx/kvault/deposit",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deposit tokens into a specified Kamino Earn Vault"
+        },
+        {
+          "info": {
+            "name": "Get instructions to deposit into a kvault",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.kamino.finance/ktx/kvault/deposit-instructions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Instructions to deposit tokens into a specified Kamino Earn Vault. Additionally includes lookup tables to use to compress transaction size"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

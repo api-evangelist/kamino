@@ -1,0 +1,199 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kamino Public Airdrop Kamino Earn Vaults API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Kamino Earn Vaults",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Bulk get KVault transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.kamino.finance/kvaults/transactions",
+            "params": [
+              {
+                "name": "programId",
+                "value": "",
+                "type": "query",
+                "description": "Fetch transactions from this program id"
+              },
+              {
+                "name": "includeRawJson",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Bulk get all Kamino Earn Vault transactions with paginated access (max 1000 transactions returned in each response). Private (authorized) API access only, please add a basic auth header to your request."
+        },
+        {
+          "info": {
+            "name": "Get KVault transactions by vault",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.kamino.finance/kvaults/vaults/:pubkey/transactions",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "Valid base58-encoded address"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get all Kamino Earn Vault transactions for a given vault address"
+        },
+        {
+          "info": {
+            "name": "Get currently queued withdraw-ticket redemptions for a vault",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/kvaults/vaults/:pubkey/enqueued-withdraw-transactions",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "Valid base58-encoded address"
+              }
+            ]
+          },
+          "docs": "Returns `enqueueToWithdraw` klend transactions that were triggered by a kvault `redeemInKind` on this vault and whose underlying withdraw ticket is still queued on-chain (i.e. has not been fully redeemed or cancelled)."
+        },
+        {
+          "info": {
+            "name": "Get all kvaults",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/kvaults/vaults"
+          },
+          "docs": "Get all Kamino Earn Vaults"
+        },
+        {
+          "info": {
+            "name": "Get KVault by address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/kvaults/vaults/:pubkey",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "Valid base58-encoded address"
+              }
+            ]
+          },
+          "docs": "Get a single Kamino Earn Vault by the KVault account address"
+        },
+        {
+          "info": {
+            "name": "Get historical KVault metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/kvaults/vaults/:pubkey/metrics/history",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "Valid base58-encoded address"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start date of the range (defaults to Unix epoch). Accepts ISO string or epoch in ms."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End date of the range (defaults to current time). Accepts ISO string or epoch in ms."
+              }
+            ]
+          },
+          "docs": "Get historical Kamino Earn Vault metrics for a given vault, between an optional range of dates"
+        },
+        {
+          "info": {
+            "name": "Get current KVault metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/kvaults/vaults/:pubkey/metrics",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "Valid base58-encoded address"
+              }
+            ]
+          },
+          "docs": "Get current Kamino Earn Vault metrics for a given vault"
+        },
+        {
+          "info": {
+            "name": "Get historical KVault allocation volume",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/kvaults/vaults/:pubkey/allocation-volume/history",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "Valid base58-encoded address"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Date input (ISO 8601 string or epoch in ms)"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "Date input (ISO 8601 string or epoch in ms)"
+              }
+            ]
+          },
+          "docs": "Get historical Kamino Earn Vault allocation volume for a given vault and date range (max 1 year)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

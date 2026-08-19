@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kamino Public Airdrop Kamino Lend Withdraw API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Kamino Lend Withdraw",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get transaction to withdraw from a klend reserve",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.kamino.finance/ktx/klend/withdraw",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Withdraw tokens from the specified Kamino Lend market reserve"
+        },
+        {
+          "info": {
+            "name": "Get instructions to withdraw from a klend reserve",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.kamino.finance/ktx/klend/withdraw-instructions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Instructions to withdraw tokens from the specified Kamino Lend market reserve. Additionally includes lookup tables to use to compress transaction size"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

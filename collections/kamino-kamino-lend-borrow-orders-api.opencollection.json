@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kamino Public Airdrop Kamino Lend Borrow Orders API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Kamino Lend Borrow Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get borrow order fills for an obligation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/v2/kamino-market/obligations/:pubkey/borrow-order-fills",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "Valid base58-encoded address"
+              }
+            ]
+          },
+          "docs": "Returns the fill history for the active borrow order of an obligation, in chronological order."
+        },
+        {
+          "info": {
+            "name": "Get all obligations with open borrow orders in a market",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/v2/kamino-market/:pubkey/obligations-with-open-borrow-orders",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "Market public key"
+              },
+              {
+                "name": "env",
+                "value": "",
+                "type": "query",
+                "description": "Solana cluster environment"
+              },
+              {
+                "name": "programId",
+                "value": "",
+                "type": "query",
+                "description": "KLend program ID"
+              }
+            ]
+          },
+          "docs": "Returns all obligations in the given market that have an active (unfilled or partially filled) borrow order."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

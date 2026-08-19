@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kamino Public Airdrop Kamino Earn Withdraw API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Kamino Earn Withdraw",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get transaction to withdraw from a kvault",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.kamino.finance/ktx/kvault/withdraw",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Withdraw tokens from a specified Kamino Earn Vault"
+        },
+        {
+          "info": {
+            "name": "Get instructions to withdraw from a kvault",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.kamino.finance/ktx/kvault/withdraw-instructions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Instructions to withdraw tokens from a specified Kamino Earn Vault. Additionally includes lookup tables to use to compress transaction size"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

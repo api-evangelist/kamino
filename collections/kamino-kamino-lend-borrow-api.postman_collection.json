@@ -1,0 +1,312 @@
+{
+  "item": [
+    {
+      "id": "741ee247-69bd-4e42-9089-5225a7f5e0ea",
+      "name": "Kamino Lend Borrow",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0cc8dba6-46e1-4333-b98c-e7e7d978b847",
+          "name": "Get transaction to borrow liquidity from a klend reserve",
+          "request": {
+            "name": "Get transaction to borrow liquidity from a klend reserve",
+            "description": {
+              "content": "Borrow liquidity from the specified Kamino Lend market reserve",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ktx",
+                "klend",
+                "borrow"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"wallet\": \"<solana-base58-address>\",\n  \"market\": \"<solana-base58-address>\",\n  \"reserve\": \"<solana-base58-address>\",\n  \"amount\": \"<decimal-positive-amount>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cbc7bd3a-b385-4acb-afcc-5301e87550fa",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ktx",
+                    "klend",
+                    "borrow"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"wallet\": \"KUMtRazMP7vwvc2kthnGZ9Cq6ZsGRiYC97snMYepNx9\",\n  \"market\": \"7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF\",\n  \"reserve\": \"D6q6wuQSrifJKZYpR1M8R4YawnLDtDsMmWM1NbBmgJ59\",\n  \"amount\": \"0.1234\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"transaction\": \"AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAQAEB4U90z775Z0G20Lzbx64AwbcGsJTUS+D6M2d1yQDvRL+MXyh2DY6ZPXvcFUmkblzqU7UrFcH4BAOPAPQXUWHKZS66KvlDTwMypF/H+icat/xVYNA0OvZ+RMaheXL0QJajAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD9ps6fZhmN2HDYqYbzBnXEb4Pi9Sg0h5UvXVBWPj73qMlyWPTiSJ8bs9ECkUjg2DC1oTmdr/EIQEjnvY2+n4WQTZCvHbiTnsNf+U2WQNV9zDJ5S7Phu2b9OuhJqE3NuUsuvLnkdJfjUAGox8/57aeYKvmQtCaruy3qoGNzwovloCBQYAAQAHAxEBAQYRAAsIDw0HAgEQEREEBgoJDgwQ8iPGiVLh8rYA4fUFAAAAAAGC6dRmw0Z9LrKw2cy+tHvb9JXuHBu0d9Dar60DX6fr5AUFLxMJAQYVBAsCBwM=\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "07c41081-37b4-4dd5-9784-b7b43ad3f9a6",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ktx",
+                    "klend",
+                    "borrow"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"wallet\": \"KUMtRazMP7vwvc2kthnGZ9Cq6ZsGRiYC97snMYepNx9\",\n  \"market\": \"7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF\",\n  \"reserve\": \"D6q6wuQSrifJKZYpR1M8R4YawnLDtDsMmWM1NbBmgJ59\",\n  \"amount\": \"0.1234\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"string\",\n  \"error\": \"Bad Request\",\n  \"code\": \"DECIMAL_TO_LAMPORTS_OVERFLOW\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9b15aa78-119f-426d-b7c3-e5da5366b0bb",
+          "name": "Get instructions to borrow liquidity from a klend reserve",
+          "request": {
+            "name": "Get instructions to borrow liquidity from a klend reserve",
+            "description": {
+              "content": "Instructions to borrow liquidity from the specified Kamino Lend market reserve. Additionally includes lookup tables to use to compress transaction size",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ktx",
+                "klend",
+                "borrow-instructions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"wallet\": \"<solana-base58-address>\",\n  \"market\": \"<solana-base58-address>\",\n  \"reserve\": \"<solana-base58-address>\",\n  \"amount\": \"<decimal-positive-amount>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d1ed42f0-2ce2-48a5-a061-a9c779e4f4f9",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ktx",
+                    "klend",
+                    "borrow-instructions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"wallet\": \"KUMtRazMP7vwvc2kthnGZ9Cq6ZsGRiYC97snMYepNx9\",\n  \"market\": \"7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF\",\n  \"reserve\": \"D6q6wuQSrifJKZYpR1M8R4YawnLDtDsMmWM1NbBmgJ59\",\n  \"amount\": \"0.1234\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"instructions\": [\n    {\n      \"accounts\": [\n        {\n          \"address\": \"9y7uLMUMW6EiRwH1aJFSp9Zka7dVx2JdZKA3858u6YHT\",\n          \"role\": \"WRITABLE_SIGNER\",\n          \"signer\": {\n            \"address\": \"9y7uLMUMW6EiRwH1aJFSp9Zka7dVx2JdZKA3858u6YHT\"\n          }\n        },\n        {\n          \"address\": \"9y7uLMUMW6EiRwH1aJFSp9Zka7dVx2JdZKA3858u6YHT\",\n          \"role\": \"WRITABLE_SIGNER\",\n          \"signer\": {\n            \"address\": \"9y7uLMUMW6EiRwH1aJFSp9Zka7dVx2JdZKA3858u6YHT\"\n          }\n        }\n      ],\n      \"data\": \"string\",\n      \"programAddress\": \"KvauGMspG5k6rtzrqqn7WNn3oZdyKqLKwK2XWQ8FLjd\"\n    },\n    {\n      \"accounts\": [\n        {\n          \"address\": \"9y7uLMUMW6EiRwH1aJFSp9Zka7dVx2JdZKA3858u6YHT\",\n          \"role\": \"WRITABLE_SIGNER\",\n          \"signer\": {\n            \"address\": \"9y7uLMUMW6EiRwH1aJFSp9Zka7dVx2JdZKA3858u6YHT\"\n          }\n        },\n        {\n          \"address\": \"9y7uLMUMW6EiRwH1aJFSp9Zka7dVx2JdZKA3858u6YHT\",\n          \"role\": \"WRITABLE_SIGNER\",\n          \"signer\": {\n            \"address\": \"9y7uLMUMW6EiRwH1aJFSp9Zka7dVx2JdZKA3858u6YHT\"\n          }\n        }\n      ],\n      \"data\": \"string\",\n      \"programAddress\": \"KvauGMspG5k6rtzrqqn7WNn3oZdyKqLKwK2XWQ8FLjd\"\n    }\n  ],\n  \"lutsByAddress\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e53b9a2-c5bc-44cd-9f39-3b1222caf202",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ktx",
+                    "klend",
+                    "borrow-instructions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"wallet\": \"KUMtRazMP7vwvc2kthnGZ9Cq6ZsGRiYC97snMYepNx9\",\n  \"market\": \"7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF\",\n  \"reserve\": \"D6q6wuQSrifJKZYpR1M8R4YawnLDtDsMmWM1NbBmgJ59\",\n  \"amount\": \"0.1234\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"string\",\n  \"error\": \"Bad Request\",\n  \"code\": \"DECIMAL_TO_LAMPORTS_OVERFLOW\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.kamino.finance",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c21fb205-1fde-43f1-885a-f6d600d8b0db",
+    "name": "Kamino Public Airdrop Kamino Lend Borrow API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.\n\nThe API also provides the ability to fetch data that might not be available from just reading the chain.\n\nThe API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.\n",
+      "type": "text/plain"
+    }
+  }
+}

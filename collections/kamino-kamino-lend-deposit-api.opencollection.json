@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kamino Public Airdrop Kamino Lend Deposit API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Kamino Lend Deposit",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get transaction to deposit into a klend reserve",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.kamino.finance/ktx/klend/deposit",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deposit tokens into the specified Kamino Lend market reserve"
+        },
+        {
+          "info": {
+            "name": "Get instructions to deposit into a klend reserve",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.kamino.finance/ktx/klend/deposit-instructions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Instructions to deposit tokens into the specified Kamino Lend market reserve. Additionally includes lookup tables to use to compress transaction size"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

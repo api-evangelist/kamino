@@ -1,0 +1,1719 @@
+{
+  "item": [
+    {
+      "id": "9ddc97ed-fbef-4bf8-9157-c8e274143044",
+      "name": "Kamino Earn Vaults",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ba47339a-6d74-4e7b-8c2b-ee8f7dcb70be",
+          "name": "Bulk get KVault transactions",
+          "request": {
+            "name": "Bulk get KVault transactions",
+            "description": {
+              "content": "Bulk get all Kamino Earn Vault transactions with paginated access (max 1000 transactions returned in each response). Private (authorized) API access only, please add a basic auth header to your request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "kvaults",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "programId",
+                  "value": "KvauGMspG5k6rtzrqqn7WNn3oZdyKqLKwK2XWQ8FLjd",
+                  "description": "Fetch transactions from this program id"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeRawJson",
+                  "value": "false"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"instruction\": \"<string>\",\n  \"start\": \"<string>\",\n  \"end\": \"<string>\",\n  \"paginationToken\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e3f2ce5c-e6ba-4d49-8505-ad517c62015c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "programId",
+                      "value": "KvauGMspG5k6rtzrqqn7WNn3oZdyKqLKwK2XWQ8FLjd"
+                    },
+                    {
+                      "key": "includeRawJson",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"instruction\": \"buy\",\n  \"start\": \"<string>\",\n  \"end\": \"<string>\",\n  \"paginationToken\": \"eyJsYXN0SWQiOjgxfQ==\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"ix\": {\n        \"tokenAmount\": \"835.924775\",\n        \"numberOfShares\": \"814.34612\",\n        \"solPrice\": \"138.7776002\",\n        \"sharePrice\": \"1.0263403430350673002\",\n        \"tokenPrice\": \"0.99984713\"\n      },\n      \"timestamp\": \"2023-06-29T15:15:26.464Z\",\n      \"signature\": \"2XWcSQVtR4NoHBhzYpDkYkmYtEFkFXC5ZwrKiPok1kvA86GvnN15qP7RNP6eTeNWgJqgnR1GA2M3QPp1hucW7e1v\",\n      \"kvault\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"wallet\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"rawJson\": \"string\"\n    },\n    {\n      \"ix\": {\n        \"tokenAmount\": \"835.924775\",\n        \"numberOfShares\": \"814.34612\",\n        \"solPrice\": \"138.7776002\",\n        \"sharePrice\": \"1.0263403430350673002\",\n        \"tokenPrice\": \"0.99984713\"\n      },\n      \"timestamp\": \"2023-06-29T15:15:26.464Z\",\n      \"signature\": \"2XWcSQVtR4NoHBhzYpDkYkmYtEFkFXC5ZwrKiPok1kvA86GvnN15qP7RNP6eTeNWgJqgnR1GA2M3QPp1hucW7e1v\",\n      \"kvault\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"wallet\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"rawJson\": \"string\"\n    }\n  ],\n  \"paginationToken\": \"eyJsYXN0SWQiOjgxfQ==\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "efbeb420-f7a5-4735-8312-e14318a7ed24",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "programId",
+                      "value": "KvauGMspG5k6rtzrqqn7WNn3oZdyKqLKwK2XWQ8FLjd"
+                    },
+                    {
+                      "key": "includeRawJson",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"instruction\": \"buy\",\n  \"start\": \"<string>\",\n  \"end\": \"<string>\",\n  \"paginationToken\": \"eyJsYXN0SWQiOjgxfQ==\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid query params\",\n  \"details\": [\n    {\n      \"key_0\": {}\n    },\n    {\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42e06064-4ab8-41a2-9c43-47599245b055",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "programId",
+                      "value": "KvauGMspG5k6rtzrqqn7WNn3oZdyKqLKwK2XWQ8FLjd"
+                    },
+                    {
+                      "key": "includeRawJson",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"instruction\": \"buy\",\n  \"start\": \"<string>\",\n  \"end\": \"<string>\",\n  \"paginationToken\": \"eyJsYXN0SWQiOjgxfQ==\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Not authorized for this request. Please include the basic auth headers.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "590c8474-6cf1-46ff-986f-53df7e57c827",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "programId",
+                      "value": "KvauGMspG5k6rtzrqqn7WNn3oZdyKqLKwK2XWQ8FLjd"
+                    },
+                    {
+                      "key": "includeRawJson",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"instruction\": \"buy\",\n  \"start\": \"<string>\",\n  \"end\": \"<string>\",\n  \"paginationToken\": \"eyJsYXN0SWQiOjgxfQ==\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "11480c68-e725-45f7-b9f4-977cb884cd47",
+          "name": "Get KVault transactions by vault",
+          "request": {
+            "name": "Get KVault transactions by vault",
+            "description": {
+              "content": "Get all Kamino Earn Vault transactions for a given vault address",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "kvaults",
+                "vaults",
+                ":pubkey",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pubkey",
+                  "description": "(Required) Valid base58-encoded address"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"start\": \"<string>\",\n  \"end\": \"<string>\",\n  \"instruction\": \"<string>\",\n  \"direction\": \"desc\",\n  \"paginationToken\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1c5133cd-9b0f-49d5-9fbf-4dbfb2a22327",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "vaults",
+                    ":pubkey",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"start\": \"<string>\",\n  \"end\": \"<string>\",\n  \"instruction\": \"withdraw\",\n  \"direction\": \"desc\",\n  \"paginationToken\": \"eyJsYXN0SWQiOjgxfQ==\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"ix\": {\n        \"solPrice\": \"1234.56789\",\n        \"sharePrice\": \"1234.56789\",\n        \"tokenPrice\": \"1234.56789\",\n        \"tokenAmount\": \"1234.56789\",\n        \"numberOfShares\": \"1234.56789\",\n        \"market\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n        \"reserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\"\n      },\n      \"timestamp\": \"2023-06-29T15:15:26.464Z\",\n      \"signature\": \"2XWcSQVtR4NoHBhzYpDkYkmYtEFkFXC5ZwrKiPok1kvA86GvnN15qP7RNP6eTeNWgJqgnR1GA2M3QPp1hucW7e1v\",\n      \"kvault\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"wallet\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\"\n    },\n    {\n      \"ix\": {\n        \"solPrice\": \"1234.56789\",\n        \"sharePrice\": \"1234.56789\",\n        \"tokenPrice\": \"1234.56789\",\n        \"tokenAmount\": \"1234.56789\",\n        \"numberOfShares\": \"1234.56789\",\n        \"market\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n        \"reserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\"\n      },\n      \"timestamp\": \"2023-06-29T15:15:26.464Z\",\n      \"signature\": \"2XWcSQVtR4NoHBhzYpDkYkmYtEFkFXC5ZwrKiPok1kvA86GvnN15qP7RNP6eTeNWgJqgnR1GA2M3QPp1hucW7e1v\",\n      \"kvault\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"wallet\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\"\n    }\n  ],\n  \"paginationToken\": \"eyJsYXN0SWQiOjgxfQ==\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ce753da6-ba37-4aaa-b23f-a1f6f436e0d9",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "vaults",
+                    ":pubkey",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"start\": \"<string>\",\n  \"end\": \"<string>\",\n  \"instruction\": \"withdraw\",\n  \"direction\": \"desc\",\n  \"paginationToken\": \"eyJsYXN0SWQiOjgxfQ==\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid query params\",\n  \"details\": [\n    {\n      \"key_0\": {}\n    },\n    {\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ed3e455f-1904-4ed2-bb66-08fc9de318e5",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "vaults",
+                    ":pubkey",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"start\": \"<string>\",\n  \"end\": \"<string>\",\n  \"instruction\": \"withdraw\",\n  \"direction\": \"desc\",\n  \"paginationToken\": \"eyJsYXN0SWQiOjgxfQ==\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fbc87545-257e-4e58-99b4-b29ed680aab9",
+          "name": "Get currently queued withdraw-ticket redemptions for a vault",
+          "request": {
+            "name": "Get currently queued withdraw-ticket redemptions for a vault",
+            "description": {
+              "content": "Returns `enqueueToWithdraw` klend transactions that were triggered by a kvault `redeemInKind` on this vault and whose underlying withdraw ticket is still queued on-chain (i.e. has not been fully redeemed or cancelled).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "kvaults",
+                "vaults",
+                ":pubkey",
+                "enqueued-withdraw-transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pubkey",
+                  "description": "(Required) Valid base58-encoded address"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bda1b039-75c2-44f6-bac2-7f97e5c14461",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "vaults",
+                    ":pubkey",
+                    "enqueued-withdraw-transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"createdOn\": \"1978-05-22\",\n    \"timestamp\": 3461.396054952115,\n    \"transactionSignature\": \"string\",\n    \"transactionName\": \"string\",\n    \"transactionDisplayName\": \"string\",\n    \"reserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"withdrawTicket\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"solPrice\": \"1234.56789\",\n    \"liquidityToken\": \"string\",\n    \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"liquidityTokenAmount\": \"1234.56789\",\n    \"liquidityTokenPrice\": \"1234.56789\",\n    \"liquidityUsdValue\": \"1234.56789\"\n  },\n  {\n    \"createdOn\": \"1948-05-02\",\n    \"timestamp\": 7891.89135337756,\n    \"transactionSignature\": \"string\",\n    \"transactionName\": \"string\",\n    \"transactionDisplayName\": \"string\",\n    \"reserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"withdrawTicket\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"solPrice\": \"1234.56789\",\n    \"liquidityToken\": \"string\",\n    \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"liquidityTokenAmount\": \"1234.56789\",\n    \"liquidityTokenPrice\": \"1234.56789\",\n    \"liquidityUsdValue\": \"1234.56789\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f2135baf-7228-4993-b6a3-85b264a4a405",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "vaults",
+                    ":pubkey",
+                    "enqueued-withdraw-transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid query params\",\n  \"details\": [\n    {\n      \"key_0\": {}\n    },\n    {\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f8dc6c94-66f3-45a3-9d00-e76000e94fe0",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "vaults",
+                    ":pubkey",
+                    "enqueued-withdraw-transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "17813e41-f8fa-4bf7-87fe-96b841189795",
+          "name": "Get all kvaults",
+          "request": {
+            "name": "Get all kvaults",
+            "description": {
+              "content": "Get all Kamino Earn Vaults",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "kvaults",
+                "vaults"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ec9e52d3-507e-4298-95a4-88cd034581e4",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "vaults"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"address\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"state\": {\n      \"vaultAdminAuthority\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"baseVaultAuthority\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"baseVaultAuthorityBump\": 3690.1446256048544,\n      \"tokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"tokenMintDecimals\": 9708.97965883499,\n      \"tokenVault\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"tokenProgram\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"sharesMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"sharesMintDecimals\": 9121.298275669853,\n      \"tokenAvailable\": \"1234.56789\",\n      \"sharesIssued\": \"1234.56789\",\n      \"availableCrankFunds\": \"1234.56789\",\n      \"performanceFeeBps\": 9212.17259829211,\n      \"managementFeeBps\": 7009.51507304142,\n      \"lastFeeChargeTimestamp\": 2400.397510373603,\n      \"prevAum\": \"1234.56789\",\n      \"pendingFees\": \"1234.56789\",\n      \"vaultAllocationStrategy\": [\n        {\n          \"reserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"ctokenVault\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"targetAllocationWeight\": 4282.760352127208,\n          \"tokenAllocationCap\": \"string\",\n          \"ctokenVaultBump\": 1721.7021822552103,\n          \"ctokenAllocation\": \"string\",\n          \"lastInvestSlot\": \"string\",\n          \"tokenTargetAllocation\": \"1234.56789\"\n        },\n        {\n          \"reserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"ctokenVault\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"targetAllocationWeight\": 2633.249183792683,\n          \"tokenAllocationCap\": \"string\",\n          \"ctokenVaultBump\": 5804.773760088189,\n          \"ctokenAllocation\": \"string\",\n          \"lastInvestSlot\": \"string\",\n          \"tokenTargetAllocation\": \"1234.56789\"\n        }\n      ],\n      \"minDepositAmount\": \"1234.56789\",\n      \"minWithdrawAmount\": \"1234.56789\",\n      \"minInvestAmount\": \"1234.56789\",\n      \"minInvestDelaySlots\": 9908.76506798887,\n      \"crankFundFeePerReserve\": \"1234.56789\",\n      \"pendingAdmin\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"cumulativeEarnedInterest\": \"1234.56789\",\n      \"cumulativeMgmtFees\": \"1234.56789\",\n      \"cumulativePerfFees\": \"1234.56789\",\n      \"name\": \"string\",\n      \"vaultLookupTable\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"vaultFarm\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"creationTimestamp\": 4434.8962961443685,\n      \"allocationAdmin\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\"\n    },\n    \"programId\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\"\n  },\n  {\n    \"address\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"state\": {\n      \"vaultAdminAuthority\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"baseVaultAuthority\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"baseVaultAuthorityBump\": 4753.986379771618,\n      \"tokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"tokenMintDecimals\": 4310.704995080005,\n      \"tokenVault\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"tokenProgram\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"sharesMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"sharesMintDecimals\": 7656.283447997994,\n      \"tokenAvailable\": \"1234.56789\",\n      \"sharesIssued\": \"1234.56789\",\n      \"availableCrankFunds\": \"1234.56789\",\n      \"performanceFeeBps\": 2735.1790373589,\n      \"managementFeeBps\": 5800.270916281331,\n      \"lastFeeChargeTimestamp\": 8807.139564065323,\n      \"prevAum\": \"1234.56789\",\n      \"pendingFees\": \"1234.56789\",\n      \"vaultAllocationStrategy\": [\n        {\n          \"reserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"ctokenVault\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"targetAllocationWeight\": 9899.160788131237,\n          \"tokenAllocationCap\": \"string\",\n          \"ctokenVaultBump\": 9704.274442601354,\n          \"ctokenAllocation\": \"string\",\n          \"lastInvestSlot\": \"string\",\n          \"tokenTargetAllocation\": \"1234.56789\"\n        },\n        {\n          \"reserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"ctokenVault\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"targetAllocationWeight\": 1618.586184337425,\n          \"tokenAllocationCap\": \"string\",\n          \"ctokenVaultBump\": 6103.883306040913,\n          \"ctokenAllocation\": \"string\",\n          \"lastInvestSlot\": \"string\",\n          \"tokenTargetAllocation\": \"1234.56789\"\n        }\n      ],\n      \"minDepositAmount\": \"1234.56789\",\n      \"minWithdrawAmount\": \"1234.56789\",\n      \"minInvestAmount\": \"1234.56789\",\n      \"minInvestDelaySlots\": 6028.53481041693,\n      \"crankFundFeePerReserve\": \"1234.56789\",\n      \"pendingAdmin\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"cumulativeEarnedInterest\": \"1234.56789\",\n      \"cumulativeMgmtFees\": \"1234.56789\",\n      \"cumulativePerfFees\": \"1234.56789\",\n      \"name\": \"string\",\n      \"vaultLookupTable\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"vaultFarm\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"creationTimestamp\": 6856.586757265718,\n      \"allocationAdmin\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\"\n    },\n    \"programId\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ef2dcb5-4cae-495e-871d-5dce39f95711",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "vaults"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid query params\",\n  \"details\": [\n    {\n      \"key_0\": {}\n    },\n    {\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e8f4db56-08d9-4849-ab3e-07a94b3f1927",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "vaults"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ab492562-5be9-4534-a17d-b556e968c1e4",
+          "name": "Get KVault by address",
+          "request": {
+            "name": "Get KVault by address",
+            "description": {
+              "content": "Get a single Kamino Earn Vault by the KVault account address",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "kvaults",
+                "vaults",
+                ":pubkey"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pubkey",
+                  "description": "(Required) Valid base58-encoded address"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "77e6fef4-e367-4f30-a8d0-ba1f238769af",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "vaults",
+                    ":pubkey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"address\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n  \"state\": {\n    \"vaultAdminAuthority\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"baseVaultAuthority\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"baseVaultAuthorityBump\": 7724.682758005886,\n    \"tokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"tokenMintDecimals\": 4934.331104405246,\n    \"tokenVault\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"tokenProgram\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"sharesMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"sharesMintDecimals\": 7488.3131603852835,\n    \"tokenAvailable\": \"1234.56789\",\n    \"sharesIssued\": \"1234.56789\",\n    \"availableCrankFunds\": \"1234.56789\",\n    \"performanceFeeBps\": 5865.553335881488,\n    \"managementFeeBps\": 8216.461181501647,\n    \"lastFeeChargeTimestamp\": 1263.3350214272687,\n    \"prevAum\": \"1234.56789\",\n    \"pendingFees\": \"1234.56789\",\n    \"vaultAllocationStrategy\": [\n      {\n        \"reserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n        \"ctokenVault\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n        \"targetAllocationWeight\": 619.9925110955984,\n        \"tokenAllocationCap\": \"string\",\n        \"ctokenVaultBump\": 4608.237399803754,\n        \"ctokenAllocation\": \"string\",\n        \"lastInvestSlot\": \"string\",\n        \"tokenTargetAllocation\": \"1234.56789\"\n      },\n      {\n        \"reserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n        \"ctokenVault\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n        \"targetAllocationWeight\": 4350.9129112463925,\n        \"tokenAllocationCap\": \"string\",\n        \"ctokenVaultBump\": 9627.668205360045,\n        \"ctokenAllocation\": \"string\",\n        \"lastInvestSlot\": \"string\",\n        \"tokenTargetAllocation\": \"1234.56789\"\n      }\n    ],\n    \"minDepositAmount\": \"1234.56789\",\n    \"minWithdrawAmount\": \"1234.56789\",\n    \"minInvestAmount\": \"1234.56789\",\n    \"minInvestDelaySlots\": 6391.552912095585,\n    \"crankFundFeePerReserve\": \"1234.56789\",\n    \"pendingAdmin\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"cumulativeEarnedInterest\": \"1234.56789\",\n    \"cumulativeMgmtFees\": \"1234.56789\",\n    \"cumulativePerfFees\": \"1234.56789\",\n    \"name\": \"string\",\n    \"vaultLookupTable\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"vaultFarm\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"creationTimestamp\": 7417.5292134020065,\n    \"allocationAdmin\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\"\n  },\n  \"programId\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f7cb25ef-355c-4063-9612-258acf18485d",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "vaults",
+                    ":pubkey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid query params\",\n  \"details\": [\n    {\n      \"key_0\": {}\n    },\n    {\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c076e3d-6070-48b2-a91e-d9c3384a71bc",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "vaults",
+                    ":pubkey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"metadata\": \"Account could not be found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f948ed93-d5c9-4717-ad8f-30ccfab8aaf3",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "vaults",
+                    ":pubkey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "257de369-44be-4c73-ae38-fa8f054bd7df",
+          "name": "Get historical KVault metrics",
+          "request": {
+            "name": "Get historical KVault metrics",
+            "description": {
+              "content": "Get historical Kamino Earn Vault metrics for a given vault, between an optional range of dates",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "kvaults",
+                "vaults",
+                ":pubkey",
+                "metrics",
+                "history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "Start date of the range (defaults to Unix epoch). Accepts ISO string or epoch in ms."
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "End date of the range (defaults to current time). Accepts ISO string or epoch in ms."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pubkey",
+                  "description": "(Required) Valid base58-encoded address"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b03a6280-2e1a-4a64-bddb-1c5dfa23ad8b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "vaults",
+                    ":pubkey",
+                    "metrics",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"timestamp\": 7347.023431429349,\n    \"tvl\": \"1234.56789\",\n    \"solTvl\": \"1234.56789\",\n    \"apy\": \"0.027610992938039702\",\n    \"apyTheoretical\": \"0.027610992938039702\",\n    \"apyActual\": \"0.027610992938039702\",\n    \"apyFarmRewards\": \"0.027610992938039702\",\n    \"apyReservesIncentives\": \"0.027610992938039702\",\n    \"apyIncentives\": \"0.027610992938039702\",\n    \"sharePrice\": \"1234.56789\",\n    \"interest\": \"1234.56789\",\n    \"interestUsd\": \"1234.56789\",\n    \"interestSol\": \"1234.56789\",\n    \"reserves\": [\n      {\n        \"pubkey\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n        \"supplyApy\": \"0.027610992938039702\",\n        \"rewardsApy\": \"0.027610992938039702\",\n        \"allocationRatio\": \"1234.56789\",\n        \"rewardTokens\": [\n          {\n            \"tokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n            \"apy\": \"0.027610992938039702\"\n          },\n          {\n            \"tokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n            \"apy\": \"0.027610992938039702\"\n          }\n        ]\n      },\n      {\n        \"pubkey\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n        \"supplyApy\": \"0.027610992938039702\",\n        \"rewardsApy\": \"0.027610992938039702\",\n        \"allocationRatio\": \"1234.56789\",\n        \"rewardTokens\": [\n          {\n            \"tokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n            \"apy\": \"0.027610992938039702\"\n          },\n          {\n            \"tokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n            \"apy\": \"0.027610992938039702\"\n          }\n        ]\n      }\n    ],\n    \"vaultRewards\": [\n      {\n        \"tokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n        \"apy\": \"0.027610992938039702\"\n      },\n      {\n        \"tokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n        \"apy\": \"0.027610992938039702\"\n      }\n    ]\n  },\n  {\n    \"timestamp\": 2010.7007461101546,\n    \"tvl\": \"1234.56789\",\n    \"solTvl\": \"1234.56789\",\n    \"apy\": \"0.027610992938039702\",\n    \"apyTheoretical\": \"0.027610992938039702\",\n    \"apyActual\": \"0.027610992938039702\",\n    \"apyFarmRewards\": \"0.027610992938039702\",\n    \"apyReservesIncentives\": \"0.027610992938039702\",\n    \"apyIncentives\": \"0.027610992938039702\",\n    \"sharePrice\": \"1234.56789\",\n    \"interest\": \"1234.56789\",\n    \"interestUsd\": \"1234.56789\",\n    \"interestSol\": \"1234.56789\",\n    \"reserves\": [\n      {\n        \"pubkey\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n        \"supplyApy\": \"0.027610992938039702\",\n        \"rewardsApy\": \"0.027610992938039702\",\n        \"allocationRatio\": \"1234.56789\",\n        \"rewardTokens\": [\n          {\n            \"tokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n            \"apy\": \"0.027610992938039702\"\n          },\n          {\n            \"tokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n            \"apy\": \"0.027610992938039702\"\n          }\n        ]\n      },\n      {\n        \"pubkey\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n        \"supplyApy\": \"0.027610992938039702\",\n        \"rewardsApy\": \"0.027610992938039702\",\n        \"allocationRatio\": \"1234.56789\",\n        \"rewardTokens\": [\n          {\n            \"tokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n            \"apy\": \"0.027610992938039702\"\n          },\n          {\n            \"tokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n            \"apy\": \"0.027610992938039702\"\n          }\n        ]\n      }\n    ],\n    \"vaultRewards\": [\n      {\n        \"tokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n        \"apy\": \"0.027610992938039702\"\n      },\n      {\n        \"tokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n        \"apy\": \"0.027610992938039702\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9d12c078-8615-48e1-ba81-2c57b1d7c124",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "vaults",
+                    ":pubkey",
+                    "metrics",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid query params\",\n  \"details\": [\n    {\n      \"key_0\": {}\n    },\n    {\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2cd32590-2762-4f8a-bf0a-dd252b5689a9",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "vaults",
+                    ":pubkey",
+                    "metrics",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6022d56b-3aa7-4693-bf8e-8cd54493998f",
+          "name": "Get current KVault metrics",
+          "request": {
+            "name": "Get current KVault metrics",
+            "description": {
+              "content": "Get current Kamino Earn Vault metrics for a given vault",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "kvaults",
+                "vaults",
+                ":pubkey",
+                "metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pubkey",
+                  "description": "(Required) Valid base58-encoded address"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "47a4e822-db77-4ff2-aa7b-08a5c0390d2a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "vaults",
+                    ":pubkey",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apy7d\": \"0.027610992938039702\",\n  \"apy24h\": \"0.027610992938039702\",\n  \"apy30d\": \"0.027610992938039702\",\n  \"apy90d\": \"0.027610992938039702\",\n  \"apy180d\": \"0.027610992938039702\",\n  \"apy365d\": \"0.027610992938039702\",\n  \"tokenPrice\": \"1234.56789\",\n  \"solPrice\": \"1234.56789\",\n  \"tokensAvailable\": \"1234.56789\",\n  \"tokensAvailableUsd\": \"1234.56789\",\n  \"tokensInvested\": \"1234.56789\",\n  \"tokensInvestedUsd\": \"1234.56789\",\n  \"sharePrice\": \"1234.56789\",\n  \"tokensPerShare\": \"1234.56789\",\n  \"apy\": \"0.027610992938039702\",\n  \"apyTheoretical\": \"0.027610992938039702\",\n  \"apyActual\": \"0.027610992938039702\",\n  \"apyFarmRewards\": \"0.027610992938039702\",\n  \"apyIncentives\": \"0.027610992938039702\",\n  \"apyReservesIncentives\": \"0.027610992938039702\",\n  \"numberOfHolders\": 872.7031814588781,\n  \"sharesIssued\": \"1234.56789\",\n  \"cumulativeInterestEarned\": \"1234.56789\",\n  \"cumulativeInterestEarnedUsd\": \"1234.56789\",\n  \"cumulativeInterestEarnedSol\": \"1234.56789\",\n  \"interestEarnedPerSecond\": \"1234.56789\",\n  \"interestEarnedPerSecondUsd\": \"1234.56789\",\n  \"interestEarnedPerSecondSol\": \"1234.56789\",\n  \"cumulativePerformanceFees\": \"1234.56789\",\n  \"cumulativePerformanceFeesUsd\": \"1234.56789\",\n  \"cumulativePerformanceFeesSol\": \"1234.56789\",\n  \"cumulativeManagementFees\": \"1234.56789\",\n  \"cumulativeManagementFeesUsd\": \"1234.56789\",\n  \"cumulativeManagementFeesSol\": \"1234.56789\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "67a09c86-39d3-4898-a0b4-0f8fd22f73a3",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "vaults",
+                    ":pubkey",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid query params\",\n  \"details\": [\n    {\n      \"key_0\": {}\n    },\n    {\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b563e799-8a5c-4bf6-a3bb-be384b0a5d3e",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "vaults",
+                    ":pubkey",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d7b5f062-dcc9-4253-a94d-87f911e3ae94",
+          "name": "Get historical KVault allocation volume",
+          "request": {
+            "name": "Get historical KVault allocation volume",
+            "description": {
+              "content": "Get historical Kamino Earn Vault allocation volume for a given vault and date range (max 1 year)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "kvaults",
+                "vaults",
+                ":pubkey",
+                "allocation-volume",
+                "history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "Date input (ISO 8601 string or epoch in ms)"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "Date input (ISO 8601 string or epoch in ms)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pubkey",
+                  "description": "(Required) Valid base58-encoded address"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "080ea602-03f4-4cef-9cf4-7aa0a8d185e6",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "vaults",
+                    ":pubkey",
+                    "allocation-volume",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"timestamp\": \"1973-10-05\",\n    \"volumeUsd\": \"1234.56789\"\n  },\n  {\n    \"timestamp\": \"1983-05-11\",\n    \"volumeUsd\": \"1234.56789\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "72343fd1-abf3-450e-aad2-f43b2c5b68bd",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "vaults",
+                    ":pubkey",
+                    "allocation-volume",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid query params\",\n  \"details\": [\n    {\n      \"key_0\": {}\n    },\n    {\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e44e66cf-b88d-4b5e-ba26-55c76bc451f5",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kvaults",
+                    "vaults",
+                    ":pubkey",
+                    "allocation-volume",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.kamino.finance",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f066ab21-efc7-4d31-a088-abdd2a62f102",
+    "name": "Kamino Public Airdrop Kamino Earn Vaults API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.\n\nThe API also provides the ability to fetch data that might not be available from just reading the chain.\n\nThe API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.\n",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kamino Public Airdrop Season Rewards API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Season Rewards",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all KVault season rewards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/kvaults/rewards",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Points source identifier"
+              }
+            ]
+          },
+          "docs": "Get all active season points rewards for each Kamino Earn Vault"
+        },
+        {
+          "info": {
+            "name": "Get user staking boosts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/users/:pubkey/staking-boosts",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "Valid base58-encoded address"
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Points source identifier"
+              }
+            ]
+          },
+          "docs": "Fetches staking boost multipliers for a specific user"
+        },
+        {
+          "info": {
+            "name": "Get summary of the KVault program earnings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/kvaults/summary",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Type of vaults queried"
+              }
+            ]
+          },
+          "docs": "Get an aggregated all-time summary of all Kamino Earn Vault rewards and interest earned, in SOL and USD"
+        },
+        {
+          "info": {
+            "name": "Get user season rewards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/season-rewards/users/:pubkey",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "Valid base58-encoded address"
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Points source identifier"
+              }
+            ]
+          },
+          "docs": "Fetches combined season reward data from both KLend and KVault for a specific user"
+        },
+        {
+          "info": {
+            "name": "Get final vesting pool allocation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/season-rewards/final-vesting-pool",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Points source identifier"
+              }
+            ]
+          },
+          "docs": "Calculates total forfeited rewards from all users who claimed early before full vesting"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

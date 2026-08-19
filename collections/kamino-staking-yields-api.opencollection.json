@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kamino Public Airdrop Staking Yields API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Staking Yields",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get staking yields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/v2/staking-yields"
+          },
+          "docs": "Fetches the latest staking yields for all LSTs"
+        },
+        {
+          "info": {
+            "name": "Get median staking yields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/v2/staking-yields/median"
+          },
+          "docs": "Fetches staking yields and calculates median APY over the last 10 epochs"
+        },
+        {
+          "info": {
+            "name": "Get mean staking yields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/v2/staking-yields/mean"
+          },
+          "docs": "Fetches staking yields and calculates mean (average) APY over the last 10 epochs"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

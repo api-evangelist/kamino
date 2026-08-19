@@ -1,0 +1,289 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kamino Public Airdrop Kamino Lend Yield API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Kamino Lend Yield",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get KLend reserve borrow APY and staking APY history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/kamino-market/:marketPubkey/reserves/:reservePubkey/borrow-and-staking-apys/history",
+            "params": [
+              {
+                "name": "marketPubkey",
+                "value": "",
+                "type": "path",
+                "description": "Kamino Lend market public key"
+              },
+              {
+                "name": "reservePubkey",
+                "value": "",
+                "type": "path",
+                "description": "Kamino Lend reserve public key"
+              },
+              {
+                "name": "env",
+                "value": "",
+                "type": "query",
+                "description": "Solana cluster environment"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Date input (ISO 8601 string or epoch in ms)"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "Date input (ISO 8601 string or epoch in ms)"
+              }
+            ]
+          },
+          "docs": "Get historical borrow interest APY and staking APY data for reserves that contain LST tokens with staking yield. Used for Multiply underlying APY calculations."
+        },
+        {
+          "info": {
+            "name": "Get KLend reserve borrow APY and median staking APY history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/kamino-market/:marketPubkey/reserves/:reservePubkey/borrow-and-staking-apys/history/median",
+            "params": [
+              {
+                "name": "marketPubkey",
+                "value": "",
+                "type": "path",
+                "description": "Kamino Lend market public key"
+              },
+              {
+                "name": "reservePubkey",
+                "value": "",
+                "type": "path",
+                "description": "Kamino Lend reserve public key"
+              },
+              {
+                "name": "env",
+                "value": "",
+                "type": "query",
+                "description": "Solana cluster environment"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Date input (ISO 8601 string or epoch in ms)"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "Date input (ISO 8601 string or epoch in ms)"
+              }
+            ]
+          },
+          "docs": "Get historical borrow interest APY and median staking APY data for reserves that contain LST tokens with staking yield. Uses median staking APY values for more stable calculations."
+        },
+        {
+          "info": {
+            "name": "Get interest fees earned per obligation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/v2/kamino-market/:marketPubkey/obligations/:obligationPubkey/interest-fees",
+            "params": [
+              {
+                "name": "marketPubkey",
+                "value": "",
+                "type": "path",
+                "description": "Kamino Lend market public key"
+              },
+              {
+                "name": "obligationPubkey",
+                "value": "",
+                "type": "path",
+                "description": "Kamino Lend obligation public key"
+              },
+              {
+                "name": "env",
+                "value": "",
+                "type": "query",
+                "description": "Solana cluster environment"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Date input (ISO 8601 string or epoch in ms)"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "Date input (ISO 8601 string or epoch in ms)"
+              },
+              {
+                "name": "programId",
+                "value": "",
+                "type": "query",
+                "description": "KLend program ID"
+              }
+            ]
+          },
+          "docs": "Get historical interest fees earned for a specific obligation. Returns total fees earned and historical fee breakdown by token."
+        },
+        {
+          "info": {
+            "name": "Get interest fees paid per obligation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/v2/kamino-market/:marketPubkey/obligations/:obligationPubkey/interest-paid",
+            "params": [
+              {
+                "name": "marketPubkey",
+                "value": "",
+                "type": "path",
+                "description": "Kamino Lend market public key"
+              },
+              {
+                "name": "obligationPubkey",
+                "value": "",
+                "type": "path",
+                "description": "Kamino Lend obligation public key"
+              },
+              {
+                "name": "env",
+                "value": "",
+                "type": "query",
+                "description": "Solana cluster environment"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Date input (ISO 8601 string or epoch in ms)"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "Date input (ISO 8601 string or epoch in ms)"
+              },
+              {
+                "name": "programId",
+                "value": "",
+                "type": "query",
+                "description": "KLend program ID"
+              }
+            ]
+          },
+          "docs": "Get historical interest fees paid for a specific obligation. Returns total fees paid and historical fee breakdown by token."
+        },
+        {
+          "info": {
+            "name": "Get user KLend rewards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/klend/users/:pubkey/rewards",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "Valid base58-encoded address"
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Points source identifier"
+              }
+            ]
+          },
+          "docs": "Fetches KLend reward data for a specific user and points source"
+        },
+        {
+          "info": {
+            "name": "Get KLend rewards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/klend/rewards",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Points source identifier"
+              }
+            ]
+          },
+          "docs": "Fetches all active KLend reward metrics for a specific points source"
+        },
+        {
+          "info": {
+            "name": "Get KLend reward history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/klend/:depositReservePubkey/:borrowReservePubkey/rewards/history",
+            "params": [
+              {
+                "name": "depositReservePubkey",
+                "value": "",
+                "type": "path",
+                "description": "Deposit reserve public key"
+              },
+              {
+                "name": "borrowReservePubkey",
+                "value": "",
+                "type": "path",
+                "description": "Borrow reserve public key"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Date input (ISO 8601 string or epoch in ms)"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "Date input (ISO 8601 string or epoch in ms)"
+              },
+              {
+                "name": "frequency",
+                "value": "",
+                "type": "query",
+                "description": "Frequency of historical data aggregation"
+              }
+            ]
+          },
+          "docs": "Fetches historical KLend reward metrics for a specific deposit and borrow reserve pair"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

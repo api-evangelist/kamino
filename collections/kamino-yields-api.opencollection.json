@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kamino Public Airdrop Yields API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Yields",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get yield history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/yields/:yieldSource/history",
+            "params": [
+              {
+                "name": "yieldSource",
+                "value": "",
+                "type": "path",
+                "description": "Yield source identifier. For regular yields use the token mint address. For extra farm yields use the format: farmAddress-rewardMint"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Date input (ISO 8601 string or epoch in ms)"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "Date input (ISO 8601 string or epoch in ms)"
+              }
+            ]
+          },
+          "docs": "Get historical yield data for a given source, between an optional range of dates (max 366 days). For extra farm yields specify the source as farmAddress-rewardMint."
+        },
+        {
+          "info": {
+            "name": "Get principal token yields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/yields/principal-tokens"
+          },
+          "docs": "Get current APY yields for principal tokens from various sources"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

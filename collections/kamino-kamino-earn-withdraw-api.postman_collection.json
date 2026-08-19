@@ -1,0 +1,312 @@
+{
+  "item": [
+    {
+      "id": "1529d8de-c263-48fb-b259-e59a3682b681",
+      "name": "Kamino Earn Withdraw",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9985a2cb-158e-4c4f-b0d4-a104e005127b",
+          "name": "Get transaction to withdraw from a kvault",
+          "request": {
+            "name": "Get transaction to withdraw from a kvault",
+            "description": {
+              "content": "Withdraw tokens from a specified Kamino Earn Vault",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ktx",
+                "kvault",
+                "withdraw"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"wallet\": \"<solana-base58-address>\",\n  \"kvault\": \"<solana-base58-address>\",\n  \"amount\": \"<decimal-positive-amount>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e5ac69f0-8833-4e4f-9511-72e7e8063ad7",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ktx",
+                    "kvault",
+                    "withdraw"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"wallet\": \"KUMtRazMP7vwvc2kthnGZ9Cq6ZsGRiYC97snMYepNx9\",\n  \"kvault\": \"HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E\",\n  \"amount\": \"0.1234\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"transaction\": \"AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAQAEB4U90z775Z0G20Lzbx64AwbcGsJTUS+D6M2d1yQDvRL+MXyh2DY6ZPXvcFUmkblzqU7UrFcH4BAOPAPQXUWHKZS66KvlDTwMypF/H+icat/xVYNA0OvZ+RMaheXL0QJajAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD9ps6fZhmN2HDYqYbzBnXEb4Pi9Sg0h5UvXVBWPj73qMlyWPTiSJ8bs9ECkUjg2DC1oTmdr/EIQEjnvY2+n4WQTZCvHbiTnsNf+U2WQNV9zDJ5S7Phu2b9OuhJqE3NuUsuvLnkdJfjUAGox8/57aeYKvmQtCaruy3qoGNzwovloCBQYAAQAHAxEBAQYRAAsIDw0HAgEQEREEBgoJDgwQ8iPGiVLh8rYA4fUFAAAAAAGC6dRmw0Z9LrKw2cy+tHvb9JXuHBu0d9Dar60DX6fr5AUFLxMJAQYVBAsCBwM=\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e640e2e3-6aed-4df3-814d-c66f5eafdc07",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ktx",
+                    "kvault",
+                    "withdraw"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"wallet\": \"KUMtRazMP7vwvc2kthnGZ9Cq6ZsGRiYC97snMYepNx9\",\n  \"kvault\": \"HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E\",\n  \"amount\": \"0.1234\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"string\",\n  \"error\": \"Bad Request\",\n  \"code\": \"DECIMAL_TO_LAMPORTS_OVERFLOW\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1a472af7-dc0b-4da5-90d4-8331527b4f5c",
+          "name": "Get instructions to withdraw from a kvault",
+          "request": {
+            "name": "Get instructions to withdraw from a kvault",
+            "description": {
+              "content": "Instructions to withdraw tokens from a specified Kamino Earn Vault. Additionally includes lookup tables to use to compress transaction size",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ktx",
+                "kvault",
+                "withdraw-instructions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"wallet\": \"<solana-base58-address>\",\n  \"kvault\": \"<solana-base58-address>\",\n  \"amount\": \"<decimal-positive-amount>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8e552531-10c1-40db-91c9-2fd62fcafe6a",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ktx",
+                    "kvault",
+                    "withdraw-instructions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"wallet\": \"KUMtRazMP7vwvc2kthnGZ9Cq6ZsGRiYC97snMYepNx9\",\n  \"kvault\": \"HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E\",\n  \"amount\": \"0.1234\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"instructions\": [\n    {\n      \"accounts\": [\n        {\n          \"address\": \"9y7uLMUMW6EiRwH1aJFSp9Zka7dVx2JdZKA3858u6YHT\",\n          \"role\": \"WRITABLE_SIGNER\",\n          \"signer\": {\n            \"address\": \"9y7uLMUMW6EiRwH1aJFSp9Zka7dVx2JdZKA3858u6YHT\"\n          }\n        },\n        {\n          \"address\": \"9y7uLMUMW6EiRwH1aJFSp9Zka7dVx2JdZKA3858u6YHT\",\n          \"role\": \"WRITABLE_SIGNER\",\n          \"signer\": {\n            \"address\": \"9y7uLMUMW6EiRwH1aJFSp9Zka7dVx2JdZKA3858u6YHT\"\n          }\n        }\n      ],\n      \"data\": \"string\",\n      \"programAddress\": \"KvauGMspG5k6rtzrqqn7WNn3oZdyKqLKwK2XWQ8FLjd\"\n    },\n    {\n      \"accounts\": [\n        {\n          \"address\": \"9y7uLMUMW6EiRwH1aJFSp9Zka7dVx2JdZKA3858u6YHT\",\n          \"role\": \"WRITABLE_SIGNER\",\n          \"signer\": {\n            \"address\": \"9y7uLMUMW6EiRwH1aJFSp9Zka7dVx2JdZKA3858u6YHT\"\n          }\n        },\n        {\n          \"address\": \"9y7uLMUMW6EiRwH1aJFSp9Zka7dVx2JdZKA3858u6YHT\",\n          \"role\": \"WRITABLE_SIGNER\",\n          \"signer\": {\n            \"address\": \"9y7uLMUMW6EiRwH1aJFSp9Zka7dVx2JdZKA3858u6YHT\"\n          }\n        }\n      ],\n      \"data\": \"string\",\n      \"programAddress\": \"KvauGMspG5k6rtzrqqn7WNn3oZdyKqLKwK2XWQ8FLjd\"\n    }\n  ],\n  \"lutsByAddress\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dfbad884-a31e-4e3d-89a2-27acd33b3847",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ktx",
+                    "kvault",
+                    "withdraw-instructions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"wallet\": \"KUMtRazMP7vwvc2kthnGZ9Cq6ZsGRiYC97snMYepNx9\",\n  \"kvault\": \"HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E\",\n  \"amount\": \"0.1234\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"string\",\n  \"error\": \"Bad Request\",\n  \"code\": \"DECIMAL_TO_LAMPORTS_OVERFLOW\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.kamino.finance",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "88f227d7-6cb8-463e-b79a-2fe9c7f18e2a",
+    "name": "Kamino Public Airdrop Kamino Earn Withdraw API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.\n\nThe API also provides the ability to fetch data that might not be available from just reading the chain.\n\nThe API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.\n",
+      "type": "text/plain"
+    }
+  }
+}

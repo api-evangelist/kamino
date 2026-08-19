@@ -1,0 +1,166 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kamino Public Airdrop Kamino Lend User Loans API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Kamino Lend User Loans",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all user obligations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/kamino-market/:marketPubkey/users/:userPubkey/obligations",
+            "params": [
+              {
+                "name": "marketPubkey",
+                "value": "",
+                "type": "path",
+                "description": "Kamino Lend market public key"
+              },
+              {
+                "name": "userPubkey",
+                "value": "",
+                "type": "path",
+                "description": "User wallet public key"
+              },
+              {
+                "name": "env",
+                "value": "",
+                "type": "query",
+                "description": "Solana cluster environment"
+              }
+            ]
+          },
+          "docs": "Get all obligations (loans) for a specific user wallet in a Kamino Lending market."
+        },
+        {
+          "info": {
+            "name": "Get profit and loss for an obligation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/v2/kamino-market/:marketPubkey/obligations/:obligationPubkey/pnl",
+            "params": [
+              {
+                "name": "marketPubkey",
+                "value": "",
+                "type": "path",
+                "description": "Kamino Lend market public key"
+              },
+              {
+                "name": "obligationPubkey",
+                "value": "",
+                "type": "path",
+                "description": "Kamino Lend obligation public key"
+              },
+              {
+                "name": "env",
+                "value": "",
+                "type": "query",
+                "description": "Solana cluster environment"
+              },
+              {
+                "name": "programId",
+                "value": "",
+                "type": "query",
+                "description": "KLend program ID"
+              },
+              {
+                "name": "useStakeRate",
+                "value": "",
+                "type": "query",
+                "description": "For xSOL pairs, calculate the PnL using the stake rate"
+              }
+            ]
+          },
+          "docs": "Get profit and loss (PnL) for a specific obligation. For xSOL pairs, `useStakeRate` can be set to true to calculate the PnL using the stake rate."
+        },
+        {
+          "info": {
+            "name": "Get KLend obligation history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/v2/kamino-market/:marketPubkey/obligations/:obligationPubkey/metrics/history",
+            "params": [
+              {
+                "name": "marketPubkey",
+                "value": "",
+                "type": "path",
+                "description": "Kamino Lend market public key"
+              },
+              {
+                "name": "obligationPubkey",
+                "value": "",
+                "type": "path",
+                "description": "Kamino Lend obligation public key"
+              },
+              {
+                "name": "env",
+                "value": "",
+                "type": "query",
+                "description": "Solana cluster environment"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Date input (ISO 8601 string or epoch in ms)"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "Date input (ISO 8601 string or epoch in ms)"
+              },
+              {
+                "name": "useStakeRateForObligation",
+                "value": "",
+                "type": "query",
+                "description": "Use stake rate to calculate net SOL value"
+              }
+            ]
+          },
+          "docs": "Get historical metrics for a specific obligation in a Kamino Lending market. This V2 endpoint supports using stake rate for obligation value calculation when `useStakeRateForObligation` is true."
+        },
+        {
+          "info": {
+            "name": "Get information about a loan (obligation)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/klend/loans/:pubkey",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "Valid base58-encoded address"
+              },
+              {
+                "name": "env",
+                "value": "",
+                "type": "query",
+                "description": "Solana cluster environment"
+              }
+            ]
+          },
+          "docs": "Fetches information about a loan"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

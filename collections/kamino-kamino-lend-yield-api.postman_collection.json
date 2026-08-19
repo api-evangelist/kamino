@@ -1,0 +1,1693 @@
+{
+  "item": [
+    {
+      "id": "248505e2-c6d7-4496-a0e2-42bb91429f54",
+      "name": "Kamino Lend Yield",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "80910814-6e89-47f8-a655-34928eb23007",
+          "name": "Get KLend reserve borrow APY and staking APY history",
+          "request": {
+            "name": "Get KLend reserve borrow APY and staking APY history",
+            "description": {
+              "content": "Get historical borrow interest APY and staking APY data for reserves that contain LST tokens with staking yield. Used for Multiply underlying APY calculations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "kamino-market",
+                ":marketPubkey",
+                "reserves",
+                ":reservePubkey",
+                "borrow-and-staking-apys",
+                "history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "env",
+                  "value": "mainnet-beta",
+                  "description": "Solana cluster environment"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "Date input (ISO 8601 string or epoch in ms)"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "Date input (ISO 8601 string or epoch in ms)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "marketPubkey",
+                  "description": "(Required) Kamino Lend market public key"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "reservePubkey",
+                  "description": "(Required) Kamino Lend reserve public key"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "46e8e34e-47bc-489c-9b54-071ca28bf5bb",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kamino-market",
+                    ":marketPubkey",
+                    "reserves",
+                    ":reservePubkey",
+                    "borrow-and-staking-apys",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "marketPubkey",
+                      "description": "(Required) Kamino Lend market public key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reservePubkey",
+                      "description": "(Required) Kamino Lend reserve public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"createdOn\": \"2023-06-29T15:15:26.464Z\",\n    \"borrowInterestApy\": \"0.027610992938039702\",\n    \"stakingApy\": \"0.027610992938039702\"\n  },\n  {\n    \"createdOn\": \"2023-06-29T15:15:26.464Z\",\n    \"borrowInterestApy\": \"0.027610992938039702\",\n    \"stakingApy\": \"0.027610992938039702\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6975d4a3-09e2-4a7b-8716-98c3d97b768c",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kamino-market",
+                    ":marketPubkey",
+                    "reserves",
+                    ":reservePubkey",
+                    "borrow-and-staking-apys",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "marketPubkey",
+                      "description": "(Required) Kamino Lend market public key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reservePubkey",
+                      "description": "(Required) Kamino Lend reserve public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4d6bbbb8-9fab-4537-a437-daf7974cec28",
+          "name": "Get KLend reserve borrow APY and median staking APY history",
+          "request": {
+            "name": "Get KLend reserve borrow APY and median staking APY history",
+            "description": {
+              "content": "Get historical borrow interest APY and median staking APY data for reserves that contain LST tokens with staking yield. Uses median staking APY values for more stable calculations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "kamino-market",
+                ":marketPubkey",
+                "reserves",
+                ":reservePubkey",
+                "borrow-and-staking-apys",
+                "history",
+                "median"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "env",
+                  "value": "mainnet-beta",
+                  "description": "Solana cluster environment"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "Date input (ISO 8601 string or epoch in ms)"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "Date input (ISO 8601 string or epoch in ms)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "marketPubkey",
+                  "description": "(Required) Kamino Lend market public key"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "reservePubkey",
+                  "description": "(Required) Kamino Lend reserve public key"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "86abbf9e-af0a-4d48-a7e6-5933159a209c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kamino-market",
+                    ":marketPubkey",
+                    "reserves",
+                    ":reservePubkey",
+                    "borrow-and-staking-apys",
+                    "history",
+                    "median"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "marketPubkey",
+                      "description": "(Required) Kamino Lend market public key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reservePubkey",
+                      "description": "(Required) Kamino Lend reserve public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"createdOn\": \"2023-06-29T15:15:26.464Z\",\n    \"borrowInterestApy\": \"0.027610992938039702\",\n    \"stakingApy\": \"0.027610992938039702\"\n  },\n  {\n    \"createdOn\": \"2023-06-29T15:15:26.464Z\",\n    \"borrowInterestApy\": \"0.027610992938039702\",\n    \"stakingApy\": \"0.027610992938039702\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dfd615ec-2c63-447a-83bb-65b5fef677df",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kamino-market",
+                    ":marketPubkey",
+                    "reserves",
+                    ":reservePubkey",
+                    "borrow-and-staking-apys",
+                    "history",
+                    "median"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "marketPubkey",
+                      "description": "(Required) Kamino Lend market public key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reservePubkey",
+                      "description": "(Required) Kamino Lend reserve public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bdf35dbe-ad5d-4a21-a7ca-a7dee39dbc69",
+          "name": "Get interest fees earned per obligation",
+          "request": {
+            "name": "Get interest fees earned per obligation",
+            "description": {
+              "content": "Get historical interest fees earned for a specific obligation. Returns total fees earned and historical fee breakdown by token.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "kamino-market",
+                ":marketPubkey",
+                "obligations",
+                ":obligationPubkey",
+                "interest-fees"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "env",
+                  "value": "mainnet-beta",
+                  "description": "Solana cluster environment"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "Date input (ISO 8601 string or epoch in ms)"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "Date input (ISO 8601 string or epoch in ms)"
+                },
+                {
+                  "disabled": false,
+                  "key": "programId",
+                  "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD",
+                  "description": "KLend program ID"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "marketPubkey",
+                  "description": "(Required) Kamino Lend market public key"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "obligationPubkey",
+                  "description": "(Required) Kamino Lend obligation public key"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7b203357-d5ad-4ff2-bcfb-260b00de1e33",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "kamino-market",
+                    ":marketPubkey",
+                    "obligations",
+                    ":obligationPubkey",
+                    "interest-fees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "programId",
+                      "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "marketPubkey",
+                      "description": "(Required) Kamino Lend market public key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "obligationPubkey",
+                      "description": "(Required) Kamino Lend obligation public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"totalFeesEarnedObligation\": {\n    \"uy9LQEjELMp8r3qpb7fJhu2Y32ydAxTEo74VAEZ6EHQs\": {\n      \"ts\": 1762128000000,\n      \"solFees\": \"0.00001610553929183891699891935039215032176993\",\n      \"usdFees\": \"0.003058858072628656437082436052718601394968\"\n    }\n  },\n  \"historicalFeesObligation\": {\n    \"key_0\": [\n      {\n        \"d4A2prbA2whesmvHaL88BH6Ewn5N4bTSU2Ze8P6Bc4Q\": {\n          \"ts\": 1760745600000,\n          \"solFees\": \"0\",\n          \"usdFees\": \"0\",\n          \"nativeFees\": \"0\"\n        }\n      },\n      {\n        \"d4A2prbA2whesmvHaL88BH6Ewn5N4bTSU2Ze8P6Bc4Q\": {\n          \"ts\": 1760745600000,\n          \"solFees\": \"0\",\n          \"usdFees\": \"0\",\n          \"nativeFees\": \"0\"\n        }\n      }\n    ],\n    \"key_1\": [\n      {\n        \"d4A2prbA2whesmvHaL88BH6Ewn5N4bTSU2Ze8P6Bc4Q\": {\n          \"ts\": 1760745600000,\n          \"solFees\": \"0\",\n          \"usdFees\": \"0\",\n          \"nativeFees\": \"0\"\n        }\n      },\n      {\n        \"d4A2prbA2whesmvHaL88BH6Ewn5N4bTSU2Ze8P6Bc4Q\": {\n          \"ts\": 1760745600000,\n          \"solFees\": \"0\",\n          \"usdFees\": \"0\",\n          \"nativeFees\": \"0\"\n        }\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c2e97d86-f3b3-4f99-aeed-82373d6749fe",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "kamino-market",
+                    ":marketPubkey",
+                    "obligations",
+                    ":obligationPubkey",
+                    "interest-fees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "programId",
+                      "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "marketPubkey",
+                      "description": "(Required) Kamino Lend market public key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "obligationPubkey",
+                      "description": "(Required) Kamino Lend obligation public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"metadata\": \"Account could not be found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4fd48073-926e-4336-b580-353832d5d908",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "kamino-market",
+                    ":marketPubkey",
+                    "obligations",
+                    ":obligationPubkey",
+                    "interest-fees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "programId",
+                      "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "marketPubkey",
+                      "description": "(Required) Kamino Lend market public key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "obligationPubkey",
+                      "description": "(Required) Kamino Lend obligation public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0c21ef5c-fb63-404b-8060-787661620ff6",
+          "name": "Get interest fees paid per obligation",
+          "request": {
+            "name": "Get interest fees paid per obligation",
+            "description": {
+              "content": "Get historical interest fees paid for a specific obligation. Returns total fees paid and historical fee breakdown by token.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "kamino-market",
+                ":marketPubkey",
+                "obligations",
+                ":obligationPubkey",
+                "interest-paid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "env",
+                  "value": "mainnet-beta",
+                  "description": "Solana cluster environment"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "Date input (ISO 8601 string or epoch in ms)"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "Date input (ISO 8601 string or epoch in ms)"
+                },
+                {
+                  "disabled": false,
+                  "key": "programId",
+                  "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD",
+                  "description": "KLend program ID"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "marketPubkey",
+                  "description": "(Required) Kamino Lend market public key"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "obligationPubkey",
+                  "description": "(Required) Kamino Lend obligation public key"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6b280595-34da-4379-b35e-8840e7b2e458",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "kamino-market",
+                    ":marketPubkey",
+                    "obligations",
+                    ":obligationPubkey",
+                    "interest-paid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "programId",
+                      "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "marketPubkey",
+                      "description": "(Required) Kamino Lend market public key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "obligationPubkey",
+                      "description": "(Required) Kamino Lend obligation public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"totalFeesPaidObligation\": {\n    \"uy9LQEjELMp8r3qpb7fJhu2Y32ydAxTEo74VAEZ6EHQs\": {\n      \"ts\": 1762128000000,\n      \"solFees\": \"0.00001610553929183891699891935039215032176993\",\n      \"usdFees\": \"0.003058858072628656437082436052718601394968\"\n    }\n  },\n  \"historicalFeesObligation\": {\n    \"key_0\": [\n      {\n        \"d4A2prbA2whesmvHaL88BH6Ewn5N4bTSU2Ze8P6Bc4Q\": {\n          \"ts\": 1760745600000,\n          \"solFees\": \"0\",\n          \"usdFees\": \"0\",\n          \"nativeFees\": \"0\"\n        }\n      },\n      {\n        \"d4A2prbA2whesmvHaL88BH6Ewn5N4bTSU2Ze8P6Bc4Q\": {\n          \"ts\": 1760745600000,\n          \"solFees\": \"0\",\n          \"usdFees\": \"0\",\n          \"nativeFees\": \"0\"\n        }\n      }\n    ],\n    \"key_1\": [\n      {\n        \"d4A2prbA2whesmvHaL88BH6Ewn5N4bTSU2Ze8P6Bc4Q\": {\n          \"ts\": 1760745600000,\n          \"solFees\": \"0\",\n          \"usdFees\": \"0\",\n          \"nativeFees\": \"0\"\n        }\n      },\n      {\n        \"d4A2prbA2whesmvHaL88BH6Ewn5N4bTSU2Ze8P6Bc4Q\": {\n          \"ts\": 1760745600000,\n          \"solFees\": \"0\",\n          \"usdFees\": \"0\",\n          \"nativeFees\": \"0\"\n        }\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "99f5962d-727f-4db5-ad41-c4a35c780e63",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "kamino-market",
+                    ":marketPubkey",
+                    "obligations",
+                    ":obligationPubkey",
+                    "interest-paid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "programId",
+                      "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "marketPubkey",
+                      "description": "(Required) Kamino Lend market public key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "obligationPubkey",
+                      "description": "(Required) Kamino Lend obligation public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"metadata\": \"Account could not be found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "83078b1c-16da-486d-8132-53df0eca8867",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "kamino-market",
+                    ":marketPubkey",
+                    "obligations",
+                    ":obligationPubkey",
+                    "interest-paid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "programId",
+                      "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "marketPubkey",
+                      "description": "(Required) Kamino Lend market public key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "obligationPubkey",
+                      "description": "(Required) Kamino Lend obligation public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "da782195-96d8-4e2f-a71a-92f0473896ef",
+          "name": "Get user KLend rewards",
+          "request": {
+            "name": "Get user KLend rewards",
+            "description": {
+              "content": "Fetches KLend reward data for a specific user and points source",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "klend",
+                "users",
+                ":pubkey",
+                "rewards"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "<string>",
+                  "description": "Points source identifier"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pubkey",
+                  "description": "(Required) Valid base58-encoded address"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "790528cc-9a03-410c-8cfb-d5875b345aa6",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "klend",
+                    "users",
+                    ":pubkey",
+                    "rewards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "Season1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"avgBaseApy\": \"0.027610992938039702\",\n  \"avgBoostedApy\": \"0.027610992938039702\",\n  \"avgMaxApy\": \"0.027610992938039702\",\n  \"rewards\": [\n    {\n      \"depositReserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"borrowReserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"market\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"rewardMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"lastCalculated\": \"1955-07-14\",\n      \"tokensEarned\": \"1234.56789\",\n      \"tokensPerSecond\": \"1234.56789\",\n      \"stakingBoost\": \"1234.56789\",\n      \"effectiveStakingBoost\": \"1234.56789\",\n      \"baseApy\": \"0.027610992938039702\",\n      \"boostedApy\": \"0.027610992938039702\",\n      \"maxApy\": \"0.027610992938039702\",\n      \"usdAmount\": \"1234.56789\",\n      \"usdAmountBoosted\": \"1234.56789\"\n    },\n    {\n      \"depositReserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"borrowReserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"market\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"rewardMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"lastCalculated\": \"1957-10-15\",\n      \"tokensEarned\": \"1234.56789\",\n      \"tokensPerSecond\": \"1234.56789\",\n      \"stakingBoost\": \"1234.56789\",\n      \"effectiveStakingBoost\": \"1234.56789\",\n      \"baseApy\": \"0.027610992938039702\",\n      \"boostedApy\": \"0.027610992938039702\",\n      \"maxApy\": \"0.027610992938039702\",\n      \"usdAmount\": \"1234.56789\",\n      \"usdAmountBoosted\": \"1234.56789\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1be4af0d-8567-4322-aee8-ae85c6fd1fef",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "klend",
+                    "users",
+                    ":pubkey",
+                    "rewards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "Season1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid query params\",\n  \"details\": [\n    {\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a4fa5ba8-806f-499c-8a50-84d0be7eb6f3",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "klend",
+                    "users",
+                    ":pubkey",
+                    "rewards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "Season1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f0d50b45-7893-4f4a-968e-a5c5adbd889a",
+          "name": "Get KLend rewards",
+          "request": {
+            "name": "Get KLend rewards",
+            "description": {
+              "content": "Fetches all active KLend reward metrics for a specific points source",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "klend",
+                "rewards"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "<string>",
+                  "description": "Points source identifier"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "19217207-4ba9-49f9-b726-88ae4f9771ef",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "klend",
+                    "rewards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "Season1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"depositReserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"borrowReserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"market\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"rewardToken\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"lastCalculated\": \"1982-09-20T16:25:07.730Z\",\n    \"apy\": \"0.027610992938039702\",\n    \"tokensPerSecond\": \"1234.56789\",\n    \"activePositionsUsd\": \"1234.56789\"\n  },\n  {\n    \"depositReserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"borrowReserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"market\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"rewardToken\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"lastCalculated\": \"1973-06-12T03:46:41.451Z\",\n    \"apy\": \"0.027610992938039702\",\n    \"tokensPerSecond\": \"1234.56789\",\n    \"activePositionsUsd\": \"1234.56789\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e1f2cfde-675f-4ddd-97d5-a832644a3af3",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "klend",
+                    "rewards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "Season1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid query params\",\n  \"details\": [\n    {\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "48cc762d-cc66-40d7-87d7-cd7cc4e4754c",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "klend",
+                    "rewards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "Season1"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "743e0872-3497-4499-b0df-2404e362c61b",
+          "name": "Get KLend reward history",
+          "request": {
+            "name": "Get KLend reward history",
+            "description": {
+              "content": "Fetches historical KLend reward metrics for a specific deposit and borrow reserve pair",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "klend",
+                ":depositReservePubkey",
+                ":borrowReservePubkey",
+                "rewards",
+                "history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "Date input (ISO 8601 string or epoch in ms)"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "Date input (ISO 8601 string or epoch in ms)"
+                },
+                {
+                  "disabled": false,
+                  "key": "frequency",
+                  "value": "<string>",
+                  "description": "Frequency of historical data aggregation"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "depositReservePubkey",
+                  "description": "(Required) Deposit reserve public key"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "borrowReservePubkey",
+                  "description": "(Required) Borrow reserve public key"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cc22d52b-56f7-4270-b27c-6b83c90c5bce",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "klend",
+                    ":depositReservePubkey",
+                    ":borrowReservePubkey",
+                    "rewards",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "frequency",
+                      "value": "hour"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "depositReservePubkey",
+                      "description": "(Required) Deposit reserve public key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "borrowReservePubkey",
+                      "description": "(Required) Borrow reserve public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"timestamp\": \"1998-08-27T09:42:35.331Z\",\n    \"depositReserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"borrowReserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"rewardToken\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"rewardApy\": \"0.027610992938039702\"\n  },\n  {\n    \"timestamp\": \"1988-12-19T16:58:28.895Z\",\n    \"depositReserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"borrowReserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"rewardToken\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"rewardApy\": \"0.027610992938039702\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d73de8aa-7051-4170-8c26-0c51a8f54cdc",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "klend",
+                    ":depositReservePubkey",
+                    ":borrowReservePubkey",
+                    "rewards",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "frequency",
+                      "value": "hour"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "depositReservePubkey",
+                      "description": "(Required) Deposit reserve public key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "borrowReservePubkey",
+                      "description": "(Required) Borrow reserve public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid query params\",\n  \"details\": [\n    {\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    {\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9a106ef2-e507-4e13-8b7f-de74a6dddbfe",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "klend",
+                    ":depositReservePubkey",
+                    ":borrowReservePubkey",
+                    "rewards",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "frequency",
+                      "value": "hour"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "depositReservePubkey",
+                      "description": "(Required) Deposit reserve public key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "borrowReservePubkey",
+                      "description": "(Required) Borrow reserve public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.kamino.finance",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ca78d766-ec7d-475c-9217-0cc771834039",
+    "name": "Kamino Public Airdrop Kamino Lend Yield API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.\n\nThe API also provides the ability to fetch data that might not be available from just reading the chain.\n\nThe API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.\n",
+      "type": "text/plain"
+    }
+  }
+}

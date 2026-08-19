@@ -1,0 +1,450 @@
+{
+  "item": [
+    {
+      "id": "a32f8994-a27d-4e04-93b5-f68ba81a1234",
+      "name": "Portfolio",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9969a302-c55d-410a-bc6d-b996a10c8386",
+          "name": "Get portfolio source data for a wallet",
+          "request": {
+            "name": "Get portfolio source data for a wallet",
+            "description": {
+              "content": "Returns source position rows across Kamino products (lending, multiply, leverage, liquidity, earn, private credit, staking). Portfolio totals, counts, fees, historical PnL, and display-only rollups are intentionally left to client composition or their dedicated endpoints.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "portfolio",
+                ":pubkey"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "programId",
+                  "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD",
+                  "description": "KLend program ID"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pubkey",
+                  "description": "(Required) Valid base58-encoded address"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f6d8ed86-0517-458a-a279-8589cd7493c2",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portfolio",
+                    ":pubkey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "programId",
+                      "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-06-12T11:16:12.657Z\",\n  \"sections\": {\n    \"lending\": {\n      \"indexed\": true,\n      \"positionsRefreshedOn\": \"2026-06-11T23:14:19.969Z\",\n      \"pricesRefreshedOn\": \"2026-06-12T11:12:29.057Z\",\n      \"errors\": []\n    },\n    \"multiply\": {\n      \"indexed\": true,\n      \"positionsRefreshedOn\": \"2026-06-11T23:13:54.680Z\",\n      \"pricesRefreshedOn\": \"2026-06-12T11:12:29.057Z\",\n      \"errors\": []\n    },\n    \"leverage\": {\n      \"indexed\": true,\n      \"positionsRefreshedOn\": \"2026-06-11T23:14:00.518Z\",\n      \"pricesRefreshedOn\": \"2026-06-12T11:12:29.057Z\",\n      \"errors\": []\n    },\n    \"liquidity\": {\n      \"indexed\": true,\n      \"positionsRefreshedOn\": \"2026-06-11T23:11:53.211Z\",\n      \"pricesRefreshedOn\": \"2026-06-11T23:14:24.861Z\",\n      \"errors\": []\n    },\n    \"earn\": {\n      \"indexed\": true,\n      \"positionsRefreshedOn\": \"2026-06-11T23:12:29.633Z\",\n      \"pricesRefreshedOn\": \"2026-06-12T11:12:29.057Z\",\n      \"errors\": []\n    },\n    \"privateCredit\": {\n      \"indexed\": true,\n      \"positionsRefreshedOn\": \"2026-06-11T23:12:29.846Z\",\n      \"pricesRefreshedOn\": \"2026-06-12T11:12:29.057Z\",\n      \"errors\": []\n    },\n    \"staking\": {\n      \"indexed\": true,\n      \"positionsRefreshedOn\": \"2026-06-11T23:04:34.002Z\",\n      \"pricesRefreshedOn\": \"2026-06-12T11:12:29.057Z\",\n      \"errors\": []\n    }\n  },\n  \"lending\": [\n    {\n      \"obligation\": \"HpAQMFgpSJ3XZWEXtSQgJmuL3Fd8QepJSG79csgq3hoB\",\n      \"market\": \"5wJeMrUYECGq41fxRESKALVcHnNX26TAWy4W98yULsua\",\n      \"tag\": \"Vanilla\",\n      \"netValue\": \"262.00710654164595037\",\n      \"totalDepositValue\": \"491.89391304710577576\",\n      \"totalBorrowValue\": \"229.88680650545982539\",\n      \"ltv\": \"0.4673503786241097951\",\n      \"maxLtv\": \"0.5727335057760832411\",\n      \"liquidationLtv\": \"0.63241141170317723635\",\n      \"leverage\": \"1.8774067602205262589\",\n      \"deposits\": [\n        {\n          \"mint\": \"XsoCS1TfEyfFhfvj8EtZ528L3CaKBDBRqRapnBbDF2W\",\n          \"symbol\": \"SPYx\",\n          \"amount\": \"0.16082255065800625522\",\n          \"value\": \"119.1703926699327137\",\n          \"price\": \"741.005488237479553\",\n          \"reserve\": \"UvXjBuC7YZYaGB9Rn1PpBD1GySmjzunXgE8Zev9ua8d\",\n          \"maxLtv\": \"0.73\",\n          \"liquidationLtv\": \"0.75\"\n        }\n      ],\n      \"borrows\": [\n        {\n          \"mint\": \"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\n          \"symbol\": \"USDC\",\n          \"amount\": \"229.95449131043213799\",\n          \"value\": \"229.88680650545982539\",\n          \"price\": \"0.99970566\",\n          \"reserve\": \"97zoywd8mPZsGTg8q1wdD2Wgkdrs2tqusp1Qqcxbyj7E\",\n          \"borrowFactor\": \"1\"\n        }\n      ]\n    }\n  ],\n  \"multiply\": [\n    {\n      \"obligation\": \"2JsWdyxA15WodMBzRY5uNUJDvL71xm9NwfMj6qdYi3SC\",\n      \"market\": \"7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF\",\n      \"tag\": \"Multiply\",\n      \"netValue\": \"39.032947857306441512\",\n      \"totalDepositValue\": \"124.32509095187057771\",\n      \"totalBorrowValue\": \"85.292143094564136198\",\n      \"ltv\": \"0.68604126843215345899\",\n      \"maxLtv\": \"0.87000000000000000002\",\n      \"liquidationLtv\": \"0.91999999999999999997\",\n      \"leverage\": \"3.1851319917308934971\",\n      \"deposits\": [\n        {\n          \"mint\": \"J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn\",\n          \"symbol\": \"JitoSOL\",\n          \"amount\": \"1.4488817124626824571\",\n          \"value\": \"124.32509095187057771\",\n          \"price\": \"85.807619685221685924\",\n          \"reserve\": \"EVbyPKrHG6WBfm4dLxLMJpUDY43cCAcHSpV3KYjKsktW\",\n          \"maxLtv\": \"0.87\",\n          \"liquidationLtv\": \"0.92\"\n        }\n      ],\n      \"borrows\": [\n        {\n          \"mint\": \"So11111111111111111111111111111111111111112\",\n          \"symbol\": \"SOL\",\n          \"amount\": \"1.276825076608483649\",\n          \"value\": \"85.292143094564136198\",\n          \"price\": \"66.80017855\",\n          \"reserve\": \"d4A2prbA2whesmvHaL88BH6Ewn5N4bTSU2Ze8P6Bc4Q\",\n          \"borrowFactor\": \"1\"\n        }\n      ],\n      \"depositMint\": \"J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn\",\n      \"borrowMint\": \"So11111111111111111111111111111111111111112\"\n    }\n  ],\n  \"leverage\": [\n    {\n      \"obligation\": \"VgtvJ1iCDAb65pWbwhvX33X6CWMWMdrYRABEhNTJ9xq\",\n      \"market\": \"7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF\",\n      \"tag\": \"Leverage\",\n      \"netValue\": \"8.774498333310038026\",\n      \"totalDepositValue\": \"23.724451929066735492\",\n      \"totalBorrowValue\": \"14.949953595756697466\",\n      \"ltv\": \"0.6301495874575001704\",\n      \"maxLtv\": \"0.75\",\n      \"liquidationLtv\": \"0.80000000000000000002\",\n      \"leverage\": \"2.7037958214663046734\",\n      \"deposits\": [\n        {\n          \"mint\": \"7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs\",\n          \"symbol\": \"ETH\",\n          \"amount\": \"0.014174648995927885562\",\n          \"value\": \"23.724451929066735492\",\n          \"price\": \"1673.72412085\",\n          \"reserve\": \"febGYTnFX4GbSGoFHFeJXUHgNaK53fB23uDins9Jp1E\",\n          \"maxLtv\": \"0.75\",\n          \"liquidationLtv\": \"0.8\"\n        }\n      ],\n      \"borrows\": [\n        {\n          \"mint\": \"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\n          \"symbol\": \"USDC\",\n          \"amount\": \"14.954355260684127232\",\n          \"value\": \"14.949953595756697466\",\n          \"price\": \"0.99970566\",\n          \"reserve\": \"D6q6wuQSrifJKZYpR1M8R4YawnLDtDsMmWM1NbBmgJ59\",\n          \"borrowFactor\": \"1\"\n        }\n      ],\n      \"depositMint\": \"7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs\",\n      \"borrowMint\": \"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\"\n    }\n  ],\n  \"liquidity\": [\n    {\n      \"strategy\": \"HBuYwvq67VKnLyKxPzDjzskyRMk7ps39gwHdvaPGwdmQ\",\n      \"shareMint\": \"7XB1azPg9hmD196uiGNa61EyvXbCmQhg8jSdptRGkRTZ\",\n      \"shares\": \"216.673457\",\n      \"netValue\": \"26.383693978132575086\",\n      \"tokenA\": {\n        \"mint\": \"JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN\",\n        \"symbol\": \"JUP\",\n        \"amount\": \"54.602417609162028891\",\n        \"value\": \"9.1141301646553401798\",\n        \"price\": \"0.16691807\"\n      },\n      \"tokenB\": {\n        \"mint\": \"bSo13r4TkiE4KumL71LsHTPpL2euBYLFx6h9HP3piy1\",\n        \"symbol\": \"bSOL\",\n        \"amount\": \"0.19898556021252914791\",\n        \"value\": \"17.269563813477234906\",\n        \"price\": \"86.788025196563257466\"\n      }\n    }\n  ],\n  \"earn\": [\n    {\n      \"vault\": \"7cYGMEwQKhdYdugAyQBEqtwG6KhHyuEDcgUrdfGaV6qV\",\n      \"tokenMint\": \"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\n      \"symbol\": \"USDC\",\n      \"name\": \"Core+ USDC Vault\",\n      \"netValue\": \"102.43833649457444653\",\n      \"shares\": \"97.742099\",\n      \"amount\": \"102.46849707200261978\"\n    }\n  ],\n  \"privateCredit\": [\n    {\n      \"vault\": \"91b1opzHNUQobfLZxGMNYT5qDRKoqV8FdsdQBmH4wBxy\",\n      \"tokenMint\": \"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\n      \"symbol\": \"USDC\",\n      \"name\": \"Kamino Institutional USDC\",\n      \"netValue\": \"10.357873888364687946\",\n      \"shares\": \"10\",\n      \"amount\": \"10.360923522594328361\"\n    }\n  ],\n  \"staking\": [\n    {\n      \"mint\": \"KMNo3nJsBXfcpJTVhZcXLW7RmTwTt4GVFE7suUBo9sS\",\n      \"symbol\": \"KMNO\",\n      \"farm\": \"2sFZDpBn4sA42uNbAD6QzQ98rPSmqnPyksYe6SJKVvay\",\n      \"amount\": \"1700.2533519964832604\",\n      \"value\": \"30.92680935374059216\",\n      \"price\": \"0.01818953\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd834b91-87aa-4b8f-8735-8eb4f9d49ebc",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portfolio",
+                    ":pubkey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "programId",
+                      "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid query params\",\n  \"details\": [\n    {\n      \"key_0\": {}\n    },\n    {\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c57ab9dd-be55-415c-bb2f-9713bb6f2301",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portfolio",
+                    ":pubkey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "programId",
+                      "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bdbde3e5-4964-4f53-8c4d-42d1371874d3",
+          "name": "Get pending farm rewards for a wallet",
+          "request": {
+            "name": "Get pending farm rewards for a wallet",
+            "description": {
+              "content": "Returns pending farm reward source rows across Kamino products. USD reward totals are composed on the client from price data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "portfolio",
+                ":pubkey",
+                "rewards"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "programId",
+                  "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD",
+                  "description": "KLend program ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "rewardTypes",
+                  "value": "<string>",
+                  "description": "Comma-separated farm reward types to include. Defaults to 0,1 to match portfolio webapp rewards."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pubkey",
+                  "description": "(Required) Valid base58-encoded address"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3137ac69-d71c-4d28-9a7a-2f64beef2ee8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portfolio",
+                    ":pubkey",
+                    "rewards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "programId",
+                      "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD"
+                    },
+                    {
+                      "key": "rewardTypes",
+                      "value": "0,1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"timestamp\": \"2026-06-12T11:16:12.684Z\",\n  \"farms\": [\n    {\n      \"farm\": \"A9nKRhBPVdQ2QDfzMkhpZzsAimCt59wSKxpo36bzhDiU\",\n      \"userState\": \"JBhXSh6Zb5TPi8g6rsTpNjmuet4V7YGGtU3daou9Y2qs\",\n      \"delegatee\": \"ARygwR6WBPvatQ2bBrSyytsyBgqrRDwxEuANWSSydfXW\",\n      \"strategy\": \"HBuYwvq67VKnLyKxPzDjzskyRMk7ps39gwHdvaPGwdmQ\",\n      \"positionType\": \"Liquidity\",\n      \"activeStakeAmount\": \"216.673457\",\n      \"tokenMints\": [\n        \"JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN\",\n        \"bSo13r4TkiE4KumL71LsHTPpL2euBYLFx6h9HP3piy1\"\n      ],\n      \"rewards\": [\n        {\n          \"mint\": \"BLZEEuZUBVqFhj8adcCFPJvPVCiCyVmh3hkJMrU8KuJA\",\n          \"amount\": \"59.765598641\",\n          \"index\": 0,\n          \"type\": 0,\n          \"tokenProgram\": \"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA\"\n        }\n      ]\n    },\n    {\n      \"farm\": \"9hUeaxTE3UsRFVt46NPDszSGW76gqDwK743SvJvjYUiY\",\n      \"userState\": \"HkPCNqo1FRo41oiCwG8Kjsg664Jamsv8TE9kU7bqVP5S\",\n      \"delegatee\": \"5CVMEG7NSdEDVTPiz8efwL6zbXYSVEpkHovf54n2bvoZ\",\n      \"vault\": \"NSSESC5s9Mk7uhUg7hdRiEeNaz7FQmZveJseF62Zjbc\",\n      \"positionType\": \"Lend\",\n      \"activeStakeAmount\": \"0\",\n      \"tokenMints\": [\n        \"CASHx9KJUStyftLFWGvEVf59SGeG9sh5FfcnZMVPCASH\"\n      ],\n      \"rewards\": [\n        {\n          \"mint\": \"CASHx9KJUStyftLFWGvEVf59SGeG9sh5FfcnZMVPCASH\",\n          \"amount\": \"0.446532\",\n          \"index\": 0,\n          \"type\": 0,\n          \"tokenProgram\": \"TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb\"\n        }\n      ]\n    },\n    {\n      \"farm\": \"3Dsn7mXKCxQ54QxDtogFsGqgMhhgWnVtN5MGLHvowh3E\",\n      \"userState\": \"F8vs1tNCEdsvHB9ZgYCNRNnb2CbmDULEfQ68A6ZXHvwm\",\n      \"delegatee\": \"51rLRu3pvps8vWHVt6uSBeRgQ2UJgCPsw5TEdGsQSKkA\",\n      \"positionType\": \"Borrow Markets\",\n      \"activeStakeAmount\": \"0\",\n      \"tokenMints\": [],\n      \"rewards\": [\n        {\n          \"mint\": \"CASHx9KJUStyftLFWGvEVf59SGeG9sh5FfcnZMVPCASH\",\n          \"amount\": \"0.003248\",\n          \"index\": 0,\n          \"type\": 1,\n          \"tokenProgram\": \"TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2540a539-1203-4b24-8abc-6be5570026e1",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portfolio",
+                    ":pubkey",
+                    "rewards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "programId",
+                      "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD"
+                    },
+                    {
+                      "key": "rewardTypes",
+                      "value": "0,1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid query params\",\n  \"details\": [\n    {\n      \"key_0\": {}\n    },\n    {\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8fbc6d9a-b23f-496c-a017-c0767ca2d6b4",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portfolio",
+                    ":pubkey",
+                    "rewards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "programId",
+                      "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD"
+                    },
+                    {
+                      "key": "rewardTypes",
+                      "value": "0,1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.kamino.finance",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "cd9a9603-6cdc-4923-96d6-9c3864b5f465",
+    "name": "Kamino Public Airdrop Portfolio API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.\n\nThe API also provides the ability to fetch data that might not be available from just reading the chain.\n\nThe API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.\n",
+      "type": "text/plain"
+    }
+  }
+}

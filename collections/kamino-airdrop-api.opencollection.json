@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kamino Public Airdrop API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Airdrop",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get user airdrop allocations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/v2/airdrop/users/:pubkey/allocations",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "Valid base58-encoded address of the user wallet"
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Points source identifier"
+              }
+            ]
+          },
+          "docs": "Fetches airdrop allocation data for a specific user and source (Seasons...)"
+        },
+        {
+          "info": {
+            "name": "Get airdrop metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/v2/airdrop/metrics",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Points source identifier"
+              }
+            ]
+          },
+          "docs": "Fetches aggregated airdrop metrics and metadata for a specific points source."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

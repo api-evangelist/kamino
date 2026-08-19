@@ -1,0 +1,1625 @@
+{
+  "item": [
+    {
+      "id": "81ff7621-7ff7-4f0b-b89c-4cb1d29a8831",
+      "name": "Kamino Lend Transactions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fdc2b7cb-d687-490c-801b-48980ea7cae1",
+          "name": "Get obligation transactions",
+          "request": {
+            "name": "Get obligation transactions",
+            "description": {
+              "content": "Get all Kamino Lend transactions for a given obligation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "kamino-market",
+                ":marketPubkey",
+                "obligations",
+                ":obligationPubkey",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "env",
+                  "value": "mainnet-beta",
+                  "description": "Solana cluster environment"
+                },
+                {
+                  "disabled": false,
+                  "key": "useLogPrices",
+                  "value": "false",
+                  "description": "Use log prices for transaction values"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "asc",
+                  "description": "Sort order (asc for oldest first, desc for newest first)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "marketPubkey",
+                  "description": "(Required) Kamino Lend market public key"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "obligationPubkey",
+                  "description": "(Required) Kamino Lend obligation public key"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ad980031-3290-4e10-9a84-6d956d407c77",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "kamino-market",
+                    ":marketPubkey",
+                    "obligations",
+                    ":obligationPubkey",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    },
+                    {
+                      "key": "useLogPrices",
+                      "value": "false"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "marketPubkey",
+                      "description": "(Required) Kamino Lend market public key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "obligationPubkey",
+                      "description": "(Required) Kamino Lend obligation public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"transactions\": [\n    {\n      \"createdOn\": \"1954-05-07\",\n      \"timestamp\": 8522.598717078512,\n      \"transactionSignature\": \"string\",\n      \"transactionName\": \"string\",\n      \"liquidityToken\": \"string\",\n      \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"liquidityTokenAmount\": \"1234.56789\",\n      \"isLiquidationWithdrawal\": false,\n      \"obligation\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"obligationType\": \"string\",\n      \"transactionDisplayName\": \"string\",\n      \"liquidityTokenPrice\": \"1234.56789\",\n      \"solPrice\": \"1234.56789\",\n      \"liquidityUsdValue\": \"1234.56789\",\n      \"isSecondPartOfCompositeIx\": false\n    },\n    {\n      \"createdOn\": \"2015-12-22\",\n      \"timestamp\": 1387.6376558144786,\n      \"transactionSignature\": \"string\",\n      \"transactionName\": \"string\",\n      \"liquidityToken\": \"string\",\n      \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"liquidityTokenAmount\": \"1234.56789\",\n      \"isLiquidationWithdrawal\": false,\n      \"obligation\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"obligationType\": \"string\",\n      \"transactionDisplayName\": \"string\",\n      \"liquidityTokenPrice\": \"1234.56789\",\n      \"solPrice\": \"1234.56789\",\n      \"liquidityUsdValue\": \"1234.56789\",\n      \"isSecondPartOfCompositeIx\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "273e1cc8-1164-43ba-b2ce-f84bed8d6bdc",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "kamino-market",
+                    ":marketPubkey",
+                    "obligations",
+                    ":obligationPubkey",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    },
+                    {
+                      "key": "useLogPrices",
+                      "value": "false"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "marketPubkey",
+                      "description": "(Required) Kamino Lend market public key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "obligationPubkey",
+                      "description": "(Required) Kamino Lend obligation public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "66a05f74-6ef4-4756-af90-c45dfb935371",
+          "name": "Get user transactions across all markets",
+          "request": {
+            "name": "Get user transactions across all markets",
+            "description": {
+              "content": "Get all Kamino Lend transactions for a given user across all markets.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "kamino-market",
+                "users",
+                ":userPubkey",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "env",
+                  "value": "mainnet-beta",
+                  "description": "Solana cluster environment"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "asc",
+                  "description": "Sort order (asc for oldest first, desc for newest first)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userPubkey",
+                  "description": "(Required) User wallet public key"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "18fdbe8a-4413-481f-acc4-8e73a3a025ac",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "kamino-market",
+                    "users",
+                    ":userPubkey",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userPubkey",
+                      "description": "(Required) User wallet public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"market\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"obligations\": {\n      \"key_0\": [\n        {\n          \"createdOn\": \"1978-01-16\",\n          \"timestamp\": 3667.366747505376,\n          \"transactionSignature\": \"string\",\n          \"transactionName\": \"string\",\n          \"liquidityToken\": \"string\",\n          \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"liquidityTokenAmount\": \"1234.56789\",\n          \"isLiquidationWithdrawal\": false,\n          \"obligationType\": \"string\",\n          \"transactionDisplayName\": \"string\",\n          \"liquidityTokenPrice\": \"1234.56789\",\n          \"solPrice\": \"1234.56789\",\n          \"liquidityUsdValue\": \"1234.56789\",\n          \"isSecondPartOfCompositeIx\": false\n        },\n        {\n          \"createdOn\": \"2019-09-05\",\n          \"timestamp\": 3297.17758038677,\n          \"transactionSignature\": \"string\",\n          \"transactionName\": \"string\",\n          \"liquidityToken\": \"string\",\n          \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"liquidityTokenAmount\": \"1234.56789\",\n          \"isLiquidationWithdrawal\": true,\n          \"obligationType\": \"string\",\n          \"transactionDisplayName\": \"string\",\n          \"liquidityTokenPrice\": \"1234.56789\",\n          \"solPrice\": \"1234.56789\",\n          \"liquidityUsdValue\": \"1234.56789\",\n          \"isSecondPartOfCompositeIx\": true\n        }\n      ],\n      \"key_1\": [\n        {\n          \"createdOn\": \"1961-06-14\",\n          \"timestamp\": 331.8634418475097,\n          \"transactionSignature\": \"string\",\n          \"transactionName\": \"string\",\n          \"liquidityToken\": \"string\",\n          \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"liquidityTokenAmount\": \"1234.56789\",\n          \"isLiquidationWithdrawal\": true,\n          \"obligationType\": \"string\",\n          \"transactionDisplayName\": \"string\",\n          \"liquidityTokenPrice\": \"1234.56789\",\n          \"solPrice\": \"1234.56789\",\n          \"liquidityUsdValue\": \"1234.56789\",\n          \"isSecondPartOfCompositeIx\": true\n        },\n        {\n          \"createdOn\": \"1991-08-23\",\n          \"timestamp\": 6710.054909070482,\n          \"transactionSignature\": \"string\",\n          \"transactionName\": \"string\",\n          \"liquidityToken\": \"string\",\n          \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"liquidityTokenAmount\": \"1234.56789\",\n          \"isLiquidationWithdrawal\": true,\n          \"obligationType\": \"string\",\n          \"transactionDisplayName\": \"string\",\n          \"liquidityTokenPrice\": \"1234.56789\",\n          \"solPrice\": \"1234.56789\",\n          \"liquidityUsdValue\": \"1234.56789\",\n          \"isSecondPartOfCompositeIx\": false\n        }\n      ]\n    }\n  },\n  {\n    \"market\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"obligations\": {\n      \"key_0\": [\n        {\n          \"createdOn\": \"2022-05-03\",\n          \"timestamp\": 1286.379459738718,\n          \"transactionSignature\": \"string\",\n          \"transactionName\": \"string\",\n          \"liquidityToken\": \"string\",\n          \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"liquidityTokenAmount\": \"1234.56789\",\n          \"isLiquidationWithdrawal\": true,\n          \"obligationType\": \"string\",\n          \"transactionDisplayName\": \"string\",\n          \"liquidityTokenPrice\": \"1234.56789\",\n          \"solPrice\": \"1234.56789\",\n          \"liquidityUsdValue\": \"1234.56789\",\n          \"isSecondPartOfCompositeIx\": true\n        },\n        {\n          \"createdOn\": \"1984-07-04\",\n          \"timestamp\": 6723.549317752815,\n          \"transactionSignature\": \"string\",\n          \"transactionName\": \"string\",\n          \"liquidityToken\": \"string\",\n          \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"liquidityTokenAmount\": \"1234.56789\",\n          \"isLiquidationWithdrawal\": true,\n          \"obligationType\": \"string\",\n          \"transactionDisplayName\": \"string\",\n          \"liquidityTokenPrice\": \"1234.56789\",\n          \"solPrice\": \"1234.56789\",\n          \"liquidityUsdValue\": \"1234.56789\",\n          \"isSecondPartOfCompositeIx\": false\n        }\n      ],\n      \"key_1\": [\n        {\n          \"createdOn\": \"2024-07-04\",\n          \"timestamp\": 5097.728475955891,\n          \"transactionSignature\": \"string\",\n          \"transactionName\": \"string\",\n          \"liquidityToken\": \"string\",\n          \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"liquidityTokenAmount\": \"1234.56789\",\n          \"isLiquidationWithdrawal\": true,\n          \"obligationType\": \"string\",\n          \"transactionDisplayName\": \"string\",\n          \"liquidityTokenPrice\": \"1234.56789\",\n          \"solPrice\": \"1234.56789\",\n          \"liquidityUsdValue\": \"1234.56789\",\n          \"isSecondPartOfCompositeIx\": false\n        },\n        {\n          \"createdOn\": \"1955-08-27\",\n          \"timestamp\": 694.4884099841131,\n          \"transactionSignature\": \"string\",\n          \"transactionName\": \"string\",\n          \"liquidityToken\": \"string\",\n          \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"liquidityTokenAmount\": \"1234.56789\",\n          \"isLiquidationWithdrawal\": true,\n          \"obligationType\": \"string\",\n          \"transactionDisplayName\": \"string\",\n          \"liquidityTokenPrice\": \"1234.56789\",\n          \"solPrice\": \"1234.56789\",\n          \"liquidityUsdValue\": \"1234.56789\",\n          \"isSecondPartOfCompositeIx\": false\n        }\n      ],\n      \"key_2\": [\n        {\n          \"createdOn\": \"1972-09-17\",\n          \"timestamp\": 9437.957756122449,\n          \"transactionSignature\": \"string\",\n          \"transactionName\": \"string\",\n          \"liquidityToken\": \"string\",\n          \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"liquidityTokenAmount\": \"1234.56789\",\n          \"isLiquidationWithdrawal\": true,\n          \"obligationType\": \"string\",\n          \"transactionDisplayName\": \"string\",\n          \"liquidityTokenPrice\": \"1234.56789\",\n          \"solPrice\": \"1234.56789\",\n          \"liquidityUsdValue\": \"1234.56789\",\n          \"isSecondPartOfCompositeIx\": false\n        },\n        {\n          \"createdOn\": \"1958-02-03\",\n          \"timestamp\": 9358.718013676904,\n          \"transactionSignature\": \"string\",\n          \"transactionName\": \"string\",\n          \"liquidityToken\": \"string\",\n          \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"liquidityTokenAmount\": \"1234.56789\",\n          \"isLiquidationWithdrawal\": false,\n          \"obligationType\": \"string\",\n          \"transactionDisplayName\": \"string\",\n          \"liquidityTokenPrice\": \"1234.56789\",\n          \"solPrice\": \"1234.56789\",\n          \"liquidityUsdValue\": \"1234.56789\",\n          \"isSecondPartOfCompositeIx\": true\n        }\n      ]\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7af3c0d1-671d-4ddb-94d4-29e412e6cb0e",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "kamino-market",
+                    "users",
+                    ":userPubkey",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userPubkey",
+                      "description": "(Required) User wallet public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "00239402-0a12-463b-802a-a61e3bd16b40",
+          "name": "Get user transactions",
+          "request": {
+            "name": "Get user transactions",
+            "description": {
+              "content": "Get all Kamino Lend transactions for a given user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "kamino-market",
+                ":marketPubkey",
+                "users",
+                ":userPubkey",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "env",
+                  "value": "mainnet-beta",
+                  "description": "Solana cluster environment"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "asc",
+                  "description": "Sort order (asc for oldest first, desc for newest first)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "marketPubkey",
+                  "description": "(Required) Kamino Lend market public key"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userPubkey",
+                  "description": "(Required) User wallet public key"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d4923257-ea06-454e-964c-92e478d11170",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "kamino-market",
+                    ":marketPubkey",
+                    "users",
+                    ":userPubkey",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "marketPubkey",
+                      "description": "(Required) Kamino Lend market public key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userPubkey",
+                      "description": "(Required) User wallet public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": [\n    {\n      \"createdOn\": \"2003-11-17\",\n      \"timestamp\": 6101.407175570115,\n      \"transactionSignature\": \"string\",\n      \"transactionName\": \"string\",\n      \"liquidityToken\": \"string\",\n      \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"liquidityTokenAmount\": \"1234.56789\",\n      \"isLiquidationWithdrawal\": false,\n      \"obligationType\": \"string\",\n      \"transactionDisplayName\": \"string\",\n      \"liquidityTokenPrice\": \"1234.56789\",\n      \"solPrice\": \"1234.56789\",\n      \"liquidityUsdValue\": \"1234.56789\",\n      \"isSecondPartOfCompositeIx\": false\n    },\n    {\n      \"createdOn\": \"1949-06-17\",\n      \"timestamp\": 3737.4611897983755,\n      \"transactionSignature\": \"string\",\n      \"transactionName\": \"string\",\n      \"liquidityToken\": \"string\",\n      \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"liquidityTokenAmount\": \"1234.56789\",\n      \"isLiquidationWithdrawal\": false,\n      \"obligationType\": \"string\",\n      \"transactionDisplayName\": \"string\",\n      \"liquidityTokenPrice\": \"1234.56789\",\n      \"solPrice\": \"1234.56789\",\n      \"liquidityUsdValue\": \"1234.56789\",\n      \"isSecondPartOfCompositeIx\": false\n    }\n  ],\n  \"key_1\": [\n    {\n      \"createdOn\": \"1951-03-29\",\n      \"timestamp\": 7661.21993538865,\n      \"transactionSignature\": \"string\",\n      \"transactionName\": \"string\",\n      \"liquidityToken\": \"string\",\n      \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"liquidityTokenAmount\": \"1234.56789\",\n      \"isLiquidationWithdrawal\": true,\n      \"obligationType\": \"string\",\n      \"transactionDisplayName\": \"string\",\n      \"liquidityTokenPrice\": \"1234.56789\",\n      \"solPrice\": \"1234.56789\",\n      \"liquidityUsdValue\": \"1234.56789\",\n      \"isSecondPartOfCompositeIx\": false\n    },\n    {\n      \"createdOn\": \"1969-10-12\",\n      \"timestamp\": 776.3040494055273,\n      \"transactionSignature\": \"string\",\n      \"transactionName\": \"string\",\n      \"liquidityToken\": \"string\",\n      \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"liquidityTokenAmount\": \"1234.56789\",\n      \"isLiquidationWithdrawal\": true,\n      \"obligationType\": \"string\",\n      \"transactionDisplayName\": \"string\",\n      \"liquidityTokenPrice\": \"1234.56789\",\n      \"solPrice\": \"1234.56789\",\n      \"liquidityUsdValue\": \"1234.56789\",\n      \"isSecondPartOfCompositeIx\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5a96d163-bff6-485f-bff0-211b74720918",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "kamino-market",
+                    ":marketPubkey",
+                    "users",
+                    ":userPubkey",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "marketPubkey",
+                      "description": "(Required) Kamino Lend market public key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userPubkey",
+                      "description": "(Required) User wallet public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8e54759f-72a0-4e4b-9285-a61505af53f4",
+          "name": "Get bulk market transactions",
+          "request": {
+            "name": "Get bulk market transactions",
+            "description": {
+              "content": "Get bulk Kamino Lend transactions for a given market, filtered by instruction name and date range. Private (authorized) API access only, please add a basic auth header to your request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "kamino-market",
+                ":pubkey",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "programId",
+                  "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD",
+                  "description": "KLend program ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeRawJson",
+                  "value": "<string>",
+                  "description": "Whether to include raw JSON of the transaction"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pubkey",
+                  "description": "(Required) Market public key"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"instruction\": \"<string>\",\n  \"start\": \"<string>\",\n  \"end\": \"<string>\",\n  \"paginationToken\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "da11aa5e-a5e0-4e78-8f84-cc184dd04e18",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "kamino-market",
+                    ":pubkey",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "programId",
+                      "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD"
+                    },
+                    {
+                      "key": "includeRawJson",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Market public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"instruction\": \"depositReserveLiquidityAndObligationCollateralV2\",\n  \"start\": \"<string>\",\n  \"end\": \"<string>\",\n  \"paginationToken\": \"eyJsYXN0SWQiOiIxMjM0In0=\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": [\n    {\n      \"timestamp\": \"2016-11-10\",\n      \"signature\": \"string\",\n      \"obligation\": \"string\",\n      \"wallet\": \"string\",\n      \"rawJson\": \"string\"\n    },\n    {\n      \"timestamp\": \"1954-05-18\",\n      \"signature\": \"string\",\n      \"obligation\": \"string\",\n      \"wallet\": \"string\",\n      \"rawJson\": \"string\"\n    }\n  ],\n  \"paginationToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "743ff2f6-8782-4546-88ec-bdc286caf475",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "kamino-market",
+                    ":pubkey",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "programId",
+                      "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD"
+                    },
+                    {
+                      "key": "includeRawJson",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Market public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"instruction\": \"depositReserveLiquidityAndObligationCollateralV2\",\n  \"start\": \"<string>\",\n  \"end\": \"<string>\",\n  \"paginationToken\": \"eyJsYXN0SWQiOiIxMjM0In0=\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid query params\",\n  \"details\": [\n    {\n      \"key_0\": {}\n    },\n    {\n      \"key_0\": {},\n      \"key_1\": {},\n      \"key_2\": {},\n      \"key_3\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e448e37b-70bc-4e8d-a659-7223c872a864",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "kamino-market",
+                    ":pubkey",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "programId",
+                      "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD"
+                    },
+                    {
+                      "key": "includeRawJson",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Market public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"instruction\": \"depositReserveLiquidityAndObligationCollateralV2\",\n  \"start\": \"<string>\",\n  \"end\": \"<string>\",\n  \"paginationToken\": \"eyJsYXN0SWQiOiIxMjM0In0=\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Not authorized for this request. Please include the basic auth headers.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2352add2-ba7d-4379-a8bd-5ea20aed37d8",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "kamino-market",
+                    ":pubkey",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "programId",
+                      "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD"
+                    },
+                    {
+                      "key": "includeRawJson",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Market public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"instruction\": \"depositReserveLiquidityAndObligationCollateralV2\",\n  \"start\": \"<string>\",\n  \"end\": \"<string>\",\n  \"paginationToken\": \"eyJsYXN0SWQiOiIxMjM0In0=\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ca7035a0-d6dd-4343-8814-b9c8ce3b0f28",
+          "name": "Get user transactions across all markets (v3)",
+          "request": {
+            "name": "Get user transactions across all markets (v3)",
+            "description": {
+              "content": "Get all Kamino Lend transactions for a given user across all markets, including withdraw-queue transactions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "kamino-market",
+                "users",
+                ":userPubkey",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "env",
+                  "value": "mainnet-beta",
+                  "description": "Solana cluster environment"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "asc",
+                  "description": "Sort order (asc for oldest first, desc for newest first)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userPubkey",
+                  "description": "(Required) User wallet public key"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "989b6983-e16b-4e1d-9b1b-05ac50b28d47",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "kamino-market",
+                    "users",
+                    ":userPubkey",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userPubkey",
+                      "description": "(Required) User wallet public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"market\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"obligations\": {\n      \"key_0\": [\n        {\n          \"createdOn\": \"2025-02-12\",\n          \"timestamp\": 927.681769757136,\n          \"transactionSignature\": \"string\",\n          \"transactionName\": \"string\",\n          \"liquidityToken\": \"string\",\n          \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"liquidityTokenAmount\": \"1234.56789\",\n          \"isLiquidationWithdrawal\": false,\n          \"obligationType\": \"string\",\n          \"transactionDisplayName\": \"string\",\n          \"liquidityTokenPrice\": \"1234.56789\",\n          \"solPrice\": \"1234.56789\",\n          \"liquidityUsdValue\": \"1234.56789\",\n          \"isSecondPartOfCompositeIx\": true\n        },\n        {\n          \"createdOn\": \"1951-12-30\",\n          \"timestamp\": 4009.5450372404607,\n          \"transactionSignature\": \"string\",\n          \"transactionName\": \"string\",\n          \"liquidityToken\": \"string\",\n          \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"liquidityTokenAmount\": \"1234.56789\",\n          \"isLiquidationWithdrawal\": true,\n          \"obligationType\": \"string\",\n          \"transactionDisplayName\": \"string\",\n          \"liquidityTokenPrice\": \"1234.56789\",\n          \"solPrice\": \"1234.56789\",\n          \"liquidityUsdValue\": \"1234.56789\",\n          \"isSecondPartOfCompositeIx\": false\n        }\n      ],\n      \"key_1\": [\n        {\n          \"createdOn\": \"2025-06-04\",\n          \"timestamp\": 5593.291366281017,\n          \"transactionSignature\": \"string\",\n          \"transactionName\": \"string\",\n          \"liquidityToken\": \"string\",\n          \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"liquidityTokenAmount\": \"1234.56789\",\n          \"isLiquidationWithdrawal\": false,\n          \"obligationType\": \"string\",\n          \"transactionDisplayName\": \"string\",\n          \"liquidityTokenPrice\": \"1234.56789\",\n          \"solPrice\": \"1234.56789\",\n          \"liquidityUsdValue\": \"1234.56789\",\n          \"isSecondPartOfCompositeIx\": false\n        },\n        {\n          \"createdOn\": \"2021-05-18\",\n          \"timestamp\": 1336.1652717477934,\n          \"transactionSignature\": \"string\",\n          \"transactionName\": \"string\",\n          \"liquidityToken\": \"string\",\n          \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"liquidityTokenAmount\": \"1234.56789\",\n          \"isLiquidationWithdrawal\": false,\n          \"obligationType\": \"string\",\n          \"transactionDisplayName\": \"string\",\n          \"liquidityTokenPrice\": \"1234.56789\",\n          \"solPrice\": \"1234.56789\",\n          \"liquidityUsdValue\": \"1234.56789\",\n          \"isSecondPartOfCompositeIx\": false\n        }\n      ],\n      \"key_2\": [\n        {\n          \"createdOn\": \"1948-11-09\",\n          \"timestamp\": 3077.831406995085,\n          \"transactionSignature\": \"string\",\n          \"transactionName\": \"string\",\n          \"liquidityToken\": \"string\",\n          \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"liquidityTokenAmount\": \"1234.56789\",\n          \"isLiquidationWithdrawal\": true,\n          \"obligationType\": \"string\",\n          \"transactionDisplayName\": \"string\",\n          \"liquidityTokenPrice\": \"1234.56789\",\n          \"solPrice\": \"1234.56789\",\n          \"liquidityUsdValue\": \"1234.56789\",\n          \"isSecondPartOfCompositeIx\": false\n        },\n        {\n          \"createdOn\": \"1998-06-21\",\n          \"timestamp\": 7371.63908322941,\n          \"transactionSignature\": \"string\",\n          \"transactionName\": \"string\",\n          \"liquidityToken\": \"string\",\n          \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"liquidityTokenAmount\": \"1234.56789\",\n          \"isLiquidationWithdrawal\": false,\n          \"obligationType\": \"string\",\n          \"transactionDisplayName\": \"string\",\n          \"liquidityTokenPrice\": \"1234.56789\",\n          \"solPrice\": \"1234.56789\",\n          \"liquidityUsdValue\": \"1234.56789\",\n          \"isSecondPartOfCompositeIx\": false\n        }\n      ]\n    },\n    \"withdrawQueueTransactions\": [\n      {\n        \"createdOn\": \"1952-11-14\",\n        \"timestamp\": 480.7915815897856,\n        \"transactionSignature\": \"string\",\n        \"transactionName\": \"string\",\n        \"transactionDisplayName\": \"string\",\n        \"reserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n        \"withdrawTicket\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n        \"solPrice\": \"1234.56789\",\n        \"liquidityToken\": \"string\",\n        \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n        \"liquidityTokenAmount\": \"1234.56789\",\n        \"liquidityTokenPrice\": \"1234.56789\",\n        \"liquidityUsdValue\": \"1234.56789\"\n      },\n      {\n        \"createdOn\": \"1958-11-01\",\n        \"timestamp\": 4516.949274114514,\n        \"transactionSignature\": \"string\",\n        \"transactionName\": \"string\",\n        \"transactionDisplayName\": \"string\",\n        \"reserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n        \"withdrawTicket\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n        \"solPrice\": \"1234.56789\",\n        \"liquidityToken\": \"string\",\n        \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n        \"liquidityTokenAmount\": \"1234.56789\",\n        \"liquidityTokenPrice\": \"1234.56789\",\n        \"liquidityUsdValue\": \"1234.56789\"\n      }\n    ]\n  },\n  {\n    \"market\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n    \"obligations\": {\n      \"key_0\": [\n        {\n          \"createdOn\": \"2024-09-17\",\n          \"timestamp\": 3400.0880774442444,\n          \"transactionSignature\": \"string\",\n          \"transactionName\": \"string\",\n          \"liquidityToken\": \"string\",\n          \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"liquidityTokenAmount\": \"1234.56789\",\n          \"isLiquidationWithdrawal\": true,\n          \"obligationType\": \"string\",\n          \"transactionDisplayName\": \"string\",\n          \"liquidityTokenPrice\": \"1234.56789\",\n          \"solPrice\": \"1234.56789\",\n          \"liquidityUsdValue\": \"1234.56789\",\n          \"isSecondPartOfCompositeIx\": true\n        },\n        {\n          \"createdOn\": \"1984-08-01\",\n          \"timestamp\": 9717.005744744672,\n          \"transactionSignature\": \"string\",\n          \"transactionName\": \"string\",\n          \"liquidityToken\": \"string\",\n          \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"liquidityTokenAmount\": \"1234.56789\",\n          \"isLiquidationWithdrawal\": false,\n          \"obligationType\": \"string\",\n          \"transactionDisplayName\": \"string\",\n          \"liquidityTokenPrice\": \"1234.56789\",\n          \"solPrice\": \"1234.56789\",\n          \"liquidityUsdValue\": \"1234.56789\",\n          \"isSecondPartOfCompositeIx\": false\n        }\n      ],\n      \"key_1\": [\n        {\n          \"createdOn\": \"2009-01-11\",\n          \"timestamp\": 3855.175998813113,\n          \"transactionSignature\": \"string\",\n          \"transactionName\": \"string\",\n          \"liquidityToken\": \"string\",\n          \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"liquidityTokenAmount\": \"1234.56789\",\n          \"isLiquidationWithdrawal\": false,\n          \"obligationType\": \"string\",\n          \"transactionDisplayName\": \"string\",\n          \"liquidityTokenPrice\": \"1234.56789\",\n          \"solPrice\": \"1234.56789\",\n          \"liquidityUsdValue\": \"1234.56789\",\n          \"isSecondPartOfCompositeIx\": true\n        },\n        {\n          \"createdOn\": \"2025-06-11\",\n          \"timestamp\": 2017.8836792151233,\n          \"transactionSignature\": \"string\",\n          \"transactionName\": \"string\",\n          \"liquidityToken\": \"string\",\n          \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"liquidityTokenAmount\": \"1234.56789\",\n          \"isLiquidationWithdrawal\": false,\n          \"obligationType\": \"string\",\n          \"transactionDisplayName\": \"string\",\n          \"liquidityTokenPrice\": \"1234.56789\",\n          \"solPrice\": \"1234.56789\",\n          \"liquidityUsdValue\": \"1234.56789\",\n          \"isSecondPartOfCompositeIx\": true\n        }\n      ]\n    },\n    \"withdrawQueueTransactions\": [\n      {\n        \"createdOn\": \"1962-10-16\",\n        \"timestamp\": 5119.791787737899,\n        \"transactionSignature\": \"string\",\n        \"transactionName\": \"string\",\n        \"transactionDisplayName\": \"string\",\n        \"reserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n        \"withdrawTicket\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n        \"solPrice\": \"1234.56789\",\n        \"liquidityToken\": \"string\",\n        \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n        \"liquidityTokenAmount\": \"1234.56789\",\n        \"liquidityTokenPrice\": \"1234.56789\",\n        \"liquidityUsdValue\": \"1234.56789\"\n      },\n      {\n        \"createdOn\": \"1980-07-21\",\n        \"timestamp\": 575.3396641257414,\n        \"transactionSignature\": \"string\",\n        \"transactionName\": \"string\",\n        \"transactionDisplayName\": \"string\",\n        \"reserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n        \"withdrawTicket\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n        \"solPrice\": \"1234.56789\",\n        \"liquidityToken\": \"string\",\n        \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n        \"liquidityTokenAmount\": \"1234.56789\",\n        \"liquidityTokenPrice\": \"1234.56789\",\n        \"liquidityUsdValue\": \"1234.56789\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec5413c8-36b7-4ba3-9c6d-f084055240dc",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "kamino-market",
+                    "users",
+                    ":userPubkey",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userPubkey",
+                      "description": "(Required) User wallet public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "28b18670-9334-4683-be37-a0ce4347f556",
+          "name": "Get user transactions (v3)",
+          "request": {
+            "name": "Get user transactions (v3)",
+            "description": {
+              "content": "Get all Kamino Lend transactions for a given user in a market, including withdraw-queue transactions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "kamino-market",
+                ":marketPubkey",
+                "users",
+                ":userPubkey",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "env",
+                  "value": "mainnet-beta",
+                  "description": "Solana cluster environment"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "asc",
+                  "description": "Sort order (asc for oldest first, desc for newest first)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "marketPubkey",
+                  "description": "(Required) Kamino Lend market public key"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userPubkey",
+                  "description": "(Required) User wallet public key"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "af4e1b39-6ffb-4abb-ba76-ca91813c7d62",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "kamino-market",
+                    ":marketPubkey",
+                    "users",
+                    ":userPubkey",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "marketPubkey",
+                      "description": "(Required) Kamino Lend market public key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userPubkey",
+                      "description": "(Required) User wallet public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"obligations\": {\n    \"key_0\": [\n      {\n        \"createdOn\": \"1996-05-19\",\n        \"timestamp\": 7837.306467741797,\n        \"transactionSignature\": \"string\",\n        \"transactionName\": \"string\",\n        \"liquidityToken\": \"string\",\n        \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n        \"liquidityTokenAmount\": \"1234.56789\",\n        \"isLiquidationWithdrawal\": false,\n        \"obligationType\": \"string\",\n        \"transactionDisplayName\": \"string\",\n        \"liquidityTokenPrice\": \"1234.56789\",\n        \"solPrice\": \"1234.56789\",\n        \"liquidityUsdValue\": \"1234.56789\",\n        \"isSecondPartOfCompositeIx\": false\n      },\n      {\n        \"createdOn\": \"1984-12-28\",\n        \"timestamp\": 2002.4003627340248,\n        \"transactionSignature\": \"string\",\n        \"transactionName\": \"string\",\n        \"liquidityToken\": \"string\",\n        \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n        \"liquidityTokenAmount\": \"1234.56789\",\n        \"isLiquidationWithdrawal\": false,\n        \"obligationType\": \"string\",\n        \"transactionDisplayName\": \"string\",\n        \"liquidityTokenPrice\": \"1234.56789\",\n        \"solPrice\": \"1234.56789\",\n        \"liquidityUsdValue\": \"1234.56789\",\n        \"isSecondPartOfCompositeIx\": true\n      }\n    ]\n  },\n  \"withdrawQueueTransactions\": [\n    {\n      \"createdOn\": \"1953-04-08\",\n      \"timestamp\": 2117.895841261096,\n      \"transactionSignature\": \"string\",\n      \"transactionName\": \"string\",\n      \"transactionDisplayName\": \"string\",\n      \"reserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"withdrawTicket\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"solPrice\": \"1234.56789\",\n      \"liquidityToken\": \"string\",\n      \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"liquidityTokenAmount\": \"1234.56789\",\n      \"liquidityTokenPrice\": \"1234.56789\",\n      \"liquidityUsdValue\": \"1234.56789\"\n    },\n    {\n      \"createdOn\": \"1989-02-27\",\n      \"timestamp\": 662.5718833389749,\n      \"transactionSignature\": \"string\",\n      \"transactionName\": \"string\",\n      \"transactionDisplayName\": \"string\",\n      \"reserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"withdrawTicket\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"solPrice\": \"1234.56789\",\n      \"liquidityToken\": \"string\",\n      \"liquidityTokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"liquidityTokenAmount\": \"1234.56789\",\n      \"liquidityTokenPrice\": \"1234.56789\",\n      \"liquidityUsdValue\": \"1234.56789\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7489e0a3-8dae-4d6b-861d-1e5c00e5eddb",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "kamino-market",
+                    ":marketPubkey",
+                    "users",
+                    ":userPubkey",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "marketPubkey",
+                      "description": "(Required) Kamino Lend market public key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userPubkey",
+                      "description": "(Required) User wallet public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dca6f03f-bda7-451f-8d95-a43bcdbc7529",
+          "name": "Get bulk market transactions (v3)",
+          "request": {
+            "name": "Get bulk market transactions (v3)",
+            "description": {
+              "content": "Get bulk Kamino Lend transactions for a given market, filtered by instruction name and date range. Returns obligation transactions and withdraw-queue transactions as sibling arrays; exactly one is populated per request depending on the ix name. Private (authorized) API access only, please add a basic auth header to your request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "kamino-market",
+                ":pubkey",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "programId",
+                  "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD",
+                  "description": "KLend program ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeRawJson",
+                  "value": "false"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pubkey",
+                  "description": "(Required) Market public key"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"instruction\": \"<string>\",\n  \"start\": \"<string>\",\n  \"end\": \"<string>\",\n  \"paginationToken\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bb18c96e-f83c-4655-8667-985aa9276e3c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "kamino-market",
+                    ":pubkey",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "programId",
+                      "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD"
+                    },
+                    {
+                      "key": "includeRawJson",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Market public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"instruction\": \"depositReserveLiquidityAndObligationCollateralV2\",\n  \"start\": \"<string>\",\n  \"end\": \"<string>\",\n  \"paginationToken\": \"eyJsYXN0SWQiOiIxMjM0In0=\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"obligationTransactions\": [\n    {\n      \"timestamp\": \"1955-06-05\",\n      \"signature\": \"string\",\n      \"obligation\": \"string\",\n      \"wallet\": \"string\",\n      \"rawJson\": \"string\"\n    },\n    {\n      \"timestamp\": \"1989-08-04\",\n      \"signature\": \"string\",\n      \"obligation\": \"string\",\n      \"wallet\": \"string\",\n      \"rawJson\": \"string\"\n    }\n  ],\n  \"withdrawQueueTransactions\": [\n    {\n      \"timestamp\": \"1967-12-24\",\n      \"signature\": \"string\",\n      \"wallet\": \"string\",\n      \"reserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"withdrawTicket\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"rawJson\": \"string\"\n    },\n    {\n      \"timestamp\": \"1965-12-14\",\n      \"signature\": \"string\",\n      \"wallet\": \"string\",\n      \"reserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"withdrawTicket\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"rawJson\": \"string\"\n    }\n  ],\n  \"paginationToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5788008d-2926-4f71-9ead-07182119c195",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "kamino-market",
+                    ":pubkey",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "programId",
+                      "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD"
+                    },
+                    {
+                      "key": "includeRawJson",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Market public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"instruction\": \"depositReserveLiquidityAndObligationCollateralV2\",\n  \"start\": \"<string>\",\n  \"end\": \"<string>\",\n  \"paginationToken\": \"eyJsYXN0SWQiOiIxMjM0In0=\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid query params\",\n  \"details\": [\n    {\n      \"key_0\": {}\n    },\n    {\n      \"key_0\": {},\n      \"key_1\": {},\n      \"key_2\": {},\n      \"key_3\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e02c46e1-6b30-49cd-b030-f6272ae4c21f",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "kamino-market",
+                    ":pubkey",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "programId",
+                      "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD"
+                    },
+                    {
+                      "key": "includeRawJson",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Market public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"instruction\": \"depositReserveLiquidityAndObligationCollateralV2\",\n  \"start\": \"<string>\",\n  \"end\": \"<string>\",\n  \"paginationToken\": \"eyJsYXN0SWQiOiIxMjM0In0=\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Not authorized for this request. Please include the basic auth headers.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8bb06818-200f-445a-9621-af274b2de9dd",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "kamino-market",
+                    ":pubkey",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "programId",
+                      "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD"
+                    },
+                    {
+                      "key": "includeRawJson",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Market public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"instruction\": \"depositReserveLiquidityAndObligationCollateralV2\",\n  \"start\": \"<string>\",\n  \"end\": \"<string>\",\n  \"paginationToken\": \"eyJsYXN0SWQiOiIxMjM0In0=\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.kamino.finance",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b1adb066-53f3-45d8-acda-7fbe377981e8",
+    "name": "Kamino Public Airdrop Kamino Lend Transactions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.\n\nThe API also provides the ability to fetch data that might not be available from just reading the chain.\n\nThe API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.\n",
+      "type": "text/plain"
+    }
+  }
+}

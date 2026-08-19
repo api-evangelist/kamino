@@ -1,0 +1,135 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kamino Public Airdrop Farms API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Farms",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get user farms transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/farms/users/:pubkey/transactions",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "Valid base58-encoded address of the user wallet"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return (1-1000)"
+              },
+              {
+                "name": "paginationToken",
+                "value": "",
+                "type": "query",
+                "description": "Token for fetching the next page of results"
+              },
+              {
+                "name": "noPagination",
+                "value": "",
+                "type": "query",
+                "description": "When true, returns all transactions without pagination"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order (asc for oldest first, desc for newest first)"
+              }
+            ]
+          },
+          "docs": "Get all farms program transactions for a given user (with pagination)."
+        },
+        {
+          "info": {
+            "name": "Get farm transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/farms/:farmPubkey/transactions",
+            "params": [
+              {
+                "name": "farmPubkey",
+                "value": "",
+                "type": "path",
+                "description": "Farm public key"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return (1-1000)"
+              },
+              {
+                "name": "paginationToken",
+                "value": "",
+                "type": "query",
+                "description": "Token for fetching the next page of results"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order (asc for oldest first, desc for newest first)"
+              }
+            ]
+          },
+          "docs": "Get transactions for a specific farm (with pagination)."
+        },
+        {
+          "info": {
+            "name": "Get farm management history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/farms/:farmPubkey/management-history",
+            "params": [
+              {
+                "name": "farmPubkey",
+                "value": "",
+                "type": "path",
+                "description": "Farm public key"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return (1-1000)"
+              },
+              {
+                "name": "paginationToken",
+                "value": "",
+                "type": "query",
+                "description": "Token for fetching the next page of results"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order (asc for oldest first, desc for newest first)"
+              }
+            ]
+          },
+          "docs": "Get management instructions for a specific farm (with pagination)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

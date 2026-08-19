@@ -1,0 +1,266 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kamino Public Airdrop Kamino Lend Transactions API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Kamino Lend Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get obligation transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/v2/kamino-market/:marketPubkey/obligations/:obligationPubkey/transactions",
+            "params": [
+              {
+                "name": "marketPubkey",
+                "value": "",
+                "type": "path",
+                "description": "Kamino Lend market public key"
+              },
+              {
+                "name": "obligationPubkey",
+                "value": "",
+                "type": "path",
+                "description": "Kamino Lend obligation public key"
+              },
+              {
+                "name": "env",
+                "value": "",
+                "type": "query",
+                "description": "Solana cluster environment"
+              },
+              {
+                "name": "useLogPrices",
+                "value": "",
+                "type": "query",
+                "description": "Use log prices for transaction values"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order (asc for oldest first, desc for newest first)"
+              }
+            ]
+          },
+          "docs": "Get all Kamino Lend transactions for a given obligation."
+        },
+        {
+          "info": {
+            "name": "Get user transactions across all markets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/v2/kamino-market/users/:userPubkey/transactions",
+            "params": [
+              {
+                "name": "userPubkey",
+                "value": "",
+                "type": "path",
+                "description": "User wallet public key"
+              },
+              {
+                "name": "env",
+                "value": "",
+                "type": "query",
+                "description": "Solana cluster environment"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order (asc for oldest first, desc for newest first)"
+              }
+            ]
+          },
+          "docs": "Get all Kamino Lend transactions for a given user across all markets."
+        },
+        {
+          "info": {
+            "name": "Get user transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/v2/kamino-market/:marketPubkey/users/:userPubkey/transactions",
+            "params": [
+              {
+                "name": "marketPubkey",
+                "value": "",
+                "type": "path",
+                "description": "Kamino Lend market public key"
+              },
+              {
+                "name": "userPubkey",
+                "value": "",
+                "type": "path",
+                "description": "User wallet public key"
+              },
+              {
+                "name": "env",
+                "value": "",
+                "type": "query",
+                "description": "Solana cluster environment"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order (asc for oldest first, desc for newest first)"
+              }
+            ]
+          },
+          "docs": "Get all Kamino Lend transactions for a given user."
+        },
+        {
+          "info": {
+            "name": "Get bulk market transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.kamino.finance/v2/kamino-market/:pubkey/transactions",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "Market public key"
+              },
+              {
+                "name": "programId",
+                "value": "",
+                "type": "query",
+                "description": "KLend program ID"
+              },
+              {
+                "name": "includeRawJson",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include raw JSON of the transaction"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get bulk Kamino Lend transactions for a given market, filtered by instruction name and date range. Private (authorized) API access only, please add a basic auth header to your request."
+        },
+        {
+          "info": {
+            "name": "Get user transactions across all markets (v3)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/v3/kamino-market/users/:userPubkey/transactions",
+            "params": [
+              {
+                "name": "userPubkey",
+                "value": "",
+                "type": "path",
+                "description": "User wallet public key"
+              },
+              {
+                "name": "env",
+                "value": "",
+                "type": "query",
+                "description": "Solana cluster environment"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order (asc for oldest first, desc for newest first)"
+              }
+            ]
+          },
+          "docs": "Get all Kamino Lend transactions for a given user across all markets, including withdraw-queue transactions."
+        },
+        {
+          "info": {
+            "name": "Get user transactions (v3)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/v3/kamino-market/:marketPubkey/users/:userPubkey/transactions",
+            "params": [
+              {
+                "name": "marketPubkey",
+                "value": "",
+                "type": "path",
+                "description": "Kamino Lend market public key"
+              },
+              {
+                "name": "userPubkey",
+                "value": "",
+                "type": "path",
+                "description": "User wallet public key"
+              },
+              {
+                "name": "env",
+                "value": "",
+                "type": "query",
+                "description": "Solana cluster environment"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order (asc for oldest first, desc for newest first)"
+              }
+            ]
+          },
+          "docs": "Get all Kamino Lend transactions for a given user in a market, including withdraw-queue transactions."
+        },
+        {
+          "info": {
+            "name": "Get bulk market transactions (v3)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.kamino.finance/v3/kamino-market/:pubkey/transactions",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "Market public key"
+              },
+              {
+                "name": "programId",
+                "value": "",
+                "type": "query",
+                "description": "KLend program ID"
+              },
+              {
+                "name": "includeRawJson",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get bulk Kamino Lend transactions for a given market, filtered by instruction name and date range. Returns obligation transactions and withdraw-queue transactions as sibling arrays; exactly one is populated per request depending on the ix name. Private (authorized) API access only, please add a basic auth header to your request."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

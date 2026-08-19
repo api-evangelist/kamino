@@ -1,0 +1,236 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kamino Public Airdrop Kamino Earn User API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Kamino Earn User",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get user KVault transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/kvaults/users/:pubkey/transactions",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "Valid base58-encoded address of the user wallet"
+              }
+            ]
+          },
+          "docs": "Get all Kamino Earn Vault transactions for a given user"
+        },
+        {
+          "info": {
+            "name": "Get all user KVault positions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/kvaults/users/:pubkey/positions",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "Valid base58-encoded address of the user wallet"
+              }
+            ]
+          },
+          "docs": "Get a list of user positions for each Kamino Earn Vault the user has currently deposited into. Returns staked and unstaked shares."
+        },
+        {
+          "info": {
+            "name": "Get user position for a specific KVault",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/kvaults/users/:userPubkey/positions/:vaultPubkey",
+            "params": [
+              {
+                "name": "vaultPubkey",
+                "value": "",
+                "type": "path",
+                "description": "Valid base58-encoded address of the vault"
+              },
+              {
+                "name": "userPubkey",
+                "value": "",
+                "type": "path",
+                "description": "Valid base58-encoded address of the user wallet"
+              }
+            ]
+          },
+          "docs": "Get a single user position for a Kamino Earn Vault the user currently has currently deposited into. Returns staked and unstaked shares."
+        },
+        {
+          "info": {
+            "name": "Get historical user metrics for all KVault positions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/kvaults/users/:pubkey/metrics/history",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "Valid base58-encoded address of the user wallet"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start date of the range (defaults to Unix epoch). Accepts ISO string or epoch in ms."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End date of the range (defaults to current time). Accepts ISO string or epoch in ms."
+              }
+            ]
+          },
+          "docs": "Get historical timeseries of total usd/sol/interest/apy for all user Kamino Earn Vault positions"
+        },
+        {
+          "info": {
+            "name": "Get historical user metrics for a single KVault",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/kvaults/users/:userPubkey/vaults/:vaultPubkey/metrics/history",
+            "params": [
+              {
+                "name": "vaultPubkey",
+                "value": "",
+                "type": "path",
+                "description": "Valid base58-encoded address of the vault"
+              },
+              {
+                "name": "userPubkey",
+                "value": "",
+                "type": "path",
+                "description": "Valid base58-encoded address of the user wallet"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start date of the range (defaults to Unix epoch). Accepts ISO string or epoch in ms."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End date of the range (defaults to current time). Accepts ISO string or epoch in ms."
+              }
+            ]
+          },
+          "docs": "Get historical timeseries of total usd/sol/interest/apy for a single user Kamino Earn Vault position"
+        },
+        {
+          "info": {
+            "name": "Get user KVault PnL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/kvaults/users/:userPubkey/vaults/:vaultPubkey/pnl",
+            "params": [
+              {
+                "name": "vaultPubkey",
+                "value": "",
+                "type": "path",
+                "description": "Valid base58-encoded address of the vault"
+              },
+              {
+                "name": "userPubkey",
+                "value": "",
+                "type": "path",
+                "description": "Valid base58-encoded address of the user wallet"
+              }
+            ]
+          },
+          "docs": "Get current PnL and cost basis of user vault position"
+        },
+        {
+          "info": {
+            "name": "Get user KVault PnL history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/kvaults/users/:userPubkey/vaults/:vaultPubkey/pnl/history",
+            "params": [
+              {
+                "name": "vaultPubkey",
+                "value": "",
+                "type": "path",
+                "description": "Valid base58-encoded address of the vault"
+              },
+              {
+                "name": "userPubkey",
+                "value": "",
+                "type": "path",
+                "description": "Valid base58-encoded address of the user wallet"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Date input (ISO 8601 string or epoch in ms)"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "Date input (ISO 8601 string or epoch in ms)"
+              }
+            ]
+          },
+          "docs": "Get PnL and cost basis history of user vault position"
+        },
+        {
+          "info": {
+            "name": "Get season user rewards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/kvaults/users/:pubkey/rewards",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "Valid base58-encoded address"
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Points source identifier"
+              }
+            ]
+          },
+          "docs": "Get user season points rewards for each Kamino Earn Vault which the user has invested in"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

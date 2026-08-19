@@ -1,0 +1,444 @@
+{
+  "item": [
+    {
+      "id": "f3e799a8-06ed-4c8b-90dd-3da4fd3372f3",
+      "name": "Kamino Lend Borrow Orders",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d4977e7e-746f-4d0c-8de2-bf34f3f72a9f",
+          "name": "Get borrow order fills for an obligation",
+          "request": {
+            "name": "Get borrow order fills for an obligation",
+            "description": {
+              "content": "Returns the fill history for the active borrow order of an obligation, in chronological order.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "kamino-market",
+                "obligations",
+                ":pubkey",
+                "borrow-order-fills"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pubkey",
+                  "description": "(Required) Valid base58-encoded address"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d14f3ad5-ba76-428c-b33d-5f635eaea628",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "kamino-market",
+                    "obligations",
+                    ":pubkey",
+                    "borrow-order-fills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fills\": [\n    {\n      \"eventType\": \"partial_fill\",\n      \"eventTimestamp\": \"2002-06-29\",\n      \"transactionSignature\": \"2XWcSQVtR4NoHBhzYpDkYkmYtEFkFXC5ZwrKiPok1kvA86GvnN15qP7RNP6eTeNWgJqgnR1GA2M3QPp1hucW7e1v\",\n      \"debtLiquidityMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"filledAmount\": \"1234.56789\"\n    },\n    {\n      \"eventType\": \"partial_fill\",\n      \"eventTimestamp\": \"1998-12-01\",\n      \"transactionSignature\": \"2XWcSQVtR4NoHBhzYpDkYkmYtEFkFXC5ZwrKiPok1kvA86GvnN15qP7RNP6eTeNWgJqgnR1GA2M3QPp1hucW7e1v\",\n      \"debtLiquidityMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"filledAmount\": \"1234.56789\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e381e45f-dc8b-4a93-9c18-0f9cdd1de9dd",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "kamino-market",
+                    "obligations",
+                    ":pubkey",
+                    "borrow-order-fills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid query params\",\n  \"details\": [\n    {\n      \"key_0\": {}\n    },\n    {\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de95d115-1873-4fb3-a836-b1dc61d37179",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "kamino-market",
+                    "obligations",
+                    ":pubkey",
+                    "borrow-order-fills"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b8619edb-3544-4445-bd96-a60ea02ebe7c",
+          "name": "Get all obligations with open borrow orders in a market",
+          "request": {
+            "name": "Get all obligations with open borrow orders in a market",
+            "description": {
+              "content": "Returns all obligations in the given market that have an active (unfilled or partially filled) borrow order.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "kamino-market",
+                ":pubkey",
+                "obligations-with-open-borrow-orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "env",
+                  "value": "mainnet-beta",
+                  "description": "Solana cluster environment"
+                },
+                {
+                  "disabled": false,
+                  "key": "programId",
+                  "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD",
+                  "description": "KLend program ID"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pubkey",
+                  "description": "(Required) Market public key"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5f5c7ca8-f1a7-452c-85eb-93283e67d57f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "kamino-market",
+                    ":pubkey",
+                    "obligations-with-open-borrow-orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    },
+                    {
+                      "key": "programId",
+                      "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Market public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"obligations\": [\n    {\n      \"obligationPubkey\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"owner\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"deposits\": [\n        {\n          \"depositReserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"depositedAmount\": \"1234.56789\"\n        },\n        {\n          \"depositReserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"depositedAmount\": \"1234.56789\"\n        }\n      ],\n      \"debtLiquidityMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"remainingDebtAmount\": \"1234.56789\",\n      \"requestedDebtAmount\": \"1234.56789\",\n      \"filledDebtDestination\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"maxBorrowRateBps\": 7064.631542155835,\n      \"minDebtTermSeconds\": \"1234.56789\",\n      \"fillableUntilTimestamp\": \"1234.56789\",\n      \"placedAtTimestamp\": \"1234.56789\",\n      \"lastUpdatedAtTimestamp\": \"1234.56789\"\n    },\n    {\n      \"obligationPubkey\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"owner\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"deposits\": [\n        {\n          \"depositReserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"depositedAmount\": \"1234.56789\"\n        },\n        {\n          \"depositReserve\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"depositedAmount\": \"1234.56789\"\n        }\n      ],\n      \"debtLiquidityMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"remainingDebtAmount\": \"1234.56789\",\n      \"requestedDebtAmount\": \"1234.56789\",\n      \"filledDebtDestination\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n      \"maxBorrowRateBps\": 1512.1496254407773,\n      \"minDebtTermSeconds\": \"1234.56789\",\n      \"fillableUntilTimestamp\": \"1234.56789\",\n      \"placedAtTimestamp\": \"1234.56789\",\n      \"lastUpdatedAtTimestamp\": \"1234.56789\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "12c63865-d4d4-4cf7-af2e-565b341f0617",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "kamino-market",
+                    ":pubkey",
+                    "obligations-with-open-borrow-orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    },
+                    {
+                      "key": "programId",
+                      "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Market public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid query params\",\n  \"details\": [\n    {\n      \"key_0\": {}\n    },\n    {\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cc32dfc5-343e-4564-a2e0-46d23be73d46",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "kamino-market",
+                    ":pubkey",
+                    "obligations-with-open-borrow-orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    },
+                    {
+                      "key": "programId",
+                      "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Market public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.kamino.finance",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d2d7863f-bec4-4f71-9971-55ea6c1ccbe0",
+    "name": "Kamino Public Airdrop Kamino Lend Borrow Orders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.\n\nThe API also provides the ability to fetch data that might not be available from just reading the chain.\n\nThe API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.\n",
+      "type": "text/plain"
+    }
+  }
+}

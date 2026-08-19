@@ -1,0 +1,362 @@
+{
+  "item": [
+    {
+      "id": "18dfcabc-b4c9-4e5a-b942-569844aa354e",
+      "name": "Staking Yields",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "96ef8e51-b99c-477d-86f8-5924630c7476",
+          "name": "Get staking yields",
+          "request": {
+            "name": "Get staking yields",
+            "description": {
+              "content": "Fetches the latest staking yields for all LSTs",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "staking-yields"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c29d6f48-7f82-4f76-b3c9-e429cf94b216",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "staking-yields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"apy\": \"0.027610992938039702\",\n    \"tokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\"\n  },\n  {\n    \"apy\": \"0.027610992938039702\",\n    \"tokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8fcb5405-dde9-4adc-913f-d6fedf838a1b",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "staking-yields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1898b4ba-5f14-40fd-9495-5dcc8d26bc57",
+          "name": "Get median staking yields",
+          "request": {
+            "name": "Get median staking yields",
+            "description": {
+              "content": "Fetches staking yields and calculates median APY over the last 10 epochs",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "staking-yields",
+                "median"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2aab6010-5079-496c-8494-2346f0d2bc68",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "staking-yields",
+                    "median"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"apy\": \"0.027610992938039702\",\n    \"tokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\"\n  },\n  {\n    \"apy\": \"0.027610992938039702\",\n    \"tokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2befdea2-fcd4-43b1-9f70-650f797c9d01",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "staking-yields",
+                    "median"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c6d85cba-833e-4584-af92-62fbfc8378ed",
+          "name": "Get mean staking yields",
+          "request": {
+            "name": "Get mean staking yields",
+            "description": {
+              "content": "Fetches staking yields and calculates mean (average) APY over the last 10 epochs",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "staking-yields",
+                "mean"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1669a4b8-910c-4d3f-b827-3a2ab1b7d60b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "staking-yields",
+                    "mean"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"apy\": \"0.027610992938039702\",\n    \"tokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\"\n  },\n  {\n    \"apy\": \"0.027610992938039702\",\n    \"tokenMint\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e984b83-c8da-44cf-bb80-59bfb05ae3e0",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "staking-yields",
+                    "mean"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.kamino.finance",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "cbee0615-8f39-47ce-8bed-d697c17ca399",
+    "name": "Kamino Public Airdrop Staking Yields API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.\n\nThe API also provides the ability to fetch data that might not be available from just reading the chain.\n\nThe API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.\n",
+      "type": "text/plain"
+    }
+  }
+}

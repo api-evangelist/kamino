@@ -1,0 +1,221 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kamino Public Airdrop Kamino Lend Markets API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Kamino Lend Markets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get KLend Market metrics history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/kamino-market/:pubkey/metrics/history",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "Market public key"
+              },
+              {
+                "name": "env",
+                "value": "",
+                "type": "query",
+                "description": "Solana cluster environment"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Date input (ISO 8601 string or epoch in ms)"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "Date input (ISO 8601 string or epoch in ms)"
+              }
+            ]
+          },
+          "docs": "Get historical metrics (TVL and number of obligations) for a Kamino Lending market over a specified time range."
+        },
+        {
+          "info": {
+            "name": "Get KLend reserve history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/kamino-market/:marketPubkey/reserves/:reservePubkey/metrics/history",
+            "params": [
+              {
+                "name": "marketPubkey",
+                "value": "",
+                "type": "path",
+                "description": "Kamino Lend market public key"
+              },
+              {
+                "name": "reservePubkey",
+                "value": "",
+                "type": "path",
+                "description": "Kamino Lend reserve public key"
+              },
+              {
+                "name": "env",
+                "value": "",
+                "type": "query",
+                "description": "Solana cluster environment"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Date input (ISO 8601 string or epoch in ms)"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "Date input (ISO 8601 string or epoch in ms)"
+              },
+              {
+                "name": "frequency",
+                "value": "",
+                "type": "query",
+                "description": "Frequency of the snapshots"
+              }
+            ]
+          },
+          "docs": "Get historical metrics for a specific reserve in a Kamino Lending market over a specified time range with configurable frequency (minute, hour, or day)."
+        },
+        {
+          "info": {
+            "name": "Get metrics for market reserves",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/kamino-market/:pubkey/reserves/metrics",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "Market public key"
+              },
+              {
+                "name": "env",
+                "value": "",
+                "type": "query",
+                "description": "Solana cluster environment"
+              }
+            ]
+          },
+          "docs": "Get current metrics for all reserves in a Kamino Lending market, including APY, TVL, borrow/supply amounts, and LTV ratios."
+        },
+        {
+          "info": {
+            "name": "Get metrics for leverage/multiply vaults",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/kamino-market/:pubkey/leverage/metrics",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "Market public key"
+              },
+              {
+                "name": "env",
+                "value": "",
+                "type": "query",
+                "description": "Solana cluster environment"
+              }
+            ]
+          },
+          "docs": "Get aggregated metrics for all leverage and multiply positions in a Kamino Lending market, including average leverage, total borrowed, total deposited, and number of obligations."
+        },
+        {
+          "info": {
+            "name": "Get KLend market reserves account data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/kamino-market/reserves/account-data",
+            "params": [
+              {
+                "name": "programId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "markets",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Fetch reserve account data for given Klend markets. Returns base64-encoded account data for all reserves in the specified markets."
+        },
+        {
+          "info": {
+            "name": "Get all Kamino Markets config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/v2/kamino-market",
+            "params": [
+              {
+                "name": "programId",
+                "value": "",
+                "type": "query",
+                "description": "KLend program ID"
+              }
+            ]
+          },
+          "docs": "Get all Kamino Lending markets configuration for a specific program ID. This is the V2 endpoint that allows filtering by program ID instead of cluster."
+        },
+        {
+          "info": {
+            "name": "Get Kamino Market config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/v2/kamino-market/:pubkey",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "Market public key"
+              },
+              {
+                "name": "programId",
+                "value": "",
+                "type": "query",
+                "description": "KLend program ID"
+              }
+            ]
+          },
+          "docs": "Get configuration for a specific Kamino Lending market by market address. Optionally filter by program ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

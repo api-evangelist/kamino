@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kamino Public Airdrop Portfolio API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Portfolio",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get portfolio source data for a wallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/portfolio/:pubkey",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "Valid base58-encoded address"
+              },
+              {
+                "name": "programId",
+                "value": "",
+                "type": "query",
+                "description": "KLend program ID"
+              }
+            ]
+          },
+          "docs": "Returns source position rows across Kamino products (lending, multiply, leverage, liquidity, earn, private credit, staking). Portfolio totals, counts, fees, historical PnL, and display-only rollups are intentionally left to client composition or their dedicated endpoints."
+        },
+        {
+          "info": {
+            "name": "Get pending farm rewards for a wallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/portfolio/:pubkey/rewards",
+            "params": [
+              {
+                "name": "pubkey",
+                "value": "",
+                "type": "path",
+                "description": "Valid base58-encoded address"
+              },
+              {
+                "name": "programId",
+                "value": "",
+                "type": "query",
+                "description": "KLend program ID"
+              },
+              {
+                "name": "rewardTypes",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated farm reward types to include. Defaults to 0,1 to match portfolio webapp rewards."
+              }
+            ]
+          },
+          "docs": "Returns pending farm reward source rows across Kamino products. USD reward totals are composed on the client from price data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

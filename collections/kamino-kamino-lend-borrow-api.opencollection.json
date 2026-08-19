@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kamino Public Airdrop Kamino Lend Borrow API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Kamino Lend Borrow",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get transaction to borrow liquidity from a klend reserve",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.kamino.finance/ktx/klend/borrow",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Borrow liquidity from the specified Kamino Lend market reserve"
+        },
+        {
+          "info": {
+            "name": "Get instructions to borrow liquidity from a klend reserve",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.kamino.finance/ktx/klend/borrow-instructions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Instructions to borrow liquidity from the specified Kamino Lend market reserve. Additionally includes lookup tables to use to compress transaction size"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

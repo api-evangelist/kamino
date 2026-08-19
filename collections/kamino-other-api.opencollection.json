@@ -1,0 +1,90 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kamino Public Airdrop Other API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Other",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Solana epochs metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/epochs"
+          },
+          "docs": "Fetches all epoch start and end times, first/last slot numbers, and epoch identifiers"
+        },
+        {
+          "info": {
+            "name": "Get median Solana slot duration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/slots/duration"
+          },
+          "docs": "Fetches the median duration of a recent Solana slot (in milliseconds) from the last three epochs"
+        },
+        {
+          "info": {
+            "name": "Get Kamino oracle prices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/oracles/prices",
+            "params": [
+              {
+                "name": "markets",
+                "value": "",
+                "type": "query",
+                "description": "Controls which market set to query. 'main': select oracle prices from SOL/BTC Market assets, 'all': select oracle prices from all public klend market assets."
+              }
+            ]
+          },
+          "docs": "Fetches all oracle prices for all public Klend Market assets"
+        },
+        {
+          "info": {
+            "name": "Get USD benchmark lending rates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kamino.finance/benchmark-rates/usd",
+            "params": [
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Date input (ISO 8601 string or epoch in ms)"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "Date input (ISO 8601 string or epoch in ms)"
+              },
+              {
+                "name": "frequency",
+                "value": "",
+                "type": "query",
+                "description": "Data frequency/granularity. Defaults to hour."
+              }
+            ]
+          },
+          "docs": "Returns USD benchmark lending rates aggregated across multiple protocols. Data is sourced from Allez and cached. Supports filtering by date range and downsampling by frequency."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

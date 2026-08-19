@@ -1,0 +1,850 @@
+{
+  "item": [
+    {
+      "id": "fa554081-fb37-4231-af46-316cb5152701",
+      "name": "Kamino Lend User Loans",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "364322cc-584c-4431-a7b2-043616ca39ed",
+          "name": "Get all user obligations",
+          "request": {
+            "name": "Get all user obligations",
+            "description": {
+              "content": "Get all obligations (loans) for a specific user wallet in a Kamino Lending market.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "kamino-market",
+                ":marketPubkey",
+                "users",
+                ":userPubkey",
+                "obligations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "env",
+                  "value": "mainnet-beta",
+                  "description": "Solana cluster environment"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "marketPubkey",
+                  "description": "(Required) Kamino Lend market public key"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userPubkey",
+                  "description": "(Required) User wallet public key"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3c7c6eed-2aeb-49fe-bb5c-c32c62cd9a83",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kamino-market",
+                    ":marketPubkey",
+                    "users",
+                    ":userPubkey",
+                    "obligations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "marketPubkey",
+                      "description": "(Required) Kamino Lend market public key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userPubkey",
+                      "description": "(Required) User wallet public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "09755d77-25b9-419c-96d2-79dc492e6a83",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kamino-market",
+                    ":marketPubkey",
+                    "users",
+                    ":userPubkey",
+                    "obligations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "marketPubkey",
+                      "description": "(Required) Kamino Lend market public key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userPubkey",
+                      "description": "(Required) User wallet public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "30990d66-e92a-49ad-babf-cb4b0d6fb221",
+          "name": "Get profit and loss for an obligation",
+          "request": {
+            "name": "Get profit and loss for an obligation",
+            "description": {
+              "content": "Get profit and loss (PnL) for a specific obligation. For xSOL pairs, `useStakeRate` can be set to true to calculate the PnL using the stake rate.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "kamino-market",
+                ":marketPubkey",
+                "obligations",
+                ":obligationPubkey",
+                "pnl"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "env",
+                  "value": "mainnet-beta",
+                  "description": "Solana cluster environment"
+                },
+                {
+                  "disabled": false,
+                  "key": "programId",
+                  "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD",
+                  "description": "KLend program ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "useStakeRate",
+                  "value": "false",
+                  "description": "For xSOL pairs, calculate the PnL using the stake rate"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "marketPubkey",
+                  "description": "(Required) Kamino Lend market public key"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "obligationPubkey",
+                  "description": "(Required) Kamino Lend obligation public key"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "41b61b98-9d87-44b2-9ddb-a4f5476150e1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "kamino-market",
+                    ":marketPubkey",
+                    "obligations",
+                    ":obligationPubkey",
+                    "pnl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    },
+                    {
+                      "key": "programId",
+                      "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD"
+                    },
+                    {
+                      "key": "useStakeRate",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "marketPubkey",
+                      "description": "(Required) Kamino Lend market public key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "obligationPubkey",
+                      "description": "(Required) Kamino Lend obligation public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"usd\": \"1234.56789\",\n  \"sol\": \"1234.56789\",\n  \"invested\": {\n    \"usd\": \"1234.56789\",\n    \"sol\": \"1234.56789\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5da3f0b1-9afa-4e1c-8c59-8e7fed5d80c1",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "kamino-market",
+                    ":marketPubkey",
+                    "obligations",
+                    ":obligationPubkey",
+                    "pnl"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    },
+                    {
+                      "key": "programId",
+                      "value": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD"
+                    },
+                    {
+                      "key": "useStakeRate",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "marketPubkey",
+                      "description": "(Required) Kamino Lend market public key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "obligationPubkey",
+                      "description": "(Required) Kamino Lend obligation public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "354a262c-8db3-4126-8aa1-90905e1150a2",
+          "name": "Get KLend obligation history",
+          "request": {
+            "name": "Get KLend obligation history",
+            "description": {
+              "content": "Get historical metrics for a specific obligation in a Kamino Lending market. This V2 endpoint supports using stake rate for obligation value calculation when `useStakeRateForObligation` is true.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "kamino-market",
+                ":marketPubkey",
+                "obligations",
+                ":obligationPubkey",
+                "metrics",
+                "history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "env",
+                  "value": "mainnet-beta",
+                  "description": "Solana cluster environment"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "Date input (ISO 8601 string or epoch in ms)"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>",
+                  "description": "Date input (ISO 8601 string or epoch in ms)"
+                },
+                {
+                  "disabled": false,
+                  "key": "useStakeRateForObligation",
+                  "value": "false",
+                  "description": "Use stake rate to calculate net SOL value"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "marketPubkey",
+                  "description": "(Required) Kamino Lend market public key"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "obligationPubkey",
+                  "description": "(Required) Kamino Lend obligation public key"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3984499f-53d7-494e-8701-3442bdbd0b8a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "kamino-market",
+                    ":marketPubkey",
+                    "obligations",
+                    ":obligationPubkey",
+                    "metrics",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "useStakeRateForObligation",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "marketPubkey",
+                      "description": "(Required) Kamino Lend market public key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "obligationPubkey",
+                      "description": "(Required) Kamino Lend obligation public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"obligation\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n  \"history\": [\n    {\n      \"timestamp\": \"2023-06-29T15:15:26.464Z\",\n      \"refreshedStats\": {\n        \"leverage\": \"1234.56789\",\n        \"borrowLimit\": \"1234.56789\",\n        \"loanToValue\": \"1234.56789\",\n        \"liquidationLtv\": \"1234.56789\",\n        \"netAccountValue\": \"1234.56789\",\n        \"userTotalBorrow\": \"1234.56789\",\n        \"userTotalDeposit\": \"1234.56789\",\n        \"borrowUtilization\": \"1234.56789\",\n        \"borrowLiquidationLimit\": \"1234.56789\",\n        \"userTotalCollateralDeposit\": \"1234.56789\",\n        \"userTotalLiquidatableDeposit\": \"1234.56789\",\n        \"potentialElevationGroupUpdate\": 0,\n        \"userTotalBorrowBorrowFactorAdjusted\": \"1234.56789\"\n      },\n      \"deposits\": [\n        {\n          \"amount\": \"1234.56789\",\n          \"mintAddress\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"marketValueRefreshed\": \"1234.56789\"\n        },\n        {\n          \"amount\": \"1234.56789\",\n          \"mintAddress\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"marketValueRefreshed\": \"1234.56789\"\n        }\n      ],\n      \"borrows\": [\n        {\n          \"amount\": \"1234.56789\",\n          \"mintAddress\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"marketValueRefreshed\": \"1234.56789\"\n        },\n        {\n          \"amount\": \"1234.56789\",\n          \"mintAddress\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"marketValueRefreshed\": \"1234.56789\"\n        }\n      ],\n      \"tag\": 0,\n      \"obligationSolValues\": {\n        \"netValueSol\": \"1234.56789\",\n        \"collateralValueSol\": \"1234.56789\",\n        \"debtValueSol\": \"1234.56789\",\n        \"solPrice\": \"1234.56789\",\n        \"timestampSolPrice\": \"2023-06-29T15:15:26.464Z\",\n        \"timestampObligation\": \"2023-06-29T15:15:26.464Z\"\n      }\n    },\n    {\n      \"timestamp\": \"2023-06-29T15:15:26.464Z\",\n      \"refreshedStats\": {\n        \"leverage\": \"1234.56789\",\n        \"borrowLimit\": \"1234.56789\",\n        \"loanToValue\": \"1234.56789\",\n        \"liquidationLtv\": \"1234.56789\",\n        \"netAccountValue\": \"1234.56789\",\n        \"userTotalBorrow\": \"1234.56789\",\n        \"userTotalDeposit\": \"1234.56789\",\n        \"borrowUtilization\": \"1234.56789\",\n        \"borrowLiquidationLimit\": \"1234.56789\",\n        \"userTotalCollateralDeposit\": \"1234.56789\",\n        \"userTotalLiquidatableDeposit\": \"1234.56789\",\n        \"potentialElevationGroupUpdate\": 0,\n        \"userTotalBorrowBorrowFactorAdjusted\": \"1234.56789\"\n      },\n      \"deposits\": [\n        {\n          \"amount\": \"1234.56789\",\n          \"mintAddress\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"marketValueRefreshed\": \"1234.56789\"\n        },\n        {\n          \"amount\": \"1234.56789\",\n          \"mintAddress\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"marketValueRefreshed\": \"1234.56789\"\n        }\n      ],\n      \"borrows\": [\n        {\n          \"amount\": \"1234.56789\",\n          \"mintAddress\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"marketValueRefreshed\": \"1234.56789\"\n        },\n        {\n          \"amount\": \"1234.56789\",\n          \"mintAddress\": \"VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd\",\n          \"marketValueRefreshed\": \"1234.56789\"\n        }\n      ],\n      \"tag\": 0,\n      \"obligationSolValues\": {\n        \"netValueSol\": \"1234.56789\",\n        \"collateralValueSol\": \"1234.56789\",\n        \"debtValueSol\": \"1234.56789\",\n        \"solPrice\": \"1234.56789\",\n        \"timestampSolPrice\": \"2023-06-29T15:15:26.464Z\",\n        \"timestampObligation\": \"2023-06-29T15:15:26.464Z\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d136b06b-990e-40a1-b499-40b959de063e",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "kamino-market",
+                    ":marketPubkey",
+                    "obligations",
+                    ":obligationPubkey",
+                    "metrics",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "useStakeRateForObligation",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "marketPubkey",
+                      "description": "(Required) Kamino Lend market public key"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "obligationPubkey",
+                      "description": "(Required) Kamino Lend obligation public key"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "848b8d99-a69b-4adc-b6d9-94a9cccba0b1",
+          "name": "Get information about a loan (obligation)",
+          "request": {
+            "name": "Get information about a loan (obligation)",
+            "description": {
+              "content": "Fetches information about a loan",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "klend",
+                "loans",
+                ":pubkey"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "env",
+                  "value": "mainnet-beta",
+                  "description": "Solana cluster environment"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pubkey",
+                  "description": "(Required) Valid base58-encoded address"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "628fa832-166c-4e4b-999b-1aa1d7f245df",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "klend",
+                    "loans",
+                    ":pubkey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"loanId\": \"wGzt1J5Nr182HHqAc1zsfD9SLoe1MJb25VWih5NRY\",\n  \"marketId\": \"6HT16972HHiY4RM33GfUc22pHZ3VLDPpXFWhQ7XJzA\",\n  \"user\": \"7yexZcPbepXgWw3Cxc7YB2eLaxwyuyshRbAF8XHDi2g\",\n  \"timestamp\": 1760707165421,\n  \"solanaSlot\": 373973788,\n  \"elevationGroup\": 0,\n  \"leverage\": 64.15002405720128,\n  \"loanInfo\": {\n    \"collateral\": {\n      \"deposits\": [\n        {\n          \"tokenMint\": \"So11111111111111111111111111111111111111112\",\n          \"tokenName\": \"SOL\",\n          \"tokenAmount\": \"1234.56789\",\n          \"tokenValue\": \"1234.56789\",\n          \"maxLtv\": 0.74,\n          \"liquidationLtv\": 0.75,\n          \"maxWithdrawableAmount\": 51225.5590659256,\n          \"maxWithdrawableValue\": \"1234.56789\",\n          \"tokenPrice\": 180.41782132\n        },\n        {\n          \"tokenMint\": \"So11111111111111111111111111111111111111112\",\n          \"tokenName\": \"SOL\",\n          \"tokenAmount\": \"1234.56789\",\n          \"tokenValue\": \"1234.56789\",\n          \"maxLtv\": 0.74,\n          \"liquidationLtv\": 0.75,\n          \"maxWithdrawableAmount\": 51225.5590659256,\n          \"maxWithdrawableValue\": \"1234.56789\",\n          \"tokenPrice\": 180.41782132\n        }\n      ]\n    },\n    \"debt\": {\n      \"borrows\": [\n        {\n          \"tokenMint\": \"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\n          \"tokenName\": \"USDC\",\n          \"tokenAmount\": \"1234.56789\",\n          \"tokenValue\": \"1234.56789\",\n          \"maxBorrowableAmount\": 1.30084031718889,\n          \"maxBorrowableValue\": \"1234.56789\",\n          \"tokenPrice\": 0.99989366,\n          \"borrowFactor\": 1\n        },\n        {\n          \"tokenMint\": \"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\n          \"tokenName\": \"USDC\",\n          \"tokenAmount\": \"1234.56789\",\n          \"tokenValue\": \"1234.56789\",\n          \"maxBorrowableAmount\": 1.30084031718889,\n          \"maxBorrowableValue\": \"1234.56789\",\n          \"tokenPrice\": 0.99989366,\n          \"borrowFactor\": 1\n        }\n      ]\n    },\n    \"currentLtv\": 0.0554213869045533,\n    \"maxLtv\": 0.74,\n    \"liquidationLtv\": 0.75,\n    \"closeFactor\": 0.1\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c1550722-9b74-4114-b945-18e08442e3e7",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "klend",
+                    "loans",
+                    ":pubkey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"metadata\": \"Account could not be found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a32e88a-5160-4bfc-be31-dca743164df8",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "klend",
+                    "loans",
+                    ":pubkey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "env",
+                      "value": "mainnet-beta"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pubkey",
+                      "description": "(Required) Valid base58-encoded address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"An internal error occurred\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.kamino.finance",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2d333395-3a5d-4e2f-b4f2-836b977f7fe6",
+    "name": "Kamino Public Airdrop Kamino Lend User Loans API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.\n\nThe API also provides the ability to fetch data that might not be available from just reading the chain.\n\nThe API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.\n",
+      "type": "text/plain"
+    }
+  }
+}
