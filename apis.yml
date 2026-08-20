@@ -40,6 +40,17 @@ tags:
 - Yield
 - Blockchain
 - Oracle
+- Vault
+tags_raw:
+- Company
+- Crypto Web3
+- DeFi
+- Solana
+- Lending
+- Borrowing
+- Yield
+- Blockchain
+- Oracle
 - Vaults
 apis:
 - aid: kamino:kamino-airdrop-api
@@ -254,7 +265,8 @@ apis:
   description: The Other API from Kamino — 4 operation(s) for other.
   humanURL: https://kamino.com/build/api-reference/introduction
   baseURL: https://api.kamino.finance
-  tags:
+  tags: []
+  tags_raw:
   - Other
   properties:
   - type: OpenAPI
