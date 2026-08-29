@@ -8,6 +8,9 @@ description: Kamino Finance is a Solana DeFi protocol for lending and borrowing 
   for deposit, borrow, repay, withdraw and vault operations that clients sign with their own wallet. First-party
   TypeScript SDKs are published under the @kamino-finance npm org.
 url: https://raw.githubusercontent.com/api-evangelist/kamino/refs/heads/main/apis.yml
+x-api-posture: no-product-api
+x-api-posture-basis: observed
+x-api-posture-note: "The Kamino Public API exposes language-agnostic HTTPS/JSON endpoints for reading real-time and historical protocol data, user positions, rewards, portfolio values, oracle prices and staking yields, pl"
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
