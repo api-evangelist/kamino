@@ -10,7 +10,9 @@ description: Kamino Finance is a Solana DeFi protocol for lending and borrowing 
 url: https://raw.githubusercontent.com/api-evangelist/kamino/refs/heads/main/apis.yml
 x-api-posture: no-product-api
 x-api-posture-basis: observed
-x-api-posture-note: "The Kamino Public API exposes language-agnostic HTTPS/JSON endpoints for reading real-time and historical protocol data, user positions, rewards, portfolio values, oracle prices and staking yields, pl"
+x-api-posture-note: The Kamino Public API exposes language-agnostic HTTPS/JSON endpoints for reading real-time
+  and historical protocol data, user positions, rewards, portfolio values, oracle prices and staking yields,
+  pl
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
@@ -44,7 +46,7 @@ accessModel:
   method: derived
 specificationVersion: '0.23'
 created: '2026-07-17'
-modified: '2026-07-19'
+modified: '2026-09-16'
 tags:
 - Company
 - Crypto Web3
@@ -93,7 +95,7 @@ apis:
   - type: APIReference
     url: https://kamino.com/build/api-reference/introduction
 - aid: kamino:kamino-kamino-earn-deposit-api
-  name: Kamino Kamino Earn Deposit API
+  name: Kamino Earn Deposit API
   description: The Kamino Earn Deposit API from Kamino — 2 operation(s) for kamino earn deposit.
   humanURL: https://kamino.com/build/api-reference/introduction
   baseURL: https://api.kamino.finance
@@ -105,7 +107,7 @@ apis:
   - type: APIReference
     url: https://kamino.com/build/api-reference/introduction
 - aid: kamino:kamino-kamino-earn-user-api
-  name: Kamino Kamino Earn User API
+  name: Kamino Earn User API
   description: The Kamino Earn User API from Kamino — 8 operation(s) for kamino earn user.
   humanURL: https://kamino.com/build/api-reference/introduction
   baseURL: https://api.kamino.finance
@@ -117,9 +119,8 @@ apis:
   - type: APIReference
     url: https://kamino.com/build/api-reference/introduction
 - aid: kamino:kamino-kamino-earn-vault-metadata-api
-  name: Kamino Kamino Earn Vault Metadata API
-  description: >-
-    The Kamino Earn Vault Metadata API from Kamino — 2 operation(s) for kamino earn vault metadata.
+  name: Kamino Earn Vault Metadata API
+  description: The Kamino Earn Vault Metadata API from Kamino — 2 operation(s) for kamino earn vault metadata.
   humanURL: https://kamino.com/build/api-reference/introduction
   baseURL: https://api.kamino.finance
   tags:
@@ -130,7 +131,7 @@ apis:
   - type: APIReference
     url: https://kamino.com/build/api-reference/introduction
 - aid: kamino:kamino-kamino-earn-vaults-api
-  name: Kamino Kamino Earn Vaults API
+  name: Kamino Earn Vaults API
   description: The Kamino Earn Vaults API from Kamino — 8 operation(s) for kamino earn vaults.
   humanURL: https://kamino.com/build/api-reference/introduction
   baseURL: https://api.kamino.finance
@@ -142,7 +143,7 @@ apis:
   - type: APIReference
     url: https://kamino.com/build/api-reference/introduction
 - aid: kamino:kamino-kamino-earn-withdraw-api
-  name: Kamino Kamino Earn Withdraw API
+  name: Kamino Earn Withdraw API
   description: The Kamino Earn Withdraw API from Kamino — 2 operation(s) for kamino earn withdraw.
   humanURL: https://kamino.com/build/api-reference/introduction
   baseURL: https://api.kamino.finance
@@ -154,7 +155,7 @@ apis:
   - type: APIReference
     url: https://kamino.com/build/api-reference/introduction
 - aid: kamino:kamino-kamino-lend-borrow-api
-  name: Kamino Kamino Lend Borrow API
+  name: Kamino Lend Borrow API
   description: The Kamino Lend Borrow API from Kamino — 2 operation(s) for kamino lend borrow.
   humanURL: https://kamino.com/build/api-reference/introduction
   baseURL: https://api.kamino.finance
@@ -166,9 +167,8 @@ apis:
   - type: APIReference
     url: https://kamino.com/build/api-reference/introduction
 - aid: kamino:kamino-kamino-lend-borrow-orders-api
-  name: Kamino Kamino Lend Borrow Orders API
-  description: >-
-    The Kamino Lend Borrow Orders API from Kamino — 2 operation(s) for kamino lend borrow orders.
+  name: Kamino Lend Borrow Orders API
+  description: The Kamino Lend Borrow Orders API from Kamino — 2 operation(s) for kamino lend borrow orders.
   humanURL: https://kamino.com/build/api-reference/introduction
   baseURL: https://api.kamino.finance
   tags:
@@ -179,7 +179,7 @@ apis:
   - type: APIReference
     url: https://kamino.com/build/api-reference/introduction
 - aid: kamino:kamino-kamino-lend-deposit-api
-  name: Kamino Kamino Lend Deposit API
+  name: Kamino Lend Deposit API
   description: The Kamino Lend Deposit API from Kamino — 2 operation(s) for kamino lend deposit.
   humanURL: https://kamino.com/build/api-reference/introduction
   baseURL: https://api.kamino.finance
@@ -191,7 +191,7 @@ apis:
   - type: APIReference
     url: https://kamino.com/build/api-reference/introduction
 - aid: kamino:kamino-kamino-lend-markets-api
-  name: Kamino Kamino Lend Markets API
+  name: Kamino Lend Markets API
   description: The Kamino Lend Markets API from Kamino — 7 operation(s) for kamino lend markets.
   humanURL: https://kamino.com/build/api-reference/introduction
   baseURL: https://api.kamino.finance
@@ -203,7 +203,7 @@ apis:
   - type: APIReference
     url: https://kamino.com/build/api-reference/introduction
 - aid: kamino:kamino-kamino-lend-repay-api
-  name: Kamino Kamino Lend Repay API
+  name: Kamino Lend Repay API
   description: The Kamino Lend Repay API from Kamino — 2 operation(s) for kamino lend repay.
   humanURL: https://kamino.com/build/api-reference/introduction
   baseURL: https://api.kamino.finance
@@ -215,9 +215,8 @@ apis:
   - type: APIReference
     url: https://kamino.com/build/api-reference/introduction
 - aid: kamino:kamino-kamino-lend-transactions-api
-  name: Kamino Kamino Lend Transactions API
-  description: >-
-    The Kamino Lend Transactions API from Kamino — 7 operation(s) for kamino lend transactions.
+  name: Kamino Lend Transactions API
+  description: The Kamino Lend Transactions API from Kamino — 7 operation(s) for kamino lend transactions.
   humanURL: https://kamino.com/build/api-reference/introduction
   baseURL: https://api.kamino.finance
   tags:
@@ -228,7 +227,7 @@ apis:
   - type: APIReference
     url: https://kamino.com/build/api-reference/introduction
 - aid: kamino:kamino-kamino-lend-user-loans-api
-  name: Kamino Kamino Lend User Loans API
+  name: Kamino Lend User Loans API
   description: The Kamino Lend User Loans API from Kamino — 4 operation(s) for kamino lend user loans.
   humanURL: https://kamino.com/build/api-reference/introduction
   baseURL: https://api.kamino.finance
@@ -240,7 +239,7 @@ apis:
   - type: APIReference
     url: https://kamino.com/build/api-reference/introduction
 - aid: kamino:kamino-kamino-lend-withdraw-api
-  name: Kamino Kamino Lend Withdraw API
+  name: Kamino Lend Withdraw API
   description: The Kamino Lend Withdraw API from Kamino — 2 operation(s) for kamino lend withdraw.
   humanURL: https://kamino.com/build/api-reference/introduction
   baseURL: https://api.kamino.finance
@@ -252,7 +251,7 @@ apis:
   - type: APIReference
     url: https://kamino.com/build/api-reference/introduction
 - aid: kamino:kamino-kamino-lend-yield-api
-  name: Kamino Kamino Lend Yield API
+  name: Kamino Lend Yield API
   description: The Kamino Lend Yield API from Kamino — 7 operation(s) for kamino lend yield.
   humanURL: https://kamino.com/build/api-reference/introduction
   baseURL: https://api.kamino.finance
@@ -388,7 +387,10 @@ common:
   url: packages/kamino-packages.yml
 - type: X-MCPServerCandidate
   url: mcp/kamino-mcp.yml
-  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
+  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate
+    — a tool list derived from the published API contracts, not an existing server. The scorer already
+    read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type
+    surfaces with a server that does not exist.'
 - type: Conformance
   url: conformance/kamino-conformance.yml
 - type: ErrorCatalog
