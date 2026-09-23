@@ -1,16 +1,14 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   version: 1.0.0
-  title: Kamino Public Airdrop Kamino Earn User API
+  title: Kamino Public Kamino Earn User API
   description: 'The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.
 
 
     The API also provides the ability to fetch data that might not be available from just reading the chain.
 
 
-    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.
-
-    '
+    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.'
 servers:
 - url: https://api.kamino.finance
 tags:
@@ -56,8 +54,7 @@ paths:
                     type: array
                     items:
                       type: object
-                      additionalProperties:
-                        nullable: true
+                      additionalProperties: {}
                     description: Detailed validation issues (present only for validation errors)
                 required:
                 - error
@@ -83,6 +80,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getKvaultsUsersByPubkeyTransactions
+      x-operation-id-source: derived
   /kvaults/users/{pubkey}/positions:
     get:
       summary: Get all user KVault positions
@@ -146,8 +145,7 @@ paths:
                     type: array
                     items:
                       type: object
-                      additionalProperties:
-                        nullable: true
+                      additionalProperties: {}
                     description: Detailed validation issues (present only for validation errors)
                 required:
                 - error
@@ -173,6 +171,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getKvaultsUsersByPubkeyPositions
+      x-operation-id-source: derived
   /kvaults/users/{userPubkey}/positions/{vaultPubkey}:
     get:
       summary: Get user position for a specific KVault
@@ -242,8 +242,7 @@ paths:
                     type: array
                     items:
                       type: object
-                      additionalProperties:
-                        nullable: true
+                      additionalProperties: {}
                     description: Detailed validation issues (present only for validation errors)
                 required:
                 - error
@@ -282,6 +281,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getKvaultsUsersByUserPubkeyPositionsByVaultPubkey
+      x-operation-id-source: derived
   /kvaults/users/{pubkey}/metrics/history:
     get:
       summary: Get historical user metrics for all KVault positions
@@ -347,8 +348,7 @@ paths:
                     type: array
                     items:
                       type: object
-                      additionalProperties:
-                        nullable: true
+                      additionalProperties: {}
                     description: Detailed validation issues (present only for validation errors)
                 required:
                 - error
@@ -374,6 +374,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getKvaultsUsersByPubkeyMetricsHistory
+      x-operation-id-source: derived
   /kvaults/users/{userPubkey}/vaults/{vaultPubkey}/metrics/history:
     get:
       summary: Get historical user metrics for a single KVault
@@ -448,8 +450,7 @@ paths:
                     type: array
                     items:
                       type: object
-                      additionalProperties:
-                        nullable: true
+                      additionalProperties: {}
                     description: Detailed validation issues (present only for validation errors)
                 required:
                 - error
@@ -475,6 +476,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getKvaultsUsersByUserPubkeyVaultsByVaultPubkeyMetricsHistory
+      x-operation-id-source: derived
   /kvaults/users/{userPubkey}/vaults/{vaultPubkey}/pnl:
     get:
       summary: Get user KVault PnL
@@ -522,8 +525,7 @@ paths:
                     type: array
                     items:
                       type: object
-                      additionalProperties:
-                        nullable: true
+                      additionalProperties: {}
                     description: Detailed validation issues (present only for validation errors)
                 required:
                 - error
@@ -549,6 +551,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getKvaultsUsersByUserPubkeyVaultsByVaultPubkeyPnl
+      x-operation-id-source: derived
   /kvaults/users/{userPubkey}/vaults/{vaultPubkey}/pnl/history:
     get:
       summary: Get user KVault PnL history
@@ -633,8 +637,7 @@ paths:
                     type: array
                     items:
                       type: object
-                      additionalProperties:
-                        nullable: true
+                      additionalProperties: {}
                     description: Detailed validation issues (present only for validation errors)
                 required:
                 - error
@@ -660,6 +663,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getKvaultsUsersByUserPubkeyVaultsByVaultPubkeyPnlHistory
+      x-operation-id-source: derived
   /kvaults/users/{pubkey}/rewards:
     get:
       summary: Get season user rewards
@@ -708,8 +713,7 @@ paths:
                     type: array
                     items:
                       type: object
-                      additionalProperties:
-                        nullable: true
+                      additionalProperties: {}
                     description: Detailed validation issues (present only for validation errors)
                 required:
                 - error
@@ -735,17 +739,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getKvaultsUsersByPubkeyRewards
+      x-operation-id-source: derived
 components:
   schemas:
-    AddressBase58:
-      type: string
-      description: Valid base58-encoded address
-      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
-    KvaultUserRewardMetrics:
-      type: array
-      items:
-        $ref: '#/components/schemas/KvaultUserRewardMetric'
-      description: List of kvault user reward metrics
     KvaultPnlTimeseriesValue:
       type: object
       properties:
@@ -811,7 +808,68 @@ components:
       - pnl
       - positionValue
       - investment
-    UserKVaultTotal:
+    KVaultInstruction:
+      type: object
+      properties:
+        createdOn:
+          type: string
+          format: date
+          description: Date when the instruction was created
+        instruction:
+          type: string
+          description: Type of instruction
+        tokenMint:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Token mint address
+        tokenAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Amount of tokens involved
+        tokenPrice:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Price of the token at the time of instruction
+        solPrice:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Price of SOL at the time of instruction
+        sharePrice:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Price per share at the time of instruction
+        numberOfShares:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Number of shares involved
+        usdValue:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: USD value of the transaction
+        transaction:
+          type: string
+          description: Transaction signature
+        kvault:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: KVault identifier
+        latestPosition:
+          type: boolean
+          description: Indicates if this is the latest position
+      required:
+      - createdOn
+      - instruction
+      - tokenMint
+      - tokenAmount
+      - tokenPrice
+      - solPrice
+      - sharePrice
+      - numberOfShares
+      - usdValue
+      - transaction
+      - kvault
+      - latestPosition
+    UserKvaultMetrics:
       type: object
       properties:
         createdOn:
@@ -819,27 +877,39 @@ components:
           - $ref: '#/components/schemas/SnapshotDateTime'
           - description: Timestamp when the snapshot was created (ISO 8601 format)
             example: '2025-03-01T12:00:00.000Z'
+        sharesAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: User's total shares amount
         usdAmount:
           allOf:
           - $ref: '#/components/schemas/Decimal'
-          - description: User's total amount across all vaults in USD
+          - description: User's USD amount in kvault
         solAmount:
           allOf:
           - $ref: '#/components/schemas/Decimal'
-          - description: User's total amount across all vaults in SOL
-        weightedApy:
+          - description: User's SOL amount in kvault
+        apy:
           allOf:
           - $ref: '#/components/schemas/Apy'
-          - description: Weighted average APY across all vaults in decimal format
+          - description: APY in decimal format (not percentage) represented as string. Multiply by 100 to get percentage (%) - 0.1 in API response is 10%.
             example: '0.2'
+        cumulativeInterestEarned:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total interest earned in kvault token amount for kvault
         cumulativeInterestEarnedUsd:
           allOf:
           - $ref: '#/components/schemas/Decimal'
-          - description: Total interest earned in USD across all vaults
+          - description: Total interest earned in USD for kvault
         cumulativeInterestEarnedSol:
           allOf:
           - $ref: '#/components/schemas/Decimal'
-          - description: Total interest earned in SOL across all vaults
+          - description: Total interest earned in SOL for kvault
+        interestEarnedPerSecond:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Interest earned per second at that specific moment in token
         interestEarnedPerSecondUsd:
           allOf:
           - $ref: '#/components/schemas/Decimal'
@@ -850,18 +920,22 @@ components:
           - description: Interest earned per second at that specific moment in SOL
       required:
       - createdOn
+      - sharesAmount
       - usdAmount
       - solAmount
-      - weightedApy
+      - apy
+      - cumulativeInterestEarned
       - cumulativeInterestEarnedUsd
       - cumulativeInterestEarnedSol
+      - interestEarnedPerSecond
       - interestEarnedPerSecondUsd
       - interestEarnedPerSecondSol
-    Decimal:
-      type: string
-      description: Decimal value represented as string
-      example: '1234.56789'
-    The vault state object:
+    KvaultUserRewardMetrics:
+      type: array
+      items:
+        $ref: '#/components/schemas/KvaultUserRewardMetric'
+      description: List of kvault user reward metrics
+    The_vault_state_object:
       type: object
       properties:
         vaultAdminAuthority:
@@ -1055,122 +1129,57 @@ components:
       - vaultFarm
       - creationTimestamp
       - allocationAdmin
-    KvaultMultiValue:
+    UserKVaultTotal:
       type: object
       properties:
-        usd:
+        createdOn:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - description: Timestamp when the snapshot was created (ISO 8601 format)
+            example: '2025-03-01T12:00:00.000Z'
+        usdAmount:
           allOf:
           - $ref: '#/components/schemas/Decimal'
-          - description: Value in USD
-        sol:
+          - description: User's total amount across all vaults in USD
+        solAmount:
           allOf:
           - $ref: '#/components/schemas/Decimal'
-          - description: Value in SOL
-        token:
+          - description: User's total amount across all vaults in SOL
+        weightedApy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Weighted average APY across all vaults in decimal format
+            example: '0.2'
+        cumulativeInterestEarnedUsd:
           allOf:
           - $ref: '#/components/schemas/Decimal'
-          - description: Value in token denomination
+          - description: Total interest earned in USD across all vaults
+        cumulativeInterestEarnedSol:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total interest earned in SOL across all vaults
+        interestEarnedPerSecondUsd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Interest earned per second at that specific moment in USD
+        interestEarnedPerSecondSol:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Interest earned per second at that specific moment in SOL
       required:
-      - usd
-      - sol
-      - token
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message for internal server failure
-          example: An internal error occurred
-      required:
-      - error
-      description: Internal server error response (500)
-      example:
-        error: An internal error occurred
+      - createdOn
+      - usdAmount
+      - solAmount
+      - weightedApy
+      - cumulativeInterestEarnedUsd
+      - cumulativeInterestEarnedSol
+      - interestEarnedPerSecondUsd
+      - interestEarnedPerSecondSol
     SnapshotDateTime:
       type: string
       format: date-time
       description: Timestamp of the metrics snapshot
       example: '2023-06-29T15:15:26.464Z'
-    KVaultInstruction:
-      type: object
-      properties:
-        createdOn:
-          type: string
-          format: date
-          description: Date when the instruction was created
-        instruction:
-          type: string
-          description: Type of instruction
-        tokenMint:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Token mint address
-        tokenAmount:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Amount of tokens involved
-        tokenPrice:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Price of the token at the time of instruction
-        solPrice:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Price of SOL at the time of instruction
-        sharePrice:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Price per share at the time of instruction
-        numberOfShares:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Number of shares involved
-        usdValue:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: USD value of the transaction
-        transaction:
-          type: string
-          description: Transaction signature
-        kvault:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: KVault identifier
-        latestPosition:
-          type: boolean
-          description: Indicates if this is the latest position
-      required:
-      - createdOn
-      - instruction
-      - tokenMint
-      - tokenAmount
-      - tokenPrice
-      - solPrice
-      - sharePrice
-      - numberOfShares
-      - usdValue
-      - transaction
-      - kvault
-      - latestPosition
-    VaultStateArray:
-      type: array
-      items:
-        type: object
-        properties:
-          address:
-            allOf:
-            - $ref: '#/components/schemas/AddressBase58'
-            - description: Public key of the vault
-          state:
-            $ref: '#/components/schemas/The vault state object'
-          programId:
-            allOf:
-            - $ref: '#/components/schemas/AddressBase58'
-            - description: Public key of the kvault program which owns the vault
-        required:
-        - address
-        - state
-        - programId
     Apy:
       type: string
       description: Borrow interest APY
@@ -1182,67 +1191,24 @@ components:
       - '1.23'
       - '-0.5'
       - '999999.999999'
-    UserKvaultMetrics:
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
+    KvaultPnl:
       type: object
       properties:
-        createdOn:
-          allOf:
-          - $ref: '#/components/schemas/SnapshotDateTime'
-          - description: Timestamp when the snapshot was created (ISO 8601 format)
-            example: '2025-03-01T12:00:00.000Z'
-        sharesAmount:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: User's total shares amount
-        usdAmount:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: User's USD amount in kvault
-        solAmount:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: User's SOL amount in kvault
-        apy:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: APY in decimal format (not percentage) represented as string. Multiply by 100 to get percentage (%) - 0.1 in API response is 10%.
-            example: '0.2'
-        cumulativeInterestEarned:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total interest earned in kvault token amount for kvault
-        cumulativeInterestEarnedUsd:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total interest earned in USD for kvault
-        cumulativeInterestEarnedSol:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total interest earned in SOL for kvault
-        interestEarnedPerSecond:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Interest earned per second at that specific moment in token
-        interestEarnedPerSecondUsd:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Interest earned per second at that specific moment in USD
-        interestEarnedPerSecondSol:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Interest earned per second at that specific moment in SOL
+        totalPnl:
+          $ref: '#/components/schemas/KvaultMultiValue'
+        totalCostBasis:
+          $ref: '#/components/schemas/KvaultMultiValue'
       required:
-      - createdOn
-      - sharesAmount
-      - usdAmount
-      - solAmount
-      - apy
-      - cumulativeInterestEarned
-      - cumulativeInterestEarnedUsd
-      - cumulativeInterestEarnedSol
-      - interestEarnedPerSecond
-      - interestEarnedPerSecondUsd
-      - interestEarnedPerSecondSol
+      - totalPnl
+      - totalCostBasis
     KvaultUserRewardMetric:
       type: object
       properties:
@@ -1323,13 +1289,53 @@ components:
       - maxApy
       - usdAmount
       - usdAmountBoosted
-    KvaultPnl:
+    VaultStateArray:
+      type: array
+      items:
+        type: object
+        properties:
+          address:
+            allOf:
+            - $ref: '#/components/schemas/AddressBase58'
+            - description: Public key of the vault
+          state:
+            $ref: '#/components/schemas/The_vault_state_object'
+          programId:
+            allOf:
+            - $ref: '#/components/schemas/AddressBase58'
+            - description: Public key of the kvault program which owns the vault
+        required:
+        - address
+        - state
+        - programId
+    KvaultMultiValue:
       type: object
       properties:
-        totalPnl:
-          $ref: '#/components/schemas/KvaultMultiValue'
-        totalCostBasis:
-          $ref: '#/components/schemas/KvaultMultiValue'
+        usd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Value in USD
+        sol:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Value in SOL
+        token:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Value in token denomination
       required:
-      - totalPnl
-      - totalCostBasis
+      - usd
+      - sol
+      - token
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred

@@ -1,16 +1,14 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   version: 1.0.0
-  title: Kamino Public Airdrop Private Credit API
+  title: Kamino Public Private Credit API
   description: 'The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.
 
 
     The API also provides the ability to fetch data that might not be available from just reading the chain.
 
 
-    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.
-
-    '
+    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.'
 servers:
 - url: https://api.kamino.finance
 tags:
@@ -35,6 +33,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getKvaultsPrivateCreditMetrics
+      x-operation-id-source: derived
   /kvaults/private-credit/metrics/history:
     get:
       summary: Get private credit metrics history
@@ -89,8 +89,7 @@ paths:
                     type: array
                     items:
                       type: object
-                      additionalProperties:
-                        nullable: true
+                      additionalProperties: {}
                     description: Detailed validation issues (present only for validation errors)
                 required:
                 - error
@@ -116,43 +115,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getKvaultsPrivateCreditMetricsHistory
+      x-operation-id-source: derived
 components:
   schemas:
-    PrivateCreditHistoryPoint:
-      type: object
-      properties:
-        createdOn:
-          allOf:
-          - $ref: '#/components/schemas/SnapshotDateTime'
-          - description: Timestamp when the snapshot was created (ISO 8601 format)
-            example: '2025-03-01T12:00:00.000Z'
-        weightedAvgLtv:
-          $ref: '#/components/schemas/Decimal'
-        maxLtv:
-          $ref: '#/components/schemas/Decimal'
-        statusDistribution:
-          type: array
-          items:
-            $ref: '#/components/schemas/PrivateCreditStatusDistribution'
-      required:
-      - createdOn
-      - weightedAvgLtv
-      - maxLtv
-      - statusDistribution
-    Decimal:
-      type: string
-      description: Decimal value represented as string
-      example: '1234.56789'
-    PrivateCreditStatusDistribution:
-      type: object
-      properties:
-        status:
-          type: string
-        share:
-          $ref: '#/components/schemas/Decimal'
-      required:
-      - status
-      - share
     PrivateCreditAggregateMetrics:
       type: object
       properties:
@@ -181,35 +147,50 @@ components:
       - avgLtv
       - maxLtv
       - updatedOn
-    PrivateCreditMetricsResponse:
-      type: object
-      properties:
-        metrics:
-          $ref: '#/components/schemas/PrivateCreditAggregateMetrics'
-        loans:
-          type: array
-          items:
-            $ref: '#/components/schemas/PrivateCreditLoan'
-      required:
-      - metrics
-      - loans
+    PrivateCreditHistoryResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/PrivateCreditHistoryPoint'
     SnapshotDateTime:
       type: string
       format: date-time
       description: Timestamp of the metrics snapshot
       example: '2023-06-29T15:15:26.464Z'
-    Error:
+    PrivateCreditStatusDistribution:
       type: object
       properties:
-        error:
+        status:
           type: string
-          description: Error message for internal server failure
-          example: An internal error occurred
+        share:
+          $ref: '#/components/schemas/Decimal'
       required:
-      - error
-      description: Internal server error response (500)
-      example:
-        error: An internal error occurred
+      - status
+      - share
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
+    PrivateCreditHistoryPoint:
+      type: object
+      properties:
+        createdOn:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - description: Timestamp when the snapshot was created (ISO 8601 format)
+            example: '2025-03-01T12:00:00.000Z'
+        weightedAvgLtv:
+          $ref: '#/components/schemas/Decimal'
+        maxLtv:
+          $ref: '#/components/schemas/Decimal'
+        statusDistribution:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrivateCreditStatusDistribution'
+      required:
+      - createdOn
+      - weightedAvgLtv
+      - maxLtv
+      - statusDistribution
     PrivateCreditLoan:
       type: object
       properties:
@@ -238,7 +219,27 @@ components:
       - collateralAsset
       - maxLtv
       - liquidationStatus
-    PrivateCreditHistoryResponse:
-      type: array
-      items:
-        $ref: '#/components/schemas/PrivateCreditHistoryPoint'
+    PrivateCreditMetricsResponse:
+      type: object
+      properties:
+        metrics:
+          $ref: '#/components/schemas/PrivateCreditAggregateMetrics'
+        loans:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrivateCreditLoan'
+      required:
+      - metrics
+      - loans
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred

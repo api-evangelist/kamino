@@ -1,16 +1,14 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   version: 1.0.0
-  title: Kamino Public Airdrop Kamino Earn Vault Metadata API
+  title: Kamino Public Kamino Earn Vault Metadata API
   description: 'The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.
 
 
     The API also provides the ability to fetch data that might not be available from just reading the chain.
 
 
-    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.
-
-    '
+    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.'
 servers:
 - url: https://api.kamino.finance
 tags:
@@ -83,8 +81,7 @@ paths:
                     type: array
                     items:
                       type: object
-                      additionalProperties:
-                        nullable: true
+                      additionalProperties: {}
                     description: Detailed validation issues (present only for validation errors)
                 required:
                 - error
@@ -123,6 +120,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getKvaultsMintsByPubkeyMetadata
+      x-operation-id-source: derived
   /kvaults/mints/{pubkey}/metadata/image.svg:
     get:
       summary: Get icon for KVault token
@@ -172,8 +171,7 @@ paths:
                     type: array
                     items:
                       type: object
-                      additionalProperties:
-                        nullable: true
+                      additionalProperties: {}
                     description: Detailed validation issues (present only for validation errors)
                 required:
                 - error
@@ -212,6 +210,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getKvaultsMintsByPubkeyMetadataImageSvg
+      x-operation-id-source: derived
 components:
   schemas:
     AddressBase58:

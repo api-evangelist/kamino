@@ -1,16 +1,14 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   version: 1.0.0
-  title: Kamino Public Airdrop Yields API
+  title: Kamino Public Yields API
   description: 'The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.
 
 
     The API also provides the ability to fetch data that might not be available from just reading the chain.
 
 
-    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.
-
-    '
+    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.'
 servers:
 - url: https://api.kamino.finance
 tags:
@@ -82,8 +80,7 @@ paths:
                     type: array
                     items:
                       type: object
-                      additionalProperties:
-                        nullable: true
+                      additionalProperties: {}
                     description: Detailed validation issues (present only for validation errors)
                 required:
                 - error
@@ -109,6 +106,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getYieldsByYieldSourceHistory
+      x-operation-id-source: derived
   /yields/principal-tokens:
     get:
       summary: Get principal token yields
@@ -128,12 +127,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getYieldsPrincipalTokens
+      x-operation-id-source: derived
 components:
   schemas:
     YieldHistoryResponse:
       type: array
       items:
         $ref: '#/components/schemas/YieldHistoryItem'
+    PtYieldsResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/PtYieldItem'
     PtYieldItem:
       type: object
       properties:
@@ -154,31 +159,37 @@ components:
       required:
       - apy
       - tokenMint
-    AddressBase58:
+    Apr:
       type: string
-      description: Valid base58-encoded address
-      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
-    PtYieldsResponse:
-      type: array
-      items:
-        $ref: '#/components/schemas/PtYieldItem'
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message for internal server failure
-          example: An internal error occurred
-      required:
-      - error
-      description: Internal server error response (500)
-      example:
-        error: An internal error occurred
+      description: APR in decimal format (not percentage) represented as string. Multiply by 100 to get percentage (%) - 0.1 in API response is 10%.
+      example: '0.2'
+      examples:
+      - '0.123'
+      - '0'
+      - '1'
+      - '1.23'
+      - '-0.5'
+      - '999999.999999'
+    Apy:
+      type: string
+      description: Borrow interest APY
+      example: '0.027610992938039702'
+      examples:
+      - '0.123'
+      - '0'
+      - '1'
+      - '1.23'
+      - '-0.5'
+      - '999999.999999'
     SnapshotDateTime:
       type: string
       format: date-time
       description: Timestamp of the metrics snapshot
       example: '2023-06-29T15:15:26.464Z'
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
     YieldHistoryItem:
       type: object
       properties:
@@ -198,25 +209,15 @@ components:
       - createdOn
       - apr
       - apy
-    Apy:
-      type: string
-      description: Borrow interest APY
-      example: '0.027610992938039702'
-      examples:
-      - '0.123'
-      - '0'
-      - '1'
-      - '1.23'
-      - '-0.5'
-      - '999999.999999'
-    Apr:
-      type: string
-      description: APR in decimal format (not percentage) represented as string. Multiply by 100 to get percentage (%) - 0.1 in API response is 10%.
-      example: '0.2'
-      examples:
-      - '0.123'
-      - '0'
-      - '1'
-      - '1.23'
-      - '-0.5'
-      - '999999.999999'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred

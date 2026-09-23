@@ -1,4 +1,4 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   version: 1.0.0
   title: Kamino Public Airdrop API
@@ -8,9 +8,7 @@ info:
     The API also provides the ability to fetch data that might not be available from just reading the chain.
 
 
-    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.
-
-    '
+    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.'
 servers:
 - url: https://api.kamino.finance
 tags:
@@ -69,8 +67,7 @@ paths:
                     type: array
                     items:
                       type: object
-                      additionalProperties:
-                        nullable: true
+                      additionalProperties: {}
                     description: Detailed validation issues (present only for validation errors)
                 required:
                 - error
@@ -96,6 +93,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getV2AirdropUsersByPubkeyAllocations
+      x-operation-id-source: derived
   /v2/airdrop/metrics:
     get:
       summary: Get airdrop metrics
@@ -140,8 +139,7 @@ paths:
                     type: array
                     items:
                       type: object
-                      additionalProperties:
-                        nullable: true
+                      additionalProperties: {}
                     description: Detailed validation issues (present only for validation errors)
                 required:
                 - error
@@ -180,8 +178,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getV2AirdropMetrics
+      x-operation-id-source: derived
 components:
   schemas:
+    SnapshotDateTime:
+      type: string
+      format: date-time
+      description: Timestamp of the metrics snapshot
+      example: '2023-06-29T15:15:26.464Z'
+    Integer:
+      type: string
+      description: Total number of unique users participating in the airdrop
+      example: '1'
+      examples:
+      - '0'
+      - '1'
+      - '100'
+      - '-1'
     AddressBase58:
       type: string
       description: Valid base58-encoded address
@@ -190,23 +204,6 @@ components:
       type: string
       description: Decimal value represented as string
       example: '1234.56789'
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message for internal server failure
-          example: An internal error occurred
-      required:
-      - error
-      description: Internal server error response (500)
-      example:
-        error: An internal error occurred
-    SnapshotDateTime:
-      type: string
-      format: date-time
-      description: Timestamp of the metrics snapshot
-      example: '2023-06-29T15:15:26.464Z'
     AirdropAllocation:
       type: object
       properties:
@@ -239,12 +236,15 @@ components:
       - totalAllocation
       - totalUsers
       - claimDate
-    Integer:
-      type: string
-      description: Total number of unique users participating in the airdrop
-      example: '1'
-      examples:
-      - '0'
-      - '1'
-      - '100'
-      - '-1'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred

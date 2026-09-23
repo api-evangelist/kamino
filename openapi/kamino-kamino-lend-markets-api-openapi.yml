@@ -1,16 +1,14 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   version: 1.0.0
-  title: Kamino Public Airdrop Kamino Lend Markets API
+  title: Kamino Public Kamino Lend Markets API
   description: 'The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.
 
 
     The API also provides the ability to fetch data that might not be available from just reading the chain.
 
 
-    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.
-
-    '
+    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.'
 servers:
 - url: https://api.kamino.finance
 tags:
@@ -87,6 +85,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getKaminoMarketByPubkeyMetricsHistory
+      x-operation-id-source: derived
   /kamino-market/{marketPubkey}/reserves/{reservePubkey}/metrics/history:
     get:
       summary: Get KLend reserve history
@@ -169,14 +169,15 @@ paths:
           description: OK
           content:
             application/json:
-              schema:
-                nullable: true
+              schema: {}
         '500':
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getKaminoMarketByMarketPubkeyReservesByReservePubkeyMetricsHistory
+      x-operation-id-source: derived
   /kamino-market/{pubkey}/reserves/metrics:
     get:
       summary: Get metrics for market reserves
@@ -221,6 +222,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getKaminoMarketByPubkeyReservesMetrics
+      x-operation-id-source: derived
   /kamino-market/{pubkey}/leverage/metrics:
     get:
       summary: Get metrics for leverage/multiply vaults
@@ -265,6 +268,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getKaminoMarketByPubkeyLeverageMetrics
+      x-operation-id-source: derived
   /kamino-market/reserves/account-data:
     get:
       summary: Get KLend market reserves account data
@@ -302,6 +307,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getKaminoMarketReservesAccountData
+      x-operation-id-source: derived
   /v2/kamino-market:
     get:
       summary: Get all Kamino Markets config
@@ -333,6 +340,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getV2KaminoMarket
+      x-operation-id-source: derived
   /v2/kamino-market/{pubkey}:
     get:
       summary: Get Kamino Market config
@@ -371,12 +380,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getV2KaminoMarketByPubkey
+      x-operation-id-source: derived
 components:
   schemas:
-    AddressBase58:
-      type: string
-      description: Valid base58-encoded address
-      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
     MarketMetricsResponse:
       type: object
       properties:
@@ -413,156 +420,6 @@ components:
       - market
       - timestamp
       - metrics
-    Decimal:
-      type: string
-      description: Decimal value represented as string
-      example: '1234.56789'
-    ReserveMetricsResponse:
-      type: object
-      properties:
-        reserve:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Reserve public key
-        liquidityToken:
-          type: string
-          description: Liquidity token symbol
-          example: SOL
-        liquidityTokenMint:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Liquidity token mint address
-        maxLtv:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Maximum loan-to-value ratio
-            example: '0.65'
-        borrowApy:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: Current borrow APY
-            example: '0.05450988511483601'
-        supplyApy:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: Current supply APY
-            example: '0.038266801210808055'
-        totalSupply:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total supply amount
-        totalBorrow:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total borrow amount
-        totalBorrowUsd:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total borrow in USD
-        totalSupplyUsd:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total supply in USD
-      required:
-      - reserve
-      - liquidityToken
-      - liquidityTokenMint
-      - maxLtv
-      - borrowApy
-      - supplyApy
-      - totalSupply
-      - totalBorrow
-      - totalBorrowUsd
-      - totalSupplyUsd
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message for internal server failure
-          example: An internal error occurred
-      required:
-      - error
-      description: Internal server error response (500)
-      example:
-        error: An internal error occurred
-    MarketConfigResponseV2:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Market name
-          example: SOL/BTC Market
-        isPrimary:
-          type: boolean
-          description: Whether this is a primary market
-          example: true
-        description:
-          type: string
-          description: Market description
-          example: Primary market on mainnet
-        lendingMarket:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Lending market public key
-            example: 7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF
-        lookupTable:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Lookup table address
-            example: FGMSBiyVE8TvZcdQnZETAAKw28tkQJ2ccZy6pyp95URb
-        isCurated:
-          type: boolean
-          description: Whether this market is curated
-          example: false
-      required:
-      - name
-      - isPrimary
-      - description
-      - lendingMarket
-      - lookupTable
-      - isCurated
-    SnapshotDateTime:
-      type: string
-      format: date-time
-      description: Timestamp of the metrics snapshot
-      example: '2023-06-29T15:15:26.464Z'
-    Apy:
-      type: string
-      description: Borrow interest APY
-      example: '0.027610992938039702'
-      examples:
-      - '0.123'
-      - '0'
-      - '1'
-      - '1.23'
-      - '-0.5'
-      - '999999.999999'
-    ReserveAccountDataResponse:
-      type: object
-      properties:
-        market:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Market public key
-        reserves:
-          type: array
-          items:
-            type: object
-            properties:
-              pubkey:
-                allOf:
-                - $ref: '#/components/schemas/AddressBase58'
-                - description: Reserve public key
-              data:
-                type: string
-                description: Base64 encoded reserve account data
-            required:
-            - pubkey
-            - data
-      required:
-      - market
-      - reserves
     LeverageMetricsResponse:
       type: object
       properties:
@@ -621,3 +478,157 @@ components:
       - depositReserve
       - borrowReserve
       - tag
+    SnapshotDateTime:
+      type: string
+      format: date-time
+      description: Timestamp of the metrics snapshot
+      example: '2023-06-29T15:15:26.464Z'
+    Apy:
+      type: string
+      description: Borrow interest APY
+      example: '0.027610992938039702'
+      examples:
+      - '0.123'
+      - '0'
+      - '1'
+      - '1.23'
+      - '-0.5'
+      - '999999.999999'
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
+    MarketConfigResponseV2:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Market name
+          example: SOL/BTC Market
+        isPrimary:
+          type: boolean
+          description: Whether this is a primary market
+          example: true
+        description:
+          type: string
+          description: Market description
+          example: Primary market on mainnet
+        lendingMarket:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Lending market public key
+            example: 7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF
+        lookupTable:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Lookup table address
+            example: FGMSBiyVE8TvZcdQnZETAAKw28tkQJ2ccZy6pyp95URb
+        isCurated:
+          type: boolean
+          description: Whether this market is curated
+          example: false
+      required:
+      - name
+      - isPrimary
+      - description
+      - lendingMarket
+      - lookupTable
+      - isCurated
+    ReserveMetricsResponse:
+      type: object
+      properties:
+        reserve:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Reserve public key
+        liquidityToken:
+          type: string
+          description: Liquidity token symbol
+          example: SOL
+        liquidityTokenMint:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Liquidity token mint address
+        maxLtv:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Maximum loan-to-value ratio
+            example: '0.65'
+        borrowApy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Current borrow APY
+            example: '0.05450988511483601'
+        supplyApy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Current supply APY
+            example: '0.038266801210808055'
+        totalSupply:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total supply amount
+        totalBorrow:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total borrow amount
+        totalBorrowUsd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total borrow in USD
+        totalSupplyUsd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total supply in USD
+      required:
+      - reserve
+      - liquidityToken
+      - liquidityTokenMint
+      - maxLtv
+      - borrowApy
+      - supplyApy
+      - totalSupply
+      - totalBorrow
+      - totalBorrowUsd
+      - totalSupplyUsd
+    ReserveAccountDataResponse:
+      type: object
+      properties:
+        market:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Market public key
+        reserves:
+          type: array
+          items:
+            type: object
+            properties:
+              pubkey:
+                allOf:
+                - $ref: '#/components/schemas/AddressBase58'
+                - description: Reserve public key
+              data:
+                type: string
+                description: Base64 encoded reserve account data
+            required:
+            - pubkey
+            - data
+      required:
+      - market
+      - reserves
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred

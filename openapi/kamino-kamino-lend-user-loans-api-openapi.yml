@@ -1,16 +1,14 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   version: 1.0.0
-  title: Kamino Public Airdrop Kamino Lend User Loans API
+  title: Kamino Public Kamino Lend User Loans API
   description: 'The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.
 
 
     The API also provides the ability to fetch data that might not be available from just reading the chain.
 
 
-    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.
-
-    '
+    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.'
 servers:
 - url: https://api.kamino.finance
 tags:
@@ -59,14 +57,15 @@ paths:
           description: OK
           content:
             application/json:
-              schema:
-                nullable: true
+              schema: {}
         '500':
           description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getKaminoMarketByMarketPubkeyUsersByUserPubkeyObligations
+      x-operation-id-source: derived
   /v2/kamino-market/{marketPubkey}/obligations/{obligationPubkey}/pnl:
     get:
       summary: Get profit and loss for an obligation
@@ -139,6 +138,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getV2KaminoMarketByMarketPubkeyObligationsByObligationPubkeyPnl
+      x-operation-id-source: derived
   /v2/kamino-market/{marketPubkey}/obligations/{obligationPubkey}/metrics/history:
     get:
       summary: Get KLend obligation history
@@ -229,6 +230,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getV2KaminoMarketByMarketPubkeyObligationsByObligationPubkeyMetricsHistory
+      x-operation-id-source: derived
   /klend/loans/{pubkey}:
     get:
       summary: Get information about a loan (obligation)
@@ -281,80 +284,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getKlendLoansByPubkey
+      x-operation-id-source: derived
 components:
   schemas:
-    PnlResponse:
-      type: object
-      properties:
-        usd:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: PnL in USD
-            example: '25.21'
-        sol:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: PnL in SOL
-            example: '1.0'
-        invested:
-          type: object
-          properties:
-            usd:
-              $ref: '#/components/schemas/Decimal'
-            sol:
-              $ref: '#/components/schemas/Decimal'
-          required:
-          - usd
-          - sol
-          description: Invested amounts
-      required:
-      - usd
-      - sol
-    AddressBase58:
-      type: string
-      description: Valid base58-encoded address
-      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
-    ObligationSolValues:
-      type: object
-      properties:
-        netValueSol:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Net value in SOL
-            example: '0.009469142566566941841900274495955292427975'
-        collateralValueSol:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Collateral value in SOL
-            example: '0.01001842948854487210536205388880118310325'
-        debtValueSol:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Debt value in SOL
-            example: '0.0005492869219779302633519230615141419874818'
-        solPrice:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: SOL price in USD
-            example: '182.05596125'
-        timestampSolPrice:
-          allOf:
-          - $ref: '#/components/schemas/SnapshotDateTime'
-          - description: Timestamp of the SOL price
-            example: '2025-10-17T00:00:00.000Z'
-        timestampObligation:
-          allOf:
-          - $ref: '#/components/schemas/SnapshotDateTime'
-          - description: Timestamp of the obligation snapshot
-            example: '2025-10-17T00:00:00.000Z'
-      required:
-      - netValueSol
-      - collateralValueSol
-      - debtValueSol
-      - solPrice
-      - timestampSolPrice
-      - timestampObligation
-      description: Obligation values denominated in SOL
     LoanDepositInfo:
       type: object
       properties:
@@ -407,61 +340,6 @@ components:
       - maxWithdrawableAmount
       - maxWithdrawableValue
       - tokenPrice
-    ObligationMetrics:
-      type: object
-      properties:
-        timestamp:
-          allOf:
-          - $ref: '#/components/schemas/SnapshotDateTime'
-          - example: '2025-10-17T00:00:00.000Z'
-        refreshedStats:
-          $ref: '#/components/schemas/ObligationStats'
-        deposits:
-          type: array
-          items:
-            $ref: '#/components/schemas/Position'
-          description: Array of deposit positions
-        borrows:
-          type: array
-          items:
-            $ref: '#/components/schemas/Position'
-          description: Array of borrow positions
-        tag:
-          type: integer
-          minimum: 0
-          maximum: 3
-          description: Obligation type tag (0 = Vanilla, 1 = Multiply, 2 = Lending, 3 = Leverage)
-          example: 0
-        obligationSolValues:
-          $ref: '#/components/schemas/ObligationSolValues'
-      required:
-      - timestamp
-      - refreshedStats
-      - deposits
-      - borrows
-      - tag
-      - obligationSolValues
-    Decimal:
-      type: string
-      description: Decimal value represented as string
-      example: '1234.56789'
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message for internal server failure
-          example: An internal error occurred
-      required:
-      - error
-      description: Internal server error response (500)
-      example:
-        error: An internal error occurred
-    SnapshotDateTime:
-      type: string
-      format: date-time
-      description: Timestamp of the metrics snapshot
-      example: '2023-06-29T15:15:26.464Z'
     LoanBorrowInfo:
       type: object
       properties:
@@ -509,110 +387,80 @@ components:
       - maxBorrowableValue
       - tokenPrice
       - borrowFactor
-    Position:
+    ObligationMetrics:
       type: object
       properties:
-        amount:
+        timestamp:
           allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Amount in the position
-            example: '10000708.005624756258'
-        mintAddress:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Token mint address
-            example: So11111111111111111111111111111111111111112
-        marketValueRefreshed:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Refreshed market value of the position
-            example: '1.8239148107523825549'
-      required:
-      - amount
-      - mintAddress
-      - marketValueRefreshed
-    ObligationStats:
-      type: object
-      properties:
-        leverage:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Leverage ratio of the obligation
-            example: '1.0580080950430842892'
-        borrowLimit:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Maximum borrow limit
-            example: '1.3496969599567630906'
-        loanToValue:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Current loan-to-value ratio
-            example: '0.054827647647367082766'
-        liquidationLtv:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Liquidation loan-to-value threshold
-            example: '0.75000000000000000001'
-        netAccountValue:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Net account value
-            example: '1.7239138521696367095'
-        userTotalBorrow:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total amount borrowed by the user
-            example: '0.10000095858274584538'
-        userTotalDeposit:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total amount deposited by the user
-            example: '1.8239148107523825549'
-        borrowUtilization:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Borrow utilization ratio
-            example: '0.074091415739685246983'
-        borrowLiquidationLimit:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Borrow liquidation limit
-            example: '1.3679361080642869162'
-        userTotalCollateralDeposit:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total collateral deposited by the user
-            example: '1.8239148107523825549'
-        userTotalLiquidatableDeposit:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total liquidatable deposit amount
-            example: '1.8239148107523825549'
-        potentialElevationGroupUpdate:
-          type: number
-          description: Potential elevation group update indicator
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - example: '2025-10-17T00:00:00.000Z'
+        refreshedStats:
+          $ref: '#/components/schemas/ObligationStats'
+        deposits:
+          type: array
+          items:
+            $ref: '#/components/schemas/Position'
+          description: Array of deposit positions
+        borrows:
+          type: array
+          items:
+            $ref: '#/components/schemas/Position'
+          description: Array of borrow positions
+        tag:
+          type: integer
+          minimum: 0
+          maximum: 3
+          description: Obligation type tag (0 = Vanilla, 1 = Multiply, 2 = Lending, 3 = Leverage)
           example: 0
-        userTotalBorrowBorrowFactorAdjusted:
+        obligationSolValues:
+          $ref: '#/components/schemas/ObligationSolValues'
+      required:
+      - timestamp
+      - refreshedStats
+      - deposits
+      - borrows
+      - tag
+      - obligationSolValues
+    SnapshotDateTime:
+      type: string
+      format: date-time
+      description: Timestamp of the metrics snapshot
+      example: '2023-06-29T15:15:26.464Z'
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
+    PnlResponse:
+      type: object
+      properties:
+        usd:
           allOf:
           - $ref: '#/components/schemas/Decimal'
-          - description: Total borrow adjusted by borrow factor
-            example: '0.10000095858274584538'
+          - description: PnL in USD
+            example: '25.21'
+        sol:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: PnL in SOL
+            example: '1.0'
+        invested:
+          type: object
+          properties:
+            usd:
+              $ref: '#/components/schemas/Decimal'
+            sol:
+              $ref: '#/components/schemas/Decimal'
+          required:
+          - usd
+          - sol
+          description: Invested amounts
       required:
-      - leverage
-      - borrowLimit
-      - loanToValue
-      - liquidationLtv
-      - netAccountValue
-      - userTotalBorrow
-      - userTotalDeposit
-      - borrowUtilization
-      - borrowLiquidationLimit
-      - userTotalCollateralDeposit
-      - userTotalLiquidatableDeposit
-      - potentialElevationGroupUpdate
-      - userTotalBorrowBorrowFactorAdjusted
-      description: Refreshed obligation statistics
+      - usd
+      - sol
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
     LoanInfo:
       type: object
       properties:
@@ -699,6 +547,28 @@ components:
       - elevationGroup
       - leverage
       - loanInfo
+    Position:
+      type: object
+      properties:
+        amount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Amount in the position
+            example: '10000708.005624756258'
+        mintAddress:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Token mint address
+            example: So11111111111111111111111111111111111111112
+        marketValueRefreshed:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Refreshed market value of the position
+            example: '1.8239148107523825549'
+      required:
+      - amount
+      - mintAddress
+      - marketValueRefreshed
     ObligationMetricsHistoryResponse:
       type: object
       properties:
@@ -715,3 +585,138 @@ components:
       required:
       - obligation
       - history
+    ObligationSolValues:
+      type: object
+      properties:
+        netValueSol:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Net value in SOL
+            example: '0.009469142566566941841900274495955292427975'
+        collateralValueSol:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Collateral value in SOL
+            example: '0.01001842948854487210536205388880118310325'
+        debtValueSol:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Debt value in SOL
+            example: '0.0005492869219779302633519230615141419874818'
+        solPrice:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: SOL price in USD
+            example: '182.05596125'
+        timestampSolPrice:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - description: Timestamp of the SOL price
+            example: '2025-10-17T00:00:00.000Z'
+        timestampObligation:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - description: Timestamp of the obligation snapshot
+            example: '2025-10-17T00:00:00.000Z'
+      required:
+      - netValueSol
+      - collateralValueSol
+      - debtValueSol
+      - solPrice
+      - timestampSolPrice
+      - timestampObligation
+      description: Obligation values denominated in SOL
+    ObligationStats:
+      type: object
+      properties:
+        leverage:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Leverage ratio of the obligation
+            example: '1.0580080950430842892'
+        borrowLimit:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Maximum borrow limit
+            example: '1.3496969599567630906'
+        loanToValue:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Current loan-to-value ratio
+            example: '0.054827647647367082766'
+        liquidationLtv:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Liquidation loan-to-value threshold
+            example: '0.75000000000000000001'
+        netAccountValue:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Net account value
+            example: '1.7239138521696367095'
+        userTotalBorrow:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total amount borrowed by the user
+            example: '0.10000095858274584538'
+        userTotalDeposit:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total amount deposited by the user
+            example: '1.8239148107523825549'
+        borrowUtilization:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Borrow utilization ratio
+            example: '0.074091415739685246983'
+        borrowLiquidationLimit:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Borrow liquidation limit
+            example: '1.3679361080642869162'
+        userTotalCollateralDeposit:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total collateral deposited by the user
+            example: '1.8239148107523825549'
+        userTotalLiquidatableDeposit:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total liquidatable deposit amount
+            example: '1.8239148107523825549'
+        potentialElevationGroupUpdate:
+          type: number
+          description: Potential elevation group update indicator
+          example: 0
+        userTotalBorrowBorrowFactorAdjusted:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total borrow adjusted by borrow factor
+            example: '0.10000095858274584538'
+      required:
+      - leverage
+      - borrowLimit
+      - loanToValue
+      - liquidationLtv
+      - netAccountValue
+      - userTotalBorrow
+      - userTotalDeposit
+      - borrowUtilization
+      - borrowLiquidationLimit
+      - userTotalCollateralDeposit
+      - userTotalLiquidatableDeposit
+      - potentialElevationGroupUpdate
+      - userTotalBorrowBorrowFactorAdjusted
+      description: Refreshed obligation statistics
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred

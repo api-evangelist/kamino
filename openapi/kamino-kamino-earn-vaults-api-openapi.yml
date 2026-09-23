@@ -1,16 +1,14 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   version: 1.0.0
-  title: Kamino Public Airdrop Kamino Earn Vaults API
+  title: Kamino Public Kamino Earn Vaults API
   description: 'The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.
 
 
     The API also provides the ability to fetch data that might not be available from just reading the chain.
 
 
-    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.
-
-    '
+    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.'
 servers:
 - url: https://api.kamino.finance
 tags:
@@ -112,8 +110,7 @@ paths:
                     type: array
                     items:
                       type: object
-                      additionalProperties:
-                        nullable: true
+                      additionalProperties: {}
                     description: Detailed validation issues (present only for validation errors)
                 required:
                 - error
@@ -152,6 +149,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: postKvaultsTransactions
+      x-operation-id-source: derived
   /kvaults/vaults/{pubkey}/transactions:
     post:
       summary: Get KVault transactions by vault
@@ -228,8 +227,7 @@ paths:
                     type: array
                     items:
                       type: object
-                      additionalProperties:
-                        nullable: true
+                      additionalProperties: {}
                     description: Detailed validation issues (present only for validation errors)
                 required:
                 - error
@@ -255,6 +253,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: postKvaultsVaultsByPubkeyTransactions
+      x-operation-id-source: derived
   /kvaults/vaults/{pubkey}/enqueued-withdraw-transactions:
     get:
       summary: Get currently queued withdraw-ticket redemptions for a vault
@@ -290,8 +290,7 @@ paths:
                     type: array
                     items:
                       type: object
-                      additionalProperties:
-                        nullable: true
+                      additionalProperties: {}
                     description: Detailed validation issues (present only for validation errors)
                 required:
                 - error
@@ -317,6 +316,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getKvaultsVaultsByPubkeyEnqueuedWithdrawTransactions
+      x-operation-id-source: derived
   /kvaults/vaults:
     get:
       summary: Get all kvaults
@@ -345,8 +346,7 @@ paths:
                     type: array
                     items:
                       type: object
-                      additionalProperties:
-                        nullable: true
+                      additionalProperties: {}
                     description: Detailed validation issues (present only for validation errors)
                 required:
                 - error
@@ -372,6 +372,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getKvaultsVaults
+      x-operation-id-source: derived
   /kvaults/vaults/{pubkey}:
     get:
       summary: Get KVault by address
@@ -398,7 +400,7 @@ paths:
                     - $ref: '#/components/schemas/AddressBase58'
                     - description: Public key of the vault
                   state:
-                    $ref: '#/components/schemas/The vault state object'
+                    $ref: '#/components/schemas/The_vault_state_object'
                   programId:
                     allOf:
                     - $ref: '#/components/schemas/AddressBase58'
@@ -422,8 +424,7 @@ paths:
                     type: array
                     items:
                       type: object
-                      additionalProperties:
-                        nullable: true
+                      additionalProperties: {}
                     description: Detailed validation issues (present only for validation errors)
                 required:
                 - error
@@ -462,6 +463,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getKvaultsVaultsByPubkey
+      x-operation-id-source: derived
   /kvaults/vaults/{pubkey}/metrics/history:
     get:
       summary: Get historical KVault metrics
@@ -664,8 +667,7 @@ paths:
                     type: array
                     items:
                       type: object
-                      additionalProperties:
-                        nullable: true
+                      additionalProperties: {}
                     description: Detailed validation issues (present only for validation errors)
                 required:
                 - error
@@ -691,6 +693,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getKvaultsVaultsByPubkeyMetricsHistory
+      x-operation-id-source: derived
   /kvaults/vaults/{pubkey}/metrics:
     get:
       summary: Get current KVault metrics
@@ -726,8 +730,7 @@ paths:
                     type: array
                     items:
                       type: object
-                      additionalProperties:
-                        nullable: true
+                      additionalProperties: {}
                     description: Detailed validation issues (present only for validation errors)
                 required:
                 - error
@@ -753,6 +756,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getKvaultsVaultsByPubkeyMetrics
+      x-operation-id-source: derived
   /kvaults/vaults/{pubkey}/allocation-volume/history:
     get:
       summary: Get historical KVault allocation volume
@@ -829,8 +834,7 @@ paths:
                     type: array
                     items:
                       type: object
-                      additionalProperties:
-                        nullable: true
+                      additionalProperties: {}
                     description: Detailed validation issues (present only for validation errors)
                 required:
                 - error
@@ -856,29 +860,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getKvaultsVaultsByPubkeyAllocationVolumeHistory
+      x-operation-id-source: derived
 components:
   schemas:
-    KvaultVaultTransactionsResponse:
-      type: object
-      properties:
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/KvaultVaultTransaction'
-        paginationToken:
-          type: string
-          example: eyJsYXN0SWQiOjgxfQ==
-          description: Optional pagination token
-      required:
-      - result
-    AddressBase58:
-      type: string
-      description: Valid base58-encoded address
-      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
-    EnqueuedWithdrawTransactionsResponse:
-      type: array
-      items:
-        $ref: '#/components/schemas/KlendWithdrawQueueTransactionV3'
     KvaultEnrichedInstruction:
       type: object
       properties:
@@ -913,11 +898,7 @@ components:
         solPrice: '138.7776002'
         sharePrice: '1.0263403430350673002'
         tokenPrice: '0.99984713'
-    Decimal:
-      type: string
-      description: Decimal value represented as string
-      example: '1234.56789'
-    The vault state object:
+    The_vault_state_object:
       type: object
       properties:
         vaultAdminAuthority:
@@ -1111,68 +1092,77 @@ components:
       - vaultFarm
       - creationTimestamp
       - allocationAdmin
-    Error:
+    EnqueuedWithdrawTransactionsResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/KlendWithdrawQueueTransactionV3'
+    KvaultVaultTransaction:
       type: object
       properties:
-        error:
-          type: string
-          description: Error message for internal server failure
-          example: An internal error occurred
-      required:
-      - error
-      description: Internal server error response (500)
-      example:
-        error: An internal error occurred
-    KlendWithdrawQueueTransactionV3:
-      type: object
-      properties:
-        createdOn:
-          type: string
-          nullable: true
-          format: date
+        ix:
+          $ref: '#/components/schemas/KvaultVaultEnrichedInstruction'
         timestamp:
-          type: number
-        transactionSignature:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - description: Timestamp when the transaction was executed (ISO 8601 format)
+            example: '2025-03-01T12:00:00.000Z'
+        signature:
           type: string
-        transactionName:
-          type: string
-        transactionDisplayName:
-          type: string
-        reserve:
-          $ref: '#/components/schemas/AddressBase58'
-        withdrawTicket:
-          $ref: '#/components/schemas/AddressBase58'
-        solPrice:
-          $ref: '#/components/schemas/Decimal'
-        liquidityToken:
-          type: string
-        liquidityTokenMint:
-          $ref: '#/components/schemas/AddressBase58'
-        liquidityTokenAmount:
-          $ref: '#/components/schemas/Decimal'
-        liquidityTokenPrice:
-          $ref: '#/components/schemas/Decimal'
-        liquidityUsdValue:
-          $ref: '#/components/schemas/Decimal'
+          description: Transaction signature
+          example: 2XWcSQVtR4NoHBhzYpDkYkmYtEFkFXC5ZwrKiPok1kvA86GvnN15qP7RNP6eTeNWgJqgnR1GA2M3QPp1hucW7e1v
+        kvault:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Valid base58-encoded address of the vault
+            example: HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E
+        wallet:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Valid base58-encoded address of the user wallet
+            example: AxqtG9SHDkZTLSWg81Sp7VqAzQpRqXtR9ziJ3VQAS8As
       required:
-      - createdOn
+      - ix
       - timestamp
-      - transactionSignature
-      - transactionName
-      - transactionDisplayName
-      - reserve
-      - withdrawTicket
-      - solPrice
-      - liquidityToken
-      - liquidityTokenMint
-      - liquidityTokenAmount
-      - liquidityTokenPrice
-      - liquidityUsdValue
+      - signature
+      - kvault
+      - wallet
     SnapshotDateTime:
       type: string
       format: date-time
       description: Timestamp of the metrics snapshot
       example: '2023-06-29T15:15:26.464Z'
+    Apy:
+      type: string
+      description: Borrow interest APY
+      example: '0.027610992938039702'
+      examples:
+      - '0.123'
+      - '0'
+      - '1'
+      - '1.23'
+      - '-0.5'
+      - '999999.999999'
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
+    KvaultVaultTransactionsResponse:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/KvaultVaultTransaction'
+        paginationToken:
+          type: string
+          example: eyJsYXN0SWQiOjgxfQ==
+          description: Optional pagination token
+      required:
+      - result
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
     KvaultMetrics:
       type: object
       properties:
@@ -1358,82 +1348,6 @@ components:
       - cumulativeManagementFees
       - cumulativeManagementFeesUsd
       - cumulativeManagementFeesSol
-    KvaultVaultTransaction:
-      type: object
-      properties:
-        ix:
-          $ref: '#/components/schemas/KvaultVaultEnrichedInstruction'
-        timestamp:
-          allOf:
-          - $ref: '#/components/schemas/SnapshotDateTime'
-          - description: Timestamp when the transaction was executed (ISO 8601 format)
-            example: '2025-03-01T12:00:00.000Z'
-        signature:
-          type: string
-          description: Transaction signature
-          example: 2XWcSQVtR4NoHBhzYpDkYkmYtEFkFXC5ZwrKiPok1kvA86GvnN15qP7RNP6eTeNWgJqgnR1GA2M3QPp1hucW7e1v
-        kvault:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Valid base58-encoded address of the vault
-            example: HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E
-        wallet:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Valid base58-encoded address of the user wallet
-            example: AxqtG9SHDkZTLSWg81Sp7VqAzQpRqXtR9ziJ3VQAS8As
-      required:
-      - ix
-      - timestamp
-      - signature
-      - kvault
-      - wallet
-    VaultStateArray:
-      type: array
-      items:
-        type: object
-        properties:
-          address:
-            allOf:
-            - $ref: '#/components/schemas/AddressBase58'
-            - description: Public key of the vault
-          state:
-            $ref: '#/components/schemas/The vault state object'
-          programId:
-            allOf:
-            - $ref: '#/components/schemas/AddressBase58'
-            - description: Public key of the kvault program which owns the vault
-        required:
-        - address
-        - state
-        - programId
-    KvaultVaultEnrichedInstruction:
-      type: object
-      properties:
-        market:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: KLend market public key
-        reserve:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: KLend reserve public key
-        solPrice:
-          $ref: '#/components/schemas/Decimal'
-        sharePrice:
-          $ref: '#/components/schemas/Decimal'
-        tokenPrice:
-          $ref: '#/components/schemas/Decimal'
-        tokenAmount:
-          $ref: '#/components/schemas/Decimal'
-        numberOfShares:
-          $ref: '#/components/schemas/Decimal'
-      required:
-      - solPrice
-      - sharePrice
-      - tokenPrice
-      - tokenAmount
-      - numberOfShares
     KvaultBulkTransaction:
       type: object
       properties:
@@ -1467,14 +1381,107 @@ components:
       - signature
       - kvault
       - wallet
-    Apy:
-      type: string
-      description: Borrow interest APY
-      example: '0.027610992938039702'
-      examples:
-      - '0.123'
-      - '0'
-      - '1'
-      - '1.23'
-      - '-0.5'
-      - '999999.999999'
+    KvaultVaultEnrichedInstruction:
+      type: object
+      properties:
+        market:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: KLend market public key
+        reserve:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: KLend reserve public key
+        solPrice:
+          $ref: '#/components/schemas/Decimal'
+        sharePrice:
+          $ref: '#/components/schemas/Decimal'
+        tokenPrice:
+          $ref: '#/components/schemas/Decimal'
+        tokenAmount:
+          $ref: '#/components/schemas/Decimal'
+        numberOfShares:
+          $ref: '#/components/schemas/Decimal'
+      required:
+      - solPrice
+      - sharePrice
+      - tokenPrice
+      - tokenAmount
+      - numberOfShares
+    KlendWithdrawQueueTransactionV3:
+      type: object
+      properties:
+        createdOn:
+          type:
+          - string
+          - 'null'
+          format: date
+        timestamp:
+          type: number
+        transactionSignature:
+          type: string
+        transactionName:
+          type: string
+        transactionDisplayName:
+          type: string
+        reserve:
+          $ref: '#/components/schemas/AddressBase58'
+        withdrawTicket:
+          $ref: '#/components/schemas/AddressBase58'
+        solPrice:
+          $ref: '#/components/schemas/Decimal'
+        liquidityToken:
+          type: string
+        liquidityTokenMint:
+          $ref: '#/components/schemas/AddressBase58'
+        liquidityTokenAmount:
+          $ref: '#/components/schemas/Decimal'
+        liquidityTokenPrice:
+          $ref: '#/components/schemas/Decimal'
+        liquidityUsdValue:
+          $ref: '#/components/schemas/Decimal'
+      required:
+      - createdOn
+      - timestamp
+      - transactionSignature
+      - transactionName
+      - transactionDisplayName
+      - reserve
+      - withdrawTicket
+      - solPrice
+      - liquidityToken
+      - liquidityTokenMint
+      - liquidityTokenAmount
+      - liquidityTokenPrice
+      - liquidityUsdValue
+    VaultStateArray:
+      type: array
+      items:
+        type: object
+        properties:
+          address:
+            allOf:
+            - $ref: '#/components/schemas/AddressBase58'
+            - description: Public key of the vault
+          state:
+            $ref: '#/components/schemas/The_vault_state_object'
+          programId:
+            allOf:
+            - $ref: '#/components/schemas/AddressBase58'
+            - description: Public key of the kvault program which owns the vault
+        required:
+        - address
+        - state
+        - programId
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred

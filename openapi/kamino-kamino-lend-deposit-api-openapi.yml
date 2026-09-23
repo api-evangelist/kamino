@@ -1,16 +1,7 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
+  title: Kamino Transactions Kamino Lend Deposit API
   version: 1.0.0
-  title: Kamino Public Airdrop Kamino Lend Deposit API
-  description: 'The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.
-
-
-    The API also provides the ability to fetch data that might not be available from just reading the chain.
-
-
-    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.
-
-    '
 servers:
 - url: https://api.kamino.finance
 tags:
@@ -117,6 +108,8 @@ paths:
                 - statusCode
                 - message
                 - error
+      operationId: postKtxKlendDeposit
+      x-operation-id-source: derived
   /ktx/klend/deposit-instructions:
     post:
       summary: Get instructions to deposit into a klend reserve
@@ -268,3 +261,5 @@ paths:
                 - statusCode
                 - message
                 - error
+      operationId: postKtxKlendDepositInstructions
+      x-operation-id-source: derived

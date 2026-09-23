@@ -1,16 +1,14 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   version: 1.0.0
-  title: Kamino Public Airdrop Farms API
+  title: Kamino Public Farms API
   description: 'The Kamino API provides a comprehensive way to interact with Kamino without reading directly from the blockchain.
 
 
     The API also provides the ability to fetch data that might not be available from just reading the chain.
 
 
-    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.
-
-    '
+    The API is rate-limited for unauthenticated users. If you feel you need to make more requests or run into rate-limit issues, please reach out.'
 servers:
 - url: https://api.kamino.finance
 tags:
@@ -103,8 +101,7 @@ paths:
                     type: array
                     items:
                       type: object
-                      additionalProperties:
-                        nullable: true
+                      additionalProperties: {}
                     description: Detailed validation issues (present only for validation errors)
                 required:
                 - error
@@ -130,6 +127,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getFarmsUsersByPubkeyTransactions
+      x-operation-id-source: derived
   /farms/{farmPubkey}/transactions:
     get:
       summary: Get farm transactions
@@ -208,8 +207,7 @@ paths:
                     type: array
                     items:
                       type: object
-                      additionalProperties:
-                        nullable: true
+                      additionalProperties: {}
                     description: Detailed validation issues (present only for validation errors)
                 required:
                 - error
@@ -235,6 +233,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getFarmsByFarmPubkeyTransactions
+      x-operation-id-source: derived
   /farms/{farmPubkey}/management-history:
     get:
       summary: Get farm management history
@@ -313,8 +313,7 @@ paths:
                     type: array
                     items:
                       type: object
-                      additionalProperties:
-                        nullable: true
+                      additionalProperties: {}
                     description: Detailed validation issues (present only for validation errors)
                 required:
                 - error
@@ -340,28 +339,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getFarmsByFarmPubkeyManagementHistory
+      x-operation-id-source: derived
 components:
   schemas:
-    AddressBase58:
-      type: string
-      description: Valid base58-encoded address
-      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
-    Decimal:
-      type: string
-      description: Decimal value represented as string
-      example: '1234.56789'
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message for internal server failure
-          example: An internal error occurred
-      required:
-      - error
-      description: Internal server error response (500)
-      example:
-        error: An internal error occurred
     FarmManagementInstruction:
       type: object
       properties:
@@ -381,26 +362,28 @@ components:
         tokenAmount:
           allOf:
           - $ref: '#/components/schemas/Decimal'
-          - nullable: true
+          - {}
         usdAmount:
           allOf:
           - $ref: '#/components/schemas/Decimal'
-          - nullable: true
+          - {}
         token:
           allOf:
           - $ref: '#/components/schemas/AddressBase58'
-          - nullable: true
+          - {}
         rewardIndex:
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
         configMode:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         details:
-          type: object
-          nullable: true
-          additionalProperties:
-            nullable: true
+          type:
+          - object
+          - 'null'
+          additionalProperties: {}
       required:
       - createdOn
       - transactionSignature
@@ -442,6 +425,10 @@ components:
       - instruction
       - tokenAmount
       - usdAmount
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
     FarmsInstruction:
       type: object
       properties:
@@ -481,3 +468,19 @@ components:
       - usdAmount
       - farm
       - token
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
