@@ -343,6 +343,90 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
+    FarmTransaction:
+      type: object
+      properties:
+        createdOn:
+          type: string
+          format: date
+          description: Date when the instruction was created
+        transactionSignature:
+          type: string
+          description: Transaction signature
+          example: 2XWcSQVtR4NoHBhzYpDkYkmYtEFkFXC5ZwrKiPok1kvA86GvnN15qP7RNP6eTeNWgJqgnR1GA2M3QPp1hucW7e1v
+        instruction:
+          type: string
+          description: Instruction display name
+          example: deposit
+        tokenAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Amount of tokens involved
+        usdAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: USD value of the transaction
+      required:
+      - createdOn
+      - transactionSignature
+      - instruction
+      - tokenAmount
+      - usdAmount
+    FarmsInstruction:
+      type: object
+      properties:
+        createdOn:
+          type: string
+          format: date
+          description: Date when the instruction was created
+        transactionSignature:
+          type: string
+          description: Transaction signature
+          example: 2XWcSQVtR4NoHBhzYpDkYkmYtEFkFXC5ZwrKiPok1kvA86GvnN15qP7RNP6eTeNWgJqgnR1GA2M3QPp1hucW7e1v
+        instruction:
+          type: string
+          description: Instruction display name
+          example: claim
+        tokenAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Amount of tokens involved
+        usdAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: USD value of the transaction
+        farm:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Farm public key
+        token:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Token mint public key
+      required:
+      - createdOn
+      - transactionSignature
+      - instruction
+      - tokenAmount
+      - usdAmount
+      - farm
+      - token
     FarmManagementInstruction:
       type: object
       properties:
@@ -396,91 +480,7 @@ components:
       - rewardIndex
       - configMode
       - details
-    FarmTransaction:
-      type: object
-      properties:
-        createdOn:
-          type: string
-          format: date
-          description: Date when the instruction was created
-        transactionSignature:
-          type: string
-          description: Transaction signature
-          example: 2XWcSQVtR4NoHBhzYpDkYkmYtEFkFXC5ZwrKiPok1kvA86GvnN15qP7RNP6eTeNWgJqgnR1GA2M3QPp1hucW7e1v
-        instruction:
-          type: string
-          description: Instruction display name
-          example: deposit
-        tokenAmount:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Amount of tokens involved
-        usdAmount:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: USD value of the transaction
-      required:
-      - createdOn
-      - transactionSignature
-      - instruction
-      - tokenAmount
-      - usdAmount
     AddressBase58:
       type: string
       description: Valid base58-encoded address
       example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
-    FarmsInstruction:
-      type: object
-      properties:
-        createdOn:
-          type: string
-          format: date
-          description: Date when the instruction was created
-        transactionSignature:
-          type: string
-          description: Transaction signature
-          example: 2XWcSQVtR4NoHBhzYpDkYkmYtEFkFXC5ZwrKiPok1kvA86GvnN15qP7RNP6eTeNWgJqgnR1GA2M3QPp1hucW7e1v
-        instruction:
-          type: string
-          description: Instruction display name
-          example: claim
-        tokenAmount:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Amount of tokens involved
-        usdAmount:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: USD value of the transaction
-        farm:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Farm public key
-        token:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Token mint public key
-      required:
-      - createdOn
-      - transactionSignature
-      - instruction
-      - tokenAmount
-      - usdAmount
-      - farm
-      - token
-    Decimal:
-      type: string
-      description: Decimal value represented as string
-      example: '1234.56789'
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message for internal server failure
-          example: An internal error occurred
-      required:
-      - error
-      description: Internal server error response (500)
-      example:
-        error: An internal error occurred

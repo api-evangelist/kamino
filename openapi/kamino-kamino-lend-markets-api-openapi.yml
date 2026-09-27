@@ -384,6 +384,22 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
     MarketMetricsResponse:
       type: object
       properties:
@@ -420,6 +436,79 @@ components:
       - market
       - timestamp
       - metrics
+    SnapshotDateTime:
+      type: string
+      format: date-time
+      description: Timestamp of the metrics snapshot
+      example: '2023-06-29T15:15:26.464Z'
+    ReserveMetricsResponse:
+      type: object
+      properties:
+        reserve:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Reserve public key
+        liquidityToken:
+          type: string
+          description: Liquidity token symbol
+          example: SOL
+        liquidityTokenMint:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Liquidity token mint address
+        maxLtv:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Maximum loan-to-value ratio
+            example: '0.65'
+        borrowApy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Current borrow APY
+            example: '0.05450988511483601'
+        supplyApy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Current supply APY
+            example: '0.038266801210808055'
+        totalSupply:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total supply amount
+        totalBorrow:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total borrow amount
+        totalBorrowUsd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total borrow in USD
+        totalSupplyUsd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total supply in USD
+      required:
+      - reserve
+      - liquidityToken
+      - liquidityTokenMint
+      - maxLtv
+      - borrowApy
+      - supplyApy
+      - totalSupply
+      - totalBorrow
+      - totalBorrowUsd
+      - totalSupplyUsd
+    Apy:
+      type: string
+      description: Borrow interest APY
+      example: '0.027610992938039702'
+      examples:
+      - '0.123'
+      - '0'
+      - '1'
+      - '1.23'
+      - '-0.5'
+      - '999999.999999'
     LeverageMetricsResponse:
       type: object
       properties:
@@ -478,30 +567,31 @@ components:
       - depositReserve
       - borrowReserve
       - tag
-    SnapshotDateTime:
-      type: string
-      format: date-time
-      description: Timestamp of the metrics snapshot
-      example: '2023-06-29T15:15:26.464Z'
-    Apy:
-      type: string
-      description: Borrow interest APY
-      example: '0.027610992938039702'
-      examples:
-      - '0.123'
-      - '0'
-      - '1'
-      - '1.23'
-      - '-0.5'
-      - '999999.999999'
-    AddressBase58:
-      type: string
-      description: Valid base58-encoded address
-      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
-    Decimal:
-      type: string
-      description: Decimal value represented as string
-      example: '1234.56789'
+    ReserveAccountDataResponse:
+      type: object
+      properties:
+        market:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Market public key
+        reserves:
+          type: array
+          items:
+            type: object
+            properties:
+              pubkey:
+                allOf:
+                - $ref: '#/components/schemas/AddressBase58'
+                - description: Reserve public key
+              data:
+                type: string
+                description: Base64 encoded reserve account data
+            required:
+            - pubkey
+            - data
+      required:
+      - market
+      - reserves
     MarketConfigResponseV2:
       type: object
       properties:
@@ -538,97 +628,7 @@ components:
       - lendingMarket
       - lookupTable
       - isCurated
-    ReserveMetricsResponse:
-      type: object
-      properties:
-        reserve:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Reserve public key
-        liquidityToken:
-          type: string
-          description: Liquidity token symbol
-          example: SOL
-        liquidityTokenMint:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Liquidity token mint address
-        maxLtv:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Maximum loan-to-value ratio
-            example: '0.65'
-        borrowApy:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: Current borrow APY
-            example: '0.05450988511483601'
-        supplyApy:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: Current supply APY
-            example: '0.038266801210808055'
-        totalSupply:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total supply amount
-        totalBorrow:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total borrow amount
-        totalBorrowUsd:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total borrow in USD
-        totalSupplyUsd:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total supply in USD
-      required:
-      - reserve
-      - liquidityToken
-      - liquidityTokenMint
-      - maxLtv
-      - borrowApy
-      - supplyApy
-      - totalSupply
-      - totalBorrow
-      - totalBorrowUsd
-      - totalSupplyUsd
-    ReserveAccountDataResponse:
-      type: object
-      properties:
-        market:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Market public key
-        reserves:
-          type: array
-          items:
-            type: object
-            properties:
-              pubkey:
-                allOf:
-                - $ref: '#/components/schemas/AddressBase58'
-                - description: Reserve public key
-              data:
-                type: string
-                description: Base64 encoded reserve account data
-            required:
-            - pubkey
-            - data
-      required:
-      - market
-      - reserves
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message for internal server failure
-          example: An internal error occurred
-      required:
-      - error
-      description: Internal server error response (500)
-      example:
-        error: An internal error occurred
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd

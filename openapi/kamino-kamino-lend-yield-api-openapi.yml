@@ -644,41 +644,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    KlendRewardMetrics:
-      type: array
-      items:
-        $ref: '#/components/schemas/KlendRewardMetric'
-      description: List of klend reward metrics
-    TokenInterestFees:
+    Error:
       type: object
-      additionalProperties:
-        $ref: '#/components/schemas/InterestFees'
-      description: Historical fees breakdown by reserve. Key is the reserve address.
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
       example:
-        d4A2prbA2whesmvHaL88BH6Ewn5N4bTSU2Ze8P6Bc4Q:
-          ts: 1760745600000
-          solFees: '0'
-          usdFees: '0'
-          nativeFees: '0'
-    Apy:
-      type: string
-      description: Borrow interest APY
-      example: '0.027610992938039702'
-      examples:
-      - '0.123'
-      - '0'
-      - '1'
-      - '1.23'
-      - '-0.5'
-      - '999999.999999'
-    AddressBase58:
-      type: string
-      description: Valid base58-encoded address
-      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
-    Decimal:
-      type: string
-      description: Decimal value represented as string
-      example: '1234.56789'
+        error: An internal error occurred
     KlendUserRewardMetric:
       type: object
       properties:
@@ -756,11 +733,21 @@ components:
       - maxApy
       - usdAmount
       - usdAmountBoosted
-    KlendRewardHistory:
-      type: array
-      items:
-        $ref: '#/components/schemas/KlendRewardHistoryRow'
-      description: List of historical klend reward metrics
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
+    TokenInterestFees:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/InterestFees'
+      description: Historical fees breakdown by reserve. Key is the reserve address.
+      example:
+        d4A2prbA2whesmvHaL88BH6Ewn5N4bTSU2Ze8P6Bc4Q:
+          ts: 1760745600000
+          solFees: '0'
+          usdFees: '0'
+          nativeFees: '0'
     TotalInterestFees:
       type: object
       properties:
@@ -782,13 +769,74 @@ components:
       - ts
       - solFees
       - usdFees
-    HistoricalFeesObligation:
+    TotalFeesObligation:
       type: object
       additionalProperties:
-        type: array
-        items:
-          $ref: '#/components/schemas/TokenInterestFees'
-      description: Historical breakdown of interest fees earned over time
+        $ref: '#/components/schemas/TotalInterestFees'
+      description: Total interest fees earned per obligation
+      example:
+        uy9LQEjELMp8r3qpb7fJhu2Y32ydAxTEo74VAEZ6EHQs:
+          ts: 1762128000000
+          solFees: '0.00001610553929183891699891935039215032176993'
+          usdFees: '0.003058858072628656437082436052718601394968'
+    KlendUserRewardMetrics:
+      type: object
+      properties:
+        avgBaseApy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Weighted average Base Annual Percentage Yield for the user
+            example: '0.2'
+        avgBoostedApy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Weighted average Boosted Annual Percentage Yield for the user
+            example: '0.2'
+        avgMaxApy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Weighted average Max Annual Percentage Yield for the user
+            example: '0.2'
+        rewards:
+          type: array
+          items:
+            $ref: '#/components/schemas/KlendUserRewardMetric'
+          description: List of klend user reward metrics
+      required:
+      - avgBaseApy
+      - avgBoostedApy
+      - avgMaxApy
+      - rewards
+    Apy:
+      type: string
+      description: Borrow interest APY
+      example: '0.027610992938039702'
+      examples:
+      - '0.123'
+      - '0'
+      - '1'
+      - '1.23'
+      - '-0.5'
+      - '999999.999999'
+    KlendRewardMetrics:
+      type: array
+      items:
+        $ref: '#/components/schemas/KlendRewardMetric'
+      description: List of klend reward metrics
+    InterestRatePaidResponse:
+      type: object
+      properties:
+        totalFeesPaidObligation:
+          allOf:
+          - $ref: '#/components/schemas/TotalFeesObligation'
+          - description: Total interest fees paid per obligation
+        historicalFeesObligation:
+          allOf:
+          - $ref: '#/components/schemas/HistoricalFeesObligation'
+          - description: Historical breakdown of interest fees paid over time
+      required:
+      - totalFeesPaidObligation
+      - historicalFeesObligation
     KlendRewardMetric:
       type: object
       properties:
@@ -861,49 +909,6 @@ components:
       - solFees
       - usdFees
       - nativeFees
-    KlendUserRewardMetrics:
-      type: object
-      properties:
-        avgBaseApy:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: Weighted average Base Annual Percentage Yield for the user
-            example: '0.2'
-        avgBoostedApy:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: Weighted average Boosted Annual Percentage Yield for the user
-            example: '0.2'
-        avgMaxApy:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: Weighted average Max Annual Percentage Yield for the user
-            example: '0.2'
-        rewards:
-          type: array
-          items:
-            $ref: '#/components/schemas/KlendUserRewardMetric'
-          description: List of klend user reward metrics
-      required:
-      - avgBaseApy
-      - avgBoostedApy
-      - avgMaxApy
-      - rewards
-    TotalFeesObligation:
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/TotalInterestFees'
-      description: Total interest fees earned per obligation
-      example:
-        uy9LQEjELMp8r3qpb7fJhu2Y32ydAxTEo74VAEZ6EHQs:
-          ts: 1762128000000
-          solFees: '0.00001610553929183891699891935039215032176993'
-          usdFees: '0.003058858072628656437082436052718601394968'
-    SnapshotDateTime:
-      type: string
-      format: date-time
-      description: Timestamp of the metrics snapshot
-      example: '2023-06-29T15:15:26.464Z'
     KlendRewardHistoryRow:
       type: object
       properties:
@@ -934,6 +939,15 @@ components:
       - borrowReserve
       - rewardToken
       - rewardApy
+    KlendRewardHistory:
+      type: array
+      items:
+        $ref: '#/components/schemas/KlendRewardHistoryRow'
+      description: List of historical klend reward metrics
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
     BorrowAndStakingApyResponse:
       type: object
       properties:
@@ -953,32 +967,18 @@ components:
       - createdOn
       - borrowInterestApy
       - stakingApy
-    InterestRatePaidResponse:
+    SnapshotDateTime:
+      type: string
+      format: date-time
+      description: Timestamp of the metrics snapshot
+      example: '2023-06-29T15:15:26.464Z'
+    HistoricalFeesObligation:
       type: object
-      properties:
-        totalFeesPaidObligation:
-          allOf:
-          - $ref: '#/components/schemas/TotalFeesObligation'
-          - description: Total interest fees paid per obligation
-        historicalFeesObligation:
-          allOf:
-          - $ref: '#/components/schemas/HistoricalFeesObligation'
-          - description: Historical breakdown of interest fees paid over time
-      required:
-      - totalFeesPaidObligation
-      - historicalFeesObligation
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message for internal server failure
-          example: An internal error occurred
-      required:
-      - error
-      description: Internal server error response (500)
-      example:
-        error: An internal error occurred
+      additionalProperties:
+        type: array
+        items:
+          $ref: '#/components/schemas/TokenInterestFees'
+      description: Historical breakdown of interest fees earned over time
     InterestRateEarnedResponse:
       type: object
       properties:

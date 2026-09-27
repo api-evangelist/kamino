@@ -288,175 +288,44 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    LoanDepositInfo:
-      type: object
-      properties:
-        tokenMint:
-          type: string
-          description: The token mint address
-          example: So11111111111111111111111111111111111111112
-        tokenName:
-          type: string
-          description: The token name/symbol from the reserve
-          example: SOL
-        tokenAmount:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Token amount in decimal format (not lamports)
-            example: '0.0100002082771212'
-        tokenValue:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: USD value (tokenAmount × tokenPrice)
-            example: '1.80421579010444'
-        maxLtv:
-          type: number
-          description: Maximum loan-to-value ratio for this collateral reserve
-          example: 0.74
-        liquidationLtv:
-          type: number
-          description: Liquidation threshold LTV for this collateral reserve
-          example: 0.75
-        maxWithdrawableAmount:
-          type: number
-          description: Maximum token amount (decimals) that can be withdrawn while currentLtv <= maxLtv
-          example: 51225.5590659256
-        maxWithdrawableValue:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Maximum USD value that can be withdrawn while currentLtv <= maxLtv
-            example: '9242003.76257327'
-        tokenPrice:
-          type: number
-          description: Latest price from the oracle
-          example: 180.41782132
-      required:
-      - tokenMint
-      - tokenName
-      - tokenAmount
-      - tokenValue
-      - maxLtv
-      - liquidationLtv
-      - maxWithdrawableAmount
-      - maxWithdrawableValue
-      - tokenPrice
-    LoanBorrowInfo:
-      type: object
-      properties:
-        tokenMint:
-          type: string
-          description: The token mint address
-          example: EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
-        tokenName:
-          type: string
-          description: The token name/symbol
-          example: USDC
-        tokenAmount:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Token amount in decimal format
-            example: '0.100002775657846'
-        tokenValue:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: USD value (tokenAmount × tokenPrice)
-            example: '0.0999921413626825'
-        maxBorrowableAmount:
-          type: number
-          description: Maximum amount that can be borrowed while currentLtv <= maxLtv
-          example: 1.30084031718889
-        maxBorrowableValue:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Maximum USD value that can be borrowed while currentLtv <= maxLtv
-            example: '1.30070198582957'
-        tokenPrice:
-          type: number
-          description: Latest price from the oracle
-          example: 0.99989366
-        borrowFactor:
-          type: number
-          description: Extra weight given to debt token in LTV calculation (debt value is multiplied by this factor))
-          example: 1
-      required:
-      - tokenMint
-      - tokenName
-      - tokenAmount
-      - tokenValue
-      - maxBorrowableAmount
-      - maxBorrowableValue
-      - tokenPrice
-      - borrowFactor
-    ObligationMetrics:
-      type: object
-      properties:
-        timestamp:
-          allOf:
-          - $ref: '#/components/schemas/SnapshotDateTime'
-          - example: '2025-10-17T00:00:00.000Z'
-        refreshedStats:
-          $ref: '#/components/schemas/ObligationStats'
-        deposits:
-          type: array
-          items:
-            $ref: '#/components/schemas/Position'
-          description: Array of deposit positions
-        borrows:
-          type: array
-          items:
-            $ref: '#/components/schemas/Position'
-          description: Array of borrow positions
-        tag:
-          type: integer
-          minimum: 0
-          maximum: 3
-          description: Obligation type tag (0 = Vanilla, 1 = Multiply, 2 = Lending, 3 = Leverage)
-          example: 0
-        obligationSolValues:
-          $ref: '#/components/schemas/ObligationSolValues'
-      required:
-      - timestamp
-      - refreshedStats
-      - deposits
-      - borrows
-      - tag
-      - obligationSolValues
-    SnapshotDateTime:
-      type: string
-      format: date-time
-      description: Timestamp of the metrics snapshot
-      example: '2023-06-29T15:15:26.464Z'
     AddressBase58:
       type: string
       description: Valid base58-encoded address
       example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
-    PnlResponse:
+    Position:
       type: object
       properties:
-        usd:
+        amount:
           allOf:
           - $ref: '#/components/schemas/Decimal'
-          - description: PnL in USD
-            example: '25.21'
-        sol:
+          - description: Amount in the position
+            example: '10000708.005624756258'
+        mintAddress:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Token mint address
+            example: So11111111111111111111111111111111111111112
+        marketValueRefreshed:
           allOf:
           - $ref: '#/components/schemas/Decimal'
-          - description: PnL in SOL
-            example: '1.0'
-        invested:
-          type: object
-          properties:
-            usd:
-              $ref: '#/components/schemas/Decimal'
-            sol:
-              $ref: '#/components/schemas/Decimal'
-          required:
-          - usd
-          - sol
-          description: Invested amounts
+          - description: Refreshed market value of the position
+            example: '1.8239148107523825549'
       required:
-      - usd
-      - sol
+      - amount
+      - mintAddress
+      - marketValueRefreshed
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
     Decimal:
       type: string
       description: Decimal value represented as string
@@ -547,28 +416,171 @@ components:
       - elevationGroup
       - leverage
       - loanInfo
-    Position:
+    LoanDepositInfo:
       type: object
       properties:
-        amount:
+        tokenMint:
+          type: string
+          description: The token mint address
+          example: So11111111111111111111111111111111111111112
+        tokenName:
+          type: string
+          description: The token name/symbol from the reserve
+          example: SOL
+        tokenAmount:
           allOf:
           - $ref: '#/components/schemas/Decimal'
-          - description: Amount in the position
-            example: '10000708.005624756258'
-        mintAddress:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Token mint address
-            example: So11111111111111111111111111111111111111112
-        marketValueRefreshed:
+          - description: Token amount in decimal format (not lamports)
+            example: '0.0100002082771212'
+        tokenValue:
           allOf:
           - $ref: '#/components/schemas/Decimal'
-          - description: Refreshed market value of the position
-            example: '1.8239148107523825549'
+          - description: USD value (tokenAmount × tokenPrice)
+            example: '1.80421579010444'
+        maxLtv:
+          type: number
+          description: Maximum loan-to-value ratio for this collateral reserve
+          example: 0.74
+        liquidationLtv:
+          type: number
+          description: Liquidation threshold LTV for this collateral reserve
+          example: 0.75
+        maxWithdrawableAmount:
+          type: number
+          description: Maximum token amount (decimals) that can be withdrawn while currentLtv <= maxLtv
+          example: 51225.5590659256
+        maxWithdrawableValue:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Maximum USD value that can be withdrawn while currentLtv <= maxLtv
+            example: '9242003.76257327'
+        tokenPrice:
+          type: number
+          description: Latest price from the oracle
+          example: 180.41782132
       required:
-      - amount
-      - mintAddress
-      - marketValueRefreshed
+      - tokenMint
+      - tokenName
+      - tokenAmount
+      - tokenValue
+      - maxLtv
+      - liquidationLtv
+      - maxWithdrawableAmount
+      - maxWithdrawableValue
+      - tokenPrice
+    SnapshotDateTime:
+      type: string
+      format: date-time
+      description: Timestamp of the metrics snapshot
+      example: '2023-06-29T15:15:26.464Z'
+    LoanBorrowInfo:
+      type: object
+      properties:
+        tokenMint:
+          type: string
+          description: The token mint address
+          example: EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
+        tokenName:
+          type: string
+          description: The token name/symbol
+          example: USDC
+        tokenAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Token amount in decimal format
+            example: '0.100002775657846'
+        tokenValue:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: USD value (tokenAmount × tokenPrice)
+            example: '0.0999921413626825'
+        maxBorrowableAmount:
+          type: number
+          description: Maximum amount that can be borrowed while currentLtv <= maxLtv
+          example: 1.30084031718889
+        maxBorrowableValue:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Maximum USD value that can be borrowed while currentLtv <= maxLtv
+            example: '1.30070198582957'
+        tokenPrice:
+          type: number
+          description: Latest price from the oracle
+          example: 0.99989366
+        borrowFactor:
+          type: number
+          description: Extra weight given to debt token in LTV calculation (debt value is multiplied by this factor))
+          example: 1
+      required:
+      - tokenMint
+      - tokenName
+      - tokenAmount
+      - tokenValue
+      - maxBorrowableAmount
+      - maxBorrowableValue
+      - tokenPrice
+      - borrowFactor
+    ObligationMetrics:
+      type: object
+      properties:
+        timestamp:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - example: '2025-10-17T00:00:00.000Z'
+        refreshedStats:
+          $ref: '#/components/schemas/ObligationStats'
+        deposits:
+          type: array
+          items:
+            $ref: '#/components/schemas/Position'
+          description: Array of deposit positions
+        borrows:
+          type: array
+          items:
+            $ref: '#/components/schemas/Position'
+          description: Array of borrow positions
+        tag:
+          type: integer
+          minimum: 0
+          maximum: 3
+          description: Obligation type tag (0 = Vanilla, 1 = Multiply, 2 = Lending, 3 = Leverage)
+          example: 0
+        obligationSolValues:
+          $ref: '#/components/schemas/ObligationSolValues'
+      required:
+      - timestamp
+      - refreshedStats
+      - deposits
+      - borrows
+      - tag
+      - obligationSolValues
+    PnlResponse:
+      type: object
+      properties:
+        usd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: PnL in USD
+            example: '25.21'
+        sol:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: PnL in SOL
+            example: '1.0'
+        invested:
+          type: object
+          properties:
+            usd:
+              $ref: '#/components/schemas/Decimal'
+            sol:
+              $ref: '#/components/schemas/Decimal'
+          required:
+          - usd
+          - sol
+          description: Invested amounts
+      required:
+      - usd
+      - sol
     ObligationMetricsHistoryResponse:
       type: object
       properties:
@@ -708,15 +720,3 @@ components:
       - potentialElevationGroupUpdate
       - userTotalBorrowBorrowFactorAdjusted
       description: Refreshed obligation statistics
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message for internal server failure
-          example: An internal error occurred
-      required:
-      - error
-      description: Internal server error response (500)
-      example:
-        error: An internal error occurred

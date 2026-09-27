@@ -406,87 +406,18 @@ components:
       - index
       - type
       - tokenProgram
-    AddressBase58:
-      type: string
-      description: Valid base58-encoded address
-      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
-    Decimal:
-      type: string
-      description: Decimal value represented as string
-      example: '1234.56789'
-    PortfolioSections:
+    Error:
       type: object
       properties:
-        lending:
-          $ref: '#/components/schemas/PortfolioSectionState'
-        multiply:
-          $ref: '#/components/schemas/PortfolioSectionState'
-        leverage:
-          $ref: '#/components/schemas/PortfolioSectionState'
-        liquidity:
-          $ref: '#/components/schemas/PortfolioSectionState'
-        earn:
-          $ref: '#/components/schemas/PortfolioSectionState'
-        privateCredit:
-          $ref: '#/components/schemas/PortfolioSectionState'
-        staking:
-          $ref: '#/components/schemas/PortfolioSectionState'
-      required:
-      - lending
-      - multiply
-      - leverage
-      - liquidity
-      - earn
-      - privateCredit
-      - staking
-      description: Per-section indexing and freshness metadata.
-    PortfolioLendingDeposit:
-      type: object
-      properties:
-        mint:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Token mint address
-        symbol:
+        error:
           type: string
-          description: Best-effort token symbol from known SQL-backed mint metadata, or UNKNOWN when unavailable
-          example: SOL
-        amount:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Token amount
-        value:
-          type:
-          - string
-          - 'null'
-          example: '1234.56789'
-          description: Current USD value for this token row
-        price:
-          type:
-          - string
-          - 'null'
-          example: '1234.56789'
-          description: Current token price in USD
-        reserve:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Resolved KLend reserve address backing this token row
-        maxLtv:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Maximum loan-to-value ratio for the reserve as a fraction, adjusted for the obligation's elevation group
-        liquidationLtv:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Liquidation loan-to-value threshold for the reserve as a fraction, adjusted for the obligation's elevation group
+          description: Error message for internal server failure
+          example: An internal error occurred
       required:
-      - mint
-      - symbol
-      - amount
-      - value
-      - price
-      - maxLtv
-      - liquidationLtv
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
     PortfolioSectionState:
       type: object
       properties:
@@ -514,6 +445,66 @@ components:
       - indexed
       - positionsRefreshedOn
       - pricesRefreshedOn
+    PortfolioStakingPosition:
+      type: object
+      properties:
+        mint:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Staked token mint address
+        symbol:
+          type: string
+          description: Staked token symbol
+          example: KMNO
+        farm:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Farm address where the staking position is held
+        amount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Amount of KMNO staked
+        value:
+          type:
+          - string
+          - 'null'
+          example: '1234.56789'
+          description: Current USD value of staked KMNO
+        price:
+          type:
+          - string
+          - 'null'
+          example: '1234.56789'
+          description: Current staked token price in USD
+      required:
+      - mint
+      - symbol
+      - farm
+      - amount
+      - value
+      - price
+    PortfolioRewardsPartialErrors:
+      type: object
+      properties:
+        positionTokenMints:
+          type: array
+          items:
+            type: string
+          description: Strategy or vault identifiers whose token mint enrichment could not be resolved
+        seasonFarms:
+          type: array
+          items:
+            type: string
+          description: Season farm filter subcomponents that could not be loaded
+        rewardMetadata:
+          type: array
+          items:
+            type: string
+          description: Farm reward rows whose SQL metadata was incomplete and could not be returned
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
     PortfolioLeveragePosition:
       type: object
       properties:
@@ -608,46 +599,204 @@ components:
       - leverage
       - deposits
       - borrows
-    PortfolioResponse:
+    PortfolioPositionToken:
       type: object
       properties:
-        timestamp:
+        mint:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Token mint address
+        symbol:
           type: string
-          format: date-time
-          description: Response timestamp as an ISO-8601 string
-        sections:
-          $ref: '#/components/schemas/PortfolioSections'
-        lending:
-          type: array
-          items:
-            $ref: '#/components/schemas/PortfolioLendingPosition'
-        multiply:
-          type: array
-          items:
-            $ref: '#/components/schemas/PortfolioMultiplyPosition'
-        leverage:
-          type: array
-          items:
-            $ref: '#/components/schemas/PortfolioLeveragePosition'
-        liquidity:
-          type: array
-          items:
-            $ref: '#/components/schemas/PortfolioLiquidityPosition'
-        earn:
-          type: array
-          items:
-            $ref: '#/components/schemas/PortfolioEarnPosition'
-        privateCredit:
-          type: array
-          items:
-            $ref: '#/components/schemas/PortfolioPrivateCreditPosition'
-        staking:
-          type: array
-          items:
-            $ref: '#/components/schemas/PortfolioStakingPosition'
+          description: Best-effort token symbol from known SQL-backed mint metadata, or UNKNOWN when unavailable
+          example: SOL
+        amount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Token amount
+        value:
+          type:
+          - string
+          - 'null'
+          example: '1234.56789'
+          description: Current USD value for this token row
+        price:
+          type:
+          - string
+          - 'null'
+          example: '1234.56789'
+          description: Current token price in USD
+        reserve:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Resolved KLend reserve address backing this token row
       required:
-      - timestamp
-      - sections
+      - mint
+      - symbol
+      - amount
+      - value
+      - price
+    PortfolioFarmReward:
+      type: object
+      properties:
+        farm:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Farm address
+        userState:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: User state address used for claiming
+        delegatee:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Delegatee recorded on the user farm state, used to build claim instructions
+        strategy:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Liquidity strategy associated with the farm, when applicable
+        vault:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: KVault associated with the farm, when applicable
+        positionType:
+          type: string
+          enum:
+          - Liquidity
+          - Lend
+          - Borrow Markets
+          - Multiply
+          - Leverage
+          description: Farm position type
+          example: Lend
+        activeStakeAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Active stake amount in farm
+        tokenMints:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressBase58'
+          default: []
+          description: Token mints identifying the position (e.g. tokenA+tokenB for liquidity)
+        rewards:
+          type: array
+          items:
+            $ref: '#/components/schemas/PortfolioRewardToken'
+      required:
+      - farm
+      - userState
+      - delegatee
+      - positionType
+      - activeStakeAmount
+      - rewards
+      description: Farm reward row; at most one of strategy or vault is present.
+    PortfolioLendingDeposit:
+      type: object
+      properties:
+        mint:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Token mint address
+        symbol:
+          type: string
+          description: Best-effort token symbol from known SQL-backed mint metadata, or UNKNOWN when unavailable
+          example: SOL
+        amount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Token amount
+        value:
+          type:
+          - string
+          - 'null'
+          example: '1234.56789'
+          description: Current USD value for this token row
+        price:
+          type:
+          - string
+          - 'null'
+          example: '1234.56789'
+          description: Current token price in USD
+        reserve:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Resolved KLend reserve address backing this token row
+        maxLtv:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Maximum loan-to-value ratio for the reserve as a fraction, adjusted for the obligation's elevation group
+        liquidationLtv:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Liquidation loan-to-value threshold for the reserve as a fraction, adjusted for the obligation's elevation group
+      required:
+      - mint
+      - symbol
+      - amount
+      - value
+      - price
+      - maxLtv
+      - liquidationLtv
+    PortfolioEarnPosition:
+      type: object
+      properties:
+        vault:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Vault address
+        tokenMint:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Vault underlying token mint
+        symbol:
+          type: string
+          description: Vault underlying token symbol
+          example: USDC
+        name:
+          type: string
+          description: Vault display name from resources or decoded vault state
+          example: JitoSOL
+        netValue:
+          type:
+          - string
+          - 'null'
+          example: '1234.56789'
+          description: Current position value in USD
+        shares:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Number of shares held
+        amount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Underlying token amount for the position
+      required:
+      - vault
+      - tokenMint
+      - symbol
+      - name
+      - netValue
+      - shares
+      - amount
+    PortfolioSections:
+      type: object
+      properties:
+        lending:
+          $ref: '#/components/schemas/PortfolioSectionState'
+        multiply:
+          $ref: '#/components/schemas/PortfolioSectionState'
+        leverage:
+          $ref: '#/components/schemas/PortfolioSectionState'
+        liquidity:
+          $ref: '#/components/schemas/PortfolioSectionState'
+        earn:
+          $ref: '#/components/schemas/PortfolioSectionState'
+        privateCredit:
+          $ref: '#/components/schemas/PortfolioSectionState'
+        staking:
+          $ref: '#/components/schemas/PortfolioSectionState'
+      required:
       - lending
       - multiply
       - leverage
@@ -655,6 +804,7 @@ components:
       - earn
       - privateCredit
       - staking
+      description: Per-section indexing and freshness metadata.
     PortfolioPrivateCreditPosition:
       type: object
       properties:
@@ -696,56 +846,10 @@ components:
       - netValue
       - shares
       - amount
-    PortfolioLiquidityPosition:
-      type: object
-      properties:
-        strategy:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Strategy address
-        shareMint:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Strategy share mint address
-        shares:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total strategy shares held directly or staked in farms
-        netValue:
-          type:
-          - string
-          - 'null'
-          example: '1234.56789'
-          description: Current net position value in USD
-        tokenA:
-          $ref: '#/components/schemas/PortfolioPositionToken'
-        tokenB:
-          $ref: '#/components/schemas/PortfolioPositionToken'
-      required:
-      - strategy
-      - shareMint
-      - shares
-      - netValue
-      - tokenA
-      - tokenB
-    PortfolioRewardsPartialErrors:
-      type: object
-      properties:
-        positionTokenMints:
-          type: array
-          items:
-            type: string
-          description: Strategy or vault identifiers whose token mint enrichment could not be resolved
-        seasonFarms:
-          type: array
-          items:
-            type: string
-          description: Season farm filter subcomponents that could not be loaded
-        rewardMetadata:
-          type: array
-          items:
-            type: string
-          description: Farm reward rows whose SQL metadata was incomplete and could not be returned
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
     PortfolioLendingBorrow:
       type: object
       properties:
@@ -788,6 +892,108 @@ components:
       - value
       - price
       - borrowFactor
+    PortfolioLendingPosition:
+      type: object
+      properties:
+        obligation:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Obligation address
+        market:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Lending market address
+        tag:
+          type: string
+          enum:
+          - Vanilla
+          - Lending
+          - LendingFixedRate
+          - Multiply
+          - MultiplyFixedRate
+          - Leverage
+          - LeverageFixedRate
+          description: Obligation type tag
+          example: Lending
+        netValue:
+          type:
+          - string
+          - 'null'
+          example: '1234.56789'
+          description: Net account value in USD from refreshed obligation stats
+        totalDepositValue:
+          type:
+          - string
+          - 'null'
+          example: '1234.56789'
+          description: Total deposit value in USD from refreshed obligation stats
+        totalBorrowValue:
+          type:
+          - string
+          - 'null'
+          example: '1234.56789'
+          description: Total borrow value in USD from refreshed obligation stats
+        ltv:
+          type:
+          - string
+          - 'null'
+          example: '1234.56789'
+          description: Current loan-to-value ratio from refreshed obligation stats
+        maxLtv:
+          type:
+          - string
+          - 'null'
+          example: '1234.56789'
+          description: Maximum loan-to-value ratio for the whole obligation from refreshed stats
+        liquidationLtv:
+          type:
+          - string
+          - 'null'
+          example: '1234.56789'
+          description: Liquidation LTV threshold from refreshed obligation stats
+        leverage:
+          type:
+          - string
+          - 'null'
+          example: '1234.56789'
+          description: Current leverage from refreshed obligation stats
+        deposits:
+          type: array
+          items:
+            $ref: '#/components/schemas/PortfolioLendingDeposit'
+        borrows:
+          type: array
+          items:
+            $ref: '#/components/schemas/PortfolioLendingBorrow'
+      required:
+      - obligation
+      - market
+      - tag
+      - netValue
+      - totalDepositValue
+      - totalBorrowValue
+      - ltv
+      - maxLtv
+      - liquidationLtv
+      - leverage
+      - deposits
+      - borrows
+    PortfolioRewardsResponse:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: Response timestamp as an ISO-8601 string
+        farms:
+          type: array
+          items:
+            $ref: '#/components/schemas/PortfolioFarmReward'
+        partialErrors:
+          $ref: '#/components/schemas/PortfolioRewardsPartialErrors'
+      required:
+      - timestamp
+      - farms
     PortfolioMultiplyPosition:
       type: object
       properties:
@@ -882,183 +1088,85 @@ components:
       - leverage
       - deposits
       - borrows
-    PortfolioRewardsResponse:
+    PortfolioLiquidityPosition:
+      type: object
+      properties:
+        strategy:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Strategy address
+        shareMint:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Strategy share mint address
+        shares:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total strategy shares held directly or staked in farms
+        netValue:
+          type:
+          - string
+          - 'null'
+          example: '1234.56789'
+          description: Current net position value in USD
+        tokenA:
+          $ref: '#/components/schemas/PortfolioPositionToken'
+        tokenB:
+          $ref: '#/components/schemas/PortfolioPositionToken'
+      required:
+      - strategy
+      - shareMint
+      - shares
+      - netValue
+      - tokenA
+      - tokenB
+    PortfolioResponse:
       type: object
       properties:
         timestamp:
           type: string
           format: date-time
           description: Response timestamp as an ISO-8601 string
-        farms:
+        sections:
+          $ref: '#/components/schemas/PortfolioSections'
+        lending:
           type: array
           items:
-            $ref: '#/components/schemas/PortfolioFarmReward'
-        partialErrors:
-          $ref: '#/components/schemas/PortfolioRewardsPartialErrors'
+            $ref: '#/components/schemas/PortfolioLendingPosition'
+        multiply:
+          type: array
+          items:
+            $ref: '#/components/schemas/PortfolioMultiplyPosition'
+        leverage:
+          type: array
+          items:
+            $ref: '#/components/schemas/PortfolioLeveragePosition'
+        liquidity:
+          type: array
+          items:
+            $ref: '#/components/schemas/PortfolioLiquidityPosition'
+        earn:
+          type: array
+          items:
+            $ref: '#/components/schemas/PortfolioEarnPosition'
+        privateCredit:
+          type: array
+          items:
+            $ref: '#/components/schemas/PortfolioPrivateCreditPosition'
+        staking:
+          type: array
+          items:
+            $ref: '#/components/schemas/PortfolioStakingPosition'
       required:
       - timestamp
-      - farms
-    PortfolioLendingPosition:
-      type: object
-      properties:
-        obligation:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Obligation address
-        market:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Lending market address
-        tag:
-          type: string
-          enum:
-          - Vanilla
-          - Lending
-          - LendingFixedRate
-          - Multiply
-          - MultiplyFixedRate
-          - Leverage
-          - LeverageFixedRate
-          description: Obligation type tag
-          example: Lending
-        netValue:
-          type:
-          - string
-          - 'null'
-          example: '1234.56789'
-          description: Net account value in USD from refreshed obligation stats
-        totalDepositValue:
-          type:
-          - string
-          - 'null'
-          example: '1234.56789'
-          description: Total deposit value in USD from refreshed obligation stats
-        totalBorrowValue:
-          type:
-          - string
-          - 'null'
-          example: '1234.56789'
-          description: Total borrow value in USD from refreshed obligation stats
-        ltv:
-          type:
-          - string
-          - 'null'
-          example: '1234.56789'
-          description: Current loan-to-value ratio from refreshed obligation stats
-        maxLtv:
-          type:
-          - string
-          - 'null'
-          example: '1234.56789'
-          description: Maximum loan-to-value ratio for the whole obligation from refreshed stats
-        liquidationLtv:
-          type:
-          - string
-          - 'null'
-          example: '1234.56789'
-          description: Liquidation LTV threshold from refreshed obligation stats
-        leverage:
-          type:
-          - string
-          - 'null'
-          example: '1234.56789'
-          description: Current leverage from refreshed obligation stats
-        deposits:
-          type: array
-          items:
-            $ref: '#/components/schemas/PortfolioLendingDeposit'
-        borrows:
-          type: array
-          items:
-            $ref: '#/components/schemas/PortfolioLendingBorrow'
-      required:
-      - obligation
-      - market
-      - tag
-      - netValue
-      - totalDepositValue
-      - totalBorrowValue
-      - ltv
-      - maxLtv
-      - liquidationLtv
+      - sections
+      - lending
+      - multiply
       - leverage
-      - deposits
-      - borrows
-    PortfolioPositionToken:
-      type: object
-      properties:
-        mint:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Token mint address
-        symbol:
-          type: string
-          description: Best-effort token symbol from known SQL-backed mint metadata, or UNKNOWN when unavailable
-          example: SOL
-        amount:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Token amount
-        value:
-          type:
-          - string
-          - 'null'
-          example: '1234.56789'
-          description: Current USD value for this token row
-        price:
-          type:
-          - string
-          - 'null'
-          example: '1234.56789'
-          description: Current token price in USD
-        reserve:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Resolved KLend reserve address backing this token row
-      required:
-      - mint
-      - symbol
-      - amount
-      - value
-      - price
-    PortfolioStakingPosition:
-      type: object
-      properties:
-        mint:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Staked token mint address
-        symbol:
-          type: string
-          description: Staked token symbol
-          example: KMNO
-        farm:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Farm address where the staking position is held
-        amount:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Amount of KMNO staked
-        value:
-          type:
-          - string
-          - 'null'
-          example: '1234.56789'
-          description: Current USD value of staked KMNO
-        price:
-          type:
-          - string
-          - 'null'
-          example: '1234.56789'
-          description: Current staked token price in USD
-      required:
-      - mint
-      - symbol
-      - farm
-      - amount
-      - value
-      - price
+      - liquidity
+      - earn
+      - privateCredit
+      - staking
     PortfolioSectionError:
       type: object
       properties:
@@ -1067,111 +1175,3 @@ components:
           description: Stable subcomponent error code
       required:
       - code
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message for internal server failure
-          example: An internal error occurred
-      required:
-      - error
-      description: Internal server error response (500)
-      example:
-        error: An internal error occurred
-    PortfolioEarnPosition:
-      type: object
-      properties:
-        vault:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Vault address
-        tokenMint:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Vault underlying token mint
-        symbol:
-          type: string
-          description: Vault underlying token symbol
-          example: USDC
-        name:
-          type: string
-          description: Vault display name from resources or decoded vault state
-          example: JitoSOL
-        netValue:
-          type:
-          - string
-          - 'null'
-          example: '1234.56789'
-          description: Current position value in USD
-        shares:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Number of shares held
-        amount:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Underlying token amount for the position
-      required:
-      - vault
-      - tokenMint
-      - symbol
-      - name
-      - netValue
-      - shares
-      - amount
-    PortfolioFarmReward:
-      type: object
-      properties:
-        farm:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Farm address
-        userState:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: User state address used for claiming
-        delegatee:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Delegatee recorded on the user farm state, used to build claim instructions
-        strategy:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Liquidity strategy associated with the farm, when applicable
-        vault:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: KVault associated with the farm, when applicable
-        positionType:
-          type: string
-          enum:
-          - Liquidity
-          - Lend
-          - Borrow Markets
-          - Multiply
-          - Leverage
-          description: Farm position type
-          example: Lend
-        activeStakeAmount:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Active stake amount in farm
-        tokenMints:
-          type: array
-          items:
-            $ref: '#/components/schemas/AddressBase58'
-          default: []
-          description: Token mints identifying the position (e.g. tokenA+tokenB for liquidity)
-        rewards:
-          type: array
-          items:
-            $ref: '#/components/schemas/PortfolioRewardToken'
-      required:
-      - farm
-      - userState
-      - delegatee
-      - positionType
-      - activeStakeAmount
-      - rewards
-      description: Farm reward row; at most one of strategy or vault is present.

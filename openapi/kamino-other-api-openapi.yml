@@ -163,57 +163,18 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/BenchmarkRate'
-    OraclePriceItem:
+    Error:
       type: object
       properties:
-        price:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Price value of the asset
-        mint:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Valid base58-encoded address of the token mint
-            example: So11111111111111111111111111111111111111112
-            examples:
-            - So11111111111111111111111111111111111111112
-            - EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
-            - DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263
-        maxAgeInSeconds:
-          allOf:
-          - $ref: '#/components/schemas/Integer'
-          - description: Maximum allowed age of the price feed in seconds
-            example: '120'
-        timestamp:
-          $ref: '#/components/schemas/UnixTimestamp'
-        name:
+        error:
           type: string
-          description: Name of the token
-          example: SOL
+          description: Error message for internal server failure
+          example: An internal error occurred
       required:
-      - price
-      - mint
-      - maxAgeInSeconds
-      - timestamp
-      - name
-    SnapshotDateTime:
-      type: string
-      format: date-time
-      description: Timestamp of the metrics snapshot
-      example: '2023-06-29T15:15:26.464Z'
-    AddressBase58:
-      type: string
-      description: Valid base58-encoded address
-      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
-    Integer:
-      type: string
-      description: Total number of unique users participating in the airdrop
-      example: '1'
-      examples:
-      - '0'
-      - '1'
-      - '100'
-      - '-1'
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
     Decimal:
       type: string
       description: Decimal value represented as string
@@ -222,6 +183,20 @@ components:
       type: string
       description: Epoch Unix timestamp in seconds
       example: '1763568282'
+      examples:
+      - '0'
+      - '1'
+      - '100'
+      - '-1'
+    SnapshotDateTime:
+      type: string
+      format: date-time
+      description: Timestamp of the metrics snapshot
+      example: '2023-06-29T15:15:26.464Z'
+    Integer:
+      type: string
+      description: Total number of unique users participating in the airdrop
+      example: '1'
       examples:
       - '0'
       - '1'
@@ -248,6 +223,70 @@ components:
           example: 400
       required:
       - recentSlotDurationInMs
+    OraclePrices:
+      type: array
+      items:
+        $ref: '#/components/schemas/OraclePriceItem'
+      description: List of oracle prices for assets in the market
+    BenchmarkRate:
+      type: object
+      properties:
+        index:
+          type: integer
+          description: Index of the data point
+        hour:
+          type: string
+          description: Timestamp of the data point
+        tracked_supply:
+          type: number
+          description: Total tracked USD supply
+        avg_rate:
+          type: number
+          description: Average lending rate
+        elements:
+          type: integer
+          description: Number of data elements
+        included_protocols:
+          type: integer
+          description: Number of protocols included
+      required:
+      - index
+      - hour
+      - tracked_supply
+      - avg_rate
+      - elements
+      - included_protocols
+    Epoch:
+      type: object
+      properties:
+        epoch:
+          type: number
+          description: Epoch identifier
+          example: 678
+        firstSlot:
+          type: number
+          description: First slot number of the epoch
+          example: '123456789'
+        lastSlot:
+          type: number
+          description: Last slot number of the epoch
+          example: '123999999'
+        startBlockTime:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - description: UTC timestamp when the epoch started
+            example: '2025-03-01T12:00:00.000Z'
+        endBlockTime:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - description: UTC timestamp when the epoch ended
+            example: '2025-03-01T12:00:00.000Z'
+      required:
+      - epoch
+      - firstSlot
+      - lastSlot
+      - startBlockTime
+      - endBlockTime
     MarketConfigResponseV2:
       type: object
       properties:
@@ -284,79 +323,40 @@ components:
       - lendingMarket
       - lookupTable
       - isCurated
-    Epoch:
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
+    OraclePriceItem:
       type: object
       properties:
-        epoch:
-          type: number
-          description: Epoch identifier
-          example: 678
-        firstSlot:
-          type: number
-          description: First slot number of the epoch
-          example: '123456789'
-        lastSlot:
-          type: number
-          description: Last slot number of the epoch
-          example: '123999999'
-        startBlockTime:
+        price:
           allOf:
-          - $ref: '#/components/schemas/SnapshotDateTime'
-          - description: UTC timestamp when the epoch started
-            example: '2025-03-01T12:00:00.000Z'
-        endBlockTime:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Price value of the asset
+        mint:
           allOf:
-          - $ref: '#/components/schemas/SnapshotDateTime'
-          - description: UTC timestamp when the epoch ended
-            example: '2025-03-01T12:00:00.000Z'
-      required:
-      - epoch
-      - firstSlot
-      - lastSlot
-      - startBlockTime
-      - endBlockTime
-    OraclePrices:
-      type: array
-      items:
-        $ref: '#/components/schemas/OraclePriceItem'
-      description: List of oracle prices for assets in the market
-    BenchmarkRate:
-      type: object
-      properties:
-        index:
-          type: integer
-          description: Index of the data point
-        hour:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Valid base58-encoded address of the token mint
+            example: So11111111111111111111111111111111111111112
+            examples:
+            - So11111111111111111111111111111111111111112
+            - EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
+            - DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263
+        maxAgeInSeconds:
+          allOf:
+          - $ref: '#/components/schemas/Integer'
+          - description: Maximum allowed age of the price feed in seconds
+            example: '120'
+        timestamp:
+          $ref: '#/components/schemas/UnixTimestamp'
+        name:
           type: string
-          description: Timestamp of the data point
-        tracked_supply:
-          type: number
-          description: Total tracked USD supply
-        avg_rate:
-          type: number
-          description: Average lending rate
-        elements:
-          type: integer
-          description: Number of data elements
-        included_protocols:
-          type: integer
-          description: Number of protocols included
+          description: Name of the token
+          example: SOL
       required:
-      - index
-      - hour
-      - tracked_supply
-      - avg_rate
-      - elements
-      - included_protocols
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message for internal server failure
-          example: An internal error occurred
-      required:
-      - error
-      description: Internal server error response (500)
-      example:
-        error: An internal error occurred
+      - price
+      - mint
+      - maxAgeInSeconds
+      - timestamp
+      - name

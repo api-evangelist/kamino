@@ -417,11 +417,61 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
     KvaultRewardMetrics:
       type: array
       items:
         $ref: '#/components/schemas/KvaultRewardMetric'
       description: List of kvault reward metrics
+    SeasonFinalVestingPoolAllocation:
+      type: object
+      properties:
+        totalForfeitedRewards:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total amount of forfeited rewards from all users who claimed early
+      required:
+      - totalForfeitedRewards
+    SeasonUserReward:
+      type: object
+      properties:
+        wallet:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Wallet address of the user
+        totalRewards:
+          type: object
+          properties:
+            amount:
+              allOf:
+              - $ref: '#/components/schemas/Decimal'
+              - description: Total reward amount
+            tokenMint:
+              allOf:
+              - $ref: '#/components/schemas/AddressBase58'
+              - description: Token mint address of the reward
+          required:
+          - amount
+          - tokenMint
+          description: Total combined season rewards from both KLend and KVault
+      required:
+      - wallet
+      - totalRewards
     KvaultRewardMetric:
       type: object
       properties:
@@ -467,19 +517,6 @@ components:
       type: string
       description: Valid base58-encoded address
       example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
-    Decimal:
-      type: string
-      description: Decimal value represented as string
-      example: '1234.56789'
-    SeasonFinalVestingPoolAllocation:
-      type: object
-      properties:
-        totalForfeitedRewards:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total amount of forfeited rewards from all users who claimed early
-      required:
-      - totalForfeitedRewards
     StakingBoost:
       type: object
       properties:
@@ -498,40 +535,3 @@ components:
       required:
       - boost
       - name
-    SeasonUserReward:
-      type: object
-      properties:
-        wallet:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Wallet address of the user
-        totalRewards:
-          type: object
-          properties:
-            amount:
-              allOf:
-              - $ref: '#/components/schemas/Decimal'
-              - description: Total reward amount
-            tokenMint:
-              allOf:
-              - $ref: '#/components/schemas/AddressBase58'
-              - description: Token mint address of the reward
-          required:
-          - amount
-          - tokenMint
-          description: Total combined season rewards from both KLend and KVault
-      required:
-      - wallet
-      - totalRewards
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message for internal server failure
-          example: An internal error occurred
-      required:
-      - error
-      description: Internal server error response (500)
-      example:
-        error: An internal error occurred

@@ -131,14 +131,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    YieldHistoryResponse:
-      type: array
-      items:
-        $ref: '#/components/schemas/YieldHistoryItem'
-    PtYieldsResponse:
-      type: array
-      items:
-        $ref: '#/components/schemas/PtYieldItem'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
     PtYieldItem:
       type: object
       properties:
@@ -159,37 +163,15 @@ components:
       required:
       - apy
       - tokenMint
-    Apr:
-      type: string
-      description: APR in decimal format (not percentage) represented as string. Multiply by 100 to get percentage (%) - 0.1 in API response is 10%.
-      example: '0.2'
-      examples:
-      - '0.123'
-      - '0'
-      - '1'
-      - '1.23'
-      - '-0.5'
-      - '999999.999999'
-    Apy:
-      type: string
-      description: Borrow interest APY
-      example: '0.027610992938039702'
-      examples:
-      - '0.123'
-      - '0'
-      - '1'
-      - '1.23'
-      - '-0.5'
-      - '999999.999999'
+    YieldHistoryResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/YieldHistoryItem'
     SnapshotDateTime:
       type: string
       format: date-time
       description: Timestamp of the metrics snapshot
       example: '2023-06-29T15:15:26.464Z'
-    AddressBase58:
-      type: string
-      description: Valid base58-encoded address
-      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
     YieldHistoryItem:
       type: object
       properties:
@@ -209,15 +191,33 @@ components:
       - createdOn
       - apr
       - apy
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message for internal server failure
-          example: An internal error occurred
-      required:
-      - error
-      description: Internal server error response (500)
-      example:
-        error: An internal error occurred
+    Apy:
+      type: string
+      description: Borrow interest APY
+      example: '0.027610992938039702'
+      examples:
+      - '0.123'
+      - '0'
+      - '1'
+      - '1.23'
+      - '-0.5'
+      - '999999.999999'
+    PtYieldsResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/PtYieldItem'
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
+    Apr:
+      type: string
+      description: APR in decimal format (not percentage) represented as string. Multiply by 100 to get percentage (%) - 0.1 in API response is 10%.
+      example: '0.2'
+      examples:
+      - '0.123'
+      - '0'
+      - '1'
+      - '1.23'
+      - '-0.5'
+      - '999999.999999'

@@ -384,6 +384,18 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/ManagedLutResponse'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
     ManagedLutResponse:
       type: object
       properties:
@@ -426,6 +438,16 @@ components:
           description: User-specific accounts (e.g. ATAs, token accounts). These are still searched in LUTs but are excluded from missing account tracking.
       required:
       - addresses
+    FoundLuts:
+      type: object
+      properties:
+        lutAddresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressBase58'
+          description: List of Lookup Table addresses that together cover the requested addresses
+      required:
+      - lutAddresses
     LutProductType:
       type: string
       enum:
@@ -483,25 +505,3 @@ components:
       type: string
       description: Valid base58-encoded address
       example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
-    FoundLuts:
-      type: object
-      properties:
-        lutAddresses:
-          type: array
-          items:
-            $ref: '#/components/schemas/AddressBase58'
-          description: List of Lookup Table addresses that together cover the requested addresses
-      required:
-      - lutAddresses
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message for internal server failure
-          example: An internal error occurred
-      required:
-      - error
-      description: Internal server error response (500)
-      example:
-        error: An internal error occurred

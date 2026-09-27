@@ -214,10 +214,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    AddressBase58:
-      type: string
-      description: Valid base58-encoded address
-      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
     Error:
       type: object
       properties:
@@ -230,3 +226,7 @@ components:
       description: Internal server error response (500)
       example:
         error: An internal error occurred
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd

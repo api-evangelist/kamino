@@ -743,132 +743,46 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    KvaultPnlTimeseriesValue:
+    KvaultUserRewardMetrics:
+      type: array
+      items:
+        $ref: '#/components/schemas/KvaultUserRewardMetric'
+      description: List of kvault user reward metrics
+    KvaultMultiValue:
       type: object
       properties:
-        timestamp:
-          type: number
-          description: Unix timestamp in milliseconds
-        type:
-          anyOf:
-          - type: string
-            enum:
-            - buy
-          - type: string
-            enum:
-            - sell
-          - type: string
-            enum:
-            - mark-to-market
-        position:
+        usd:
           allOf:
           - $ref: '#/components/schemas/Decimal'
-          - description: Current position value
-        quantity:
+          - description: Value in USD
+        sol:
           allOf:
           - $ref: '#/components/schemas/Decimal'
-          - description: Quantity involved in transaction
-        tokenPrice:
+          - description: Value in SOL
+        token:
           allOf:
-          - $ref: '#/components/schemas/KvaultMultiValue'
-          - description: Token price snapshot
-        sharePrice:
-          allOf:
-          - $ref: '#/components/schemas/KvaultMultiValue'
-          - description: Share price snapshot
-        costBasis:
-          allOf:
-          - $ref: '#/components/schemas/KvaultMultiValue'
-          - description: Cost basis for position
-        realizedPnl:
-          allOf:
-          - $ref: '#/components/schemas/KvaultMultiValue'
-          - description: Realized profit/loss
-        pnl:
-          allOf:
-          - $ref: '#/components/schemas/KvaultMultiValue'
-          - description: Total profit/loss
-        positionValue:
-          allOf:
-          - $ref: '#/components/schemas/KvaultMultiValue'
-          - description: Value of the position
-        investment:
-          allOf:
-          - $ref: '#/components/schemas/KvaultMultiValue'
-          - description: Total invested value
+          - $ref: '#/components/schemas/Decimal'
+          - description: Value in token denomination
       required:
-      - timestamp
-      - type
-      - position
-      - quantity
-      - tokenPrice
-      - sharePrice
-      - costBasis
-      - realizedPnl
-      - pnl
-      - positionValue
-      - investment
-    KVaultInstruction:
+      - usd
+      - sol
+      - token
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
+    Error:
       type: object
       properties:
-        createdOn:
+        error:
           type: string
-          format: date
-          description: Date when the instruction was created
-        instruction:
-          type: string
-          description: Type of instruction
-        tokenMint:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Token mint address
-        tokenAmount:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Amount of tokens involved
-        tokenPrice:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Price of the token at the time of instruction
-        solPrice:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Price of SOL at the time of instruction
-        sharePrice:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Price per share at the time of instruction
-        numberOfShares:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Number of shares involved
-        usdValue:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: USD value of the transaction
-        transaction:
-          type: string
-          description: Transaction signature
-        kvault:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: KVault identifier
-        latestPosition:
-          type: boolean
-          description: Indicates if this is the latest position
+          description: Error message for internal server failure
+          example: An internal error occurred
       required:
-      - createdOn
-      - instruction
-      - tokenMint
-      - tokenAmount
-      - tokenPrice
-      - solPrice
-      - sharePrice
-      - numberOfShares
-      - usdValue
-      - transaction
-      - kvault
-      - latestPosition
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
     UserKvaultMetrics:
       type: object
       properties:
@@ -930,11 +844,6 @@ components:
       - interestEarnedPerSecond
       - interestEarnedPerSecondUsd
       - interestEarnedPerSecondSol
-    KvaultUserRewardMetrics:
-      type: array
-      items:
-        $ref: '#/components/schemas/KvaultUserRewardMetric'
-      description: List of kvault user reward metrics
     The_vault_state_object:
       type: object
       properties:
@@ -1129,86 +1038,76 @@ components:
       - vaultFarm
       - creationTimestamp
       - allocationAdmin
-    UserKVaultTotal:
-      type: object
-      properties:
-        createdOn:
-          allOf:
-          - $ref: '#/components/schemas/SnapshotDateTime'
-          - description: Timestamp when the snapshot was created (ISO 8601 format)
-            example: '2025-03-01T12:00:00.000Z'
-        usdAmount:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: User's total amount across all vaults in USD
-        solAmount:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: User's total amount across all vaults in SOL
-        weightedApy:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: Weighted average APY across all vaults in decimal format
-            example: '0.2'
-        cumulativeInterestEarnedUsd:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total interest earned in USD across all vaults
-        cumulativeInterestEarnedSol:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total interest earned in SOL across all vaults
-        interestEarnedPerSecondUsd:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Interest earned per second at that specific moment in USD
-        interestEarnedPerSecondSol:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Interest earned per second at that specific moment in SOL
-      required:
-      - createdOn
-      - usdAmount
-      - solAmount
-      - weightedApy
-      - cumulativeInterestEarnedUsd
-      - cumulativeInterestEarnedSol
-      - interestEarnedPerSecondUsd
-      - interestEarnedPerSecondSol
     SnapshotDateTime:
       type: string
       format: date-time
       description: Timestamp of the metrics snapshot
       example: '2023-06-29T15:15:26.464Z'
-    Apy:
-      type: string
-      description: Borrow interest APY
-      example: '0.027610992938039702'
-      examples:
-      - '0.123'
-      - '0'
-      - '1'
-      - '1.23'
-      - '-0.5'
-      - '999999.999999'
-    AddressBase58:
-      type: string
-      description: Valid base58-encoded address
-      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
-    Decimal:
-      type: string
-      description: Decimal value represented as string
-      example: '1234.56789'
-    KvaultPnl:
+    KvaultPnlTimeseriesValue:
       type: object
       properties:
-        totalPnl:
-          $ref: '#/components/schemas/KvaultMultiValue'
-        totalCostBasis:
-          $ref: '#/components/schemas/KvaultMultiValue'
+        timestamp:
+          type: number
+          description: Unix timestamp in milliseconds
+        type:
+          anyOf:
+          - type: string
+            enum:
+            - buy
+          - type: string
+            enum:
+            - sell
+          - type: string
+            enum:
+            - mark-to-market
+        position:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Current position value
+        quantity:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Quantity involved in transaction
+        tokenPrice:
+          allOf:
+          - $ref: '#/components/schemas/KvaultMultiValue'
+          - description: Token price snapshot
+        sharePrice:
+          allOf:
+          - $ref: '#/components/schemas/KvaultMultiValue'
+          - description: Share price snapshot
+        costBasis:
+          allOf:
+          - $ref: '#/components/schemas/KvaultMultiValue'
+          - description: Cost basis for position
+        realizedPnl:
+          allOf:
+          - $ref: '#/components/schemas/KvaultMultiValue'
+          - description: Realized profit/loss
+        pnl:
+          allOf:
+          - $ref: '#/components/schemas/KvaultMultiValue'
+          - description: Total profit/loss
+        positionValue:
+          allOf:
+          - $ref: '#/components/schemas/KvaultMultiValue'
+          - description: Value of the position
+        investment:
+          allOf:
+          - $ref: '#/components/schemas/KvaultMultiValue'
+          - description: Total invested value
       required:
-      - totalPnl
-      - totalCostBasis
+      - timestamp
+      - type
+      - position
+      - quantity
+      - tokenPrice
+      - sharePrice
+      - costBasis
+      - realizedPnl
+      - pnl
+      - positionValue
+      - investment
     KvaultUserRewardMetric:
       type: object
       properties:
@@ -1289,6 +1188,123 @@ components:
       - maxApy
       - usdAmount
       - usdAmountBoosted
+    KvaultPnl:
+      type: object
+      properties:
+        totalPnl:
+          $ref: '#/components/schemas/KvaultMultiValue'
+        totalCostBasis:
+          $ref: '#/components/schemas/KvaultMultiValue'
+      required:
+      - totalPnl
+      - totalCostBasis
+    KVaultInstruction:
+      type: object
+      properties:
+        createdOn:
+          type: string
+          format: date
+          description: Date when the instruction was created
+        instruction:
+          type: string
+          description: Type of instruction
+        tokenMint:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Token mint address
+        tokenAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Amount of tokens involved
+        tokenPrice:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Price of the token at the time of instruction
+        solPrice:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Price of SOL at the time of instruction
+        sharePrice:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Price per share at the time of instruction
+        numberOfShares:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Number of shares involved
+        usdValue:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: USD value of the transaction
+        transaction:
+          type: string
+          description: Transaction signature
+        kvault:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: KVault identifier
+        latestPosition:
+          type: boolean
+          description: Indicates if this is the latest position
+      required:
+      - createdOn
+      - instruction
+      - tokenMint
+      - tokenAmount
+      - tokenPrice
+      - solPrice
+      - sharePrice
+      - numberOfShares
+      - usdValue
+      - transaction
+      - kvault
+      - latestPosition
+    UserKVaultTotal:
+      type: object
+      properties:
+        createdOn:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - description: Timestamp when the snapshot was created (ISO 8601 format)
+            example: '2025-03-01T12:00:00.000Z'
+        usdAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: User's total amount across all vaults in USD
+        solAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: User's total amount across all vaults in SOL
+        weightedApy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Weighted average APY across all vaults in decimal format
+            example: '0.2'
+        cumulativeInterestEarnedUsd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total interest earned in USD across all vaults
+        cumulativeInterestEarnedSol:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total interest earned in SOL across all vaults
+        interestEarnedPerSecondUsd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Interest earned per second at that specific moment in USD
+        interestEarnedPerSecondSol:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Interest earned per second at that specific moment in SOL
+      required:
+      - createdOn
+      - usdAmount
+      - solAmount
+      - weightedApy
+      - cumulativeInterestEarnedUsd
+      - cumulativeInterestEarnedSol
+      - interestEarnedPerSecondUsd
+      - interestEarnedPerSecondSol
     VaultStateArray:
       type: array
       items:
@@ -1308,34 +1324,18 @@ components:
         - address
         - state
         - programId
-    KvaultMultiValue:
-      type: object
-      properties:
-        usd:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Value in USD
-        sol:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Value in SOL
-        token:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Value in token denomination
-      required:
-      - usd
-      - sol
-      - token
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message for internal server failure
-          example: An internal error occurred
-      required:
-      - error
-      description: Internal server error response (500)
-      example:
-        error: An internal error occurred
+    Apy:
+      type: string
+      description: Borrow interest APY
+      example: '0.027610992938039702'
+      examples:
+      - '0.123'
+      - '0'
+      - '1'
+      - '1.23'
+      - '-0.5'
+      - '999999.999999'
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd

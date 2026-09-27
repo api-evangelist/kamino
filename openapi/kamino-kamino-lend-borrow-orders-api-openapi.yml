@@ -167,6 +167,15 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    BorrowOrderFillsResponse:
+      type: object
+      properties:
+        fills:
+          type: array
+          items:
+            $ref: '#/components/schemas/BorrowOrderFill'
+      required:
+      - fills
     Error:
       type: object
       properties:
@@ -179,6 +188,10 @@ components:
       description: Internal server error response (500)
       example:
         error: An internal error occurred
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
     BorrowOrderFill:
       type: object
       properties:
@@ -213,28 +226,6 @@ components:
       - transactionSignature
       - debtLiquidityMint
       - filledAmount
-    AddressBase58:
-      type: string
-      description: Valid base58-encoded address
-      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
-    ObligationDeposit:
-      type: object
-      properties:
-        depositReserve:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Reserve address the collateral is deposited to
-        depositedAmount:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Amount of collateral deposited
-      required:
-      - depositReserve
-      - depositedAmount
-    Decimal:
-      type: string
-      description: Decimal value represented as string
-      example: '1234.56789'
     OpenBorrowOrder:
       type: object
       properties:
@@ -299,6 +290,20 @@ components:
       - fillableUntilTimestamp
       - placedAtTimestamp
       - lastUpdatedAtTimestamp
+    ObligationDeposit:
+      type: object
+      properties:
+        depositReserve:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Reserve address the collateral is deposited to
+        depositedAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Amount of collateral deposited
+      required:
+      - depositReserve
+      - depositedAmount
     ObligationsWithOpenBorrowOrdersResponse:
       type: object
       properties:
@@ -308,12 +313,7 @@ components:
             $ref: '#/components/schemas/OpenBorrowOrder'
       required:
       - obligations
-    BorrowOrderFillsResponse:
-      type: object
-      properties:
-        fills:
-          type: array
-          items:
-            $ref: '#/components/schemas/BorrowOrderFill'
-      required:
-      - fills
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
