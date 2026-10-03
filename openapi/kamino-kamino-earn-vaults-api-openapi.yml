@@ -864,22 +864,52 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Error:
+    KlendWithdrawQueueTransactionV3:
       type: object
       properties:
-        error:
+        createdOn:
+          type:
+          - string
+          - 'null'
+          format: date
+        timestamp:
+          type: number
+        transactionSignature:
           type: string
-          description: Error message for internal server failure
-          example: An internal error occurred
+        transactionName:
+          type: string
+        transactionDisplayName:
+          type: string
+        reserve:
+          $ref: '#/components/schemas/AddressBase58'
+        withdrawTicket:
+          $ref: '#/components/schemas/AddressBase58'
+        solPrice:
+          $ref: '#/components/schemas/Decimal'
+        liquidityToken:
+          type: string
+        liquidityTokenMint:
+          $ref: '#/components/schemas/AddressBase58'
+        liquidityTokenAmount:
+          $ref: '#/components/schemas/Decimal'
+        liquidityTokenPrice:
+          $ref: '#/components/schemas/Decimal'
+        liquidityUsdValue:
+          $ref: '#/components/schemas/Decimal'
       required:
-      - error
-      description: Internal server error response (500)
-      example:
-        error: An internal error occurred
-    Decimal:
-      type: string
-      description: Decimal value represented as string
-      example: '1234.56789'
+      - createdOn
+      - timestamp
+      - transactionSignature
+      - transactionName
+      - transactionDisplayName
+      - reserve
+      - withdrawTicket
+      - solPrice
+      - liquidityToken
+      - liquidityTokenMint
+      - liquidityTokenAmount
+      - liquidityTokenPrice
+      - liquidityUsdValue
     KvaultBulkTransaction:
       type: object
       properties:
@@ -913,6 +943,23 @@ components:
       - signature
       - kvault
       - wallet
+    KvaultVaultTransactionsResponse:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/KvaultVaultTransaction'
+        paginationToken:
+          type: string
+          example: eyJsYXN0SWQiOjgxfQ==
+          description: Optional pagination token
+      required:
+      - result
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
     The_vault_state_object:
       type: object
       properties:
@@ -1107,104 +1154,102 @@ components:
       - vaultFarm
       - creationTimestamp
       - allocationAdmin
+    KvaultVaultEnrichedInstruction:
+      type: object
+      properties:
+        market:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: KLend market public key
+        reserve:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: KLend reserve public key
+        solPrice:
+          $ref: '#/components/schemas/Decimal'
+        sharePrice:
+          $ref: '#/components/schemas/Decimal'
+        tokenPrice:
+          $ref: '#/components/schemas/Decimal'
+        tokenAmount:
+          $ref: '#/components/schemas/Decimal'
+        numberOfShares:
+          $ref: '#/components/schemas/Decimal'
+      required:
+      - solPrice
+      - sharePrice
+      - tokenPrice
+      - tokenAmount
+      - numberOfShares
     EnqueuedWithdrawTransactionsResponse:
       type: array
       items:
         $ref: '#/components/schemas/KlendWithdrawQueueTransactionV3'
-    KvaultVaultTransactionsResponse:
+    KvaultEnrichedInstruction:
       type: object
       properties:
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/KvaultVaultTransaction'
-        paginationToken:
+        market:
           type: string
-          example: eyJsYXN0SWQiOjgxfQ==
-          description: Optional pagination token
-      required:
-      - result
-    SnapshotDateTime:
-      type: string
-      format: date-time
-      description: Timestamp of the metrics snapshot
-      example: '2023-06-29T15:15:26.464Z'
-    KvaultVaultTransaction:
-      type: object
-      properties:
-        ix:
-          $ref: '#/components/schemas/KvaultVaultEnrichedInstruction'
-        timestamp:
-          allOf:
-          - $ref: '#/components/schemas/SnapshotDateTime'
-          - description: Timestamp when the transaction was executed (ISO 8601 format)
-            example: '2025-03-01T12:00:00.000Z'
-        signature:
-          type: string
-          description: Transaction signature
-          example: 2XWcSQVtR4NoHBhzYpDkYkmYtEFkFXC5ZwrKiPok1kvA86GvnN15qP7RNP6eTeNWgJqgnR1GA2M3QPp1hucW7e1v
-        kvault:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Valid base58-encoded address of the vault
-            example: HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E
-        wallet:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Valid base58-encoded address of the user wallet
-            example: AxqtG9SHDkZTLSWg81Sp7VqAzQpRqXtR9ziJ3VQAS8As
-      required:
-      - ix
-      - timestamp
-      - signature
-      - kvault
-      - wallet
-    KlendWithdrawQueueTransactionV3:
-      type: object
-      properties:
-        createdOn:
-          type:
-          - string
-          - 'null'
-          format: date
-        timestamp:
-          type: number
-        transactionSignature:
-          type: string
-        transactionName:
-          type: string
-        transactionDisplayName:
-          type: string
+          description: KLend market public key
+          example: EyV4jxSMd6vpuRgrxMFem7CKRhcB4Vv6WMRDtxPQNP4
         reserve:
-          $ref: '#/components/schemas/AddressBase58'
-        withdrawTicket:
-          $ref: '#/components/schemas/AddressBase58'
+          type: string
+          description: KLend reserve public key
+          example: ALnjBHECcdBsSwgVJ6A8pFEZ15qxE5jJQriCXSKT3Bte
         solPrice:
           $ref: '#/components/schemas/Decimal'
-        liquidityToken:
-          type: string
-        liquidityTokenMint:
-          $ref: '#/components/schemas/AddressBase58'
-        liquidityTokenAmount:
+        sharePrice:
           $ref: '#/components/schemas/Decimal'
-        liquidityTokenPrice:
+        tokenPrice:
           $ref: '#/components/schemas/Decimal'
-        liquidityUsdValue:
+        tokenAmount:
+          $ref: '#/components/schemas/Decimal'
+        numberOfShares:
           $ref: '#/components/schemas/Decimal'
       required:
-      - createdOn
-      - timestamp
-      - transactionSignature
-      - transactionName
-      - transactionDisplayName
-      - reserve
-      - withdrawTicket
       - solPrice
-      - liquidityToken
-      - liquidityTokenMint
-      - liquidityTokenAmount
-      - liquidityTokenPrice
-      - liquidityUsdValue
+      - sharePrice
+      - tokenPrice
+      - tokenAmount
+      - numberOfShares
+      description: Enriched kvault instruction object
+      example:
+        tokenAmount: '835.924775'
+        numberOfShares: '814.34612'
+        solPrice: '138.7776002'
+        sharePrice: '1.0263403430350673002'
+        tokenPrice: '0.99984713'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
+    VaultStateArray:
+      type: array
+      items:
+        type: object
+        properties:
+          address:
+            allOf:
+            - $ref: '#/components/schemas/AddressBase58'
+            - description: Public key of the vault
+          state:
+            $ref: '#/components/schemas/The_vault_state_object'
+          programId:
+            allOf:
+            - $ref: '#/components/schemas/AddressBase58'
+            - description: Public key of the kvault program which owns the vault
+        required:
+        - address
+        - state
+        - programId
     KvaultMetrics:
       type: object
       properties:
@@ -1390,86 +1435,36 @@ components:
       - cumulativeManagementFees
       - cumulativeManagementFeesUsd
       - cumulativeManagementFeesSol
-    KvaultEnrichedInstruction:
+    KvaultVaultTransaction:
       type: object
       properties:
-        market:
+        ix:
+          $ref: '#/components/schemas/KvaultVaultEnrichedInstruction'
+        timestamp:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - description: Timestamp when the transaction was executed (ISO 8601 format)
+            example: '2025-03-01T12:00:00.000Z'
+        signature:
           type: string
-          description: KLend market public key
-          example: EyV4jxSMd6vpuRgrxMFem7CKRhcB4Vv6WMRDtxPQNP4
-        reserve:
-          type: string
-          description: KLend reserve public key
-          example: ALnjBHECcdBsSwgVJ6A8pFEZ15qxE5jJQriCXSKT3Bte
-        solPrice:
-          $ref: '#/components/schemas/Decimal'
-        sharePrice:
-          $ref: '#/components/schemas/Decimal'
-        tokenPrice:
-          $ref: '#/components/schemas/Decimal'
-        tokenAmount:
-          $ref: '#/components/schemas/Decimal'
-        numberOfShares:
-          $ref: '#/components/schemas/Decimal'
-      required:
-      - solPrice
-      - sharePrice
-      - tokenPrice
-      - tokenAmount
-      - numberOfShares
-      description: Enriched kvault instruction object
-      example:
-        tokenAmount: '835.924775'
-        numberOfShares: '814.34612'
-        solPrice: '138.7776002'
-        sharePrice: '1.0263403430350673002'
-        tokenPrice: '0.99984713'
-    KvaultVaultEnrichedInstruction:
-      type: object
-      properties:
-        market:
+          description: Transaction signature
+          example: 2XWcSQVtR4NoHBhzYpDkYkmYtEFkFXC5ZwrKiPok1kvA86GvnN15qP7RNP6eTeNWgJqgnR1GA2M3QPp1hucW7e1v
+        kvault:
           allOf:
           - $ref: '#/components/schemas/AddressBase58'
-          - description: KLend market public key
-        reserve:
+          - description: Valid base58-encoded address of the vault
+            example: HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E
+        wallet:
           allOf:
           - $ref: '#/components/schemas/AddressBase58'
-          - description: KLend reserve public key
-        solPrice:
-          $ref: '#/components/schemas/Decimal'
-        sharePrice:
-          $ref: '#/components/schemas/Decimal'
-        tokenPrice:
-          $ref: '#/components/schemas/Decimal'
-        tokenAmount:
-          $ref: '#/components/schemas/Decimal'
-        numberOfShares:
-          $ref: '#/components/schemas/Decimal'
+          - description: Valid base58-encoded address of the user wallet
+            example: AxqtG9SHDkZTLSWg81Sp7VqAzQpRqXtR9ziJ3VQAS8As
       required:
-      - solPrice
-      - sharePrice
-      - tokenPrice
-      - tokenAmount
-      - numberOfShares
-    VaultStateArray:
-      type: array
-      items:
-        type: object
-        properties:
-          address:
-            allOf:
-            - $ref: '#/components/schemas/AddressBase58'
-            - description: Public key of the vault
-          state:
-            $ref: '#/components/schemas/The_vault_state_object'
-          programId:
-            allOf:
-            - $ref: '#/components/schemas/AddressBase58'
-            - description: Public key of the kvault program which owns the vault
-        required:
-        - address
-        - state
-        - programId
+      - ix
+      - timestamp
+      - signature
+      - kvault
+      - wallet
     Apy:
       type: string
       description: Borrow interest APY
@@ -1485,3 +1480,8 @@ components:
       type: string
       description: Valid base58-encoded address
       example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
+    SnapshotDateTime:
+      type: string
+      format: date-time
+      description: Timestamp of the metrics snapshot
+      example: '2023-06-29T15:15:26.464Z'

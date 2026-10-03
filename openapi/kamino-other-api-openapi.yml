@@ -159,70 +159,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    BenchmarkRatesResponse:
-      type: array
-      items:
-        $ref: '#/components/schemas/BenchmarkRate'
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message for internal server failure
-          example: An internal error occurred
-      required:
-      - error
-      description: Internal server error response (500)
-      example:
-        error: An internal error occurred
-    Decimal:
-      type: string
-      description: Decimal value represented as string
-      example: '1234.56789'
-    UnixTimestamp:
-      type: string
-      description: Epoch Unix timestamp in seconds
-      example: '1763568282'
-      examples:
-      - '0'
-      - '1'
-      - '100'
-      - '-1'
-    SnapshotDateTime:
-      type: string
-      format: date-time
-      description: Timestamp of the metrics snapshot
-      example: '2023-06-29T15:15:26.464Z'
-    Integer:
-      type: string
-      description: Total number of unique users participating in the airdrop
-      example: '1'
-      examples:
-      - '0'
-      - '1'
-      - '100'
-      - '-1'
-    OracleMarketPrices:
-      allOf:
-      - $ref: '#/components/schemas/MarketConfigResponseV2'
-      - type: object
-        properties:
-          prices:
-            type: array
-            items:
-              $ref: '#/components/schemas/OraclePriceItem'
-            description: Oracle prices for assets in this market
-        required:
-        - prices
-    SlotDuration:
-      type: object
-      properties:
-        recentSlotDurationInMs:
-          type: number
-          description: Slot duration in milliseconds calculated from the median duration of the last 3 epoch slot durations
-          example: 400
-      required:
-      - recentSlotDurationInMs
     OraclePrices:
       type: array
       items:
@@ -256,6 +192,19 @@ components:
       - avg_rate
       - elements
       - included_protocols
+    Integer:
+      type: string
+      description: Total number of unique users participating in the airdrop
+      example: '1'
+      examples:
+      - '0'
+      - '1'
+      - '100'
+      - '-1'
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
     Epoch:
       type: object
       properties:
@@ -287,6 +236,18 @@ components:
       - lastSlot
       - startBlockTime
       - endBlockTime
+    OracleMarketPrices:
+      allOf:
+      - $ref: '#/components/schemas/MarketConfigResponseV2'
+      - type: object
+        properties:
+          prices:
+            type: array
+            items:
+              $ref: '#/components/schemas/OraclePriceItem'
+            description: Oracle prices for assets in this market
+        required:
+        - prices
     MarketConfigResponseV2:
       type: object
       properties:
@@ -323,10 +284,10 @@ components:
       - lendingMarket
       - lookupTable
       - isCurated
-    AddressBase58:
-      type: string
-      description: Valid base58-encoded address
-      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
+    BenchmarkRatesResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/BenchmarkRate'
     OraclePriceItem:
       type: object
       properties:
@@ -360,3 +321,42 @@ components:
       - maxAgeInSeconds
       - timestamp
       - name
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
+    SlotDuration:
+      type: object
+      properties:
+        recentSlotDurationInMs:
+          type: number
+          description: Slot duration in milliseconds calculated from the median duration of the last 3 epoch slot durations
+          example: 400
+      required:
+      - recentSlotDurationInMs
+    SnapshotDateTime:
+      type: string
+      format: date-time
+      description: Timestamp of the metrics snapshot
+      example: '2023-06-29T15:15:26.464Z'
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
+    UnixTimestamp:
+      type: string
+      description: Epoch Unix timestamp in seconds
+      example: '1763568282'
+      examples:
+      - '0'
+      - '1'
+      - '100'
+      - '-1'

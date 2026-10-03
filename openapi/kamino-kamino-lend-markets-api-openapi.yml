@@ -384,63 +384,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message for internal server failure
-          example: An internal error occurred
-      required:
-      - error
-      description: Internal server error response (500)
-      example:
-        error: An internal error occurred
-    Decimal:
-      type: string
-      description: Decimal value represented as string
-      example: '1234.56789'
-    MarketMetricsResponse:
-      type: object
-      properties:
-        market:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Market public key
-            example: 9pMFoVgsG2cNiUCSBEE69iWFN7c1bz9gu9TtPeXkAMTs
-        timestamp:
-          $ref: '#/components/schemas/SnapshotDateTime'
-        metrics:
-          type: object
-          properties:
-            borrowTVL:
-              allOf:
-              - $ref: '#/components/schemas/Decimal'
-              - description: Total borrowed value in USD
-                example: '1.000099969999999979181237244607594483571'
-            depositTVL:
-              allOf:
-              - $ref: '#/components/schemas/Decimal'
-              - description: Total deposited value in USD
-                example: '8.357187000999999979181237244607594483571'
-            obligations:
-              type: integer
-              description: Number of obligations
-              example: 38
-          required:
-          - borrowTVL
-          - depositTVL
-          - obligations
-          description: Market metrics
-      required:
-      - market
-      - timestamp
-      - metrics
-    SnapshotDateTime:
-      type: string
-      format: date-time
-      description: Timestamp of the metrics snapshot
-      example: '2023-06-29T15:15:26.464Z'
     ReserveMetricsResponse:
       type: object
       properties:
@@ -498,6 +441,46 @@ components:
       - totalBorrow
       - totalBorrowUsd
       - totalSupplyUsd
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
+    MarketConfigResponseV2:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Market name
+          example: SOL/BTC Market
+        isPrimary:
+          type: boolean
+          description: Whether this is a primary market
+          example: true
+        description:
+          type: string
+          description: Market description
+          example: Primary market on mainnet
+        lendingMarket:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Lending market public key
+            example: 7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF
+        lookupTable:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Lookup table address
+            example: FGMSBiyVE8TvZcdQnZETAAKw28tkQJ2ccZy6pyp95URb
+        isCurated:
+          type: boolean
+          description: Whether this market is curated
+          example: false
+      required:
+      - name
+      - isPrimary
+      - description
+      - lendingMarket
+      - lookupTable
+      - isCurated
     Apy:
       type: string
       description: Borrow interest APY
@@ -567,6 +550,18 @@ components:
       - depositReserve
       - borrowReserve
       - tag
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
     ReserveAccountDataResponse:
       type: object
       properties:
@@ -592,43 +587,48 @@ components:
       required:
       - market
       - reserves
-    MarketConfigResponseV2:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Market name
-          example: SOL/BTC Market
-        isPrimary:
-          type: boolean
-          description: Whether this is a primary market
-          example: true
-        description:
-          type: string
-          description: Market description
-          example: Primary market on mainnet
-        lendingMarket:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Lending market public key
-            example: 7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF
-        lookupTable:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Lookup table address
-            example: FGMSBiyVE8TvZcdQnZETAAKw28tkQJ2ccZy6pyp95URb
-        isCurated:
-          type: boolean
-          description: Whether this market is curated
-          example: false
-      required:
-      - name
-      - isPrimary
-      - description
-      - lendingMarket
-      - lookupTable
-      - isCurated
+    SnapshotDateTime:
+      type: string
+      format: date-time
+      description: Timestamp of the metrics snapshot
+      example: '2023-06-29T15:15:26.464Z'
     AddressBase58:
       type: string
       description: Valid base58-encoded address
       example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
+    MarketMetricsResponse:
+      type: object
+      properties:
+        market:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Market public key
+            example: 9pMFoVgsG2cNiUCSBEE69iWFN7c1bz9gu9TtPeXkAMTs
+        timestamp:
+          $ref: '#/components/schemas/SnapshotDateTime'
+        metrics:
+          type: object
+          properties:
+            borrowTVL:
+              allOf:
+              - $ref: '#/components/schemas/Decimal'
+              - description: Total borrowed value in USD
+                example: '1.000099969999999979181237244607594483571'
+            depositTVL:
+              allOf:
+              - $ref: '#/components/schemas/Decimal'
+              - description: Total deposited value in USD
+                example: '8.357187000999999979181237244607594483571'
+            obligations:
+              type: integer
+              description: Number of obligations
+              example: 38
+          required:
+          - borrowTVL
+          - depositTVL
+          - obligations
+          description: Market metrics
+      required:
+      - market
+      - timestamp
+      - metrics

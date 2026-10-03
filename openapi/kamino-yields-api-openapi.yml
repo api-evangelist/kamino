@@ -131,6 +131,17 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    Apr:
+      type: string
+      description: APR in decimal format (not percentage) represented as string. Multiply by 100 to get percentage (%) - 0.1 in API response is 10%.
+      example: '0.2'
+      examples:
+      - '0.123'
+      - '0'
+      - '1'
+      - '1.23'
+      - '-0.5'
+      - '999999.999999'
     Error:
       type: object
       properties:
@@ -143,6 +154,10 @@ components:
       description: Internal server error response (500)
       example:
         error: An internal error occurred
+    YieldHistoryResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/YieldHistoryItem'
     PtYieldItem:
       type: object
       properties:
@@ -163,15 +178,10 @@ components:
       required:
       - apy
       - tokenMint
-    YieldHistoryResponse:
+    PtYieldsResponse:
       type: array
       items:
-        $ref: '#/components/schemas/YieldHistoryItem'
-    SnapshotDateTime:
-      type: string
-      format: date-time
-      description: Timestamp of the metrics snapshot
-      example: '2023-06-29T15:15:26.464Z'
+        $ref: '#/components/schemas/PtYieldItem'
     YieldHistoryItem:
       type: object
       properties:
@@ -191,29 +201,19 @@ components:
       - createdOn
       - apr
       - apy
-    Apy:
+    SnapshotDateTime:
       type: string
-      description: Borrow interest APY
-      example: '0.027610992938039702'
-      examples:
-      - '0.123'
-      - '0'
-      - '1'
-      - '1.23'
-      - '-0.5'
-      - '999999.999999'
-    PtYieldsResponse:
-      type: array
-      items:
-        $ref: '#/components/schemas/PtYieldItem'
+      format: date-time
+      description: Timestamp of the metrics snapshot
+      example: '2023-06-29T15:15:26.464Z'
     AddressBase58:
       type: string
       description: Valid base58-encoded address
       example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
-    Apr:
+    Apy:
       type: string
-      description: APR in decimal format (not percentage) represented as string. Multiply by 100 to get percentage (%) - 0.1 in API response is 10%.
-      example: '0.2'
+      description: Borrow interest APY
+      example: '0.027610992938039702'
       examples:
       - '0.123'
       - '0'

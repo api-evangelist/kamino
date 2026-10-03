@@ -182,27 +182,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message for internal server failure
-          example: An internal error occurred
-      required:
-      - error
-      description: Internal server error response (500)
-      example:
-        error: An internal error occurred
-    Decimal:
-      type: string
-      description: Decimal value represented as string
-      example: '1234.56789'
-    SnapshotDateTime:
-      type: string
-      format: date-time
-      description: Timestamp of the metrics snapshot
-      example: '2023-06-29T15:15:26.464Z'
     Integer:
       type: string
       description: Total number of unique users participating in the airdrop
@@ -212,6 +191,10 @@ components:
       - '1'
       - '100'
       - '-1'
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
     AirdropMetrics:
       type: object
       properties:
@@ -230,10 +213,18 @@ components:
       - totalAllocation
       - totalUsers
       - claimDate
-    AddressBase58:
-      type: string
-      description: Valid base58-encoded address
-      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
     AirdropAllocation:
       type: object
       properties:
@@ -248,3 +239,12 @@ components:
       required:
       - quantity
       - name
+    SnapshotDateTime:
+      type: string
+      format: date-time
+      description: Timestamp of the metrics snapshot
+      example: '2023-06-29T15:15:26.464Z'
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd

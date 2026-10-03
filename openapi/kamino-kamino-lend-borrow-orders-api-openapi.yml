@@ -167,31 +167,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    BorrowOrderFillsResponse:
-      type: object
-      properties:
-        fills:
-          type: array
-          items:
-            $ref: '#/components/schemas/BorrowOrderFill'
-      required:
-      - fills
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message for internal server failure
-          example: An internal error occurred
-      required:
-      - error
-      description: Internal server error response (500)
-      example:
-        error: An internal error occurred
-    Decimal:
-      type: string
-      description: Decimal value represented as string
-      example: '1234.56789'
     BorrowOrderFill:
       type: object
       properties:
@@ -226,6 +201,54 @@ components:
       - transactionSignature
       - debtLiquidityMint
       - filledAmount
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
+    ObligationsWithOpenBorrowOrdersResponse:
+      type: object
+      properties:
+        obligations:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenBorrowOrder'
+      required:
+      - obligations
+    ObligationDeposit:
+      type: object
+      properties:
+        depositReserve:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Reserve address the collateral is deposited to
+        depositedAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Amount of collateral deposited
+      required:
+      - depositReserve
+      - depositedAmount
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
+    BorrowOrderFillsResponse:
+      type: object
+      properties:
+        fills:
+          type: array
+          items:
+            $ref: '#/components/schemas/BorrowOrderFill'
+      required:
+      - fills
     OpenBorrowOrder:
       type: object
       properties:
@@ -290,29 +313,6 @@ components:
       - fillableUntilTimestamp
       - placedAtTimestamp
       - lastUpdatedAtTimestamp
-    ObligationDeposit:
-      type: object
-      properties:
-        depositReserve:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Reserve address the collateral is deposited to
-        depositedAmount:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Amount of collateral deposited
-      required:
-      - depositReserve
-      - depositedAmount
-    ObligationsWithOpenBorrowOrdersResponse:
-      type: object
-      properties:
-        obligations:
-          type: array
-          items:
-            $ref: '#/components/schemas/OpenBorrowOrder'
-      required:
-      - obligations
     AddressBase58:
       type: string
       description: Valid base58-encoded address

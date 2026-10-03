@@ -380,84 +380,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ManagedLutBatchResponse:
-      type: array
-      items:
-        $ref: '#/components/schemas/ManagedLutResponse'
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message for internal server failure
-          example: An internal error occurred
-      required:
-      - error
-      description: Internal server error response (500)
-      example:
-        error: An internal error occurred
-    ManagedLutResponse:
-      type: object
-      properties:
-        productIdentifierAddress:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: The product identifier address
-            example: 6KhEbVjFg8bNkpTSyEfGJhMGtv2bRQiAKKbKZLPvrBFm
-        lutAddresses:
-          type: array
-          items:
-            $ref: '#/components/schemas/AddressBase58'
-          description: Active lookup table addresses
-          example:
-          - 3Kz4sMiBCxg7JdCCjwRTHtFsQRqJCSKh5pVERhPfMzYF
-      required:
-      - productIdentifierAddress
-      - lutAddresses
-    FindLutsForAddresses:
-      type: object
-      properties:
-        addresses:
-          type: array
-          items:
-            $ref: '#/components/schemas/AddressBase58'
-          minItems: 1
-          maxItems: 100
-          description: Addresses to find in LUTs (max 100)
-        verify:
-          type: boolean
-          default: true
-          description: Whether to verify that LUTs are active on-chain (defaults to true)
-          example: false
-        userAccounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/AddressBase58'
-          maxItems: 100
-          default: []
-          description: User-specific accounts (e.g. ATAs, token accounts). These are still searched in LUTs but are excluded from missing account tracking.
-      required:
-      - addresses
-    FoundLuts:
-      type: object
-      properties:
-        lutAddresses:
-          type: array
-          items:
-            $ref: '#/components/schemas/AddressBase58'
-          description: List of Lookup Table addresses that together cover the requested addresses
-      required:
-      - lutAddresses
-    LutProductType:
-      type: string
-      enum:
-      - swap_pair
-      - vault
-      - strategy
-      - market
-      - meta_vault
-      description: The type of product associated with a managed lookup table
-      example: vault
     NewVaultResponse:
       type: object
       properties:
@@ -484,6 +406,66 @@ components:
       - vaultAddress
       - lutAddress
       - lutEntryId
+    ManagedLutBatchResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/ManagedLutResponse'
+    LutProductType:
+      type: string
+      enum:
+      - swap_pair
+      - vault
+      - strategy
+      - market
+      - meta_vault
+      description: The type of product associated with a managed lookup table
+      example: vault
+    FoundLuts:
+      type: object
+      properties:
+        lutAddresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressBase58'
+          description: List of Lookup Table addresses that together cover the requested addresses
+      required:
+      - lutAddresses
+    FindLutsForAddresses:
+      type: object
+      properties:
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressBase58'
+          minItems: 1
+          maxItems: 100
+          description: Addresses to find in LUTs (max 100)
+        verify:
+          type: boolean
+          default: true
+          description: Whether to verify that LUTs are active on-chain (defaults to true)
+          example: false
+        userAccounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressBase58'
+          maxItems: 100
+          default: []
+          description: User-specific accounts (e.g. ATAs, token accounts). These are still searched in LUTs but are excluded from missing account tracking.
+      required:
+      - addresses
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
     ManagedLutByTypeResponse:
       type: array
       items:
@@ -501,6 +483,24 @@ components:
         - productIdentifierAddress
         - productType
         - lutAddresses
+    ManagedLutResponse:
+      type: object
+      properties:
+        productIdentifierAddress:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: The product identifier address
+            example: 6KhEbVjFg8bNkpTSyEfGJhMGtv2bRQiAKKbKZLPvrBFm
+        lutAddresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressBase58'
+          description: Active lookup table addresses
+          example:
+          - 3Kz4sMiBCxg7JdCCjwRTHtFsQRqJCSKh5pVERhPfMzYF
+      required:
+      - productIdentifierAddress
+      - lutAddresses
     AddressBase58:
       type: string
       description: Valid base58-encoded address
