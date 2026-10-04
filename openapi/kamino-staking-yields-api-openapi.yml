@@ -85,6 +85,26 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    StakingYield:
+      type: object
+      properties:
+        apy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Staking APY in decimal format for the token
+            example: '0.2'
+        tokenMint:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Valid base58-encoded address of the liquid staking token mint
+            example: J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn
+            examples:
+            - J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn
+            - mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So
+            - pSo1f9nQXWgXibFtKf7NWYxb5enAM4qfP6UJSiXRQfL
+      required:
+      - apy
+      - tokenMint
     Error:
       type: object
       properties:
@@ -112,23 +132,3 @@ components:
       - '1.23'
       - '-0.5'
       - '999999.999999'
-    StakingYield:
-      type: object
-      properties:
-        apy:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: Staking APY in decimal format for the token
-            example: '0.2'
-        tokenMint:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Valid base58-encoded address of the liquid staking token mint
-            example: J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn
-            examples:
-            - J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn
-            - mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So
-            - pSo1f9nQXWgXibFtKf7NWYxb5enAM4qfP6UJSiXRQfL
-      required:
-      - apy
-      - tokenMint

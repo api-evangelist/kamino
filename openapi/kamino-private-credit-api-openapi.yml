@@ -119,6 +119,16 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    PrivateCreditStatusDistribution:
+      type: object
+      properties:
+        status:
+          type: string
+        share:
+          $ref: '#/components/schemas/Decimal'
+      required:
+      - status
+      - share
     PrivateCreditHistoryResponse:
       type: array
       items:
@@ -127,18 +137,6 @@ components:
       type: string
       description: Decimal value represented as string
       example: '1234.56789'
-    PrivateCreditMetricsResponse:
-      type: object
-      properties:
-        metrics:
-          $ref: '#/components/schemas/PrivateCreditAggregateMetrics'
-        loans:
-          type: array
-          items:
-            $ref: '#/components/schemas/PrivateCreditLoan'
-      required:
-      - metrics
-      - loans
     PrivateCreditHistoryPoint:
       type: object
       properties:
@@ -160,34 +158,18 @@ components:
       - weightedAvgLtv
       - maxLtv
       - statusDistribution
-    PrivateCreditLoan:
+    PrivateCreditMetricsResponse:
       type: object
       properties:
-        totalBorrowedUsd:
-          $ref: '#/components/schemas/Decimal'
-        totalDepositedUsd:
-          $ref: '#/components/schemas/Decimal'
-        ltv:
-          $ref: '#/components/schemas/Decimal'
-        createdOn:
-          allOf:
-          - $ref: '#/components/schemas/SnapshotDateTime'
-          - description: Timestamp when the snapshot was created (ISO 8601 format)
-            example: '2025-03-01T12:00:00.000Z'
-        collateralAsset:
-          type: string
-        maxLtv:
-          $ref: '#/components/schemas/Decimal'
-        liquidationStatus:
-          type: string
+        metrics:
+          $ref: '#/components/schemas/PrivateCreditAggregateMetrics'
+        loans:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrivateCreditLoan'
       required:
-      - totalBorrowedUsd
-      - totalDepositedUsd
-      - ltv
-      - createdOn
-      - collateralAsset
-      - maxLtv
-      - liquidationStatus
+      - metrics
+      - loans
     Error:
       type: object
       properties:
@@ -200,16 +182,6 @@ components:
       description: Internal server error response (500)
       example:
         error: An internal error occurred
-    PrivateCreditStatusDistribution:
-      type: object
-      properties:
-        status:
-          type: string
-        share:
-          $ref: '#/components/schemas/Decimal'
-      required:
-      - status
-      - share
     PrivateCreditAggregateMetrics:
       type: object
       properties:
@@ -243,3 +215,31 @@ components:
       format: date-time
       description: Timestamp of the metrics snapshot
       example: '2023-06-29T15:15:26.464Z'
+    PrivateCreditLoan:
+      type: object
+      properties:
+        totalBorrowedUsd:
+          $ref: '#/components/schemas/Decimal'
+        totalDepositedUsd:
+          $ref: '#/components/schemas/Decimal'
+        ltv:
+          $ref: '#/components/schemas/Decimal'
+        createdOn:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - description: Timestamp when the snapshot was created (ISO 8601 format)
+            example: '2025-03-01T12:00:00.000Z'
+        collateralAsset:
+          type: string
+        maxLtv:
+          $ref: '#/components/schemas/Decimal'
+        liquidationStatus:
+          type: string
+      required:
+      - totalBorrowedUsd
+      - totalDepositedUsd
+      - ltv
+      - createdOn
+      - collateralAsset
+      - maxLtv
+      - liquidationStatus

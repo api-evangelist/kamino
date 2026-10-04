@@ -380,6 +380,10 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
     NewVaultResponse:
       type: object
       properties:
@@ -406,10 +410,23 @@ components:
       - vaultAddress
       - lutAddress
       - lutEntryId
-    ManagedLutBatchResponse:
+    ManagedLutByTypeResponse:
       type: array
       items:
-        $ref: '#/components/schemas/ManagedLutResponse'
+        type: object
+        properties:
+          productIdentifierAddress:
+            $ref: '#/components/schemas/AddressBase58'
+          productType:
+            $ref: '#/components/schemas/LutProductType'
+          lutAddresses:
+            type: array
+            items:
+              $ref: '#/components/schemas/AddressBase58'
+        required:
+        - productIdentifierAddress
+        - productType
+        - lutAddresses
     LutProductType:
       type: string
       enum:
@@ -420,6 +437,24 @@ components:
       - meta_vault
       description: The type of product associated with a managed lookup table
       example: vault
+    ManagedLutResponse:
+      type: object
+      properties:
+        productIdentifierAddress:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: The product identifier address
+            example: 6KhEbVjFg8bNkpTSyEfGJhMGtv2bRQiAKKbKZLPvrBFm
+        lutAddresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressBase58'
+          description: Active lookup table addresses
+          example:
+          - 3Kz4sMiBCxg7JdCCjwRTHtFsQRqJCSKh5pVERhPfMzYF
+      required:
+      - productIdentifierAddress
+      - lutAddresses
     FoundLuts:
       type: object
       properties:
@@ -466,42 +501,7 @@ components:
       description: Internal server error response (500)
       example:
         error: An internal error occurred
-    ManagedLutByTypeResponse:
+    ManagedLutBatchResponse:
       type: array
       items:
-        type: object
-        properties:
-          productIdentifierAddress:
-            $ref: '#/components/schemas/AddressBase58'
-          productType:
-            $ref: '#/components/schemas/LutProductType'
-          lutAddresses:
-            type: array
-            items:
-              $ref: '#/components/schemas/AddressBase58'
-        required:
-        - productIdentifierAddress
-        - productType
-        - lutAddresses
-    ManagedLutResponse:
-      type: object
-      properties:
-        productIdentifierAddress:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: The product identifier address
-            example: 6KhEbVjFg8bNkpTSyEfGJhMGtv2bRQiAKKbKZLPvrBFm
-        lutAddresses:
-          type: array
-          items:
-            $ref: '#/components/schemas/AddressBase58'
-          description: Active lookup table addresses
-          example:
-          - 3Kz4sMiBCxg7JdCCjwRTHtFsQRqJCSKh5pVERhPfMzYF
-      required:
-      - productIdentifierAddress
-      - lutAddresses
-    AddressBase58:
-      type: string
-      description: Valid base58-encoded address
-      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
+        $ref: '#/components/schemas/ManagedLutResponse'

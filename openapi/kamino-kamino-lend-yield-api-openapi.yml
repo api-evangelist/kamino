@@ -644,26 +644,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Decimal:
-      type: string
-      description: Decimal value represented as string
-      example: '1234.56789'
-    TokenInterestFees:
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/InterestFees'
-      description: Historical fees breakdown by reserve. Key is the reserve address.
-      example:
-        d4A2prbA2whesmvHaL88BH6Ewn5N4bTSU2Ze8P6Bc4Q:
-          ts: 1760745600000
-          solFees: '0'
-          usdFees: '0'
-          nativeFees: '0'
-    KlendRewardMetrics:
-      type: array
-      items:
-        $ref: '#/components/schemas/KlendRewardMetric'
-      description: List of klend reward metrics
     TotalFeesObligation:
       type: object
       additionalProperties:
@@ -674,6 +654,145 @@ components:
           ts: 1762128000000
           solFees: '0.00001610553929183891699891935039215032176993'
           usdFees: '0.003058858072628656437082436052718601394968'
+    InterestFees:
+      type: object
+      properties:
+        ts:
+          type: number
+          description: Timestamp in milliseconds
+          example: 1762128000000
+        solFees:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Fees in SOL
+            example: '0.00001610553929183891699891935039215032176993'
+        usdFees:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Fees in USD
+            example: '0.003058858072628656437082436052718601394968'
+        nativeFees:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Fees in native token units
+            example: '0'
+      required:
+      - ts
+      - solFees
+      - usdFees
+      - nativeFees
+    InterestRateEarnedResponse:
+      type: object
+      properties:
+        totalFeesEarnedObligation:
+          $ref: '#/components/schemas/TotalFeesObligation'
+        historicalFeesObligation:
+          $ref: '#/components/schemas/HistoricalFeesObligation'
+      required:
+      - totalFeesEarnedObligation
+      - historicalFeesObligation
+    KlendRewardHistory:
+      type: array
+      items:
+        $ref: '#/components/schemas/KlendRewardHistoryRow'
+      description: List of historical klend reward metrics
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
+    HistoricalFeesObligation:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          $ref: '#/components/schemas/TokenInterestFees'
+      description: Historical breakdown of interest fees earned over time
+    TotalInterestFees:
+      type: object
+      properties:
+        ts:
+          type: number
+          description: Timestamp in milliseconds
+          example: 1762128000000
+        solFees:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total fees in SOL
+            example: '0.00001610553929183891699891935039215032176993'
+        usdFees:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total fees in USD
+            example: '0.003058858072628656437082436052718601394968'
+      required:
+      - ts
+      - solFees
+      - usdFees
+    Apy:
+      type: string
+      description: Borrow interest APY
+      example: '0.027610992938039702'
+      examples:
+      - '0.123'
+      - '0'
+      - '1'
+      - '1.23'
+      - '-0.5'
+      - '999999.999999'
+    KlendRewardHistoryRow:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp of the data point
+        depositReserve:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Deposit reserve public key, if applicable
+        borrowReserve:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Borrow reserve public key, if applicable
+        rewardToken:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Mint address of the reward token
+        rewardApy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Annual Percentage Yield from rewards at this point in time
+            example: '0.2'
+      required:
+      - timestamp
+      - depositReserve
+      - borrowReserve
+      - rewardToken
+      - rewardApy
+    InterestRatePaidResponse:
+      type: object
+      properties:
+        totalFeesPaidObligation:
+          allOf:
+          - $ref: '#/components/schemas/TotalFeesObligation'
+          - description: Total interest fees paid per obligation
+        historicalFeesObligation:
+          allOf:
+          - $ref: '#/components/schemas/HistoricalFeesObligation'
+          - description: Historical breakdown of interest fees paid over time
+      required:
+      - totalFeesPaidObligation
+      - historicalFeesObligation
+    SnapshotDateTime:
+      type: string
+      format: date-time
+      description: Timestamp of the metrics snapshot
+      example: '2023-06-29T15:15:26.464Z'
+    KlendRewardMetrics:
+      type: array
+      items:
+        $ref: '#/components/schemas/KlendRewardMetric'
+      description: List of klend reward metrics
     KlendRewardMetric:
       type: object
       properties:
@@ -723,40 +842,64 @@ components:
       type: string
       description: Valid base58-encoded address
       example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
-    HistoricalFeesObligation:
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          $ref: '#/components/schemas/TokenInterestFees'
-      description: Historical breakdown of interest fees earned over time
-    InterestFees:
+    BorrowAndStakingApyResponse:
       type: object
       properties:
-        ts:
-          type: number
-          description: Timestamp in milliseconds
-          example: 1762128000000
-        solFees:
+        createdOn:
           allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Fees in SOL
-            example: '0.00001610553929183891699891935039215032176993'
-        usdFees:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - description: Timestamp of the snapshot
+            example: '2023-10-17T15:00:06.009Z'
+        borrowInterestApy:
+          $ref: '#/components/schemas/Apy'
+        stakingApy:
           allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Fees in USD
-            example: '0.003058858072628656437082436052718601394968'
-        nativeFees:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Fees in native token units
-            example: '0'
+          - $ref: '#/components/schemas/Apy'
+          - description: Staking APY
+            example: '0.066527842899023711405366628964490454572'
       required:
-      - ts
-      - solFees
-      - usdFees
-      - nativeFees
+      - createdOn
+      - borrowInterestApy
+      - stakingApy
+    KlendUserRewardMetrics:
+      type: object
+      properties:
+        avgBaseApy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Weighted average Base Annual Percentage Yield for the user
+            example: '0.2'
+        avgBoostedApy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Weighted average Boosted Annual Percentage Yield for the user
+            example: '0.2'
+        avgMaxApy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Weighted average Max Annual Percentage Yield for the user
+            example: '0.2'
+        rewards:
+          type: array
+          items:
+            $ref: '#/components/schemas/KlendUserRewardMetric'
+          description: List of klend user reward metrics
+      required:
+      - avgBaseApy
+      - avgBoostedApy
+      - avgMaxApy
+      - rewards
+    TokenInterestFees:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/InterestFees'
+      description: Historical fees breakdown by reserve. Key is the reserve address.
+      example:
+        d4A2prbA2whesmvHaL88BH6Ewn5N4bTSU2Ze8P6Bc4Q:
+          ts: 1760745600000
+          solFees: '0'
+          usdFees: '0'
+          nativeFees: '0'
     KlendUserRewardMetric:
       type: object
       properties:
@@ -846,146 +989,3 @@ components:
       description: Internal server error response (500)
       example:
         error: An internal error occurred
-    TotalInterestFees:
-      type: object
-      properties:
-        ts:
-          type: number
-          description: Timestamp in milliseconds
-          example: 1762128000000
-        solFees:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total fees in SOL
-            example: '0.00001610553929183891699891935039215032176993'
-        usdFees:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total fees in USD
-            example: '0.003058858072628656437082436052718601394968'
-      required:
-      - ts
-      - solFees
-      - usdFees
-    Apy:
-      type: string
-      description: Borrow interest APY
-      example: '0.027610992938039702'
-      examples:
-      - '0.123'
-      - '0'
-      - '1'
-      - '1.23'
-      - '-0.5'
-      - '999999.999999'
-    KlendRewardHistoryRow:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          format: date-time
-          description: Timestamp of the data point
-        depositReserve:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Deposit reserve public key, if applicable
-        borrowReserve:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Borrow reserve public key, if applicable
-        rewardToken:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Mint address of the reward token
-        rewardApy:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: Annual Percentage Yield from rewards at this point in time
-            example: '0.2'
-      required:
-      - timestamp
-      - depositReserve
-      - borrowReserve
-      - rewardToken
-      - rewardApy
-    InterestRatePaidResponse:
-      type: object
-      properties:
-        totalFeesPaidObligation:
-          allOf:
-          - $ref: '#/components/schemas/TotalFeesObligation'
-          - description: Total interest fees paid per obligation
-        historicalFeesObligation:
-          allOf:
-          - $ref: '#/components/schemas/HistoricalFeesObligation'
-          - description: Historical breakdown of interest fees paid over time
-      required:
-      - totalFeesPaidObligation
-      - historicalFeesObligation
-    BorrowAndStakingApyResponse:
-      type: object
-      properties:
-        createdOn:
-          allOf:
-          - $ref: '#/components/schemas/SnapshotDateTime'
-          - description: Timestamp of the snapshot
-            example: '2023-10-17T15:00:06.009Z'
-        borrowInterestApy:
-          $ref: '#/components/schemas/Apy'
-        stakingApy:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: Staking APY
-            example: '0.066527842899023711405366628964490454572'
-      required:
-      - createdOn
-      - borrowInterestApy
-      - stakingApy
-    KlendRewardHistory:
-      type: array
-      items:
-        $ref: '#/components/schemas/KlendRewardHistoryRow'
-      description: List of historical klend reward metrics
-    InterestRateEarnedResponse:
-      type: object
-      properties:
-        totalFeesEarnedObligation:
-          $ref: '#/components/schemas/TotalFeesObligation'
-        historicalFeesObligation:
-          $ref: '#/components/schemas/HistoricalFeesObligation'
-      required:
-      - totalFeesEarnedObligation
-      - historicalFeesObligation
-    KlendUserRewardMetrics:
-      type: object
-      properties:
-        avgBaseApy:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: Weighted average Base Annual Percentage Yield for the user
-            example: '0.2'
-        avgBoostedApy:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: Weighted average Boosted Annual Percentage Yield for the user
-            example: '0.2'
-        avgMaxApy:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: Weighted average Max Annual Percentage Yield for the user
-            example: '0.2'
-        rewards:
-          type: array
-          items:
-            $ref: '#/components/schemas/KlendUserRewardMetric'
-          description: List of klend user reward metrics
-      required:
-      - avgBaseApy
-      - avgBoostedApy
-      - avgMaxApy
-      - rewards
-    SnapshotDateTime:
-      type: string
-      format: date-time
-      description: Timestamp of the metrics snapshot
-      example: '2023-06-29T15:15:26.464Z'

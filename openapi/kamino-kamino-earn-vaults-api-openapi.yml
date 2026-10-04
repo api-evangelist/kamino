@@ -864,6 +864,348 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
+    KvaultVaultTransactionsResponse:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/KvaultVaultTransaction'
+        paginationToken:
+          type: string
+          example: eyJsYXN0SWQiOjgxfQ==
+          description: Optional pagination token
+      required:
+      - result
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
+    Apy:
+      type: string
+      description: Borrow interest APY
+      example: '0.027610992938039702'
+      examples:
+      - '0.123'
+      - '0'
+      - '1'
+      - '1.23'
+      - '-0.5'
+      - '999999.999999'
+    KvaultBulkTransaction:
+      type: object
+      properties:
+        ix:
+          $ref: '#/components/schemas/KvaultEnrichedInstruction'
+        timestamp:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - description: Timestamp when the transaction was executed (ISO 8601 format)
+            example: '2025-03-01T12:00:00.000Z'
+        signature:
+          type: string
+          description: Transaction signature
+          example: 2XWcSQVtR4NoHBhzYpDkYkmYtEFkFXC5ZwrKiPok1kvA86GvnN15qP7RNP6eTeNWgJqgnR1GA2M3QPp1hucW7e1v
+        kvault:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Valid base58-encoded address of the vault
+            example: HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E
+        wallet:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Valid base58-encoded address of the user wallet
+            example: AxqtG9SHDkZTLSWg81Sp7VqAzQpRqXtR9ziJ3VQAS8As
+        rawJson:
+          type: string
+          description: Entire raw JSON of the instruction
+      required:
+      - ix
+      - timestamp
+      - signature
+      - kvault
+      - wallet
+    KvaultMetrics:
+      type: object
+      properties:
+        apy7d:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: 7-day Annual Percentage Yield of the kvault
+            example: '0.2'
+        apy24h:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: 24-hour Annual Percentage Yield of the kvault
+            example: '0.2'
+        apy30d:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: 30-day Annual Percentage Yield of the kvault
+            example: '0.2'
+        apy90d:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: 90-day Annual Percentage Yield of the kvault
+            example: '0.2'
+        apy180d:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: 180-day Annual Percentage Yield of the kvault
+            example: '0.2'
+        apy365d:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: 365-day Annual Percentage Yield of the kvault
+            example: '0.2'
+        tokenPrice:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Price of the kvault token
+        solPrice:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Price of SOL
+        tokensAvailable:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Number of tokens available in the kvault
+        tokensAvailableUsd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: USD value of tokens available in the kvault
+        tokensInvested:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Number of tokens invested in the kvault
+        tokensInvestedUsd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: USD value of tokens invested in the kvault
+        sharePrice:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Price per share of the kvault
+        tokensPerShare:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Number of tokens per share in the kvault
+        apy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Annual Percentage Yield of the kvault
+            example: '0.2'
+        apyTheoretical:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Theoretical Annual Percentage Yield of the kvault
+            example: '0.2'
+        apyActual:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Actual Annual Percentage Yield of the kvault
+            example: '0.2'
+        apyFarmRewards:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Annual Percentage Yield from farm rewards in the kvault
+            example: '0.2'
+        apyIncentives:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Annual Percentage Yield from incentives in the kvault
+            example: '0.2'
+        apyReservesIncentives:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Annual Percentage Yield from reserves incentives in the kvault
+            example: '0.2'
+        numberOfHolders:
+          type: number
+          description: Number of holders of the kvault
+        sharesIssued:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total shares issued by the kvault
+        cumulativeInterestEarned:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Cumulative interest earned in the kvault token amount
+        cumulativeInterestEarnedUsd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Cumulative interest earned in USD for the kvault
+        cumulativeInterestEarnedSol:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Cumulative interest earned in SOL for the kvault
+        interestEarnedPerSecond:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Interest earned per second in the kvault token amount
+        interestEarnedPerSecondUsd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Interest earned per second in USD for the kvault
+        interestEarnedPerSecondSol:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Interest earned per second in SOL for the kvault
+        cumulativePerformanceFees:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Cumulative performance fees in the kvault token amount
+        cumulativePerformanceFeesUsd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Cumulative performance fees in USD for the kvault
+        cumulativePerformanceFeesSol:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Cumulative performance fees in SOL for the kvault
+        cumulativeManagementFees:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Cumulative management fees in the kvault token amount
+        cumulativeManagementFeesUsd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Cumulative management fees in USD for the kvault
+        cumulativeManagementFeesSol:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Cumulative management fees in SOL for the kvault
+      required:
+      - apy7d
+      - apy24h
+      - apy30d
+      - apy90d
+      - apy180d
+      - apy365d
+      - tokenPrice
+      - solPrice
+      - tokensAvailable
+      - tokensAvailableUsd
+      - tokensInvested
+      - tokensInvestedUsd
+      - sharePrice
+      - tokensPerShare
+      - apy
+      - apyTheoretical
+      - apyActual
+      - apyFarmRewards
+      - apyIncentives
+      - apyReservesIncentives
+      - numberOfHolders
+      - sharesIssued
+      - cumulativeInterestEarned
+      - cumulativeInterestEarnedUsd
+      - cumulativeInterestEarnedSol
+      - interestEarnedPerSecond
+      - interestEarnedPerSecondUsd
+      - interestEarnedPerSecondSol
+      - cumulativePerformanceFees
+      - cumulativePerformanceFeesUsd
+      - cumulativePerformanceFeesSol
+      - cumulativeManagementFees
+      - cumulativeManagementFeesUsd
+      - cumulativeManagementFeesSol
+    KvaultEnrichedInstruction:
+      type: object
+      properties:
+        market:
+          type: string
+          description: KLend market public key
+          example: EyV4jxSMd6vpuRgrxMFem7CKRhcB4Vv6WMRDtxPQNP4
+        reserve:
+          type: string
+          description: KLend reserve public key
+          example: ALnjBHECcdBsSwgVJ6A8pFEZ15qxE5jJQriCXSKT3Bte
+        solPrice:
+          $ref: '#/components/schemas/Decimal'
+        sharePrice:
+          $ref: '#/components/schemas/Decimal'
+        tokenPrice:
+          $ref: '#/components/schemas/Decimal'
+        tokenAmount:
+          $ref: '#/components/schemas/Decimal'
+        numberOfShares:
+          $ref: '#/components/schemas/Decimal'
+      required:
+      - solPrice
+      - sharePrice
+      - tokenPrice
+      - tokenAmount
+      - numberOfShares
+      description: Enriched kvault instruction object
+      example:
+        tokenAmount: '835.924775'
+        numberOfShares: '814.34612'
+        solPrice: '138.7776002'
+        sharePrice: '1.0263403430350673002'
+        tokenPrice: '0.99984713'
+    VaultStateArray:
+      type: array
+      items:
+        type: object
+        properties:
+          address:
+            allOf:
+            - $ref: '#/components/schemas/AddressBase58'
+            - description: Public key of the vault
+          state:
+            $ref: '#/components/schemas/The_vault_state_object'
+          programId:
+            allOf:
+            - $ref: '#/components/schemas/AddressBase58'
+            - description: Public key of the kvault program which owns the vault
+        required:
+        - address
+        - state
+        - programId
+    KvaultVaultEnrichedInstruction:
+      type: object
+      properties:
+        market:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: KLend market public key
+        reserve:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: KLend reserve public key
+        solPrice:
+          $ref: '#/components/schemas/Decimal'
+        sharePrice:
+          $ref: '#/components/schemas/Decimal'
+        tokenPrice:
+          $ref: '#/components/schemas/Decimal'
+        tokenAmount:
+          $ref: '#/components/schemas/Decimal'
+        numberOfShares:
+          $ref: '#/components/schemas/Decimal'
+      required:
+      - solPrice
+      - sharePrice
+      - tokenPrice
+      - tokenAmount
+      - numberOfShares
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
     KlendWithdrawQueueTransactionV3:
       type: object
       properties:
@@ -910,56 +1252,6 @@ components:
       - liquidityTokenAmount
       - liquidityTokenPrice
       - liquidityUsdValue
-    KvaultBulkTransaction:
-      type: object
-      properties:
-        ix:
-          $ref: '#/components/schemas/KvaultEnrichedInstruction'
-        timestamp:
-          allOf:
-          - $ref: '#/components/schemas/SnapshotDateTime'
-          - description: Timestamp when the transaction was executed (ISO 8601 format)
-            example: '2025-03-01T12:00:00.000Z'
-        signature:
-          type: string
-          description: Transaction signature
-          example: 2XWcSQVtR4NoHBhzYpDkYkmYtEFkFXC5ZwrKiPok1kvA86GvnN15qP7RNP6eTeNWgJqgnR1GA2M3QPp1hucW7e1v
-        kvault:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Valid base58-encoded address of the vault
-            example: HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E
-        wallet:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Valid base58-encoded address of the user wallet
-            example: AxqtG9SHDkZTLSWg81Sp7VqAzQpRqXtR9ziJ3VQAS8As
-        rawJson:
-          type: string
-          description: Entire raw JSON of the instruction
-      required:
-      - ix
-      - timestamp
-      - signature
-      - kvault
-      - wallet
-    KvaultVaultTransactionsResponse:
-      type: object
-      properties:
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/KvaultVaultTransaction'
-        paginationToken:
-          type: string
-          example: eyJsYXN0SWQiOjgxfQ==
-          description: Optional pagination token
-      required:
-      - result
-    Decimal:
-      type: string
-      description: Decimal value represented as string
-      example: '1234.56789'
     The_vault_state_object:
       type: object
       properties:
@@ -1154,287 +1446,6 @@ components:
       - vaultFarm
       - creationTimestamp
       - allocationAdmin
-    KvaultVaultEnrichedInstruction:
-      type: object
-      properties:
-        market:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: KLend market public key
-        reserve:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: KLend reserve public key
-        solPrice:
-          $ref: '#/components/schemas/Decimal'
-        sharePrice:
-          $ref: '#/components/schemas/Decimal'
-        tokenPrice:
-          $ref: '#/components/schemas/Decimal'
-        tokenAmount:
-          $ref: '#/components/schemas/Decimal'
-        numberOfShares:
-          $ref: '#/components/schemas/Decimal'
-      required:
-      - solPrice
-      - sharePrice
-      - tokenPrice
-      - tokenAmount
-      - numberOfShares
-    EnqueuedWithdrawTransactionsResponse:
-      type: array
-      items:
-        $ref: '#/components/schemas/KlendWithdrawQueueTransactionV3'
-    KvaultEnrichedInstruction:
-      type: object
-      properties:
-        market:
-          type: string
-          description: KLend market public key
-          example: EyV4jxSMd6vpuRgrxMFem7CKRhcB4Vv6WMRDtxPQNP4
-        reserve:
-          type: string
-          description: KLend reserve public key
-          example: ALnjBHECcdBsSwgVJ6A8pFEZ15qxE5jJQriCXSKT3Bte
-        solPrice:
-          $ref: '#/components/schemas/Decimal'
-        sharePrice:
-          $ref: '#/components/schemas/Decimal'
-        tokenPrice:
-          $ref: '#/components/schemas/Decimal'
-        tokenAmount:
-          $ref: '#/components/schemas/Decimal'
-        numberOfShares:
-          $ref: '#/components/schemas/Decimal'
-      required:
-      - solPrice
-      - sharePrice
-      - tokenPrice
-      - tokenAmount
-      - numberOfShares
-      description: Enriched kvault instruction object
-      example:
-        tokenAmount: '835.924775'
-        numberOfShares: '814.34612'
-        solPrice: '138.7776002'
-        sharePrice: '1.0263403430350673002'
-        tokenPrice: '0.99984713'
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message for internal server failure
-          example: An internal error occurred
-      required:
-      - error
-      description: Internal server error response (500)
-      example:
-        error: An internal error occurred
-    VaultStateArray:
-      type: array
-      items:
-        type: object
-        properties:
-          address:
-            allOf:
-            - $ref: '#/components/schemas/AddressBase58'
-            - description: Public key of the vault
-          state:
-            $ref: '#/components/schemas/The_vault_state_object'
-          programId:
-            allOf:
-            - $ref: '#/components/schemas/AddressBase58'
-            - description: Public key of the kvault program which owns the vault
-        required:
-        - address
-        - state
-        - programId
-    KvaultMetrics:
-      type: object
-      properties:
-        apy7d:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: 7-day Annual Percentage Yield of the kvault
-            example: '0.2'
-        apy24h:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: 24-hour Annual Percentage Yield of the kvault
-            example: '0.2'
-        apy30d:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: 30-day Annual Percentage Yield of the kvault
-            example: '0.2'
-        apy90d:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: 90-day Annual Percentage Yield of the kvault
-            example: '0.2'
-        apy180d:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: 180-day Annual Percentage Yield of the kvault
-            example: '0.2'
-        apy365d:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: 365-day Annual Percentage Yield of the kvault
-            example: '0.2'
-        tokenPrice:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Price of the kvault token
-        solPrice:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Price of SOL
-        tokensAvailable:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Number of tokens available in the kvault
-        tokensAvailableUsd:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: USD value of tokens available in the kvault
-        tokensInvested:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Number of tokens invested in the kvault
-        tokensInvestedUsd:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: USD value of tokens invested in the kvault
-        sharePrice:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Price per share of the kvault
-        tokensPerShare:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Number of tokens per share in the kvault
-        apy:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: Annual Percentage Yield of the kvault
-            example: '0.2'
-        apyTheoretical:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: Theoretical Annual Percentage Yield of the kvault
-            example: '0.2'
-        apyActual:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: Actual Annual Percentage Yield of the kvault
-            example: '0.2'
-        apyFarmRewards:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: Annual Percentage Yield from farm rewards in the kvault
-            example: '0.2'
-        apyIncentives:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: Annual Percentage Yield from incentives in the kvault
-            example: '0.2'
-        apyReservesIncentives:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: Annual Percentage Yield from reserves incentives in the kvault
-            example: '0.2'
-        numberOfHolders:
-          type: number
-          description: Number of holders of the kvault
-        sharesIssued:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total shares issued by the kvault
-        cumulativeInterestEarned:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Cumulative interest earned in the kvault token amount
-        cumulativeInterestEarnedUsd:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Cumulative interest earned in USD for the kvault
-        cumulativeInterestEarnedSol:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Cumulative interest earned in SOL for the kvault
-        interestEarnedPerSecond:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Interest earned per second in the kvault token amount
-        interestEarnedPerSecondUsd:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Interest earned per second in USD for the kvault
-        interestEarnedPerSecondSol:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Interest earned per second in SOL for the kvault
-        cumulativePerformanceFees:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Cumulative performance fees in the kvault token amount
-        cumulativePerformanceFeesUsd:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Cumulative performance fees in USD for the kvault
-        cumulativePerformanceFeesSol:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Cumulative performance fees in SOL for the kvault
-        cumulativeManagementFees:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Cumulative management fees in the kvault token amount
-        cumulativeManagementFeesUsd:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Cumulative management fees in USD for the kvault
-        cumulativeManagementFeesSol:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Cumulative management fees in SOL for the kvault
-      required:
-      - apy7d
-      - apy24h
-      - apy30d
-      - apy90d
-      - apy180d
-      - apy365d
-      - tokenPrice
-      - solPrice
-      - tokensAvailable
-      - tokensAvailableUsd
-      - tokensInvested
-      - tokensInvestedUsd
-      - sharePrice
-      - tokensPerShare
-      - apy
-      - apyTheoretical
-      - apyActual
-      - apyFarmRewards
-      - apyIncentives
-      - apyReservesIncentives
-      - numberOfHolders
-      - sharesIssued
-      - cumulativeInterestEarned
-      - cumulativeInterestEarnedUsd
-      - cumulativeInterestEarnedSol
-      - interestEarnedPerSecond
-      - interestEarnedPerSecondUsd
-      - interestEarnedPerSecondSol
-      - cumulativePerformanceFees
-      - cumulativePerformanceFeesUsd
-      - cumulativePerformanceFeesSol
-      - cumulativeManagementFees
-      - cumulativeManagementFeesUsd
-      - cumulativeManagementFeesSol
     KvaultVaultTransaction:
       type: object
       properties:
@@ -1465,21 +1476,10 @@ components:
       - signature
       - kvault
       - wallet
-    Apy:
-      type: string
-      description: Borrow interest APY
-      example: '0.027610992938039702'
-      examples:
-      - '0.123'
-      - '0'
-      - '1'
-      - '1.23'
-      - '-0.5'
-      - '999999.999999'
-    AddressBase58:
-      type: string
-      description: Valid base58-encoded address
-      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
+    EnqueuedWithdrawTransactionsResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/KlendWithdrawQueueTransactionV3'
     SnapshotDateTime:
       type: string
       format: date-time

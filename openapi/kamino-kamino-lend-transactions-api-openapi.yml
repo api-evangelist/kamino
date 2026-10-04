@@ -554,6 +554,57 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    KlendUserTransactionsResponseV2:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          $ref: '#/components/schemas/KlendTransactionUserResponseV2'
+    KlendTransactionUserResponseV2:
+      type: object
+      properties:
+        createdOn:
+          type:
+          - string
+          - 'null'
+          format: date
+        timestamp:
+          type: number
+        transactionSignature:
+          type: string
+        transactionName:
+          type: string
+        liquidityToken:
+          type: string
+        liquidityTokenMint:
+          $ref: '#/components/schemas/AddressBase58'
+        liquidityTokenAmount:
+          $ref: '#/components/schemas/Decimal'
+        liquidityTokenPrice:
+          $ref: '#/components/schemas/Decimal'
+        solPrice:
+          $ref: '#/components/schemas/Decimal'
+        liquidityUsdValue:
+          $ref: '#/components/schemas/Decimal'
+        isLiquidationWithdrawal:
+          type: boolean
+        obligationType:
+          type: string
+        transactionDisplayName:
+          type: string
+        isSecondPartOfCompositeIx:
+          type: boolean
+      required:
+      - createdOn
+      - timestamp
+      - transactionSignature
+      - transactionName
+      - liquidityToken
+      - liquidityTokenMint
+      - liquidityTokenAmount
+      - isLiquidationWithdrawal
+      - obligationType
+      - transactionDisplayName
     KlendWithdrawQueueTransactionV3:
       type: object
       properties:
@@ -600,6 +651,152 @@ components:
       - liquidityTokenAmount
       - liquidityTokenPrice
       - liquidityUsdValue
+    KlendTransactionUserResponseV3:
+      type: object
+      properties:
+        createdOn:
+          type:
+          - string
+          - 'null'
+          format: date
+        timestamp:
+          type: number
+        transactionSignature:
+          type: string
+        transactionName:
+          type: string
+        liquidityToken:
+          type: string
+        liquidityTokenMint:
+          $ref: '#/components/schemas/AddressBase58'
+        liquidityTokenAmount:
+          $ref: '#/components/schemas/Decimal'
+        liquidityTokenPrice:
+          $ref: '#/components/schemas/Decimal'
+        solPrice:
+          $ref: '#/components/schemas/Decimal'
+        liquidityUsdValue:
+          $ref: '#/components/schemas/Decimal'
+        isLiquidationWithdrawal:
+          type: boolean
+        obligationType:
+          type: string
+        transactionDisplayName:
+          type: string
+        isSecondPartOfCompositeIx:
+          type: boolean
+      required:
+      - createdOn
+      - timestamp
+      - transactionSignature
+      - transactionName
+      - liquidityToken
+      - liquidityTokenMint
+      - liquidityTokenAmount
+      - isLiquidationWithdrawal
+      - obligationType
+      - transactionDisplayName
+    KlendBulkTxResponseV3:
+      type: object
+      properties:
+        obligationTransactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/KlendBulkTxObligationResultItemV3'
+        withdrawQueueTransactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/KlendBulkTxWithdrawQueueResultItemV3'
+        paginationToken:
+          type: string
+          description: Token for next page. Absent when no more results.
+      required:
+      - obligationTransactions
+      - withdrawQueueTransactions
+    KlendBulkTxResultItem:
+      type: object
+      properties:
+        ixs:
+          type: array
+          items: {}
+        timestamp:
+          type:
+          - string
+          - 'null'
+          format: date
+        signature:
+          type: string
+        obligation:
+          type: string
+        wallet:
+          type: string
+        rawJson:
+          type: string
+      required:
+      - ixs
+      - timestamp
+      - signature
+      - obligation
+      - wallet
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
+    KlendAllMarketsUserTransactionsItemV3:
+      type: object
+      properties:
+        market:
+          $ref: '#/components/schemas/AddressBase58'
+        obligations:
+          $ref: '#/components/schemas/KlendUserObligationsMapV3'
+        withdrawQueueTransactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/KlendWithdrawQueueTransactionV3'
+      required:
+      - market
+      - obligations
+      - withdrawQueueTransactions
+    KlendUserTransactionsResponseV3:
+      type: object
+      properties:
+        obligations:
+          $ref: '#/components/schemas/KlendUserObligationsMapV3'
+        withdrawQueueTransactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/KlendWithdrawQueueTransactionV3'
+      required:
+      - obligations
+      - withdrawQueueTransactions
+    KlendBulkTxWithdrawQueueResultItemV3:
+      type: object
+      properties:
+        ixs:
+          type: array
+          items: {}
+        timestamp:
+          type:
+          - string
+          - 'null'
+          format: date
+        signature:
+          type: string
+        wallet:
+          type: string
+        reserve:
+          $ref: '#/components/schemas/AddressBase58'
+        withdrawTicket:
+          $ref: '#/components/schemas/AddressBase58'
+        rawJson:
+          type: string
+      required:
+      - ixs
+      - timestamp
+      - signature
+      - wallet
+      - reserve
+      - withdrawTicket
     KlendBulkTxBodyV3:
       type: object
       properties:
@@ -631,16 +828,6 @@ components:
           description: Pagination token for next page
       required:
       - instruction
-    Decimal:
-      type: string
-      description: Decimal value represented as string
-      example: '1234.56789'
-    KlendUserTransactionsResponseV2:
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          $ref: '#/components/schemas/KlendTransactionUserResponseV2'
     KlendBulkTxObligationResultItemV3:
       type: object
       properties:
@@ -666,6 +853,18 @@ components:
       - signature
       - obligation
       - wallet
+    KlendBulkTxResponse:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/KlendBulkTxResultItem'
+        paginationToken:
+          type: string
+          description: Token for next page. Absent when no more results.
+      required:
+      - result
     KlendTransactionResponseV2:
       type: object
       properties:
@@ -714,90 +913,6 @@ components:
       - obligation
       - obligationType
       - transactionDisplayName
-    KlendUserObligationsMapV3:
-      type: object
-      additionalProperties:
-        type: array
-        items:
-          $ref: '#/components/schemas/KlendTransactionUserResponseV3'
-    KlendTransactionUserResponseV3:
-      type: object
-      properties:
-        createdOn:
-          type:
-          - string
-          - 'null'
-          format: date
-        timestamp:
-          type: number
-        transactionSignature:
-          type: string
-        transactionName:
-          type: string
-        liquidityToken:
-          type: string
-        liquidityTokenMint:
-          $ref: '#/components/schemas/AddressBase58'
-        liquidityTokenAmount:
-          $ref: '#/components/schemas/Decimal'
-        liquidityTokenPrice:
-          $ref: '#/components/schemas/Decimal'
-        solPrice:
-          $ref: '#/components/schemas/Decimal'
-        liquidityUsdValue:
-          $ref: '#/components/schemas/Decimal'
-        isLiquidationWithdrawal:
-          type: boolean
-        obligationType:
-          type: string
-        transactionDisplayName:
-          type: string
-        isSecondPartOfCompositeIx:
-          type: boolean
-      required:
-      - createdOn
-      - timestamp
-      - transactionSignature
-      - transactionName
-      - liquidityToken
-      - liquidityTokenMint
-      - liquidityTokenAmount
-      - isLiquidationWithdrawal
-      - obligationType
-      - transactionDisplayName
-    KlendUserTransactionsResponseV3:
-      type: object
-      properties:
-        obligations:
-          $ref: '#/components/schemas/KlendUserObligationsMapV3'
-        withdrawQueueTransactions:
-          type: array
-          items:
-            $ref: '#/components/schemas/KlendWithdrawQueueTransactionV3'
-      required:
-      - obligations
-      - withdrawQueueTransactions
-    KlendAllMarketsUserTransactionsResponseV3:
-      type: array
-      items:
-        $ref: '#/components/schemas/KlendAllMarketsUserTransactionsItemV3'
-    KlendBulkTxResponseV3:
-      type: object
-      properties:
-        obligationTransactions:
-          type: array
-          items:
-            $ref: '#/components/schemas/KlendBulkTxObligationResultItemV3'
-        withdrawQueueTransactions:
-          type: array
-          items:
-            $ref: '#/components/schemas/KlendBulkTxWithdrawQueueResultItemV3'
-        paginationToken:
-          type: string
-          description: Token for next page. Absent when no more results.
-      required:
-      - obligationTransactions
-      - withdrawQueueTransactions
     AddressBase58:
       type: string
       description: Valid base58-encoded address
@@ -811,45 +926,10 @@ components:
             $ref: '#/components/schemas/KlendTransactionResponseV2'
       required:
       - transactions
-    KlendAllMarketsUserTransactionsItemV3:
-      type: object
-      properties:
-        market:
-          $ref: '#/components/schemas/AddressBase58'
-        obligations:
-          $ref: '#/components/schemas/KlendUserObligationsMapV3'
-        withdrawQueueTransactions:
-          type: array
-          items:
-            $ref: '#/components/schemas/KlendWithdrawQueueTransactionV3'
-      required:
-      - market
-      - obligations
-      - withdrawQueueTransactions
-    KlendBulkTxResponse:
-      type: object
-      properties:
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/KlendBulkTxResultItem'
-        paginationToken:
-          type: string
-          description: Token for next page. Absent when no more results.
-      required:
-      - result
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message for internal server failure
-          example: An internal error occurred
-      required:
-      - error
-      description: Internal server error response (500)
-      example:
-        error: An internal error occurred
+    KlendAllMarketsUserTransactionsResponseV2:
+      type: array
+      items:
+        $ref: '#/components/schemas/KlendAllMarketsUserTransactionsItem'
     KlendBulkTxBody:
       type: object
       properties:
@@ -881,6 +961,12 @@ components:
           description: Pagination token for next page
       required:
       - instruction
+    KlendUserObligationsMapV3:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          $ref: '#/components/schemas/KlendTransactionUserResponseV3'
     KlendAllMarketsUserTransactionsItem:
       type: object
       properties:
@@ -895,105 +981,19 @@ components:
       required:
       - market
       - obligations
-    KlendAllMarketsUserTransactionsResponseV2:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
+    KlendAllMarketsUserTransactionsResponseV3:
       type: array
       items:
-        $ref: '#/components/schemas/KlendAllMarketsUserTransactionsItem'
-    KlendTransactionUserResponseV2:
-      type: object
-      properties:
-        createdOn:
-          type:
-          - string
-          - 'null'
-          format: date
-        timestamp:
-          type: number
-        transactionSignature:
-          type: string
-        transactionName:
-          type: string
-        liquidityToken:
-          type: string
-        liquidityTokenMint:
-          $ref: '#/components/schemas/AddressBase58'
-        liquidityTokenAmount:
-          $ref: '#/components/schemas/Decimal'
-        liquidityTokenPrice:
-          $ref: '#/components/schemas/Decimal'
-        solPrice:
-          $ref: '#/components/schemas/Decimal'
-        liquidityUsdValue:
-          $ref: '#/components/schemas/Decimal'
-        isLiquidationWithdrawal:
-          type: boolean
-        obligationType:
-          type: string
-        transactionDisplayName:
-          type: string
-        isSecondPartOfCompositeIx:
-          type: boolean
-      required:
-      - createdOn
-      - timestamp
-      - transactionSignature
-      - transactionName
-      - liquidityToken
-      - liquidityTokenMint
-      - liquidityTokenAmount
-      - isLiquidationWithdrawal
-      - obligationType
-      - transactionDisplayName
-    KlendBulkTxResultItem:
-      type: object
-      properties:
-        ixs:
-          type: array
-          items: {}
-        timestamp:
-          type:
-          - string
-          - 'null'
-          format: date
-        signature:
-          type: string
-        obligation:
-          type: string
-        wallet:
-          type: string
-        rawJson:
-          type: string
-      required:
-      - ixs
-      - timestamp
-      - signature
-      - obligation
-      - wallet
-    KlendBulkTxWithdrawQueueResultItemV3:
-      type: object
-      properties:
-        ixs:
-          type: array
-          items: {}
-        timestamp:
-          type:
-          - string
-          - 'null'
-          format: date
-        signature:
-          type: string
-        wallet:
-          type: string
-        reserve:
-          $ref: '#/components/schemas/AddressBase58'
-        withdrawTicket:
-          $ref: '#/components/schemas/AddressBase58'
-        rawJson:
-          type: string
-      required:
-      - ixs
-      - timestamp
-      - signature
-      - wallet
-      - reserve
-      - withdrawTicket
+        $ref: '#/components/schemas/KlendAllMarketsUserTransactionsItemV3'

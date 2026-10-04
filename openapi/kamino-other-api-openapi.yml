@@ -159,11 +159,10 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    OraclePrices:
-      type: array
-      items:
-        $ref: '#/components/schemas/OraclePriceItem'
-      description: List of oracle prices for assets in the market
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
     BenchmarkRate:
       type: object
       properties:
@@ -192,19 +191,36 @@ components:
       - avg_rate
       - elements
       - included_protocols
-    Integer:
-      type: string
-      description: Total number of unique users participating in the airdrop
-      example: '1'
-      examples:
-      - '0'
-      - '1'
-      - '100'
-      - '-1'
-    Decimal:
-      type: string
-      description: Decimal value represented as string
-      example: '1234.56789'
+    SlotDuration:
+      type: object
+      properties:
+        recentSlotDurationInMs:
+          type: number
+          description: Slot duration in milliseconds calculated from the median duration of the last 3 epoch slot durations
+          example: 400
+      required:
+      - recentSlotDurationInMs
+    BenchmarkRatesResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/BenchmarkRate'
+    OraclePrices:
+      type: array
+      items:
+        $ref: '#/components/schemas/OraclePriceItem'
+      description: List of oracle prices for assets in the market
+    OracleMarketPrices:
+      allOf:
+      - $ref: '#/components/schemas/MarketConfigResponseV2'
+      - type: object
+        properties:
+          prices:
+            type: array
+            items:
+              $ref: '#/components/schemas/OraclePriceItem'
+            description: Oracle prices for assets in this market
+        required:
+        - prices
     Epoch:
       type: object
       properties:
@@ -236,18 +252,6 @@ components:
       - lastSlot
       - startBlockTime
       - endBlockTime
-    OracleMarketPrices:
-      allOf:
-      - $ref: '#/components/schemas/MarketConfigResponseV2'
-      - type: object
-        properties:
-          prices:
-            type: array
-            items:
-              $ref: '#/components/schemas/OraclePriceItem'
-            description: Oracle prices for assets in this market
-        required:
-        - prices
     MarketConfigResponseV2:
       type: object
       properties:
@@ -284,10 +288,19 @@ components:
       - lendingMarket
       - lookupTable
       - isCurated
-    BenchmarkRatesResponse:
-      type: array
-      items:
-        $ref: '#/components/schemas/BenchmarkRate'
+    UnixTimestamp:
+      type: string
+      description: Epoch Unix timestamp in seconds
+      example: '1763568282'
+      examples:
+      - '0'
+      - '1'
+      - '100'
+      - '-1'
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
     OraclePriceItem:
       type: object
       properties:
@@ -333,28 +346,15 @@ components:
       description: Internal server error response (500)
       example:
         error: An internal error occurred
-    SlotDuration:
-      type: object
-      properties:
-        recentSlotDurationInMs:
-          type: number
-          description: Slot duration in milliseconds calculated from the median duration of the last 3 epoch slot durations
-          example: 400
-      required:
-      - recentSlotDurationInMs
     SnapshotDateTime:
       type: string
       format: date-time
       description: Timestamp of the metrics snapshot
       example: '2023-06-29T15:15:26.464Z'
-    AddressBase58:
+    Integer:
       type: string
-      description: Valid base58-encoded address
-      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
-    UnixTimestamp:
-      type: string
-      description: Epoch Unix timestamp in seconds
-      example: '1763568282'
+      description: Total number of unique users participating in the airdrop
+      example: '1'
       examples:
       - '0'
       - '1'

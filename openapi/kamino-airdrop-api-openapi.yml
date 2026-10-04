@@ -182,15 +182,24 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Integer:
+    AirdropAllocation:
+      type: object
+      properties:
+        quantity:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Quantity of tokens allocated to the user for the airdrop
+        name:
+          type: string
+          description: Name of the airdrop allocation source
+          example: main
+      required:
+      - quantity
+      - name
+    AddressBase58:
       type: string
-      description: Total number of unique users participating in the airdrop
-      example: '1'
-      examples:
-      - '0'
-      - '1'
-      - '100'
-      - '-1'
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
     Decimal:
       type: string
       description: Decimal value represented as string
@@ -225,26 +234,17 @@ components:
       description: Internal server error response (500)
       example:
         error: An internal error occurred
-    AirdropAllocation:
-      type: object
-      properties:
-        quantity:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Quantity of tokens allocated to the user for the airdrop
-        name:
-          type: string
-          description: Name of the airdrop allocation source
-          example: main
-      required:
-      - quantity
-      - name
     SnapshotDateTime:
       type: string
       format: date-time
       description: Timestamp of the metrics snapshot
       example: '2023-06-29T15:15:26.464Z'
-    AddressBase58:
+    Integer:
       type: string
-      description: Valid base58-encoded address
-      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
+      description: Total number of unique users participating in the airdrop
+      example: '1'
+      examples:
+      - '0'
+      - '1'
+      - '100'
+      - '-1'

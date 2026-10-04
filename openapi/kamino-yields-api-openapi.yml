@@ -131,6 +131,25 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    PtYieldsResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/PtYieldItem'
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
+    Apy:
+      type: string
+      description: Borrow interest APY
+      example: '0.027610992938039702'
+      examples:
+      - '0.123'
+      - '0'
+      - '1'
+      - '1.23'
+      - '-0.5'
+      - '999999.999999'
     Apr:
       type: string
       description: APR in decimal format (not percentage) represented as string. Multiply by 100 to get percentage (%) - 0.1 in API response is 10%.
@@ -142,6 +161,29 @@ components:
       - '1.23'
       - '-0.5'
       - '999999.999999'
+    YieldHistoryItem:
+      type: object
+      properties:
+        createdOn:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - description: Timestamp when the snapshot was created (ISO 8601 format)
+            example: '2025-03-01T12:00:00.000Z'
+        apr:
+          $ref: '#/components/schemas/Apr'
+        apy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: APY in decimal format (not percentage) represented as string. Multiply by 100 to get percentage (%) - 0.1 in API response is 10%.
+            example: '0.2'
+      required:
+      - createdOn
+      - apr
+      - apy
+    YieldHistoryResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/YieldHistoryItem'
     Error:
       type: object
       properties:
@@ -154,10 +196,6 @@ components:
       description: Internal server error response (500)
       example:
         error: An internal error occurred
-    YieldHistoryResponse:
-      type: array
-      items:
-        $ref: '#/components/schemas/YieldHistoryItem'
     PtYieldItem:
       type: object
       properties:
@@ -178,46 +216,8 @@ components:
       required:
       - apy
       - tokenMint
-    PtYieldsResponse:
-      type: array
-      items:
-        $ref: '#/components/schemas/PtYieldItem'
-    YieldHistoryItem:
-      type: object
-      properties:
-        createdOn:
-          allOf:
-          - $ref: '#/components/schemas/SnapshotDateTime'
-          - description: Timestamp when the snapshot was created (ISO 8601 format)
-            example: '2025-03-01T12:00:00.000Z'
-        apr:
-          $ref: '#/components/schemas/Apr'
-        apy:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: APY in decimal format (not percentage) represented as string. Multiply by 100 to get percentage (%) - 0.1 in API response is 10%.
-            example: '0.2'
-      required:
-      - createdOn
-      - apr
-      - apy
     SnapshotDateTime:
       type: string
       format: date-time
       description: Timestamp of the metrics snapshot
       example: '2023-06-29T15:15:26.464Z'
-    AddressBase58:
-      type: string
-      description: Valid base58-encoded address
-      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
-    Apy:
-      type: string
-      description: Borrow interest APY
-      example: '0.027610992938039702'
-      examples:
-      - '0.123'
-      - '0'
-      - '1'
-      - '1.23'
-      - '-0.5'
-      - '999999.999999'

@@ -426,15 +426,21 @@ components:
           - description: Total amount of forfeited rewards from all users who claimed early
       required:
       - totalForfeitedRewards
-    Decimal:
+    AddressBase58:
       type: string
-      description: Decimal value represented as string
-      example: '1234.56789'
-    KvaultRewardMetrics:
-      type: array
-      items:
-        $ref: '#/components/schemas/KvaultRewardMetric'
-      description: List of kvault reward metrics
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
+    Apy:
+      type: string
+      description: Borrow interest APY
+      example: '0.027610992938039702'
+      examples:
+      - '0.123'
+      - '0'
+      - '1'
+      - '1.23'
+      - '-0.5'
+      - '999999.999999'
     StakingBoost:
       type: object
       properties:
@@ -453,6 +459,40 @@ components:
       required:
       - boost
       - name
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
+    KvaultRewardMetric:
+      type: object
+      properties:
+        kvault:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Address of the kvault
+        rewardToken:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Mint address of the reward token
+        lastCalculated:
+          type: string
+          format: date
+          description: Timestamp of the last calculation
+        apy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Annual Percentage Yield from rewards in the kvault
+            example: '0.2'
+        tokensPerSecond:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Number of reward tokens distributed per second
+      required:
+      - kvault
+      - rewardToken
+      - lastCalculated
+      - apy
+      - tokensPerSecond
     SeasonUserReward:
       type: object
       properties:
@@ -490,48 +530,8 @@ components:
       description: Internal server error response (500)
       example:
         error: An internal error occurred
-    AddressBase58:
-      type: string
-      description: Valid base58-encoded address
-      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
-    Apy:
-      type: string
-      description: Borrow interest APY
-      example: '0.027610992938039702'
-      examples:
-      - '0.123'
-      - '0'
-      - '1'
-      - '1.23'
-      - '-0.5'
-      - '999999.999999'
-    KvaultRewardMetric:
-      type: object
-      properties:
-        kvault:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Address of the kvault
-        rewardToken:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Mint address of the reward token
-        lastCalculated:
-          type: string
-          format: date
-          description: Timestamp of the last calculation
-        apy:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: Annual Percentage Yield from rewards in the kvault
-            example: '0.2'
-        tokensPerSecond:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Number of reward tokens distributed per second
-      required:
-      - kvault
-      - rewardToken
-      - lastCalculated
-      - apy
-      - tokensPerSecond
+    KvaultRewardMetrics:
+      type: array
+      items:
+        $ref: '#/components/schemas/KvaultRewardMetric'
+      description: List of kvault reward metrics
