@@ -1,259 +1,33 @@
-generated: '2026-07-19'
+generated: '2026-09-23'
 method: generated
-source: openapi/kamino-public-openapi-original.json, openapi/kamino-transactions-openapi-original.json
+source: openapi/kamino-airdrop-api-openapi.yml, openapi/kamino-farms-api-openapi.yml, openapi/kamino-kamino-earn-deposit-api-openapi.yml,
+  openapi/kamino-kamino-earn-user-api-openapi.yml, openapi/kamino-kamino-earn-vault-metadata-api-openapi.yml,
+  openapi/kamino-kamino-earn-vaults-api-openapi.yml, openapi/kamino-kamino-earn-withdraw-api-openapi.yml,
+  openapi/kamino-kamino-lend-borrow-api-openapi.yml, openapi/kamino-kamino-lend-borrow-orders-api-openapi.yml,
+  openapi/kamino-kamino-lend-deposit-api-openapi.yml, openapi/kamino-kamino-lend-markets-api-openapi.yml,
+  openapi/kamino-kamino-lend-repay-api-openapi.yml, openapi/kamino-kamino-lend-transactions-api-openapi.yml,
+  openapi/kamino-kamino-lend-user-loans-api-openapi.yml, openapi/kamino-kamino-lend-withdraw-api-openapi.yml,
+  openapi/kamino-kamino-lend-yield-api-openapi.yml, openapi/kamino-lookup-tables-api-openapi.yml,
+  openapi/kamino-other-api-openapi.yml, openapi/kamino-portfolio-api-openapi.yml, openapi/kamino-private-credit-api-openapi.yml,
+  openapi/kamino-season-rewards-api-openapi.yml, openapi/kamino-staking-yields-api-openapi.yml,
+  openapi/kamino-yields-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
   operations: 85
   by_action_class:
-    connected: 67
-    acting: 18
+    connected: 75
+    acting: 10
   by_consequence:
-    read: 67
-    write: 10
+    read: 75
     physical: 8
+    write: 2
   human_in_the_loop_required: 0
 operations:
-- path: /kamino-market/{pubkey}/metrics/history
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /kamino-market/{marketPubkey}/reserves/{reservePubkey}/metrics/history
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /kamino-market/{marketPubkey}/reserves/{reservePubkey}/borrow-and-staking-apys/history
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /kamino-market/{marketPubkey}/reserves/{reservePubkey}/borrow-and-staking-apys/history/median
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /kamino-market/{pubkey}/reserves/metrics
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /kamino-market/{pubkey}/leverage/metrics
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /kamino-market/{marketPubkey}/users/{userPubkey}/obligations
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /kamino-market/reserves/account-data
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v2/kamino-market/{marketPubkey}/obligations/{obligationPubkey}/transactions
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v2/kamino-market/users/{userPubkey}/transactions
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v2/kamino-market/{marketPubkey}/users/{userPubkey}/transactions
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v2/kamino-market/{pubkey}/transactions
-  method: post
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v2/kamino-market
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v2/kamino-market/{pubkey}
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v2/kamino-market/{marketPubkey}/obligations/{obligationPubkey}/pnl
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v2/kamino-market/{marketPubkey}/obligations/{obligationPubkey}/interest-fees
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v2/kamino-market/{marketPubkey}/obligations/{obligationPubkey}/interest-paid
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v2/kamino-market/{marketPubkey}/obligations/{obligationPubkey}/metrics/history
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v3/kamino-market/users/{userPubkey}/transactions
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v3/kamino-market/{marketPubkey}/users/{userPubkey}/transactions
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v3/kamino-market/{pubkey}/transactions
-  method: post
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v2/kamino-market/obligations/{pubkey}/borrow-order-fills
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v2/kamino-market/{pubkey}/obligations-with-open-borrow-orders
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /yields/{yieldSource}/history
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /yields/principal-tokens
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
 - path: /v2/airdrop/users/{pubkey}/allocations
   method: get
+  operationId: getV2AirdropUsersByPubkeyAllocations
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -263,6 +37,7 @@ operations:
     audit: none
 - path: /v2/airdrop/metrics
   method: get
+  operationId: getV2AirdropMetrics
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -270,8 +45,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /v2/staking-yields
+- path: /farms/users/{pubkey}/transactions
   method: get
+  operationId: getFarmsUsersByPubkeyTransactions
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -279,8 +55,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /v2/staking-yields/median
+- path: /farms/{farmPubkey}/transactions
   method: get
+  operationId: getFarmsByFarmPubkeyTransactions
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -288,8 +65,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /v2/staking-yields/mean
+- path: /farms/{farmPubkey}/management-history
   method: get
+  operationId: getFarmsByFarmPubkeyManagementHistory
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -297,17 +75,135 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /epochs
-  method: get
+- path: /ktx/kvault/deposit
+  method: post
+  operationId: postKtxKvaultDeposit
   x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
     token:
-      max-ttl: 3600
-    audit: none
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /ktx/kvault/deposit-instructions
+  method: post
+  operationId: postKtxKvaultDepositInstructions
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
 - path: /kvaults/users/{pubkey}/transactions
   method: get
+  operationId: getKvaultsUsersByPubkeyTransactions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /kvaults/users/{pubkey}/positions
+  method: get
+  operationId: getKvaultsUsersByPubkeyPositions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /kvaults/users/{userPubkey}/positions/{vaultPubkey}
+  method: get
+  operationId: getKvaultsUsersByUserPubkeyPositionsByVaultPubkey
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /kvaults/users/{pubkey}/metrics/history
+  method: get
+  operationId: getKvaultsUsersByPubkeyMetricsHistory
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /kvaults/users/{userPubkey}/vaults/{vaultPubkey}/metrics/history
+  method: get
+  operationId: getKvaultsUsersByUserPubkeyVaultsByVaultPubkeyMetricsHistory
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /kvaults/users/{userPubkey}/vaults/{vaultPubkey}/pnl
+  method: get
+  operationId: getKvaultsUsersByUserPubkeyVaultsByVaultPubkeyPnl
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /kvaults/users/{userPubkey}/vaults/{vaultPubkey}/pnl/history
+  method: get
+  operationId: getKvaultsUsersByUserPubkeyVaultsByVaultPubkeyPnlHistory
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /kvaults/users/{pubkey}/rewards
+  method: get
+  operationId: getKvaultsUsersByPubkeyRewards
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /kvaults/mints/{pubkey}/metadata
+  method: get
+  operationId: getKvaultsMintsByPubkeyMetadata
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /kvaults/mints/{pubkey}/metadata/image.svg
+  method: get
+  operationId: getKvaultsMintsByPubkeyMetadataImageSvg
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -317,6 +213,7 @@ operations:
     audit: none
 - path: /kvaults/transactions
   method: post
+  operationId: postKvaultsTransactions
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -332,21 +229,17 @@ operations:
     audit: required
 - path: /kvaults/vaults/{pubkey}/transactions
   method: post
+  operationId: postKvaultsVaultsByPubkeyTransactions
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /kvaults/vaults/{pubkey}/enqueued-withdraw-transactions
   method: get
+  operationId: getKvaultsVaultsByPubkeyEnqueuedWithdrawTransactions
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -356,6 +249,7 @@ operations:
     audit: none
 - path: /kvaults/vaults
   method: get
+  operationId: getKvaultsVaults
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -365,6 +259,7 @@ operations:
     audit: none
 - path: /kvaults/vaults/{pubkey}
   method: get
+  operationId: getKvaultsVaultsByPubkey
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -374,6 +269,7 @@ operations:
     audit: none
 - path: /kvaults/vaults/{pubkey}/metrics/history
   method: get
+  operationId: getKvaultsVaultsByPubkeyMetricsHistory
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -383,6 +279,7 @@ operations:
     audit: none
 - path: /kvaults/vaults/{pubkey}/metrics
   method: get
+  operationId: getKvaultsVaultsByPubkeyMetrics
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -392,6 +289,7 @@ operations:
     audit: none
 - path: /kvaults/vaults/{pubkey}/allocation-volume/history
   method: get
+  operationId: getKvaultsVaultsByPubkeyAllocationVolumeHistory
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -399,146 +297,45 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /kvaults/users/{pubkey}/positions
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /kvaults/users/{userPubkey}/positions/{vaultPubkey}
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /kvaults/users/{pubkey}/metrics/history
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /kvaults/users/{userPubkey}/vaults/{vaultPubkey}/metrics/history
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /kvaults/users/{userPubkey}/vaults/{vaultPubkey}/pnl
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /kvaults/users/{userPubkey}/vaults/{vaultPubkey}/pnl/history
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /slots/duration
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /kvaults/mints/{pubkey}/metadata
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /kvaults/mints/{pubkey}/metadata/image.svg
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /luts/find-minimal
+- path: /ktx/kvault/withdraw
   method: post
+  operationId: postKtxKvaultWithdraw
   x-agentic-access:
     action-class: acting
-    consequence: write
+    consequence: physical
     subject: required
     audience: null
     token:
-      max-ttl: 900
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
     escalation:
       human-in-the-loop: conditional
       triggers:
       - abnormal
       - high-value
     audit: required
-- path: /luts/managed
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /luts/managed/batch
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /luts/managed/product-type/{productType}
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /luts/managed/new-vault
+- path: /ktx/kvault/withdraw-instructions
   method: post
+  operationId: postKtxKvaultWithdrawInstructions
   x-agentic-access:
     action-class: acting
-    consequence: write
+    consequence: physical
     subject: required
     audience: null
     token:
-      max-ttl: 900
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
     escalation:
       human-in-the-loop: conditional
       triggers:
       - abnormal
       - high-value
     audit: required
-- path: /kvaults/users/{pubkey}/rewards
-  method: get
+- path: /ktx/klend/borrow
+  method: post
+  operationId: postKtxKlendBorrow
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -546,8 +343,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /kvaults/rewards
-  method: get
+- path: /ktx/klend/borrow-instructions
+  method: post
+  operationId: postKtxKlendBorrowInstructions
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -555,8 +353,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /users/{pubkey}/staking-boosts
+- path: /v2/kamino-market/obligations/{pubkey}/borrow-order-fills
   method: get
+  operationId: getV2KaminoMarketObligationsByPubkeyBorrowOrderFills
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -564,8 +363,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /klend/users/{pubkey}/rewards
+- path: /v2/kamino-market/{pubkey}/obligations-with-open-borrow-orders
   method: get
+  operationId: getV2KaminoMarketByPubkeyObligationsWithOpenBorrowOrders
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -573,8 +373,45 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /klend/rewards
+- path: /ktx/klend/deposit
+  method: post
+  operationId: postKtxKlendDeposit
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /ktx/klend/deposit-instructions
+  method: post
+  operationId: postKtxKlendDepositInstructions
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /kamino-market/{pubkey}/metrics/history
   method: get
+  operationId: getKaminoMarketByPubkeyMetricsHistory
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -582,8 +419,179 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /klend/{depositReservePubkey}/{borrowReservePubkey}/rewards/history
+- path: /kamino-market/{marketPubkey}/reserves/{reservePubkey}/metrics/history
   method: get
+  operationId: getKaminoMarketByMarketPubkeyReservesByReservePubkeyMetricsHistory
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /kamino-market/{pubkey}/reserves/metrics
+  method: get
+  operationId: getKaminoMarketByPubkeyReservesMetrics
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /kamino-market/{pubkey}/leverage/metrics
+  method: get
+  operationId: getKaminoMarketByPubkeyLeverageMetrics
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /kamino-market/reserves/account-data
+  method: get
+  operationId: getKaminoMarketReservesAccountData
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/kamino-market
+  method: get
+  operationId: getV2KaminoMarket
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/kamino-market/{pubkey}
+  method: get
+  operationId: getV2KaminoMarketByPubkey
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /ktx/klend/repay
+  method: post
+  operationId: postKtxKlendRepay
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /ktx/klend/repay-instructions
+  method: post
+  operationId: postKtxKlendRepayInstructions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/kamino-market/{marketPubkey}/obligations/{obligationPubkey}/transactions
+  method: get
+  operationId: getV2KaminoMarketByMarketPubkeyObligationsByObligationPubkeyTransactions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/kamino-market/users/{userPubkey}/transactions
+  method: get
+  operationId: getV2KaminoMarketUsersByUserPubkeyTransactions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/kamino-market/{marketPubkey}/users/{userPubkey}/transactions
+  method: get
+  operationId: getV2KaminoMarketByMarketPubkeyUsersByUserPubkeyTransactions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/kamino-market/{pubkey}/transactions
+  method: post
+  operationId: postV2KaminoMarketByPubkeyTransactions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/kamino-market/users/{userPubkey}/transactions
+  method: get
+  operationId: getV3KaminoMarketUsersByUserPubkeyTransactions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/kamino-market/{marketPubkey}/users/{userPubkey}/transactions
+  method: get
+  operationId: getV3KaminoMarketByMarketPubkeyUsersByUserPubkeyTransactions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v3/kamino-market/{pubkey}/transactions
+  method: post
+  operationId: postV3KaminoMarketByPubkeyTransactions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /kamino-market/{marketPubkey}/users/{userPubkey}/obligations
+  method: get
+  operationId: getKaminoMarketByMarketPubkeyUsersByUserPubkeyObligations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/kamino-market/{marketPubkey}/obligations/{obligationPubkey}/pnl
+  method: get
+  operationId: getV2KaminoMarketByMarketPubkeyObligationsByObligationPubkeyPnl
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/kamino-market/{marketPubkey}/obligations/{obligationPubkey}/metrics/history
+  method: get
+  operationId: getV2KaminoMarketByMarketPubkeyObligationsByObligationPubkeyMetricsHistory
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -593,6 +601,7 @@ operations:
     audit: none
 - path: /klend/loans/{pubkey}
   method: get
+  operationId: getKlendLoansByPubkey
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -600,8 +609,45 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /kvaults/private-credit/metrics
+- path: /ktx/klend/withdraw
+  method: post
+  operationId: postKtxKlendWithdraw
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /ktx/klend/withdraw-instructions
+  method: post
+  operationId: postKtxKlendWithdrawInstructions
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /kamino-market/{marketPubkey}/reserves/{reservePubkey}/borrow-and-staking-apys/history
   method: get
+  operationId: getKaminoMarketByMarketPubkeyReservesByReservePubkeyBorrowAndStakingApysHistory
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -609,8 +655,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /kvaults/private-credit/metrics/history
+- path: /kamino-market/{marketPubkey}/reserves/{reservePubkey}/borrow-and-staking-apys/history/median
   method: get
+  operationId: getKaminoMarketByMarketPubkeyReservesByReservePubkeyBorrowAndStakingApysHistoryMedian
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -618,8 +665,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /kvaults/summary
+- path: /v2/kamino-market/{marketPubkey}/obligations/{obligationPubkey}/interest-fees
   method: get
+  operationId: getV2KaminoMarketByMarketPubkeyObligationsByObligationPubkeyInterestFees
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -627,8 +675,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /season-rewards/users/{pubkey}
+- path: /v2/kamino-market/{marketPubkey}/obligations/{obligationPubkey}/interest-paid
   method: get
+  operationId: getV2KaminoMarketByMarketPubkeyObligationsByObligationPubkeyInterestPaid
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -636,8 +685,105 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /season-rewards/final-vesting-pool
+- path: /klend/users/{pubkey}/rewards
   method: get
+  operationId: getKlendUsersByPubkeyRewards
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /klend/rewards
+  method: get
+  operationId: getKlendRewards
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /klend/{depositReservePubkey}/{borrowReservePubkey}/rewards/history
+  method: get
+  operationId: getKlendByDepositReservePubkeyByBorrowReservePubkeyRewardsHistory
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /luts/find-minimal
+  method: post
+  operationId: postLutsFindMinimal
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /luts/managed
+  method: get
+  operationId: getLutsManaged
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /luts/managed/batch
+  method: get
+  operationId: getLutsManagedBatch
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /luts/managed/product-type/{productType}
+  method: get
+  operationId: getLutsManagedProductTypeByProductType
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /luts/managed/new-vault
+  method: post
+  operationId: postLutsManagedNewVault
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /epochs
+  method: get
+  operationId: getEpochs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /slots/duration
+  method: get
+  operationId: getSlotsDuration
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -647,33 +793,7 @@ operations:
     audit: none
 - path: /oracles/prices
   method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /farms/users/{pubkey}/transactions
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /farms/{farmPubkey}/transactions
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /farms/{farmPubkey}/management-history
-  method: get
+  operationId: getOraclesPrices
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -683,6 +803,7 @@ operations:
     audit: none
 - path: /benchmark-rates/usd
   method: get
+  operationId: getBenchmarkRatesUsd
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -710,199 +831,123 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /ktx/klend/borrow
-  method: post
+- path: /kvaults/private-credit/metrics
+  method: get
+  operationId: getKvaultsPrivateCreditMetrics
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /ktx/klend/borrow-instructions
-  method: post
+      max-ttl: 3600
+    audit: none
+- path: /kvaults/private-credit/metrics/history
+  method: get
+  operationId: getKvaultsPrivateCreditMetricsHistory
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /ktx/klend/deposit
-  method: post
+      max-ttl: 3600
+    audit: none
+- path: /kvaults/rewards
+  method: get
+  operationId: getKvaultsRewards
   x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /ktx/klend/deposit-instructions
-  method: post
+      max-ttl: 3600
+    audit: none
+- path: /users/{pubkey}/staking-boosts
+  method: get
+  operationId: getUsersByPubkeyStakingBoosts
   x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /ktx/klend/repay
-  method: post
+      max-ttl: 3600
+    audit: none
+- path: /kvaults/summary
+  method: get
+  operationId: getKvaultsSummary
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /ktx/klend/repay-instructions
-  method: post
+      max-ttl: 3600
+    audit: none
+- path: /season-rewards/users/{pubkey}
+  method: get
+  operationId: getSeasonRewardsUsersByPubkey
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /ktx/klend/withdraw
-  method: post
+      max-ttl: 3600
+    audit: none
+- path: /season-rewards/final-vesting-pool
+  method: get
+  operationId: getSeasonRewardsFinalVestingPool
   x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /ktx/klend/withdraw-instructions
-  method: post
+      max-ttl: 3600
+    audit: none
+- path: /v2/staking-yields
+  method: get
+  operationId: getV2StakingYields
   x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /ktx/kvault/deposit
-  method: post
+      max-ttl: 3600
+    audit: none
+- path: /v2/staking-yields/median
+  method: get
+  operationId: getV2StakingYieldsMedian
   x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /ktx/kvault/deposit-instructions
-  method: post
+      max-ttl: 3600
+    audit: none
+- path: /v2/staking-yields/mean
+  method: get
+  operationId: getV2StakingYieldsMean
   x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /ktx/kvault/withdraw
-  method: post
+      max-ttl: 3600
+    audit: none
+- path: /yields/{yieldSource}/history
+  method: get
+  operationId: getYieldsByYieldSourceHistory
   x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /ktx/kvault/withdraw-instructions
-  method: post
+      max-ttl: 3600
+    audit: none
+- path: /yields/principal-tokens
+  method: get
+  operationId: getYieldsPrincipalTokens
   x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
