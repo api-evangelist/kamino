@@ -743,71 +743,105 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
     AddressBase58:
       type: string
       description: Valid base58-encoded address
       example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
-    KVaultInstruction:
+    KvaultUserRewardMetric:
       type: object
       properties:
-        createdOn:
+        avgBaseApy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Average Base Annual Percentage Yield for the user
+            example: '0.2'
+        avgBoostedApy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Average Boosted Annual Percentage Yield for the user
+            example: '0.2'
+        avgMaxApy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Average Max Annual Percentage Yield for the user
+            example: '0.2'
+        rewardMint:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Mint address of the reward token
+        lastCalculated:
           type: string
           format: date
-          description: Date when the instruction was created
-        instruction:
-          type: string
-          description: Type of instruction
-        tokenMint:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Token mint address
-        tokenAmount:
+          description: Timestamp of the last calculation
+        tokensEarned:
           allOf:
           - $ref: '#/components/schemas/Decimal'
-          - description: Amount of tokens involved
-        tokenPrice:
+          - description: Total number of reward tokens earned by the user
+        tokensPerSecond:
           allOf:
           - $ref: '#/components/schemas/Decimal'
-          - description: Price of the token at the time of instruction
-        solPrice:
+          - description: Number of reward tokens distributed per second to the user
+        stakingBoost:
           allOf:
           - $ref: '#/components/schemas/Decimal'
-          - description: Price of SOL at the time of instruction
-        sharePrice:
+          - description: Staking boost percentage applied to the user
+        effectiveStakingBoost:
           allOf:
           - $ref: '#/components/schemas/Decimal'
-          - description: Price per share at the time of instruction
-        numberOfShares:
+          - description: Effective staking boost percentage for the user
+        baseApy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Base Annual Percentage Yield from rewards for the user
+            example: '0.2'
+        boostedApy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Boosted Annual Percentage Yield from rewards for the user
+            example: '0.2'
+        maxApy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: Max Annual Percentage Yield from rewards for the user
+            example: '0.2'
+        usdAmount:
           allOf:
           - $ref: '#/components/schemas/Decimal'
-          - description: Number of shares involved
-        usdValue:
+          - description: Total USD amount of rewards earned by the user without boost
+        usdAmountBoosted:
           allOf:
           - $ref: '#/components/schemas/Decimal'
-          - description: USD value of the transaction
-        transaction:
-          type: string
-          description: Transaction signature
-        kvault:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: KVault identifier
-        latestPosition:
-          type: boolean
-          description: Indicates if this is the latest position
+          - description: Total USD amount of rewards earned by the user with boost applied
       required:
-      - createdOn
-      - instruction
-      - tokenMint
-      - tokenAmount
-      - tokenPrice
-      - solPrice
-      - sharePrice
-      - numberOfShares
-      - usdValue
-      - transaction
-      - kvault
-      - latestPosition
+      - avgBaseApy
+      - avgBoostedApy
+      - avgMaxApy
+      - rewardMint
+      - lastCalculated
+      - tokensEarned
+      - tokensPerSecond
+      - stakingBoost
+      - effectiveStakingBoost
+      - baseApy
+      - boostedApy
+      - maxApy
+      - usdAmount
+      - usdAmountBoosted
+    Apy:
+      type: string
+      description: Borrow interest APY
+      example: '0.027610992938039702'
+      examples:
+      - '0.123'
+      - '0'
+      - '1'
+      - '1.23'
+      - '-0.5'
+      - '999999.999999'
     UserKVaultTotal:
       type: object
       properties:
@@ -854,22 +888,18 @@ components:
       - cumulativeInterestEarnedSol
       - interestEarnedPerSecondUsd
       - interestEarnedPerSecondSol
-    Apy:
-      type: string
-      description: Borrow interest APY
-      example: '0.027610992938039702'
-      examples:
-      - '0.123'
-      - '0'
-      - '1'
-      - '1.23'
-      - '-0.5'
-      - '999999.999999'
-    KvaultUserRewardMetrics:
-      type: array
-      items:
-        $ref: '#/components/schemas/KvaultUserRewardMetric'
-      description: List of kvault user reward metrics
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
     KvaultPnl:
       type: object
       properties:
@@ -880,29 +910,6 @@ components:
       required:
       - totalPnl
       - totalCostBasis
-    VaultStateArray:
-      type: array
-      items:
-        type: object
-        properties:
-          address:
-            allOf:
-            - $ref: '#/components/schemas/AddressBase58'
-            - description: Public key of the vault
-          state:
-            $ref: '#/components/schemas/The_vault_state_object'
-          programId:
-            allOf:
-            - $ref: '#/components/schemas/AddressBase58'
-            - description: Public key of the kvault program which owns the vault
-        required:
-        - address
-        - state
-        - programId
-    Decimal:
-      type: string
-      description: Decimal value represented as string
-      example: '1234.56789'
     The_vault_state_object:
       type: object
       properties:
@@ -1162,6 +1169,16 @@ components:
       - pnl
       - positionValue
       - investment
+    SnapshotDateTime:
+      type: string
+      format: date-time
+      description: Timestamp of the metrics snapshot
+      example: '2023-06-29T15:15:26.464Z'
+    KvaultUserRewardMetrics:
+      type: array
+      items:
+        $ref: '#/components/schemas/KvaultUserRewardMetric'
+      description: List of kvault user reward metrics
     UserKvaultMetrics:
       type: object
       properties:
@@ -1223,98 +1240,86 @@ components:
       - interestEarnedPerSecond
       - interestEarnedPerSecondUsd
       - interestEarnedPerSecondSol
-    KvaultUserRewardMetric:
+    KVaultInstruction:
       type: object
       properties:
-        avgBaseApy:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: Average Base Annual Percentage Yield for the user
-            example: '0.2'
-        avgBoostedApy:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: Average Boosted Annual Percentage Yield for the user
-            example: '0.2'
-        avgMaxApy:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: Average Max Annual Percentage Yield for the user
-            example: '0.2'
-        rewardMint:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Mint address of the reward token
-        lastCalculated:
+        createdOn:
           type: string
           format: date
-          description: Timestamp of the last calculation
-        tokensEarned:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total number of reward tokens earned by the user
-        tokensPerSecond:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Number of reward tokens distributed per second to the user
-        stakingBoost:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Staking boost percentage applied to the user
-        effectiveStakingBoost:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Effective staking boost percentage for the user
-        baseApy:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: Base Annual Percentage Yield from rewards for the user
-            example: '0.2'
-        boostedApy:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: Boosted Annual Percentage Yield from rewards for the user
-            example: '0.2'
-        maxApy:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: Max Annual Percentage Yield from rewards for the user
-            example: '0.2'
-        usdAmount:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total USD amount of rewards earned by the user without boost
-        usdAmountBoosted:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total USD amount of rewards earned by the user with boost applied
-      required:
-      - avgBaseApy
-      - avgBoostedApy
-      - avgMaxApy
-      - rewardMint
-      - lastCalculated
-      - tokensEarned
-      - tokensPerSecond
-      - stakingBoost
-      - effectiveStakingBoost
-      - baseApy
-      - boostedApy
-      - maxApy
-      - usdAmount
-      - usdAmountBoosted
-    Error:
-      type: object
-      properties:
-        error:
+          description: Date when the instruction was created
+        instruction:
           type: string
-          description: Error message for internal server failure
-          example: An internal error occurred
+          description: Type of instruction
+        tokenMint:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Token mint address
+        tokenAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Amount of tokens involved
+        tokenPrice:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Price of the token at the time of instruction
+        solPrice:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Price of SOL at the time of instruction
+        sharePrice:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Price per share at the time of instruction
+        numberOfShares:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Number of shares involved
+        usdValue:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: USD value of the transaction
+        transaction:
+          type: string
+          description: Transaction signature
+        kvault:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: KVault identifier
+        latestPosition:
+          type: boolean
+          description: Indicates if this is the latest position
       required:
-      - error
-      description: Internal server error response (500)
-      example:
-        error: An internal error occurred
+      - createdOn
+      - instruction
+      - tokenMint
+      - tokenAmount
+      - tokenPrice
+      - solPrice
+      - sharePrice
+      - numberOfShares
+      - usdValue
+      - transaction
+      - kvault
+      - latestPosition
+    VaultStateArray:
+      type: array
+      items:
+        type: object
+        properties:
+          address:
+            allOf:
+            - $ref: '#/components/schemas/AddressBase58'
+            - description: Public key of the vault
+          state:
+            $ref: '#/components/schemas/The_vault_state_object'
+          programId:
+            allOf:
+            - $ref: '#/components/schemas/AddressBase58'
+            - description: Public key of the kvault program which owns the vault
+        required:
+        - address
+        - state
+        - programId
     KvaultMultiValue:
       type: object
       properties:
@@ -1334,8 +1339,3 @@ components:
       - usd
       - sol
       - token
-    SnapshotDateTime:
-      type: string
-      format: date-time
-      description: Timestamp of the metrics snapshot
-      example: '2023-06-29T15:15:26.464Z'

@@ -380,63 +380,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    AddressBase58:
-      type: string
-      description: Valid base58-encoded address
-      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
-    NewVaultResponse:
-      type: object
-      properties:
-        productId:
-          type: number
-          description: The created/existing product ID
-          example: 1
-        vaultAddress:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Vault account address
-            example: 6KhEbVjFg8bNkpTSyEfGJhMGtv2bRQiAKKbKZLPvrBFm
-        lutAddress:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Lookup table address
-            example: 3Kz4sMiBCxg7JdCCjwRTHtFsQRqJCSKh5pVERhPfMzYF
-        lutEntryId:
-          type: number
-          description: The created/existing LUT entry ID
-          example: 1
-      required:
-      - productId
-      - vaultAddress
-      - lutAddress
-      - lutEntryId
-    ManagedLutByTypeResponse:
-      type: array
-      items:
-        type: object
-        properties:
-          productIdentifierAddress:
-            $ref: '#/components/schemas/AddressBase58'
-          productType:
-            $ref: '#/components/schemas/LutProductType'
-          lutAddresses:
-            type: array
-            items:
-              $ref: '#/components/schemas/AddressBase58'
-        required:
-        - productIdentifierAddress
-        - productType
-        - lutAddresses
-    LutProductType:
-      type: string
-      enum:
-      - swap_pair
-      - vault
-      - strategy
-      - market
-      - meta_vault
-      description: The type of product associated with a managed lookup table
-      example: vault
     ManagedLutResponse:
       type: object
       properties:
@@ -455,6 +398,27 @@ components:
       required:
       - productIdentifierAddress
       - lutAddresses
+    ManagedLutByTypeResponse:
+      type: array
+      items:
+        type: object
+        properties:
+          productIdentifierAddress:
+            $ref: '#/components/schemas/AddressBase58'
+          productType:
+            $ref: '#/components/schemas/LutProductType'
+          lutAddresses:
+            type: array
+            items:
+              $ref: '#/components/schemas/AddressBase58'
+        required:
+        - productIdentifierAddress
+        - productType
+        - lutAddresses
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
     FoundLuts:
       type: object
       properties:
@@ -501,6 +465,42 @@ components:
       description: Internal server error response (500)
       example:
         error: An internal error occurred
+    LutProductType:
+      type: string
+      enum:
+      - swap_pair
+      - vault
+      - strategy
+      - market
+      - meta_vault
+      description: The type of product associated with a managed lookup table
+      example: vault
+    NewVaultResponse:
+      type: object
+      properties:
+        productId:
+          type: number
+          description: The created/existing product ID
+          example: 1
+        vaultAddress:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Vault account address
+            example: 6KhEbVjFg8bNkpTSyEfGJhMGtv2bRQiAKKbKZLPvrBFm
+        lutAddress:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Lookup table address
+            example: 3Kz4sMiBCxg7JdCCjwRTHtFsQRqJCSKh5pVERhPfMzYF
+        lutEntryId:
+          type: number
+          description: The created/existing LUT entry ID
+          example: 1
+      required:
+      - productId
+      - vaultAddress
+      - lutAddress
+      - lutEntryId
     ManagedLutBatchResponse:
       type: array
       items:

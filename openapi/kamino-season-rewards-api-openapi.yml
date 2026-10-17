@@ -417,52 +417,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    SeasonFinalVestingPoolAllocation:
-      type: object
-      properties:
-        totalForfeitedRewards:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total amount of forfeited rewards from all users who claimed early
-      required:
-      - totalForfeitedRewards
-    AddressBase58:
-      type: string
-      description: Valid base58-encoded address
-      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
-    Apy:
-      type: string
-      description: Borrow interest APY
-      example: '0.027610992938039702'
-      examples:
-      - '0.123'
-      - '0'
-      - '1'
-      - '1.23'
-      - '-0.5'
-      - '999999.999999'
-    StakingBoost:
-      type: object
-      properties:
-        boost:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Boost multiplier value for the staking position in decimal format (multiply by 100 to get percentage %)
-        name:
-          type: string
-          description: Staking boost source name
-          example: staking_boost
-        farm:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Optional farm identifier associated with the boost
-      required:
-      - boost
-      - name
-    Decimal:
-      type: string
-      description: Decimal value represented as string
-      example: '1234.56789'
     KvaultRewardMetric:
       type: object
       properties:
@@ -493,6 +447,19 @@ components:
       - lastCalculated
       - apy
       - tokensPerSecond
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
+    SeasonFinalVestingPoolAllocation:
+      type: object
+      properties:
+        totalForfeitedRewards:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total amount of forfeited rewards from all users who claimed early
+      required:
+      - totalForfeitedRewards
     SeasonUserReward:
       type: object
       properties:
@@ -518,6 +485,21 @@ components:
       required:
       - wallet
       - totalRewards
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
+    Apy:
+      type: string
+      description: Borrow interest APY
+      example: '0.027610992938039702'
+      examples:
+      - '0.123'
+      - '0'
+      - '1'
+      - '1.23'
+      - '-0.5'
+      - '999999.999999'
     Error:
       type: object
       properties:
@@ -535,3 +517,21 @@ components:
       items:
         $ref: '#/components/schemas/KvaultRewardMetric'
       description: List of kvault reward metrics
+    StakingBoost:
+      type: object
+      properties:
+        boost:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Boost multiplier value for the staking position in decimal format (multiply by 100 to get percentage %)
+        name:
+          type: string
+          description: Staking boost source name
+          example: staking_boost
+        farm:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Optional farm identifier associated with the boost
+      required:
+      - boost
+      - name

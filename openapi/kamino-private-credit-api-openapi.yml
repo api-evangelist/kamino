@@ -119,102 +119,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    PrivateCreditStatusDistribution:
-      type: object
-      properties:
-        status:
-          type: string
-        share:
-          $ref: '#/components/schemas/Decimal'
-      required:
-      - status
-      - share
-    PrivateCreditHistoryResponse:
-      type: array
-      items:
-        $ref: '#/components/schemas/PrivateCreditHistoryPoint'
-    Decimal:
-      type: string
-      description: Decimal value represented as string
-      example: '1234.56789'
-    PrivateCreditHistoryPoint:
-      type: object
-      properties:
-        createdOn:
-          allOf:
-          - $ref: '#/components/schemas/SnapshotDateTime'
-          - description: Timestamp when the snapshot was created (ISO 8601 format)
-            example: '2025-03-01T12:00:00.000Z'
-        weightedAvgLtv:
-          $ref: '#/components/schemas/Decimal'
-        maxLtv:
-          $ref: '#/components/schemas/Decimal'
-        statusDistribution:
-          type: array
-          items:
-            $ref: '#/components/schemas/PrivateCreditStatusDistribution'
-      required:
-      - createdOn
-      - weightedAvgLtv
-      - maxLtv
-      - statusDistribution
-    PrivateCreditMetricsResponse:
-      type: object
-      properties:
-        metrics:
-          $ref: '#/components/schemas/PrivateCreditAggregateMetrics'
-        loans:
-          type: array
-          items:
-            $ref: '#/components/schemas/PrivateCreditLoan'
-      required:
-      - metrics
-      - loans
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message for internal server failure
-          example: An internal error occurred
-      required:
-      - error
-      description: Internal server error response (500)
-      example:
-        error: An internal error occurred
-    PrivateCreditAggregateMetrics:
-      type: object
-      properties:
-        activeLoans:
-          $ref: '#/components/schemas/Decimal'
-        totalBorrowedUsd:
-          $ref: '#/components/schemas/Decimal'
-        totalDepositedUsd:
-          $ref: '#/components/schemas/Decimal'
-        weightedAvgLtv:
-          $ref: '#/components/schemas/Decimal'
-        avgLtv:
-          $ref: '#/components/schemas/Decimal'
-        maxLtv:
-          $ref: '#/components/schemas/Decimal'
-        updatedOn:
-          allOf:
-          - $ref: '#/components/schemas/SnapshotDateTime'
-          - description: Timestamp when the snapshot was created (ISO 8601 format)
-            example: '2025-03-01T12:00:00.000Z'
-      required:
-      - activeLoans
-      - totalBorrowedUsd
-      - totalDepositedUsd
-      - weightedAvgLtv
-      - avgLtv
-      - maxLtv
-      - updatedOn
-    SnapshotDateTime:
-      type: string
-      format: date-time
-      description: Timestamp of the metrics snapshot
-      example: '2023-06-29T15:15:26.464Z'
     PrivateCreditLoan:
       type: object
       properties:
@@ -243,3 +147,99 @@ components:
       - collateralAsset
       - maxLtv
       - liquidationStatus
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
+    PrivateCreditStatusDistribution:
+      type: object
+      properties:
+        status:
+          type: string
+        share:
+          $ref: '#/components/schemas/Decimal'
+      required:
+      - status
+      - share
+    PrivateCreditHistoryPoint:
+      type: object
+      properties:
+        createdOn:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - description: Timestamp when the snapshot was created (ISO 8601 format)
+            example: '2025-03-01T12:00:00.000Z'
+        weightedAvgLtv:
+          $ref: '#/components/schemas/Decimal'
+        maxLtv:
+          $ref: '#/components/schemas/Decimal'
+        statusDistribution:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrivateCreditStatusDistribution'
+      required:
+      - createdOn
+      - weightedAvgLtv
+      - maxLtv
+      - statusDistribution
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
+    SnapshotDateTime:
+      type: string
+      format: date-time
+      description: Timestamp of the metrics snapshot
+      example: '2023-06-29T15:15:26.464Z'
+    PrivateCreditAggregateMetrics:
+      type: object
+      properties:
+        activeLoans:
+          $ref: '#/components/schemas/Decimal'
+        totalBorrowedUsd:
+          $ref: '#/components/schemas/Decimal'
+        totalDepositedUsd:
+          $ref: '#/components/schemas/Decimal'
+        weightedAvgLtv:
+          $ref: '#/components/schemas/Decimal'
+        avgLtv:
+          $ref: '#/components/schemas/Decimal'
+        maxLtv:
+          $ref: '#/components/schemas/Decimal'
+        updatedOn:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - description: Timestamp when the snapshot was created (ISO 8601 format)
+            example: '2025-03-01T12:00:00.000Z'
+      required:
+      - activeLoans
+      - totalBorrowedUsd
+      - totalDepositedUsd
+      - weightedAvgLtv
+      - avgLtv
+      - maxLtv
+      - updatedOn
+    PrivateCreditHistoryResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/PrivateCreditHistoryPoint'
+    PrivateCreditMetricsResponse:
+      type: object
+      properties:
+        metrics:
+          $ref: '#/components/schemas/PrivateCreditAggregateMetrics'
+        loans:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrivateCreditLoan'
+      required:
+      - metrics
+      - loans

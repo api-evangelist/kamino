@@ -182,6 +182,10 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
     AirdropAllocation:
       type: object
       properties:
@@ -200,10 +204,18 @@ components:
       type: string
       description: Valid base58-encoded address
       example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
-    Decimal:
-      type: string
-      description: Decimal value represented as string
-      example: '1234.56789'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message for internal server failure
+          example: An internal error occurred
+      required:
+      - error
+      description: Internal server error response (500)
+      example:
+        error: An internal error occurred
     AirdropMetrics:
       type: object
       properties:
@@ -222,18 +234,6 @@ components:
       - totalAllocation
       - totalUsers
       - claimDate
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message for internal server failure
-          example: An internal error occurred
-      required:
-      - error
-      description: Internal server error response (500)
-      example:
-        error: An internal error occurred
     SnapshotDateTime:
       type: string
       format: date-time

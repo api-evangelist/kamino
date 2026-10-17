@@ -150,40 +150,6 @@ components:
       - '1.23'
       - '-0.5'
       - '999999.999999'
-    Apr:
-      type: string
-      description: APR in decimal format (not percentage) represented as string. Multiply by 100 to get percentage (%) - 0.1 in API response is 10%.
-      example: '0.2'
-      examples:
-      - '0.123'
-      - '0'
-      - '1'
-      - '1.23'
-      - '-0.5'
-      - '999999.999999'
-    YieldHistoryItem:
-      type: object
-      properties:
-        createdOn:
-          allOf:
-          - $ref: '#/components/schemas/SnapshotDateTime'
-          - description: Timestamp when the snapshot was created (ISO 8601 format)
-            example: '2025-03-01T12:00:00.000Z'
-        apr:
-          $ref: '#/components/schemas/Apr'
-        apy:
-          allOf:
-          - $ref: '#/components/schemas/Apy'
-          - description: APY in decimal format (not percentage) represented as string. Multiply by 100 to get percentage (%) - 0.1 in API response is 10%.
-            example: '0.2'
-      required:
-      - createdOn
-      - apr
-      - apy
-    YieldHistoryResponse:
-      type: array
-      items:
-        $ref: '#/components/schemas/YieldHistoryItem'
     Error:
       type: object
       properties:
@@ -196,6 +162,15 @@ components:
       description: Internal server error response (500)
       example:
         error: An internal error occurred
+    SnapshotDateTime:
+      type: string
+      format: date-time
+      description: Timestamp of the metrics snapshot
+      example: '2023-06-29T15:15:26.464Z'
+    YieldHistoryResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/YieldHistoryItem'
     PtYieldItem:
       type: object
       properties:
@@ -216,8 +191,33 @@ components:
       required:
       - apy
       - tokenMint
-    SnapshotDateTime:
+    YieldHistoryItem:
+      type: object
+      properties:
+        createdOn:
+          allOf:
+          - $ref: '#/components/schemas/SnapshotDateTime'
+          - description: Timestamp when the snapshot was created (ISO 8601 format)
+            example: '2025-03-01T12:00:00.000Z'
+        apr:
+          $ref: '#/components/schemas/Apr'
+        apy:
+          allOf:
+          - $ref: '#/components/schemas/Apy'
+          - description: APY in decimal format (not percentage) represented as string. Multiply by 100 to get percentage (%) - 0.1 in API response is 10%.
+            example: '0.2'
+      required:
+      - createdOn
+      - apr
+      - apy
+    Apr:
       type: string
-      format: date-time
-      description: Timestamp of the metrics snapshot
-      example: '2023-06-29T15:15:26.464Z'
+      description: APR in decimal format (not percentage) represented as string. Multiply by 100 to get percentage (%) - 0.1 in API response is 10%.
+      example: '0.2'
+      examples:
+      - '0.123'
+      - '0'
+      - '1'
+      - '1.23'
+      - '-0.5'
+      - '999999.999999'

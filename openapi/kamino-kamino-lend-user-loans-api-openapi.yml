@@ -288,114 +288,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    AddressBase58:
-      type: string
-      description: Valid base58-encoded address
-      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
-    Position:
-      type: object
-      properties:
-        amount:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Amount in the position
-            example: '10000708.005624756258'
-        mintAddress:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: Token mint address
-            example: So11111111111111111111111111111111111111112
-        marketValueRefreshed:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Refreshed market value of the position
-            example: '1.8239148107523825549'
-      required:
-      - amount
-      - mintAddress
-      - marketValueRefreshed
-    ObligationStats:
-      type: object
-      properties:
-        leverage:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Leverage ratio of the obligation
-            example: '1.0580080950430842892'
-        borrowLimit:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Maximum borrow limit
-            example: '1.3496969599567630906'
-        loanToValue:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Current loan-to-value ratio
-            example: '0.054827647647367082766'
-        liquidationLtv:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Liquidation loan-to-value threshold
-            example: '0.75000000000000000001'
-        netAccountValue:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Net account value
-            example: '1.7239138521696367095'
-        userTotalBorrow:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total amount borrowed by the user
-            example: '0.10000095858274584538'
-        userTotalDeposit:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total amount deposited by the user
-            example: '1.8239148107523825549'
-        borrowUtilization:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Borrow utilization ratio
-            example: '0.074091415739685246983'
-        borrowLiquidationLimit:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Borrow liquidation limit
-            example: '1.3679361080642869162'
-        userTotalCollateralDeposit:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total collateral deposited by the user
-            example: '1.8239148107523825549'
-        userTotalLiquidatableDeposit:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total liquidatable deposit amount
-            example: '1.8239148107523825549'
-        potentialElevationGroupUpdate:
-          type: number
-          description: Potential elevation group update indicator
-          example: 0
-        userTotalBorrowBorrowFactorAdjusted:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Total borrow adjusted by borrow factor
-            example: '0.10000095858274584538'
-      required:
-      - leverage
-      - borrowLimit
-      - loanToValue
-      - liquidationLtv
-      - netAccountValue
-      - userTotalBorrow
-      - userTotalDeposit
-      - borrowUtilization
-      - borrowLiquidationLimit
-      - userTotalCollateralDeposit
-      - userTotalLiquidatableDeposit
-      - potentialElevationGroupUpdate
-      - userTotalBorrowBorrowFactorAdjusted
-      description: Refreshed obligation statistics
     ObligationMetrics:
       type: object
       properties:
@@ -430,186 +322,36 @@ components:
       - borrows
       - tag
       - obligationSolValues
-    PnlResponse:
-      type: object
-      properties:
-        usd:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: PnL in USD
-            example: '25.21'
-        sol:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: PnL in SOL
-            example: '1.0'
-        invested:
-          type: object
-          properties:
-            usd:
-              $ref: '#/components/schemas/Decimal'
-            sol:
-              $ref: '#/components/schemas/Decimal'
-          required:
-          - usd
-          - sol
-          description: Invested amounts
-      required:
-      - usd
-      - sol
-    LoanInfo:
-      type: object
-      properties:
-        loanId:
-          type: string
-          description: The loan (obligation) public key
-          example: wGzt1J5Nr182HHqAc1zsfD9SLoe1MJb25VWih5NRY
-        marketId:
-          type: string
-          description: The market public key
-          example: 6HT16972HHiY4RM33GfUc22pHZ3VLDPpXFWhQ7XJzA
-        user:
-          type: string
-          description: The loan owner public key
-          example: 7yexZcPbepXgWw3Cxc7YB2eLaxwyuyshRbAF8XHDi2g
-        timestamp:
-          type: number
-          description: UTC timestamp when this report was produced
-          example: 1760707165421
-        solanaSlot:
-          type: number
-          description: Solana slot when this report was produced
-          example: 373973788
-        elevationGroup:
-          type: number
-          description: The elevation group assigned to this obligation for isolation of risks
-          example: 0
-        leverage:
-          type: number
-          description: Current leverage ratio of the position
-          example: '0.5'
-        loanInfo:
-          type: object
-          properties:
-            collateral:
-              type: object
-              properties:
-                deposits:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/LoanDepositInfo'
-                  description: Array of collateral deposits
-              required:
-              - deposits
-            debt:
-              type: object
-              properties:
-                borrows:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/LoanBorrowInfo'
-                  description: Array of debt borrows
-              required:
-              - borrows
-            currentLtv:
-              type: number
-              description: Current loan-to-value ratio (debt value × borrow factor / collateral value); liquidate when >= liquidationLtv
-              example: 0.0554213869045533
-            maxLtv:
-              type: number
-              description: weighted average max LTV from all the collateral reserves (risks actions borrows or withdrawals are blocked when userLtv >= maxLtv)
-              example: 0.74
-            liquidationLtv:
-              type: number
-              description: LTV threshold when liquidation occurs
-              example: 0.75
-            closeFactor:
-              type: number
-              description: Maximum percentage of total debt that can be repaid in a single liquidation
-              example: 0.1
-          required:
-          - collateral
-          - debt
-          - currentLtv
-          - maxLtv
-          - liquidationLtv
-          - closeFactor
-      required:
-      - loanId
-      - marketId
-      - user
-      - timestamp
-      - solanaSlot
-      - elevationGroup
-      - leverage
-      - loanInfo
     Decimal:
       type: string
       description: Decimal value represented as string
       example: '1234.56789'
-    ObligationMetricsHistoryResponse:
+    Position:
       type: object
       properties:
-        obligation:
+        amount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Amount in the position
+            example: '10000708.005624756258'
+        mintAddress:
           allOf:
           - $ref: '#/components/schemas/AddressBase58'
-          - description: Obligation public key
-            example: 3HdrCvoJ91bwgVTejdDXfguo6S2A9jjUkBR5fasq4WhB
-        history:
-          type: array
-          items:
-            $ref: '#/components/schemas/ObligationMetrics'
-          description: Historical metrics for the obligation
+          - description: Token mint address
+            example: So11111111111111111111111111111111111111112
+        marketValueRefreshed:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Refreshed market value of the position
+            example: '1.8239148107523825549'
       required:
-      - obligation
-      - history
-    LoanBorrowInfo:
-      type: object
-      properties:
-        tokenMint:
-          type: string
-          description: The token mint address
-          example: EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
-        tokenName:
-          type: string
-          description: The token name/symbol
-          example: USDC
-        tokenAmount:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Token amount in decimal format
-            example: '0.100002775657846'
-        tokenValue:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: USD value (tokenAmount × tokenPrice)
-            example: '0.0999921413626825'
-        maxBorrowableAmount:
-          type: number
-          description: Maximum amount that can be borrowed while currentLtv <= maxLtv
-          example: 1.30084031718889
-        maxBorrowableValue:
-          allOf:
-          - $ref: '#/components/schemas/Decimal'
-          - description: Maximum USD value that can be borrowed while currentLtv <= maxLtv
-            example: '1.30070198582957'
-        tokenPrice:
-          type: number
-          description: Latest price from the oracle
-          example: 0.99989366
-        borrowFactor:
-          type: number
-          description: Extra weight given to debt token in LTV calculation (debt value is multiplied by this factor))
-          example: 1
-      required:
-      - tokenMint
-      - tokenName
-      - tokenAmount
-      - tokenValue
-      - maxBorrowableAmount
-      - maxBorrowableValue
-      - tokenPrice
-      - borrowFactor
+      - amount
+      - mintAddress
+      - marketValueRefreshed
+    AddressBase58:
+      type: string
+      description: Valid base58-encoded address
+      example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
     LoanDepositInfo:
       type: object
       properties:
@@ -715,8 +457,266 @@ components:
       - timestampSolPrice
       - timestampObligation
       description: Obligation values denominated in SOL
+    PnlResponse:
+      type: object
+      properties:
+        usd:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: PnL in USD
+            example: '25.21'
+        sol:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: PnL in SOL
+            example: '1.0'
+        invested:
+          type: object
+          properties:
+            usd:
+              $ref: '#/components/schemas/Decimal'
+            sol:
+              $ref: '#/components/schemas/Decimal'
+          required:
+          - usd
+          - sol
+          description: Invested amounts
+      required:
+      - usd
+      - sol
+    LoanBorrowInfo:
+      type: object
+      properties:
+        tokenMint:
+          type: string
+          description: The token mint address
+          example: EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
+        tokenName:
+          type: string
+          description: The token name/symbol
+          example: USDC
+        tokenAmount:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Token amount in decimal format
+            example: '0.100002775657846'
+        tokenValue:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: USD value (tokenAmount × tokenPrice)
+            example: '0.0999921413626825'
+        maxBorrowableAmount:
+          type: number
+          description: Maximum amount that can be borrowed while currentLtv <= maxLtv
+          example: 1.30084031718889
+        maxBorrowableValue:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Maximum USD value that can be borrowed while currentLtv <= maxLtv
+            example: '1.30070198582957'
+        tokenPrice:
+          type: number
+          description: Latest price from the oracle
+          example: 0.99989366
+        borrowFactor:
+          type: number
+          description: Extra weight given to debt token in LTV calculation (debt value is multiplied by this factor))
+          example: 1
+      required:
+      - tokenMint
+      - tokenName
+      - tokenAmount
+      - tokenValue
+      - maxBorrowableAmount
+      - maxBorrowableValue
+      - tokenPrice
+      - borrowFactor
+    LoanInfo:
+      type: object
+      properties:
+        loanId:
+          type: string
+          description: The loan (obligation) public key
+          example: wGzt1J5Nr182HHqAc1zsfD9SLoe1MJb25VWih5NRY
+        marketId:
+          type: string
+          description: The market public key
+          example: 6HT16972HHiY4RM33GfUc22pHZ3VLDPpXFWhQ7XJzA
+        user:
+          type: string
+          description: The loan owner public key
+          example: 7yexZcPbepXgWw3Cxc7YB2eLaxwyuyshRbAF8XHDi2g
+        timestamp:
+          type: number
+          description: UTC timestamp when this report was produced
+          example: 1760707165421
+        solanaSlot:
+          type: number
+          description: Solana slot when this report was produced
+          example: 373973788
+        elevationGroup:
+          type: number
+          description: The elevation group assigned to this obligation for isolation of risks
+          example: 0
+        leverage:
+          type: number
+          description: Current leverage ratio of the position
+          example: '0.5'
+        loanInfo:
+          type: object
+          properties:
+            collateral:
+              type: object
+              properties:
+                deposits:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/LoanDepositInfo'
+                  description: Array of collateral deposits
+              required:
+              - deposits
+            debt:
+              type: object
+              properties:
+                borrows:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/LoanBorrowInfo'
+                  description: Array of debt borrows
+              required:
+              - borrows
+            currentLtv:
+              type: number
+              description: Current loan-to-value ratio (debt value × borrow factor / collateral value); liquidate when >= liquidationLtv
+              example: 0.0554213869045533
+            maxLtv:
+              type: number
+              description: weighted average max LTV from all the collateral reserves (risks actions borrows or withdrawals are blocked when userLtv >= maxLtv)
+              example: 0.74
+            liquidationLtv:
+              type: number
+              description: LTV threshold when liquidation occurs
+              example: 0.75
+            closeFactor:
+              type: number
+              description: Maximum percentage of total debt that can be repaid in a single liquidation
+              example: 0.1
+          required:
+          - collateral
+          - debt
+          - currentLtv
+          - maxLtv
+          - liquidationLtv
+          - closeFactor
+      required:
+      - loanId
+      - marketId
+      - user
+      - timestamp
+      - solanaSlot
+      - elevationGroup
+      - leverage
+      - loanInfo
     SnapshotDateTime:
       type: string
       format: date-time
       description: Timestamp of the metrics snapshot
       example: '2023-06-29T15:15:26.464Z'
+    ObligationMetricsHistoryResponse:
+      type: object
+      properties:
+        obligation:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: Obligation public key
+            example: 3HdrCvoJ91bwgVTejdDXfguo6S2A9jjUkBR5fasq4WhB
+        history:
+          type: array
+          items:
+            $ref: '#/components/schemas/ObligationMetrics'
+          description: Historical metrics for the obligation
+      required:
+      - obligation
+      - history
+    ObligationStats:
+      type: object
+      properties:
+        leverage:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Leverage ratio of the obligation
+            example: '1.0580080950430842892'
+        borrowLimit:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Maximum borrow limit
+            example: '1.3496969599567630906'
+        loanToValue:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Current loan-to-value ratio
+            example: '0.054827647647367082766'
+        liquidationLtv:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Liquidation loan-to-value threshold
+            example: '0.75000000000000000001'
+        netAccountValue:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Net account value
+            example: '1.7239138521696367095'
+        userTotalBorrow:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total amount borrowed by the user
+            example: '0.10000095858274584538'
+        userTotalDeposit:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total amount deposited by the user
+            example: '1.8239148107523825549'
+        borrowUtilization:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Borrow utilization ratio
+            example: '0.074091415739685246983'
+        borrowLiquidationLimit:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Borrow liquidation limit
+            example: '1.3679361080642869162'
+        userTotalCollateralDeposit:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total collateral deposited by the user
+            example: '1.8239148107523825549'
+        userTotalLiquidatableDeposit:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total liquidatable deposit amount
+            example: '1.8239148107523825549'
+        potentialElevationGroupUpdate:
+          type: number
+          description: Potential elevation group update indicator
+          example: 0
+        userTotalBorrowBorrowFactorAdjusted:
+          allOf:
+          - $ref: '#/components/schemas/Decimal'
+          - description: Total borrow adjusted by borrow factor
+            example: '0.10000095858274584538'
+      required:
+      - leverage
+      - borrowLimit
+      - loanToValue
+      - liquidationLtv
+      - netAccountValue
+      - userTotalBorrow
+      - userTotalDeposit
+      - borrowUtilization
+      - borrowLiquidationLimit
+      - userTotalCollateralDeposit
+      - userTotalLiquidatableDeposit
+      - potentialElevationGroupUpdate
+      - userTotalBorrowBorrowFactorAdjusted
+      description: Refreshed obligation statistics

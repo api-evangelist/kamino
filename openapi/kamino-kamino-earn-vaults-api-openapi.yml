@@ -864,23 +864,90 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    Decimal:
+      type: string
+      description: Decimal value represented as string
+      example: '1234.56789'
     AddressBase58:
       type: string
       description: Valid base58-encoded address
       example: VEG1EMtttdHunMbSza8uoms1R18VXmYSph2bBpHcSJd
-    KvaultVaultTransactionsResponse:
+    KlendWithdrawQueueTransactionV3:
       type: object
       properties:
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/KvaultVaultTransaction'
-        paginationToken:
+        createdOn:
+          type:
+          - string
+          - 'null'
+          format: date
+        timestamp:
+          type: number
+        transactionSignature:
           type: string
-          example: eyJsYXN0SWQiOjgxfQ==
-          description: Optional pagination token
+        transactionName:
+          type: string
+        transactionDisplayName:
+          type: string
+        reserve:
+          $ref: '#/components/schemas/AddressBase58'
+        withdrawTicket:
+          $ref: '#/components/schemas/AddressBase58'
+        solPrice:
+          $ref: '#/components/schemas/Decimal'
+        liquidityToken:
+          type: string
+        liquidityTokenMint:
+          $ref: '#/components/schemas/AddressBase58'
+        liquidityTokenAmount:
+          $ref: '#/components/schemas/Decimal'
+        liquidityTokenPrice:
+          $ref: '#/components/schemas/Decimal'
+        liquidityUsdValue:
+          $ref: '#/components/schemas/Decimal'
       required:
-      - result
+      - createdOn
+      - timestamp
+      - transactionSignature
+      - transactionName
+      - transactionDisplayName
+      - reserve
+      - withdrawTicket
+      - solPrice
+      - liquidityToken
+      - liquidityTokenMint
+      - liquidityTokenAmount
+      - liquidityTokenPrice
+      - liquidityUsdValue
+    Apy:
+      type: string
+      description: Borrow interest APY
+      example: '0.027610992938039702'
+      examples:
+      - '0.123'
+      - '0'
+      - '1'
+      - '1.23'
+      - '-0.5'
+      - '999999.999999'
+    VaultStateArray:
+      type: array
+      items:
+        type: object
+        properties:
+          address:
+            allOf:
+            - $ref: '#/components/schemas/AddressBase58'
+            - description: Public key of the vault
+          state:
+            $ref: '#/components/schemas/The_vault_state_object'
+          programId:
+            allOf:
+            - $ref: '#/components/schemas/AddressBase58'
+            - description: Public key of the kvault program which owns the vault
+        required:
+        - address
+        - state
+        - programId
     Error:
       type: object
       properties:
@@ -893,22 +960,11 @@ components:
       description: Internal server error response (500)
       example:
         error: An internal error occurred
-    Apy:
-      type: string
-      description: Borrow interest APY
-      example: '0.027610992938039702'
-      examples:
-      - '0.123'
-      - '0'
-      - '1'
-      - '1.23'
-      - '-0.5'
-      - '999999.999999'
-    KvaultBulkTransaction:
+    KvaultVaultTransaction:
       type: object
       properties:
         ix:
-          $ref: '#/components/schemas/KvaultEnrichedInstruction'
+          $ref: '#/components/schemas/KvaultVaultEnrichedInstruction'
         timestamp:
           allOf:
           - $ref: '#/components/schemas/SnapshotDateTime'
@@ -928,9 +984,6 @@ components:
           - $ref: '#/components/schemas/AddressBase58'
           - description: Valid base58-encoded address of the user wallet
             example: AxqtG9SHDkZTLSWg81Sp7VqAzQpRqXtR9ziJ3VQAS8As
-        rawJson:
-          type: string
-          description: Entire raw JSON of the instruction
       required:
       - ix
       - timestamp
@@ -1122,136 +1175,6 @@ components:
       - cumulativeManagementFees
       - cumulativeManagementFeesUsd
       - cumulativeManagementFeesSol
-    KvaultEnrichedInstruction:
-      type: object
-      properties:
-        market:
-          type: string
-          description: KLend market public key
-          example: EyV4jxSMd6vpuRgrxMFem7CKRhcB4Vv6WMRDtxPQNP4
-        reserve:
-          type: string
-          description: KLend reserve public key
-          example: ALnjBHECcdBsSwgVJ6A8pFEZ15qxE5jJQriCXSKT3Bte
-        solPrice:
-          $ref: '#/components/schemas/Decimal'
-        sharePrice:
-          $ref: '#/components/schemas/Decimal'
-        tokenPrice:
-          $ref: '#/components/schemas/Decimal'
-        tokenAmount:
-          $ref: '#/components/schemas/Decimal'
-        numberOfShares:
-          $ref: '#/components/schemas/Decimal'
-      required:
-      - solPrice
-      - sharePrice
-      - tokenPrice
-      - tokenAmount
-      - numberOfShares
-      description: Enriched kvault instruction object
-      example:
-        tokenAmount: '835.924775'
-        numberOfShares: '814.34612'
-        solPrice: '138.7776002'
-        sharePrice: '1.0263403430350673002'
-        tokenPrice: '0.99984713'
-    VaultStateArray:
-      type: array
-      items:
-        type: object
-        properties:
-          address:
-            allOf:
-            - $ref: '#/components/schemas/AddressBase58'
-            - description: Public key of the vault
-          state:
-            $ref: '#/components/schemas/The_vault_state_object'
-          programId:
-            allOf:
-            - $ref: '#/components/schemas/AddressBase58'
-            - description: Public key of the kvault program which owns the vault
-        required:
-        - address
-        - state
-        - programId
-    KvaultVaultEnrichedInstruction:
-      type: object
-      properties:
-        market:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: KLend market public key
-        reserve:
-          allOf:
-          - $ref: '#/components/schemas/AddressBase58'
-          - description: KLend reserve public key
-        solPrice:
-          $ref: '#/components/schemas/Decimal'
-        sharePrice:
-          $ref: '#/components/schemas/Decimal'
-        tokenPrice:
-          $ref: '#/components/schemas/Decimal'
-        tokenAmount:
-          $ref: '#/components/schemas/Decimal'
-        numberOfShares:
-          $ref: '#/components/schemas/Decimal'
-      required:
-      - solPrice
-      - sharePrice
-      - tokenPrice
-      - tokenAmount
-      - numberOfShares
-    Decimal:
-      type: string
-      description: Decimal value represented as string
-      example: '1234.56789'
-    KlendWithdrawQueueTransactionV3:
-      type: object
-      properties:
-        createdOn:
-          type:
-          - string
-          - 'null'
-          format: date
-        timestamp:
-          type: number
-        transactionSignature:
-          type: string
-        transactionName:
-          type: string
-        transactionDisplayName:
-          type: string
-        reserve:
-          $ref: '#/components/schemas/AddressBase58'
-        withdrawTicket:
-          $ref: '#/components/schemas/AddressBase58'
-        solPrice:
-          $ref: '#/components/schemas/Decimal'
-        liquidityToken:
-          type: string
-        liquidityTokenMint:
-          $ref: '#/components/schemas/AddressBase58'
-        liquidityTokenAmount:
-          $ref: '#/components/schemas/Decimal'
-        liquidityTokenPrice:
-          $ref: '#/components/schemas/Decimal'
-        liquidityUsdValue:
-          $ref: '#/components/schemas/Decimal'
-      required:
-      - createdOn
-      - timestamp
-      - transactionSignature
-      - transactionName
-      - transactionDisplayName
-      - reserve
-      - withdrawTicket
-      - solPrice
-      - liquidityToken
-      - liquidityTokenMint
-      - liquidityTokenAmount
-      - liquidityTokenPrice
-      - liquidityUsdValue
     The_vault_state_object:
       type: object
       properties:
@@ -1446,11 +1369,90 @@ components:
       - vaultFarm
       - creationTimestamp
       - allocationAdmin
-    KvaultVaultTransaction:
+    SnapshotDateTime:
+      type: string
+      format: date-time
+      description: Timestamp of the metrics snapshot
+      example: '2023-06-29T15:15:26.464Z'
+    KvaultEnrichedInstruction:
+      type: object
+      properties:
+        market:
+          type: string
+          description: KLend market public key
+          example: EyV4jxSMd6vpuRgrxMFem7CKRhcB4Vv6WMRDtxPQNP4
+        reserve:
+          type: string
+          description: KLend reserve public key
+          example: ALnjBHECcdBsSwgVJ6A8pFEZ15qxE5jJQriCXSKT3Bte
+        solPrice:
+          $ref: '#/components/schemas/Decimal'
+        sharePrice:
+          $ref: '#/components/schemas/Decimal'
+        tokenPrice:
+          $ref: '#/components/schemas/Decimal'
+        tokenAmount:
+          $ref: '#/components/schemas/Decimal'
+        numberOfShares:
+          $ref: '#/components/schemas/Decimal'
+      required:
+      - solPrice
+      - sharePrice
+      - tokenPrice
+      - tokenAmount
+      - numberOfShares
+      description: Enriched kvault instruction object
+      example:
+        tokenAmount: '835.924775'
+        numberOfShares: '814.34612'
+        solPrice: '138.7776002'
+        sharePrice: '1.0263403430350673002'
+        tokenPrice: '0.99984713'
+    KvaultVaultEnrichedInstruction:
+      type: object
+      properties:
+        market:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: KLend market public key
+        reserve:
+          allOf:
+          - $ref: '#/components/schemas/AddressBase58'
+          - description: KLend reserve public key
+        solPrice:
+          $ref: '#/components/schemas/Decimal'
+        sharePrice:
+          $ref: '#/components/schemas/Decimal'
+        tokenPrice:
+          $ref: '#/components/schemas/Decimal'
+        tokenAmount:
+          $ref: '#/components/schemas/Decimal'
+        numberOfShares:
+          $ref: '#/components/schemas/Decimal'
+      required:
+      - solPrice
+      - sharePrice
+      - tokenPrice
+      - tokenAmount
+      - numberOfShares
+    KvaultVaultTransactionsResponse:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/KvaultVaultTransaction'
+        paginationToken:
+          type: string
+          example: eyJsYXN0SWQiOjgxfQ==
+          description: Optional pagination token
+      required:
+      - result
+    KvaultBulkTransaction:
       type: object
       properties:
         ix:
-          $ref: '#/components/schemas/KvaultVaultEnrichedInstruction'
+          $ref: '#/components/schemas/KvaultEnrichedInstruction'
         timestamp:
           allOf:
           - $ref: '#/components/schemas/SnapshotDateTime'
@@ -1470,6 +1472,9 @@ components:
           - $ref: '#/components/schemas/AddressBase58'
           - description: Valid base58-encoded address of the user wallet
             example: AxqtG9SHDkZTLSWg81Sp7VqAzQpRqXtR9ziJ3VQAS8As
+        rawJson:
+          type: string
+          description: Entire raw JSON of the instruction
       required:
       - ix
       - timestamp
@@ -1480,8 +1485,3 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/KlendWithdrawQueueTransactionV3'
-    SnapshotDateTime:
-      type: string
-      format: date-time
-      description: Timestamp of the metrics snapshot
-      example: '2023-06-29T15:15:26.464Z'
