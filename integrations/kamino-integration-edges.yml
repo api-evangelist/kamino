@@ -1,0 +1,103 @@
+edges:
+- partner_name: npm registry
+  partner: npm
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (JavaScript/TypeScript)
+  evidence: https://www.npmjs.com/package/@kamino-finance/distributor-sdk
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: npm registry (public registry JSON)
+    spec_file: null
+    language: JavaScript/TypeScript
+    packages:
+    - name: '@kamino-finance/distributor-sdk'
+      version: 0.5.3
+      released: '2026-01-29'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@kamino-finance/distributor-sdk
+      repo_leg: github-org:kamino-finance
+      publisher_leg: email:kamino.finance
+      matched_by: domain
+    - name: '@kamino-finance/farms-sdk'
+      version: 5.0.0
+      released: '2026-10-05'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@kamino-finance/farms-sdk
+      repo_leg: github-org:kamino-finance
+      publisher_leg: email:kamino.finance
+      matched_by: domain
+    - name: '@kamino-finance/kamino-db'
+      version: 8.1.31
+      released: '2026-10-12'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@kamino-finance/kamino-db
+      repo_leg: github-org:kamino-finance
+      publisher_leg: email:kamino.finance
+      matched_by: domain
+    - name: '@kamino-finance/klend-sdk'
+      version: 13.0.3
+      released: '2026-10-14'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@kamino-finance/klend-sdk
+      repo_leg: domain:kamino.finance
+      publisher_leg: email:kamino.finance
+      matched_by: domain
+    - name: '@kamino-finance/kliquidity-sdk'
+      version: 16.0.0
+      released: '2026-10-05'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@kamino-finance/kliquidity-sdk
+      repo_leg: domain:kamino.finance
+      publisher_leg: email:kamino.finance
+      matched_by: domain
+    - name: '@kamino-finance/limo-sdk'
+      version: 4.0.0
+      released: '2026-10-05'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@kamino-finance/limo-sdk
+      repo_leg: github-org:kamino-finance
+      publisher_leg: email:kamino.finance
+      matched_by: domain
+    - name: '@kamino-finance/scope-sdk'
+      version: 14.0.0
+      released: '2026-10-05'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@kamino-finance/scope-sdk
+      repo_leg: github-org:kamino-finance
+      publisher_leg: email:kamino.finance
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
+generated: '2026-10-18'
+method: searched
+source:
+- https://api.nuget.org/v3
+- https://crates.io/api/v1
+- https://proxy.golang.org
+- https://pypi.org/pypi
+- https://registry.npmjs.org
+- https://repo1.maven.org/maven2
+- https://rubygems.org/api/v1
+checked:
+- https://api.nuget.org/v3
+- https://crates.io/api/v1
+- https://proxy.golang.org
+- https://pypi.org/pypi
+- https://registry.npmjs.org
+- https://repo1.maven.org/maven2
+- https://rubygems.org/api/v1
