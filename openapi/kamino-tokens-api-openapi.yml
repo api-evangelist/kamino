@@ -1,0 +1,38 @@
+openapi: 3.2.0
+info:
+  title: Kamino Finance Public Tokens API
+  description: API for interacting with Kamino Finance — a Solana‑based DeFi platform offering automated liquidity vaults, lending/borrowing, leveraged strategies, and analytics.
+  termsOfService: https://docs.kamino.finance/v/risk
+  contact:
+    name: Kamino Finance Support
+    url: https://docs.kamino.finance
+    email: support@kamino.finance
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://api.kamino.finance
+  variables: {}
+tags:
+- name: Tokens
+  description: ''
+  externalDocs:
+    description: ''
+    url: ''
+paths:
+  /tokens:
+    get:
+      summary: Get solflare token infos
+      description: Fetches all token infos from Solflare that are used by Kamino Liquidity/Lending/Farms.
+      operationId: getTokens
+      tags:
+      - Tokens
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+externalDocs:
+  description: Kamino API documentation
+  url: https://github.com/kamino-finance/kamino-api-docs

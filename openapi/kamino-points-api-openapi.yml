@@ -1,0 +1,133 @@
+openapi: 3.2.0
+info:
+  title: Kamino Finance Public Points API
+  description: API for interacting with Kamino Finance — a Solana‑based DeFi platform offering automated liquidity vaults, lending/borrowing, leveraged strategies, and analytics.
+  termsOfService: https://docs.kamino.finance/v/risk
+  contact:
+    name: Kamino Finance Support
+    url: https://docs.kamino.finance
+    email: support@kamino.finance
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://api.kamino.finance
+  variables: {}
+tags:
+- name: Points
+  description: ''
+  externalDocs:
+    description: ''
+    url: ''
+paths:
+  /points/leaderboard:
+    parameters:
+    - in: query
+      name: offset
+      description: To implement pagination fetch the first page (offset = 0, limit = 20 for example) and then look at the property totalLeaderboardCount to calculate the amount of pages you will display.
+      schema:
+        type: string
+      required: false
+    - in: query
+      name: limit
+      description: To implement pagination fetch the first page (offset = 0, limit = 20 for example) and then look at the property totalLeaderboardCount to calculate the amount of pages you will display.
+      schema:
+        type: string
+      required: false
+    - in: query
+      name: source
+      description: season1 | season2
+      schema:
+        type: string
+    get:
+      summary: Get points leaderboard
+      description: 'Example requests:
+
+
+        Get first 20 leaderboard ranks: https://api.kamino.finance/points/leaderboard?offset=0&limit=20
+
+
+        Get leaderboard ranks between 100-200: https://api.kamino.finance/points/leaderboard?offset=100&limit=100
+
+
+        Get first 20 leaderboard ranks for season 2: https://api.kamino.finance/points/leaderboard?offset=0&limit=20&source=Season2
+
+
+        To implement pagination fetch the first page (offset = 0, limit = 20 for example) and then look at the property totalLeaderboardCount to calculate the amount of pages you will display.'
+      operationId: getPointsLeaderboard
+      tags:
+      - Points
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /users/{user-pubkey}/breakdown:
+    parameters:
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    - in: query
+      name: source
+      description: season1 | Season2
+      schema:
+        type: string
+    - in: path
+      name: user-pubkey
+      description: user public key
+      schema:
+        type: string
+      required: true
+    get:
+      summary: Get points user breakdown
+      description: ''
+      operationId: getUsersByUserPubkeyBreakdown
+      tags:
+      - Points
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /points/rules:
+    parameters:
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    get:
+      summary: Get rules for points
+      description: ''
+      operationId: getPointsRules
+      tags:
+      - Points
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /points/metrics:
+    parameters:
+    - in: query
+      name: source
+      description: season1 | season2
+      schema:
+        type: string
+    get:
+      summary: Get metrics for points
+      description: ''
+      operationId: getPointsMetrics
+      tags:
+      - Points
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+externalDocs:
+  description: Kamino API documentation
+  url: https://github.com/kamino-finance/kamino-api-docs

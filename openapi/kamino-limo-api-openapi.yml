@@ -1,0 +1,234 @@
+openapi: 3.2.0
+info:
+  title: Kamino Finance Public Limo API
+  description: API for interacting with Kamino Finance — a Solana‑based DeFi platform offering automated liquidity vaults, lending/borrowing, leveraged strategies, and analytics.
+  termsOfService: https://docs.kamino.finance/v/risk
+  contact:
+    name: Kamino Finance Support
+    url: https://docs.kamino.finance
+    email: support@kamino.finance
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://api.kamino.finance
+  variables: {}
+tags:
+- name: Limo
+  description: ''
+  externalDocs:
+    description: ''
+    url: ''
+paths:
+  /limo/makers/{maker-pubkey}/transactions:
+    parameters:
+    - in: path
+      name: maker-pubkey
+      description: maker public key
+      schema:
+        type: string
+      required: true
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta | devnet | localnet'
+      schema:
+        type: string
+    - in: query
+      name: in
+      description: input token mint of the order, e.g. So11111111111111111111111111111111111111112
+      schema:
+        type: string
+    - in: query
+      name: out
+      description: output token mint of the order, e.g. EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
+      schema:
+        type: string
+    get:
+      summary: Get all limo user transactions
+      description: 'Get all instructions for the specified Limo user (maker).
+
+
+        Example requests:
+
+
+        Fetch all txs for all pairs: https://api.kamino.finance/limo/makers/7bfsDRVpujyxzYcNWHnN3ietYb5XEsAidgdc9cintAuj/transactions?env=mainnet-beta
+
+
+        Fetch txs for SOL/USDC pair: https://api.kamino.finance/limo/makers/CBd9omWgziKgBhmAqrGREDJqsSvM1HrarEMzE89zawMa/transactions?env=mainnet-beta&in=So11111111111111111111111111111111111111112&out=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
+
+
+        Fetch txs for SOL input token and any output token: https://api.kamino.finance/limo/makers/CBd9omWgziKgBhmAqrGREDJqsSvM1HrarEMzE89zawMa/transactions?env=mainnet-beta&in=So11111111111111111111111111111111111111112'
+      operationId: getLimoMakersByMakerPubkeyTransactions
+      tags:
+      - Limo
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /limo/makers/{maker-pubkey}/metrics:
+    parameters:
+    - in: path
+      name: maker-pubkey
+      description: maker public key
+      schema:
+        type: string
+      required: true
+    get:
+      summary: Get limo maker metrics
+      description: ''
+      operationId: getLimoMakersByMakerPubkeyMetrics
+      tags:
+      - Limo
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /limo/makers/{maker-pubkey}/metrics/pair:
+    parameters:
+    - in: path
+      name: maker-pubkey
+      description: maker public key
+      schema:
+        type: string
+      required: true
+    - in: query
+      name: in
+      description: input token mint of the order, e.g. So11111111111111111111111111111111111111112
+      schema:
+        type: string
+    - in: query
+      name: out
+      description: output token mint of the order, e.g. EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
+      schema:
+        type: string
+    get:
+      summary: Get limo maker pair metrics
+      description: ''
+      operationId: getLimoMakersByMakerPubkeyMetricsPair
+      tags:
+      - Limo
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /limo/metrics:
+    get:
+      summary: Get limo global metrics
+      description: Get metrics for all trades
+      operationId: getLimoMetrics
+      tags:
+      - Limo
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /limo/metrics/pair:
+    parameters:
+    - in: query
+      name: in
+      description: input token mint of the order, e.g. So11111111111111111111111111111111111111112
+      schema:
+        type: string
+    - in: query
+      name: out
+      description: output token mint of the order, e.g. EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
+      schema:
+        type: string
+    get:
+      summary: Get limo pair metrics
+      description: Get metrics for a specific token pair
+      operationId: getLimoMetricsPair
+      tags:
+      - Limo
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /limo/leaderboard/weekly/metrics:
+    get:
+      summary: Get limo weekly leaderboard metrics
+      description: ''
+      operationId: getLimoLeaderboardWeeklyMetrics
+      tags:
+      - Limo
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /limo/weekly/leaderboard:
+    parameters:
+    - in: query
+      name: offset
+      description: To implement pagination fetch the first page (offset = 0, limit = 20 for example) and then look at the property totalLeaderboardCount to calculate the amount of pages you will display.
+      schema:
+        type: string
+    - in: query
+      name: 'limit '
+      description: To implement pagination fetch the first page (offset = 0, limit = 20 for example) and then look at the property totalLeaderboardCount to calculate the amount of pages you will display.
+      schema:
+        type: string
+    get:
+      summary: Get limo weekly leaderboard
+      description: 'Example requests:
+
+
+        get first 20 leaderboard ranks: https://api.kamino.finance/limo/weekly/leaderboard?offset=0&limit=20
+
+
+        get leaderboard ranks between 100-200: https://api.kamino.finance/limo/weekly/leaderboard?offset=100&limit=100
+
+
+        To implement pagination fetch the first page (offset = 0, limit = 20 for example) and then look at the property totalLeaderboardCount to calculate the amount of pages you will display.'
+      operationId: getLimoWeeklyLeaderboard
+      tags:
+      - Limo
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /limo/trades:
+    parameters:
+    - in: query
+      name: in
+      description: input token mint of the order, e.g. So11111111111111111111111111111111111111112
+      schema:
+        type: string
+    - in: query
+      name: out
+      description: output token mint of the order, e.g. EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
+      schema:
+        type: string
+    get:
+      summary: Get last 500 limo trades
+      description: 'Get last 500 limo trades (fills)
+
+
+        If no query params are used, it will return trades for all pairs.
+
+
+        Example request:
+
+
+        Get all trades: https://api.kamino.finance/limo/trades
+
+
+        Get SOL -> USDC trades: https://api.kamino.finance/limo/trades?in=So11111111111111111111111111111111111111112&out=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v'
+      operationId: getLimoTrades
+      tags:
+      - Limo
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+externalDocs:
+  description: Kamino API documentation
+  url: https://github.com/kamino-finance/kamino-api-docs

@@ -1,0 +1,4526 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Kamino Finance Public API",
+    "description": "API for interacting with Kamino Finance — a Solana‑based DeFi platform offering automated liquidity vaults, lending/borrowing, leveraged strategies, and analytics.",
+    "termsOfService": "https://docs.kamino.finance/v/risk",
+    "contact": {
+      "name": "Kamino Finance Support",
+      "url": "https://docs.kamino.finance",
+      "email": "support@kamino.finance"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "externalDocs": {
+    "description": "Kamino API documentation",
+    "url": "https://github.com/kamino-finance/kamino-api-docs"
+  },
+  "servers": [
+    {
+      "url": "https://api.kamino.finance",
+      "variables": {}
+    }
+  ],
+  "tags": [
+    {
+      "name": "Staking",
+      "description": "",
+      "externalDocs": {
+        "description": "",
+        "url": ""
+      }
+    },
+    {
+      "name": "Whirlpools",
+      "description": "",
+      "externalDocs": {
+        "description": "",
+        "url": ""
+      }
+    },
+    {
+      "name": "Strategies",
+      "description": "",
+      "externalDocs": {
+        "description": "",
+        "url": ""
+      }
+    },
+    {
+      "name": "Prices",
+      "description": "",
+      "externalDocs": {
+        "description": "",
+        "url": ""
+      }
+    },
+    {
+      "name": "Transactions",
+      "description": "",
+      "externalDocs": {
+        "description": "",
+        "url": ""
+      }
+    },
+    {
+      "name": "Trades",
+      "description": "",
+      "externalDocs": {
+        "description": "",
+        "url": ""
+      }
+    },
+    {
+      "name": "Simulator",
+      "description": "",
+      "externalDocs": {
+        "description": "",
+        "url": ""
+      }
+    },
+    {
+      "name": "Leaderboard",
+      "description": "",
+      "externalDocs": {
+        "description": "",
+        "url": ""
+      }
+    },
+    {
+      "name": "Points",
+      "description": "",
+      "externalDocs": {
+        "description": "",
+        "url": ""
+      }
+    },
+    {
+      "name": "Tokens",
+      "description": "",
+      "externalDocs": {
+        "description": "",
+        "url": ""
+      }
+    },
+    {
+      "name": "Airdrop",
+      "description": "",
+      "externalDocs": {
+        "description": "",
+        "url": ""
+      }
+    },
+    {
+      "name": "Kvaults",
+      "description": "",
+      "externalDocs": {
+        "description": "",
+        "url": ""
+      }
+    },
+    {
+      "name": "Kamino Lending",
+      "description": "",
+      "externalDocs": {
+        "description": "",
+        "url": ""
+      }
+    },
+    {
+      "name": "Limo",
+      "description": "",
+      "externalDocs": {
+        "description": "",
+        "url": ""
+      }
+    },
+    {
+      "name": "Ktoken",
+      "description": "",
+      "externalDocs": {
+        "description": "",
+        "url": ""
+      }
+    },
+    {
+      "name": "Raydium",
+      "description": "",
+      "externalDocs": {
+        "description": "",
+        "url": ""
+      }
+    }
+  ],
+  "paths": {
+    "/v2/staking-yields": {
+      "get": {
+        "summary": "Get staking yields v2",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Staking"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "apy": {
+                        "type": "string",
+                        "description": "apy rate"
+                      },
+                      "tokenMint": {
+                        "type": "string",
+                        "description": "token address"
+                      }
+                    },
+                    "required": [
+                      "apy",
+                      "tokenMint"
+                    ]
+                  }
+                },
+                "examples": {
+                  "example1": {
+                    "value": [
+                      {
+                        "apy": "0.252619403785070711510296827413476389122",
+                        "tokenMint": "mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So"
+                      },
+                      {
+                        "apy": "0.263020843260597671599388280100460408894",
+                        "tokenMint": "J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn"
+                      },
+                      {
+                        "apy": "0.24426365077443429533690036384035569496",
+                        "tokenMint": "bSo13r4TkiE4KumL71LsHTPpL2euBYLFx6h9HP3piy1"
+                      },
+                      {
+                        "apy": "0.2727867352767135230363060182415164271",
+                        "tokenMint": "jupSoLaHXQiZZTSfEWMTRRgpnyFm8f6sZdosWBjx93v"
+                      },
+                      {
+                        "apy": "0.282542463074495351542281213938801414377",
+                        "tokenMint": "he1iusmfkpAdwvxLNGV8Y1iSbj4rUy6yMhEA3fotn9A"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/staking-yields/median": {
+      "get": {
+        "summary": "Get median staking yields v2",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Staking"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "apy": {
+                        "type": "string",
+                        "description": "apy rate"
+                      },
+                      "tokenMint": {
+                        "type": "string",
+                        "description": "token address"
+                      }
+                    },
+                    "required": [
+                      "apy",
+                      "tokenMint"
+                    ]
+                  }
+                },
+                "examples": {
+                  "example1": {
+                    "value": [
+                      {
+                        "apy": "0.252619403785070711510296827413476389122",
+                        "tokenMint": "mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So"
+                      },
+                      {
+                        "apy": "0.263020843260597671599388280100460408894",
+                        "tokenMint": "J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn"
+                      },
+                      {
+                        "apy": "0.24426365077443429533690036384035569496",
+                        "tokenMint": "bSo13r4TkiE4KumL71LsHTPpL2euBYLFx6h9HP3piy1"
+                      },
+                      {
+                        "apy": "0.2727867352767135230363060182415164271",
+                        "tokenMint": "jupSoLaHXQiZZTSfEWMTRRgpnyFm8f6sZdosWBjx93v"
+                      },
+                      {
+                        "apy": "0.282542463074495351542281213938801414377",
+                        "tokenMint": "he1iusmfkpAdwvxLNGV8Y1iSbj4rUy6yMhEA3fotn9A"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/epochs": {
+      "get": {
+        "summary": "Get epochs",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Staking"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "epoch": {
+                        "type": "integer"
+                      },
+                      "first_slot": {
+                        "type": "integer"
+                      },
+                      "last_slot": {
+                        "type": "integer"
+                      },
+                      "start_block_time": {
+                        "type": "string",
+                        "description": "timestamp"
+                      },
+                      "end_block_time": {
+                        "type": "string",
+                        "description": "timestamp"
+                      }
+                    },
+                    "required": [
+                      "epoch",
+                      "first_slot",
+                      "last_slot",
+                      "end_block_time",
+                      "start_block_time"
+                    ]
+                  }
+                },
+                "examples": {
+                  "example1": {
+                    "value": [
+                      {
+                        "apy": "0.0685815525901495360734829436051179078079",
+                        "epoch": 587,
+                        "startBlockTime": "2024-03-11T21:37:21.000Z",
+                        "endBlockTime": "2024-03-14T00:25:05.000Z"
+                      },
+                      {
+                        "apy": "0.0772467014510651101771957924044147574663",
+                        "epoch": 586,
+                        "startBlockTime": "2024-03-09T19:55:31.000Z",
+                        "endBlockTime": "2024-03-11T21:37:20.000Z"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/staking-yields/tokens/{mint}/history": {
+      "get": {
+        "summary": "Get staking yield history",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Staking"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mint",
+            "description": "token address",
+            "schema": {
+              "type": "string",
+              "example": "mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "start",
+            "description": "timestamp",
+            "schema": {
+              "type": "string",
+              "example": "2024-01-01T00:00Z"
+            }
+          },
+          {
+            "in": "query",
+            "name": "end",
+            "description": "timestamp",
+            "schema": {
+              "type": "string",
+              "example": "2024-02-01T01:00Z"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "description": "epoch timestamp"
+                    }
+                  }
+                },
+                "examples": {
+                  "example1": {
+                    "value": [
+                      {
+                        "apy": "0.0685815525901495360734829436051179078079",
+                        "epoch": 587,
+                        "startBlockTime": "2024-03-11T21:37:21.000Z",
+                        "endBlockTime": "2024-03-14T00:25:05.000Z"
+                      },
+                      {
+                        "apy": "0.0772467014510651101771957924044147574663",
+                        "epoch": 586,
+                        "startBlockTime": "2024-03-09T19:55:31.000Z",
+                        "endBlockTime": "2024-03-11T21:37:20.000Z"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/staking-yields/tokens/{mint}/history/median": {
+      "get": {
+        "summary": "Get median staking yield history",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Staking"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mint",
+            "description": "token address",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "startEpoch": {
+                        "type": "integer"
+                      },
+                      "startBlockTime": {
+                        "type": "string"
+                      },
+                      "endBlockTime": {
+                        "type": "string"
+                      },
+                      "endEpoch": {
+                        "type": "integer"
+                      },
+                      "apy": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "startEpoch",
+                      "startBlockTime",
+                      "endBlockTime",
+                      "apy",
+                      "endEpoch"
+                    ]
+                  }
+                },
+                "examples": {
+                  "example1": {
+                    "value": [
+                      {
+                        "apy": "0.0685815525901495360734829436051179078079",
+                        "epoch": 587,
+                        "startBlockTime": "2024-03-11T21:37:21.000Z",
+                        "endBlockTime": "2024-03-14T00:25:05.000Z"
+                      },
+                      {
+                        "apy": "0.0772467014510651101771957924044147574663",
+                        "epoch": 586,
+                        "startBlockTime": "2024-03-09T19:55:31.000Z",
+                        "endBlockTime": "2024-03-11T21:37:20.000Z"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/yields/{source}/history": {
+      "get": {
+        "summary": "Get yield history for specific pool",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Staking"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "source",
+            "description": "pool address",
+            "schema": {
+              "type": "string",
+              "example": "5BUwFW4nRbftYTDMbgxykoFWqWHPzahFSNAaaaJtVKsq"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {
+                  "example1": {
+                    "value": [
+                      {
+                        "createdOn": "2024-01-01T00:00:07.569Z",
+                        "apr": "5.16226661065975",
+                        "apy": "1.72282489033179"
+                      },
+                      {
+                        "createdOn": "2024-01-01T01:00:07.569Z",
+                        "apr": "5.53223063067687",
+                        "apy": "9.201613187495"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/strategies": {
+      "get": {
+        "summary": "Get all strategies with filters",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Strategies"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "apr": {
+                        "type": "string"
+                      },
+                      "apy": {
+                        "type": "string"
+                      },
+                      "totalReturn": {
+                        "type": "string"
+                      },
+                      "totalInvestment": {
+                        "type": "string"
+                      },
+                      "strategy": {
+                        "type": "string"
+                      },
+                      "token": {
+                        "type": "string"
+                      },
+                      "rewardsPerDay": {
+                        "type": "string"
+                      },
+                      "rewardsPerHour": {
+                        "type": "string"
+                      },
+                      "rewardsPerSecond": {
+                        "type": "string"
+                      },
+                      "rewardIsOption": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "apr",
+                      "apy",
+                      "totalReturn",
+                      "totalInvestment",
+                      "strategy",
+                      "rewardsPerHour",
+                      "rewardsPerDay",
+                      "token",
+                      "rewardsPerSecond",
+                      "rewardIsOption"
+                    ]
+                  }
+                },
+                "examples": {
+                  "example1": {
+                    "value": [
+                      {
+                        "apr": "0.03089658127477581433161189171198501610943",
+                        "apy": "0.031377485860868284369015169698693427029",
+                        "totalReturn": "9959.75762697216",
+                        "totalInvestment": "322357.9184504589828735999999999999999998",
+                        "strategy": "2dczcMRpxWHZTcsiEjPT4YBcSseTaUmWFzw24HxYMFod",
+                        "token": "RAY",
+                        "rewardsPerDay": "137.8944",
+                        "rewardsPerHour": "5.7456",
+                        "rewardsPerSecond": "0.001596",
+                        "rewardIsOption": false
+                      },
+                      {
+                        "apr": "0.1837059453843344336978185004649421142565",
+                        "apy": "0.201606883863164306468378664554523674214",
+                        "totalReturn": "39084.02775504",
+                        "totalInvestment": "212753.2000843610114423811349599999999999",
+                        "strategy": "6K4jM79yijUEFxdFhCFZSjav1nZji1gsxUWQE6XrC8YD",
+                        "token": "LDO",
+                        "rewardsPerDay": "48.386592",
+                        "rewardsPerHour": "2.016108",
+                        "rewardsPerSecond": "0.00056003",
+                        "rewardIsOption": false
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "type",
+          "description": "strategy type which can be: \nNON_PEGGED: e.g. SOL-BONK\nPEGGED: e.g. BSOL-JitoSOL\nSTABLE: e.g. USDH-USDC",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "status",
+          "description": "strategyCreationStatus which can be:\n\nIGNORED\nSHADOW\nLIVE\nDEPRECATED\nSTAGING",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/staking-rates/tokens/{mint}/history": {
+      "get": {
+        "summary": "get staking rate history",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Staking"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "mint",
+            "description": "token address",
+            "schema": {
+              "type": "string",
+              "example": "mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "start",
+            "description": "timestamp",
+            "schema": {
+              "type": "string",
+              "example": "2024-01-01T00:00Z"
+            }
+          },
+          {
+            "in": "query",
+            "name": "end",
+            "description": "timestamp",
+            "schema": {
+              "type": "string",
+              "example": "2024-02-01T01:00Z"
+            }
+          },
+          {
+            "in": "query",
+            "name": "interpolate",
+            "description": "interpolation flag",
+            "schema": {
+              "type": "boolean",
+              "example": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "apy": {
+                        "type": "integer"
+                      },
+                      "epoch": {
+                        "type": "integer"
+                      },
+                      "startBlockTime": {
+                        "type": "string"
+                      },
+                      "endBlockTime": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "apy",
+                      "epoch",
+                      "startBlockTime",
+                      "endBlockTime"
+                    ]
+                  }
+                },
+                "examples": {
+                  "example1": {
+                    "value": [
+                      [
+                        1704067200000,
+                        "0.8636310820345713"
+                      ],
+                      [
+                        1704067500000,
+                        "0.8636310820345713"
+                      ],
+                      [
+                        1704067800000,
+                        "0.8636310820345713"
+                      ]
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/strategies/enabled": {
+      "get": {
+        "summary": "Get frontend-enabled strategies",
+        "description": "You may use the env query param (mainnet-beta[default],devnet,localnet,testnet).",
+        "operationId": "",
+        "tags": [
+          "Strategies"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "env",
+            "description": "environment (mainnet-beta[default],devnet,localnet,testnet)",
+            "schema": {
+              "type": "string",
+              "example": "mainnet-beta"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "apr": {
+                        "type": "string"
+                      },
+                      "apy": {
+                        "type": "string"
+                      },
+                      "totalReturn": {
+                        "type": "string"
+                      },
+                      "totalInvestment": {
+                        "type": "string"
+                      },
+                      "strategy": {
+                        "type": "string"
+                      },
+                      "token": {
+                        "type": "string"
+                      },
+                      "rewardsPerDay": {
+                        "type": "string"
+                      },
+                      "rewardsPerHour": {
+                        "type": "string"
+                      },
+                      "rewardsPerSecond": {
+                        "type": "string"
+                      },
+                      "rewardIsOption": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "apr",
+                      "apy",
+                      "totalReturn",
+                      "totalInvestment",
+                      "strategy",
+                      "rewardsPerHour",
+                      "rewardsPerDay",
+                      "token",
+                      "rewardsPerSecond",
+                      "rewardIsOption"
+                    ]
+                  }
+                },
+                "examples": {
+                  "example1": {
+                    "value": [
+                      {
+                        "apr": "0.03089658127477581433161189171198501610943",
+                        "apy": "0.031377485860868284369015169698693427029",
+                        "totalReturn": "9959.75762697216",
+                        "totalInvestment": "322357.9184504589828735999999999999999998",
+                        "strategy": "2dczcMRpxWHZTcsiEjPT4YBcSseTaUmWFzw24HxYMFod",
+                        "token": "RAY",
+                        "rewardsPerDay": "137.8944",
+                        "rewardsPerHour": "5.7456",
+                        "rewardsPerSecond": "0.001596",
+                        "rewardIsOption": false
+                      },
+                      {
+                        "apr": "0.1837059453843344336978185004649421142565",
+                        "apy": "0.201606883863164306468378664554523674214",
+                        "totalReturn": "39084.02775504",
+                        "totalInvestment": "212753.2000843610114423811349599999999999",
+                        "strategy": "6K4jM79yijUEFxdFhCFZSjav1nZji1gsxUWQE6XrC8YD",
+                        "token": "LDO",
+                        "rewardsPerDay": "48.386592",
+                        "rewardsPerHour": "2.016108",
+                        "rewardsPerSecond": "0.00056003",
+                        "rewardIsOption": false
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/strategies/{strategy-pubkey}/metrics": {
+      "get": {
+        "summary": "Get specific strategy stats (tvl/pnl/shares)",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Strategies"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "strategy-pubkey",
+            "description": "Strategy public key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "ByXB4xCxVhmUEmQj3Ut7byZ1Hbva1zhKjaVcv3jBMN7E"
+            }
+          },
+          {
+            "in": "query",
+            "name": "env",
+            "description": "environment (mainnet-beta[default],devnet,localnet,testnet)",
+            "schema": {
+              "type": "string",
+              "example": "mainnet-beta"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "apr": {
+                        "type": "string"
+                      },
+                      "apy": {
+                        "type": "string"
+                      },
+                      "totalReturn": {
+                        "type": "string"
+                      },
+                      "totalInvestment": {
+                        "type": "string"
+                      },
+                      "strategy": {
+                        "type": "string"
+                      },
+                      "token": {
+                        "type": "string"
+                      },
+                      "rewardsPerDay": {
+                        "type": "string"
+                      },
+                      "rewardsPerHour": {
+                        "type": "string"
+                      },
+                      "rewardsPerSecond": {
+                        "type": "string"
+                      },
+                      "rewardIsOption": {
+                        "type": "string",
+                        "description": "boolean"
+                      }
+                    },
+                    "required": [
+                      "apr",
+                      "apy",
+                      "totalReturn",
+                      "token",
+                      "strategy",
+                      "totalInvestment",
+                      "rewardsPerDay",
+                      "rewardIsOption",
+                      "rewardsPerSecond",
+                      "rewardsPerHour"
+                    ]
+                  }
+                },
+                "examples": {
+                  "example1": {
+                    "value": [
+                      {
+                        "apr": "0.03089658127477581433161189171198501610943",
+                        "apy": "0.031377485860868284369015169698693427029",
+                        "totalReturn": "9959.75762697216",
+                        "totalInvestment": "322357.9184504589828735999999999999999998",
+                        "strategy": "2dczcMRpxWHZTcsiEjPT4YBcSseTaUmWFzw24HxYMFod",
+                        "token": "RAY",
+                        "rewardsPerDay": "137.8944",
+                        "rewardsPerHour": "5.7456",
+                        "rewardsPerSecond": "0.001596",
+                        "rewardIsOption": false
+                      },
+                      {
+                        "apr": "0.1837059453843344336978185004649421142565",
+                        "apy": "0.201606883863164306468378664554523674214",
+                        "totalReturn": "39084.02775504",
+                        "totalInvestment": "212753.2000843610114423811349599999999999",
+                        "strategy": "6K4jM79yijUEFxdFhCFZSjav1nZji1gsxUWQE6XrC8YD",
+                        "token": "LDO",
+                        "rewardsPerDay": "48.386592",
+                        "rewardsPerHour": "2.016108",
+                        "rewardsPerSecond": "0.00056003",
+                        "rewardIsOption": false
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/strategies/metrics": {
+      "get": {
+        "summary": "Get strategy stats for all frontend-enabled strategies ",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Strategies"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "env",
+            "description": "environment (mainnet-beta[default],devnet,localnet,testnet)",
+            "schema": {
+              "type": "string",
+              "example": "mainnet-beta"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "description": "status filter (IGNORED)",
+            "schema": {
+              "type": "string",
+              "example": "IGNORED"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/strategies/rewards": {
+      "get": {
+        "summary": "Get strategy reward stats for all live strategies",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Strategies"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "env",
+            "description": "environment (mainnet-beta[default],devnet,localnet,testnet)",
+            "schema": {
+              "type": "string",
+              "example": "mainnet-beta"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/strategies/{strategy-pubkey}/rewards": {
+      "get": {
+        "summary": "Get specific strategy stats for rewards",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Strategies"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "strategy-pubkey",
+            "description": "Strategy public key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "ByXB4xCxVhmUEmQj3Ut7byZ1Hbva1zhKjaVcv3jBMN7E"
+            }
+          },
+          {
+            "in": "query",
+            "name": "env",
+            "description": "environment (mainnet-beta[default],devnet,localnet,testnet)",
+            "schema": {
+              "type": "string",
+              "example": "mainnet-beta"
+            }
+          },
+          {
+            "in": "query",
+            "name": "start",
+            "description": "start timestamp",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "end",
+            "description": "end timestamp",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/strategies/shareholders/{shareholder-pubkey}/rewards/history": {
+      "get": {
+        "summary": "Get amount of rewards for a specific Kamino shareholder",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Strategies"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "shareholder-pubkey",
+          "description": "shareholder public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/v2/strategies/{strategy-pubkey}/history": {
+      "get": {
+        "summary": "Get strategy state history for a specific year ",
+        "description": "Get strategy state history aggregated by the hour for a specific year ",
+        "operationId": "",
+        "tags": [
+          "Strategies"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "year",
+          "description": "",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "start",
+          "description": "timestamp",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "end",
+          "description": "timestamp",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "frequency",
+          "description": "variables allowed: hour, day",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "path",
+          "name": "strategy-pubkey",
+          "description": "strategy public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ]
+    },
+    "/owners/{owner-pubkey}/strategies/{strategy-pubkey}/shares/history": {
+      "get": {
+        "summary": "Get user's shares history for a specific year ",
+        "description": "Get user's shares history aggregated by the hour for a specific year ",
+        "operationId": "",
+        "tags": [
+          "Strategies"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "year",
+          "description": "",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "path",
+          "name": "owner-pubkey",
+          "description": "user public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "strategy-pubkey",
+          "description": "strategy public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ]
+    },
+    "/strategies/{strategy-pubkey}/shareholders/{shareholder-pubkey}/fees-and-rewards": {
+      "get": {
+        "summary": "Get fees and rewards earned for a specific strategy shareholder.",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Strategies"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "strategy-pubkey",
+          "description": "strategy public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "shareholder-pubkey",
+          "description": "shareholder public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/strategies/{strategy-pubkey}/shareholders/{shareholder-pubkey}/fees-and-rewards/latest-position": {
+      "get": {
+        "summary": "Get latest fees and rewards earned for a strategy shareholder",
+        "description": "Fetch strategy shareholder fees and rewards for only the latest position. This endpoint takes a look at when the user's position was last closed (fully withdrawn) and opened again and only calculates the fees and rewards after that time.\n\n",
+        "operationId": "",
+        "tags": [
+          "Strategies"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "strategy-pubkey",
+          "description": "strategy public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "shareholder-pubkey",
+          "description": "shareholder public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/strategies/fees-and-rewards": {
+      "get": {
+        "summary": "Get fees and rewards for strategies",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Strategies"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "period",
+          "description": "time period for fees and rewards \"24h\" (default) | \"7d\" | \"30d\"",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "status",
+          "description": "strategy status \"LIVE\" (default) | \"STAGING\" | \"SHADOW\" | \"IGNORED\" | \"DEPRECATED\"",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/strategies/{strategy-pubkey}/shareholders/{shareholder-pubkey}/pnl": {
+      "get": {
+        "summary": "Get PnL for a strategy shareholder position",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Strategies"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "path",
+          "name": "strategy-pubkey",
+          "description": "strategy public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "shareholder-pubkey",
+          "description": "shareholder public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ]
+    },
+    "/strategies/{strategy-pubkey}/shareholders/{shareholder-pubkey}/pnl/history": {
+      "get": {
+        "summary": "Get PnL history for a strategy shareholder",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Strategies"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "path",
+          "name": "shareholder-pubkey",
+          "description": "shareholder public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "strategy-pubkey",
+          "description": "strategy public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "query",
+          "name": "start",
+          "description": "timestamp (inclusive)",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "end",
+          "description": "timestamp (exclusive)",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/v2/strategies/volume": {
+      "get": {
+        "summary": "Get volume for strategies",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Strategies"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "status",
+          "description": "status: strategy status \"LIVE\" (default) | \"STAGING\" | \"SHADOW\" | \"IGNORED\" | \"DEPRECATED\"",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/v2/strategies/{strategy-pubkey}/volume": {
+      "get": {
+        "summary": "Get volume for specific strategy v2",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Strategies"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "path",
+          "name": "strategy-pubkey",
+          "description": "strategy public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ]
+    },
+    "/strategies/all-time-volume": {
+      "get": {
+        "summary": "Get all-time Kamino volume",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Strategies"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/strategies/all-time-fees-and-rewards": {
+      "get": {
+        "summary": "Get all-time Kamino fees and rewards",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Strategies"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/strategies/all-time-fees-and-rewards/breakdown": {
+      "get": {
+        "summary": "Get all-time Kamino fees and rewards breakdown",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Strategies"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/strategies/tvl": {
+      "get": {
+        "summary": "Get Kamino TVL",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Strategies"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/strategies/tokens/{mint}/amounts": {
+      "get": {
+        "summary": "Get total token amounts in live strategies",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Strategies"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "mint",
+          "description": "token address",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/strategies/{strategy-pubkey}/ranges/history": {
+      "get": {
+        "summary": "Get strategy historical ranges",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Strategies"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "period",
+          "description": "period: time period for fees and rewards \"24h\" (default) | \"7d\" | \"30d\"",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "start",
+          "description": "timestamp (inclusive)",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "end",
+          "description": "timestamp (exclusive)",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "path",
+          "name": "strategy-pubkey",
+          "description": "strategy public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ]
+    },
+    "/strategies/{strategy-pubkey}/metrics/history": {
+      "get": {
+        "summary": "Get specific strategy metrics history",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Strategies"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "start",
+          "description": "timestamp  (inclusive)",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "end",
+          "description": "timestamp (exclusive)",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "path",
+          "name": "strategy-pubkey",
+          "description": "strategy public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ]
+    },
+    "/strategies/{strategy-pubkey}/shareholders/history": {
+      "get": {
+        "summary": "Get strategy shareholders history",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Strategies"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "strategy-pubkey",
+          "description": "strategy public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "query",
+          "name": "start",
+          "description": "timestamp (inclusive)",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "end",
+          "description": "timestamp (exclusive)",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "frequency",
+          "description": "frequency of the snapshots, e.g. \"hour\" (default) | \"day\"",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/strategies/start-date-overrides": {
+      "get": {
+        "summary": "Get strategies start date overrides",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Strategies"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/whirlpools/{whirlpool-pubkey}/history": {
+      "get": {
+        "summary": "Get Orca whirlpool history for a specific year",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Whirlpools"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "tvl": {
+                        "type": "string"
+                      },
+                      "pool": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "tvl",
+                      "pool"
+                    ]
+                  }
+                },
+                "examples": {
+                  "example1": {
+                    "value": [
+                      {
+                        "tvl": "10628.86524130715",
+                        "pool": "3BScXnPjT4hut1G5yJ5UGQWhUmoYxyBFQf3juLBeMH2S"
+                      },
+                      {
+                        "tvl": "522635.86139358365",
+                        "pool": "4nFbdT7DeXATvaRZfR3WqALGJnogMjqe9vf2H6C1WXBr"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "whirlpool-pubkey",
+          "description": "whirlpool public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "year",
+          "description": "ex: 2022",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/whirlpools/tvl": {
+      "get": {
+        "summary": "Get whirlpools TVL",
+        "description": "Get all unique Orca/Raydium pools from Kamino strategies and return their TVL",
+        "operationId": "",
+        "tags": [
+          "Whirlpools"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "fees": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "period": {
+                              "type": "string"
+                            },
+                            "amount": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "period",
+                            "amount"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "fees"
+                    ]
+                  }
+                },
+                "examples": {
+                  "example1": {
+                    "value": [
+                      {
+                        "tvl": "10628.86524130715",
+                        "pool": "3BScXnPjT4hut1G5yJ5UGQWhUmoYxyBFQf3juLBeMH2S"
+                      },
+                      {
+                        "tvl": "522635.86139358365",
+                        "pool": "4nFbdT7DeXATvaRZfR3WqALGJnogMjqe9vf2H6C1WXBr"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/whirlpools/fees": {
+      "get": {
+        "summary": "Get whirlpool fees",
+        "description": "Get all unique Orca/Raydium pools from Kamino strategies and return their fees",
+        "operationId": "",
+        "tags": [
+          "Whirlpools"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "fees": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "period": {
+                              "type": "string"
+                            },
+                            "amount": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "period",
+                            "amount",
+                            "field_0"
+                          ]
+                        }
+                      },
+                      "pool": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "fees",
+                      "pool"
+                    ]
+                  }
+                },
+                "examples": {
+                  "example1": {
+                    "value": [
+                      {
+                        "fees": [
+                          {
+                            "period": "24h",
+                            "amount": "0.13107745873661961"
+                          },
+                          {
+                            "period": "7d",
+                            "amount": "0.4323762174032862"
+                          },
+                          {
+                            "period": "30d",
+                            "amount": "0.52013355740328621"
+                          }
+                        ],
+                        "pool": "H1fREbTWrkhCs2stH3tKANWJepmqeF9hww4nWRYrM7uV"
+                      },
+                      {
+                        "fees": [
+                          {
+                            "period": "24h",
+                            "amount": "437.0303313444236"
+                          },
+                          {
+                            "period": "7d",
+                            "amount": "2578.2959811239195"
+                          },
+                          {
+                            "period": "30d",
+                            "amount": "7032.52314803323"
+                          }
+                        ],
+                        "pool": "BVXNG6BrL2Tn3NmppnMeXHjBHTaQSnSnLE99JKwZSWPg"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/ktokens/{mint}/metadata": {
+      "get": {
+        "summary": "Get kToken metadata for mint",
+        "description": "All mints must be valid kToken mints",
+        "operationId": "",
+        "tags": [
+          "Ktoken"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "mint",
+          "description": "token address",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ]
+    },
+    "/ktokens/{mint}/metadata/metadata/image.svg": {
+      "get": {
+        "summary": "Get kToken image for mint",
+        "description": "All mints must be valid kToken mints.",
+        "operationId": "",
+        "tags": [
+          "Ktoken"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "mint",
+          "description": "token address",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ]
+    },
+    "/prices": {
+      "get": {
+        "summary": "Get all prices ",
+        "description": "Get all prices or prices for a specific token",
+        "operationId": "",
+        "tags": [
+          "Prices"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "usdPrice": {
+                        "type": "string"
+                      },
+                      "token": {
+                        "type": "string"
+                      },
+                      "mint": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "usdPrice",
+                      "token",
+                      "mint"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          },
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "source",
+          "description": "price source ie. birdeye | scope",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "token",
+          "description": "token name",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "mint",
+          "description": "token address",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "start",
+          "description": "timestamp",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "end",
+          "description": "timestamp",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "frequency",
+          "description": "frequency of the prices, e.g. \"minute\" (default) | \"hour\" | \"day\"",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "type",
+          "description": " price type, e.g. \"spot\" (default) | \"TWAP\"",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/prices/moving-averages": {
+      "get": {
+        "summary": "Get token price moving averages",
+        "description": "GET https://api.kamino.finance/prices/moving-averages?env={cluster:optional, default mainnet}&token={tokenName:required}&durationInSec={duration:optional, default 3600}",
+        "operationId": "",
+        "tags": [
+          "Prices"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "usdPrice": {
+                        "type": "string"
+                      },
+                      "token": {
+                        "type": "string"
+                      },
+                      "mint": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "usdPrice",
+                      "token",
+                      "mint"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "token",
+          "description": "token name ex: \"SOL\"",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "query",
+          "name": "durationInSec",
+          "description": "time in seconds. default is 3600",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/shareholders/{shareholder-pubkey}/transactions": {
+      "get": {
+        "summary": "Get all kamino transactions for specific shareholder",
+        "description": "Get all instructions for the specified Kamino (liquidity) shareholder.",
+        "operationId": "",
+        "tags": [
+          "Transactions"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "transactions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "createdOn": {
+                            "type": "string"
+                          },
+                          "timestamp": {
+                            "type": "string"
+                          },
+                          "transactionSignature": {
+                            "type": "string"
+                          },
+                          "transactionName": {
+                            "type": "string"
+                          },
+                          "strategy": {
+                            "type": "string"
+                          },
+                          "tokenA": {
+                            "type": "string"
+                          },
+                          "tokenAMint": {
+                            "type": "string"
+                          },
+                          "tokenAAmount": {
+                            "type": "string"
+                          },
+                          "tokenAPrice": {
+                            "type": "string"
+                          },
+                          "tokenB": {
+                            "type": "string"
+                          },
+                          "tokenBMint": {
+                            "type": "string"
+                          },
+                          "tokenBAmount": {
+                            "type": "string"
+                          },
+                          "tokenBPrice": {
+                            "type": "string"
+                          },
+                          "usdValue": {
+                            "type": "string"
+                          },
+                          "numberOfShares": {
+                            "type": "string"
+                          },
+                          "sharePrice": {
+                            "type": "string"
+                          },
+                          "solPrice": {
+                            "type": "string"
+                          },
+                          "latestPosition": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "createdOn",
+                          "timestamp",
+                          "transactionSignature",
+                          "transactionName",
+                          "strategy",
+                          "tokenA",
+                          "tokenAPrice",
+                          "tokenAAmount",
+                          "tokenAMint",
+                          "tokenBAmount",
+                          "tokenBMint",
+                          "tokenB",
+                          "usdValue",
+                          "tokenBPrice",
+                          "sharePrice",
+                          "numberOfShares",
+                          "solPrice",
+                          "latestPosition"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "transactions"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "shareholder-pubkey",
+          "description": "shareholder public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/kamino-market": {
+      "get": {
+        "summary": "Get all Kamino Markets ",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Kamino Lending"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "programId",
+          "description": "program Id",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ]
+    },
+    "/kamino-market/{market-pubkey}": {
+      "get": {
+        "summary": "Get specific kamino market config",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Kamino Lending"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "market-pubkey",
+          "description": "market public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "query",
+          "name": "programId",
+          "description": "program id",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ]
+    },
+    "/kamino-market/{market-pubkey}/metrics/history": {
+      "get": {
+        "summary": "Get KLend Market metrics history",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Kamino Lending"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "market-pubkey",
+          "description": "market public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "start",
+          "description": "timestamp ex: 2023-01-02",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "end",
+          "description": "timestamp ex: 2023-01-02",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/kamino-market/{market-pubkey}/reserves/{reserve-pubkey}/metrics/history": {
+      "get": {
+        "summary": "Get KLend reserve history",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Kamino Lending"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "market-pubkey",
+          "description": "market public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "reserve-pubkey",
+          "description": "reserve public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "start",
+          "description": "timestamp",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "end",
+          "description": "timestamp",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "frequency",
+          "description": "frequency of the snapshots, e.g. \"hour\" (default) | \"day\"",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/kamino-market/{market-pubkey}/reserves/{reserve-pubkey}/borrow-and-staking-apys/history": {
+      "get": {
+        "summary": "Get KLend reserve borrow APY and staking APY history",
+        "description": "Get history of klend reserve borrow interest APY and staking APY. This will only return data for reserves that contain a LST token with staking yield.",
+        "operationId": "",
+        "tags": [
+          "Kamino Lending"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "start",
+          "description": "timestamp",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "end",
+          "description": "timestamp",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "path",
+          "name": "market-pubkey",
+          "description": "market public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "reserve-pubkey",
+          "description": "reserve public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ]
+    },
+    "/kamino-market/{market-pubkey}/reserves/{reserve-pubkey}/borrow-and-staking-apys/history/median": {
+      "get": {
+        "summary": "Get KLend reserve borrow APY and staking APY history median",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Kamino Lending"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "start",
+          "description": "timestamp",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "end",
+          "description": "timestamp",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "path",
+          "name": "market-pubkey",
+          "description": "market public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "reserve-pubkey",
+          "description": "reserve public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ]
+    },
+    "/kamino-market/{market-pubkey}/obligations/{obligation-pubkey}/metrics/history": {
+      "get": {
+        "summary": "Get KLend obligation history",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Kamino Lending"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "start",
+          "description": "ex: 2023-01-01",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "end",
+          "description": "ex: 2023-01-01",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "frequency",
+          "description": "frequency of the snapshots, e.g. \"hour\" (default) | \"day\"",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "path",
+          "name": "market-pubkey",
+          "description": "market public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "obligation-pubkey",
+          "description": "obligation public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ]
+    },
+    "/v2/kamino-market/{market-pubkey}/obligations/{obligation-pubkey}/metrics/history": {
+      "get": {
+        "summary": "Get KLend obligation history v2",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Kamino Lending"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "env",
+          "description": "",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "start",
+          "description": "ex: 2023-01-01",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "end",
+          "description": "ex: 2023-01-01",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "useStakeRateForObligation",
+          "description": "true or false. Use stake rate to calc net sol value",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "path",
+          "name": "market-pubkey",
+          "description": "market public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "obligation-pubkey",
+          "description": "obligation public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ]
+    },
+    "/kamino-market/{market-pubkey}/users/{user-pubkey}/obligations": {
+      "get": {
+        "summary": "Get all user obligations",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Kamino Lending"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "market-pubkey",
+          "description": "market market public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "user-pubkey",
+          "description": "user public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/kamino-market/{market-pubkey}/users/{user-pubkey}/transactions": {
+      "get": {
+        "summary": "Get KLend tx history per user (for all obligations)",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Kamino Lending"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "market-pubkey",
+          "description": "market public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "user-pubkey",
+          "description": "user public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ]
+    },
+    "/kamino-market/{market-pubkey}/obligations/{obligation-pubkey}/transactions/": {
+      "get": {
+        "summary": "Get KLend tx history per obligation",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Kamino Lending"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "market-pubkey",
+          "description": "market public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "obligation-pubkey",
+          "description": "obligation public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "useLogPrices",
+          "description": "",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/v2/kamino-market/{market-pubkey}/obligations/{obligation-pubkey}/pnl/": {
+      "get": {
+        "summary": "Get PnL per obligation v2",
+        "description": "You can specify pnl mode with query param positionMode with one of these values: (obligation_all_time, current_obligation). By default, pnl mode is set to current_obligation position For xSOL pairs, useStakeRate query param can be set to true to calculate the PnL using the stake rate. By default, it is set to false.\n\nThese parameters specify whether we return the current position PnL or the accumulated PnL throughout the lifetime of the user's obligation (even before they were closed).",
+        "operationId": "",
+        "tags": [
+          "Kamino Lending"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "market-pubkey",
+          "description": "market-public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "obligation-pubkey",
+          "description": "obligation public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "query",
+          "name": "positionMode",
+          "description": "values allowed: obligation_all_time, current_obligation",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "useStakeRate",
+          "description": "true or false",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/kamino-market/{market-pubkey}/users/{user-pubkey}/pnl": {
+      "get": {
+        "summary": "Get PnL per user",
+        "description": "You can specify pnl mode with query param positionMode with one of these values: {user_all_time, user_all_current_positions}. By default, pnl mode is set to user_all_current_positions position\n\nThese parameters specify whether we return the current position PnL or the accumulated PnL throughout the lifetime of the user's obligation (even before they were closed).",
+        "operationId": "",
+        "tags": [
+          "Kamino Lending"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "market-pubkey",
+          "description": "market public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "user-pubkey",
+          "description": "user public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "query",
+          "name": "positionMode",
+          "description": "values allowed: user_all_time | user_all_current_positions",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/kamino-market/{market-pubkey}/obligations/{obligation-pubkey}/interest-fees": {
+      "get": {
+        "summary": "Get interest fees earned per obligation",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Kamino Lending"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "market-pubkey",
+          "description": "market public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "obligation-pubkey",
+          "description": "obligation public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "start",
+          "description": "ex: 2023-05-01",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "end",
+          "description": "ex: 2023-05-01",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "frequency",
+          "description": "frequency of the snapshots, e.g. \"hour\" (default) | \"day\"",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "positionMode",
+          "description": "values allowed: obligation_all_time\" | current_obligation",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/kamino-market/{market-pubkey}/users/{user-pubkey}/interest-fees": {
+      "get": {
+        "summary": "Get interest fees earned per user",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Kamino Lending"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "market-pubkey",
+          "description": "market public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "user-pubkey",
+          "description": "user public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "start",
+          "description": "ex: 2023-05-01",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "end",
+          "description": "ex: 2023-05-01",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "frequency",
+          "description": "frequency of the snapshots, e.g. \"hour\" (default) | \"day\"\n",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "positionMode",
+          "description": "user_all_time | user_all_current_positions ",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/kamino-market/{market-pubkey}/reserves/metrics": {
+      "get": {
+        "summary": "Get metrics for market reserves",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Kamino Lending"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "market-pubkey",
+          "description": "market public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/kamino-market/{market-pubkey}/leverage/metrics": {
+      "get": {
+        "summary": "Get metrics for leverage/multiply vaults",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Kamino Lending"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "market-pubkey",
+          "description": "market public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/trades": {
+      "post": {
+        "summary": "Get trade history",
+        "description": "Please note that the response will contain both \"directions\" (buys, sells) of the trade. For example, if you input tokenA/tokenB mints for SOL/USDC in the request body, the response will contain trades with (source = SOL, destination = USDC) or (source = USDC, destination = SOL).",
+        "operationId": "",
+        "tags": [
+          "Trades"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "tokenAMint": {
+                    "type": "string",
+                    "description": "public key of the first mint"
+                  },
+                  "tokenBMint": {
+                    "type": "string",
+                    "description": "public key of the second mint"
+                  },
+                  "start": {
+                    "type": "string",
+                    "description": "start of the date range to fetch trades from, e.g. date ISO string: \"2023-01-01T00:00Z\" or epoch in ms: 1678381747854"
+                  },
+                  "end": {
+                    "type": "string",
+                    "description": "end of the date range to fetch trades to, e.g. date ISO string: \"2023-01-01T00:00Z\" or epoch in ms: 1678381747854"
+                  },
+                  "paginationToken": {
+                    "type": "string",
+                    "description": "pagination token to use for retrieving results. If the response contains a paginationToken JSON property, you can use that in the next request to fetch more data from the last trade onwards. If the property does not exist, you've reached the end."
+                  }
+                },
+                "required": [
+                  "tokenAMint",
+                  "tokenBMint",
+                  "start",
+                  "end",
+                  "paginationToken"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "source",
+          "description": "trades fetched from source \"hellomoon\" (default)",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/simulator/pools/{pool-pubkey}/history": {
+      "get": {
+        "summary": "Get simulator pool history processed data",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Simulator"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "date": {
+                        "type": "string"
+                      },
+                      "liquidity": {
+                        "type": "string"
+                      },
+                      "tokenAPrice": {
+                        "type": "string"
+                      },
+                      "tokenBPrice": {
+                        "type": "string"
+                      },
+                      "priceAToB": {
+                        "type": "string"
+                      },
+                      "priceBToA": {
+                        "type": "string"
+                      },
+                      "sourceAmountAToB": {
+                        "type": "string"
+                      },
+                      "sourceAmountBToA": {
+                        "type": "string"
+                      },
+                      "destinationAmountAToB": {
+                        "type": "string"
+                      },
+                      "destinationAmountBToA": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "date",
+                      "tokenBPrice",
+                      "priceAToB",
+                      "priceBToA",
+                      "sourceAmountAToB",
+                      "tokenAPrice",
+                      "liquidity",
+                      "destinationAmountAToB",
+                      "sourceAmountBToA",
+                      "destinationAmountBToA"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "start",
+          "description": "ex: 2023-05-01",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "end",
+          "description": "ex:",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "path",
+          "name": "pool-pubkey",
+          "description": "pool public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ]
+    },
+    "/strategies/leaderboard": {
+      "get": {
+        "summary": "Get strategy leaderboard",
+        "description": "Leaderboard response is always ordered by profit and loss (PnL) descending.\n\nAPY and PNL properties are in decimal form, to convert to percentage multiply it by 100. Volume and fees are both in USD.\n\n",
+        "operationId": "",
+        "tags": [
+          "Leaderboard"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "period",
+          "description": "leaderboard time period \"24h\" | \"7d\" (default) | \"30d\" | \"90d\" | \"180d\" | \"1y\"",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/users/leaderboard": {
+      "get": {
+        "summary": "Get user leaderboard",
+        "description": "Leaderboard response is always ordered by USD profit and loss (PnL) descending.\n\nPNL is in decimal form, to convert to percentage multiply it by 100. Total positions value and total returns are both in USD.",
+        "operationId": "",
+        "tags": [
+          "Leaderboard"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "period",
+          "description": " leaderboard time period \"24h\" | \"7d\" (default) | \"30d\" | \"90d\" | \"180d\" | \"1y\" | \"all-time\"",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/raydium/ammPools": {
+      "get": {
+        "summary": "Get AMM Pools",
+        "description": "These endpoints use Raydium's API directly and cache their responses to avoid rate-limits.",
+        "operationId": "",
+        "tags": [
+          "Raydium"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/raydium/positionLine/{pool-pubkey}": {
+      "get": {
+        "summary": "Get pool liquidity distribution",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Raydium"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "pool-pubkey",
+          "description": "pool public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ]
+    },
+    "/points/leaderboard": {
+      "get": {
+        "summary": "Get points leaderboard",
+        "description": "Example requests:\n\nGet first 20 leaderboard ranks: https://api.kamino.finance/points/leaderboard?offset=0&limit=20\n\nGet leaderboard ranks between 100-200: https://api.kamino.finance/points/leaderboard?offset=100&limit=100\n\nGet first 20 leaderboard ranks for season 2: https://api.kamino.finance/points/leaderboard?offset=0&limit=20&source=Season2\n\nTo implement pagination fetch the first page (offset = 0, limit = 20 for example) and then look at the property totalLeaderboardCount to calculate the amount of pages you will display.",
+        "operationId": "",
+        "tags": [
+          "Points"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "offset",
+          "description": "To implement pagination fetch the first page (offset = 0, limit = 20 for example) and then look at the property totalLeaderboardCount to calculate the amount of pages you will display.",
+          "schema": {
+            "type": "string"
+          },
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "limit",
+          "description": "To implement pagination fetch the first page (offset = 0, limit = 20 for example) and then look at the property totalLeaderboardCount to calculate the amount of pages you will display.",
+          "schema": {
+            "type": "string"
+          },
+          "required": false
+        },
+        {
+          "in": "query",
+          "name": "source",
+          "description": "season1 | season2",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/users/{user-pubkey}/breakdown": {
+      "get": {
+        "summary": "Get points user breakdown",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Points"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "source",
+          "description": "season1 | Season2",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "path",
+          "name": "user-pubkey",
+          "description": "user public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ]
+    },
+    "/points/rules": {
+      "get": {
+        "summary": "Get rules for points",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Points"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/points/metrics": {
+      "get": {
+        "summary": "Get metrics for points",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Points"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "source",
+          "description": "season1 | season2",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/airdrop/users/{pubkey}/allocations": {
+      "get": {
+        "summary": "Get user airdrop allocation",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Airdrop"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "pubkey",
+          "description": "public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "query",
+          "name": "source",
+          "description": "season1 | season2",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/airdrop/metrics": {
+      "get": {
+        "summary": "Get airdrop metrics",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Airdrop"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "source",
+          "description": "season1 | season2",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/tokens": {
+      "get": {
+        "summary": "Get solflare token infos",
+        "description": "Fetches all token infos from Solflare that are used by Kamino Liquidity/Lending/Farms.",
+        "operationId": "",
+        "tags": [
+          "Tokens"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/kvaults/shareholders/{shareholder-pubkey}/transactions": {
+      "get": {
+        "summary": "Get all kvault user transactions",
+        "description": "Get all instructions for the specified KVault shareholder.",
+        "operationId": "",
+        "tags": [
+          "Kvaults"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta, devnet, localnet",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "path",
+          "name": "shareholder-pubkey",
+          "description": "shareholder public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ]
+    },
+    "/kvaults/{vault-pubkey}/allocation-transactions": {
+      "get": {
+        "summary": "Get all kvault allocation transactions",
+        "description": "Get all allocation transactions (invest ixs) for the specified KVault. Positive token amounts represent deposits, negative mean withdraws from the kvault.",
+        "operationId": "",
+        "tags": [
+          "Kvaults"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "vault-pubkey",
+          "description": "vault public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ]
+    },
+    "/kvaults/{vault-pubkey}/metrics": {
+      "get": {
+        "summary": "Get kvault metrics",
+        "description": "Get real-time vault performance data including APY, total assets under management, share price, and utilization rates for earn vaults.",
+        "operationId": "",
+        "tags": [
+          "Kvaults"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "x-mint": {
+          "content": "Get current vault performance metrics for tracking APY, assets under management, and share price. Essential for building vault performance dashboards.\n\n## Example Usage\n\nUse the **Steakhouse USDC Prime vault** for testing:\n```\nHDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E\n```\n\nThis endpoint returns current vault metrics essential for displaying vault performance in your application dashboard.",
+          "code-samples": [
+            {
+              "language": "typescript",
+              "code": "// Get current vault metrics\nconst vaultAddress = 'HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E'; // Steakhouse USDC Prime\nconst response = await fetch(`https://api.kamino.finance/kvaults/${vaultAddress}/metrics`);\nconst metrics = await response.json();\nconsole.log('Current APY:', metrics.apy);\nconsole.log('Total AUM:', metrics.totalAssets);"
+            },
+            {
+              "language": "curl",
+              "code": "curl --request GET \\\n  --url https://api.kamino.finance/kvaults/HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E/metrics"
+            }
+          ]
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "vault-pubkey",
+          "description": "vault pubkey",
+          "schema": {
+            "type": "string"
+          },
+          "required": true,
+          "example": "HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E"
+        }
+      ]
+    },
+    "/kvaults/{vault-pubkey}/metrics/history": {
+      "get": {
+        "summary": "Get kvault metrics history",
+        "description": "Get time-series data for vault performance metrics over specified date ranges. Essential for building performance charts and historical analysis.",
+        "operationId": "",
+        "tags": [
+          "Kvaults"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "x-mint": {
+          "content": "Get historical vault performance metrics for tracking APY trends, share price evolution, and AUM growth over time. Perfect for building performance charts and historical analysis.\n\n## Example Usage\n\nUse the **Steakhouse USDC Prime vault** for testing:\n```\nHDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E\n```\n\n**Sample query parameters:**\n- `start=2024-01-01`\n- `end=2024-12-31`\n\nThis endpoint returns historical data for APY tracking, share price trends, and AUM growth over time.",
+          "code-samples": [
+            {
+              "language": "typescript", 
+              "code": "// Get vault metrics history\nconst vaultAddress = 'HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E'; // Steakhouse USDC Prime\nconst response = await fetch(\n  `https://api.kamino.finance/kvaults/${vaultAddress}/metrics/history?start=2024-01-01&end=2024-12-31`\n);\nconst history = await response.json();\nconsole.log('Historical APY data:', history);"
+            },
+            {
+              "language": "curl",
+              "code": "curl --request GET \\\n  --url 'https://api.kamino.finance/kvaults/HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E/metrics/history?start=2024-01-01&end=2024-12-31'"
+            }
+          ]
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "vault-pubkey",
+          "description": "vault pubkey",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "query",
+          "name": "start",
+          "description": "ex: 2025-07-03",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "end",
+          "description": "ex: 2025-07-03",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/kvaults/{vault-pubkey}/allocation-volume/history": {
+      "get": {
+        "summary": "Get kvault allocation volume history",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Kvaults"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "vault-pubkey",
+          "description": "vault public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ]
+    },
+    "/kvaults/{vault-pubkey}/users/{user-pubkey}/metrics/history": {
+      "get": {
+        "summary": "Get user vault metrics history",
+        "description": "Get timeseries of usd/sol/interest/apy... of specific kvault user position.",
+        "operationId": "",
+        "tags": [
+          "Kvaults"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "x-mint": {
+          "content": "Get timeseries data for a specific user's vault position including USD value, SOL value, interest earned, and APY over time. Essential for tracking individual user performance.\n\n## Example Usage\n\n**Vault:** Use Steakhouse USDC Prime vault for testing:\n```\nHDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E\n```\n\n**User:** Provide your own wallet public key in the `user-pubkey` field.\n\n**Sample query parameters:**\n- `start=2024-01-01`\n- `end=2024-12-31`\n\nThis endpoint returns personal yield tracking, deposit timing analysis, and share balance evolution for individual users.",
+          "code-samples": [
+            {
+              "language": "typescript",
+              "code": "// Get user vault metrics history\nconst vaultAddress = 'HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E'; // Steakhouse USDC Prime\nconst userPubkey = 'YOUR_WALLET_PUBKEY'; // Replace with actual user pubkey\nconst response = await fetch(\n  `https://api.kamino.finance/kvaults/${vaultAddress}/users/${userPubkey}/metrics/history?start=2024-01-01&end=2024-12-31`\n);\nconst userMetrics = await response.json();\nconsole.log('User performance over time:', userMetrics);"
+            },
+            {
+              "language": "curl", 
+              "code": "curl --request GET \\\n  --url 'https://api.kamino.finance/kvaults/HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E/users/YOUR_WALLET_PUBKEY/metrics/history?start=2024-01-01&end=2024-12-31'"
+            }
+          ]
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "vault-pubkey",
+          "description": "vault public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "user-pubkey",
+          "description": "user public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "query",
+          "name": "start",
+          "description": "ex: 2025-01-14",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "end",
+          "description": "ex: 2025-01-14",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/kvaults/{vault-pubkey}/users/{user-pubkey}/pnl": {
+      "get": {
+        "summary": "Get user vault pnl",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Kvaults"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "vault-pubkey",
+          "description": "vault public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "user-pubkey",
+          "description": "user public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ]
+    },
+    "/kvaults/{vault-pubkey}/users/{user-pubkey}/pnl/history": {
+      "get": {
+        "summary": "Get user vault pnl history",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Kvaults"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "vault-pubkey",
+          "description": "vault public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "path",
+          "name": "user-pubkey",
+          "description": "user public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ]
+    },
+    "/limo/makers/{maker-pubkey}/transactions": {
+      "get": {
+        "summary": "Get all limo user transactions",
+        "description": "Get all instructions for the specified Limo user (maker).\n\nExample requests:\n\nFetch all txs for all pairs: https://api.kamino.finance/limo/makers/7bfsDRVpujyxzYcNWHnN3ietYb5XEsAidgdc9cintAuj/transactions?env=mainnet-beta\n\nFetch txs for SOL/USDC pair: https://api.kamino.finance/limo/makers/CBd9omWgziKgBhmAqrGREDJqsSvM1HrarEMzE89zawMa/transactions?env=mainnet-beta&in=So11111111111111111111111111111111111111112&out=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\n\nFetch txs for SOL input token and any output token: https://api.kamino.finance/limo/makers/CBd9omWgziKgBhmAqrGREDJqsSvM1HrarEMzE89zawMa/transactions?env=mainnet-beta&in=So11111111111111111111111111111111111111112",
+        "operationId": "",
+        "tags": [
+          "Limo"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "maker-pubkey",
+          "description": "maker public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "query",
+          "name": "env",
+          "description": "variables allowed: mainnet-beta | devnet | localnet",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "in",
+          "description": "input token mint of the order, e.g. So11111111111111111111111111111111111111112",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "out",
+          "description": "output token mint of the order, e.g. EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/limo/makers/{maker-pubkey}/metrics": {
+      "get": {
+        "summary": "Get limo maker metrics",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Limo"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "maker-pubkey",
+          "description": "maker public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        }
+      ]
+    },
+    "/limo/makers/{maker-pubkey}/metrics/pair": {
+      "get": {
+        "summary": "Get limo maker pair metrics",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Limo"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "maker-pubkey",
+          "description": "maker public key",
+          "schema": {
+            "type": "string"
+          },
+          "required": true
+        },
+        {
+          "in": "query",
+          "name": "in",
+          "description": "input token mint of the order, e.g. So11111111111111111111111111111111111111112",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "out",
+          "description": "output token mint of the order, e.g. EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/limo/metrics": {
+      "get": {
+        "summary": "Get limo global metrics",
+        "description": "Get metrics for all trades",
+        "operationId": "",
+        "tags": [
+          "Limo"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/limo/metrics/pair": {
+      "get": {
+        "summary": "Get limo pair metrics",
+        "description": "Get metrics for a specific token pair",
+        "operationId": "",
+        "tags": [
+          "Limo"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "in",
+          "description": "input token mint of the order, e.g. So11111111111111111111111111111111111111112",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "out",
+          "description": "output token mint of the order, e.g. EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/limo/leaderboard/weekly/metrics": {
+      "get": {
+        "summary": "Get limo weekly leaderboard metrics",
+        "description": "",
+        "operationId": "",
+        "tags": [
+          "Limo"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/limo/weekly/leaderboard": {
+      "get": {
+        "summary": "Get limo weekly leaderboard",
+        "description": "Example requests:\n\nget first 20 leaderboard ranks: https://api.kamino.finance/limo/weekly/leaderboard?offset=0&limit=20\n\nget leaderboard ranks between 100-200: https://api.kamino.finance/limo/weekly/leaderboard?offset=100&limit=100\n\nTo implement pagination fetch the first page (offset = 0, limit = 20 for example) and then look at the property totalLeaderboardCount to calculate the amount of pages you will display.",
+        "operationId": "",
+        "tags": [
+          "Limo"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "offset",
+          "description": "To implement pagination fetch the first page (offset = 0, limit = 20 for example) and then look at the property totalLeaderboardCount to calculate the amount of pages you will display.",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "limit ",
+          "description": "To implement pagination fetch the first page (offset = 0, limit = 20 for example) and then look at the property totalLeaderboardCount to calculate the amount of pages you will display.",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/limo/trades": {
+      "get": {
+        "summary": "Get last 500 limo trades",
+        "description": "Get last 500 limo trades (fills)\n\nIf no query params are used, it will return trades for all pairs.\n\nExample request:\n\nGet all trades: https://api.kamino.finance/limo/trades\n\nGet SOL -> USDC trades: https://api.kamino.finance/limo/trades?in=So11111111111111111111111111111111111111112&out=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "operationId": "",
+        "tags": [
+          "Limo"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "query",
+          "name": "in",
+          "description": "input token mint of the order, e.g. So11111111111111111111111111111111111111112",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "out",
+          "description": "output token mint of the order, e.g. EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  }
+}

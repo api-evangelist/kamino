@@ -1,0 +1,57 @@
+openapi: 3.2.0
+info:
+  title: Kamino Finance Public Raydium API
+  description: API for interacting with Kamino Finance — a Solana‑based DeFi platform offering automated liquidity vaults, lending/borrowing, leveraged strategies, and analytics.
+  termsOfService: https://docs.kamino.finance/v/risk
+  contact:
+    name: Kamino Finance Support
+    url: https://docs.kamino.finance
+    email: support@kamino.finance
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://api.kamino.finance
+  variables: {}
+tags:
+- name: Raydium
+  description: ''
+  externalDocs:
+    description: ''
+    url: ''
+paths:
+  /raydium/ammPools:
+    get:
+      summary: Get AMM Pools
+      description: These endpoints use Raydium's API directly and cache their responses to avoid rate-limits.
+      operationId: getRaydiumAmmPools
+      tags:
+      - Raydium
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /raydium/positionLine/{pool-pubkey}:
+    parameters:
+    - in: path
+      name: pool-pubkey
+      description: pool public key
+      schema:
+        type: string
+      required: true
+    get:
+      summary: Get pool liquidity distribution
+      description: ''
+      operationId: getRaydiumPositionLineByPoolPubkey
+      tags:
+      - Raydium
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+externalDocs:
+  description: Kamino API documentation
+  url: https://github.com/kamino-finance/kamino-api-docs

@@ -1,0 +1,359 @@
+openapi: 3.2.0
+info:
+  title: Kamino Finance Public Staking API
+  description: API for interacting with Kamino Finance — a Solana‑based DeFi platform offering automated liquidity vaults, lending/borrowing, leveraged strategies, and analytics.
+  termsOfService: https://docs.kamino.finance/v/risk
+  contact:
+    name: Kamino Finance Support
+    url: https://docs.kamino.finance
+    email: support@kamino.finance
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://api.kamino.finance
+  variables: {}
+tags:
+- name: Staking
+  description: ''
+  externalDocs:
+    description: ''
+    url: ''
+paths:
+  /v2/staking-yields:
+    get:
+      summary: Get staking yields v2
+      description: ''
+      operationId: getV2StakingYields
+      tags:
+      - Staking
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    apy:
+                      type: string
+                      description: apy rate
+                    tokenMint:
+                      type: string
+                      description: token address
+                  required:
+                  - apy
+                  - tokenMint
+              examples:
+                example1:
+                  value:
+                  - apy: '0.252619403785070711510296827413476389122'
+                    tokenMint: mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So
+                  - apy: '0.263020843260597671599388280100460408894'
+                    tokenMint: J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn
+                  - apy: '0.24426365077443429533690036384035569496'
+                    tokenMint: bSo13r4TkiE4KumL71LsHTPpL2euBYLFx6h9HP3piy1
+                  - apy: '0.2727867352767135230363060182415164271'
+                    tokenMint: jupSoLaHXQiZZTSfEWMTRRgpnyFm8f6sZdosWBjx93v
+                  - apy: '0.282542463074495351542281213938801414377'
+                    tokenMint: he1iusmfkpAdwvxLNGV8Y1iSbj4rUy6yMhEA3fotn9A
+      x-operation-id-source: derived
+  /v2/staking-yields/median:
+    get:
+      summary: Get median staking yields v2
+      description: ''
+      operationId: getV2StakingYieldsMedian
+      tags:
+      - Staking
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    apy:
+                      type: string
+                      description: apy rate
+                    tokenMint:
+                      type: string
+                      description: token address
+                  required:
+                  - apy
+                  - tokenMint
+              examples:
+                example1:
+                  value:
+                  - apy: '0.252619403785070711510296827413476389122'
+                    tokenMint: mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So
+                  - apy: '0.263020843260597671599388280100460408894'
+                    tokenMint: J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn
+                  - apy: '0.24426365077443429533690036384035569496'
+                    tokenMint: bSo13r4TkiE4KumL71LsHTPpL2euBYLFx6h9HP3piy1
+                  - apy: '0.2727867352767135230363060182415164271'
+                    tokenMint: jupSoLaHXQiZZTSfEWMTRRgpnyFm8f6sZdosWBjx93v
+                  - apy: '0.282542463074495351542281213938801414377'
+                    tokenMint: he1iusmfkpAdwvxLNGV8Y1iSbj4rUy6yMhEA3fotn9A
+      x-operation-id-source: derived
+  /epochs:
+    get:
+      summary: Get epochs
+      description: ''
+      operationId: getEpochs
+      tags:
+      - Staking
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    epoch:
+                      type: integer
+                    first_slot:
+                      type: integer
+                    last_slot:
+                      type: integer
+                    start_block_time:
+                      type: string
+                      description: timestamp
+                    end_block_time:
+                      type: string
+                      description: timestamp
+                  required:
+                  - epoch
+                  - first_slot
+                  - last_slot
+                  - end_block_time
+                  - start_block_time
+              examples:
+                example1:
+                  value:
+                  - apy: '0.0685815525901495360734829436051179078079'
+                    epoch: 587
+                    startBlockTime: '2024-03-11T21:37:21.000Z'
+                    endBlockTime: '2024-03-14T00:25:05.000Z'
+                  - apy: '0.0772467014510651101771957924044147574663'
+                    epoch: 586
+                    startBlockTime: '2024-03-09T19:55:31.000Z'
+                    endBlockTime: '2024-03-11T21:37:20.000Z'
+      x-operation-id-source: derived
+  /staking-yields/tokens/{mint}/history:
+    get:
+      summary: Get staking yield history
+      description: ''
+      operationId: getStakingYieldsTokensByMintHistory
+      tags:
+      - Staking
+      parameters:
+      - in: path
+        name: mint
+        description: token address
+        schema:
+          type: string
+          example: mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So
+        required: true
+      - in: query
+        name: start
+        description: timestamp
+        schema:
+          type: string
+          example: 2024-01-01T00:00Z
+      - in: query
+        name: end
+        description: timestamp
+        schema:
+          type: string
+          example: 2024-02-01T01:00Z
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: array
+                  items:
+                    type: integer
+                    description: epoch timestamp
+              examples:
+                example1:
+                  value:
+                  - apy: '0.0685815525901495360734829436051179078079'
+                    epoch: 587
+                    startBlockTime: '2024-03-11T21:37:21.000Z'
+                    endBlockTime: '2024-03-14T00:25:05.000Z'
+                  - apy: '0.0772467014510651101771957924044147574663'
+                    epoch: 586
+                    startBlockTime: '2024-03-09T19:55:31.000Z'
+                    endBlockTime: '2024-03-11T21:37:20.000Z'
+      x-operation-id-source: derived
+  /staking-yields/tokens/{mint}/history/median:
+    get:
+      summary: Get median staking yield history
+      description: ''
+      operationId: getStakingYieldsTokensByMintHistoryMedian
+      tags:
+      - Staking
+      parameters:
+      - in: path
+        name: mint
+        description: token address
+        required: true
+        schema:
+          type: string
+          example: mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    startEpoch:
+                      type: integer
+                    startBlockTime:
+                      type: string
+                    endBlockTime:
+                      type: string
+                    endEpoch:
+                      type: integer
+                    apy:
+                      type: integer
+                  required:
+                  - startEpoch
+                  - startBlockTime
+                  - endBlockTime
+                  - apy
+                  - endEpoch
+              examples:
+                example1:
+                  value:
+                  - apy: '0.0685815525901495360734829436051179078079'
+                    epoch: 587
+                    startBlockTime: '2024-03-11T21:37:21.000Z'
+                    endBlockTime: '2024-03-14T00:25:05.000Z'
+                  - apy: '0.0772467014510651101771957924044147574663'
+                    epoch: 586
+                    startBlockTime: '2024-03-09T19:55:31.000Z'
+                    endBlockTime: '2024-03-11T21:37:20.000Z'
+      x-operation-id-source: derived
+  /yields/{source}/history:
+    get:
+      summary: Get yield history for specific pool
+      description: ''
+      operationId: getYieldsBySourceHistory
+      tags:
+      - Staking
+      parameters:
+      - in: path
+        name: source
+        description: pool address
+        schema:
+          type: string
+          example: 5BUwFW4nRbftYTDMbgxykoFWqWHPzahFSNAaaaJtVKsq
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+              examples:
+                example1:
+                  value:
+                  - createdOn: '2024-01-01T00:00:07.569Z'
+                    apr: '5.16226661065975'
+                    apy: '1.72282489033179'
+                  - createdOn: '2024-01-01T01:00:07.569Z'
+                    apr: '5.53223063067687'
+                    apy: '9.201613187495'
+      x-operation-id-source: derived
+  /staking-rates/tokens/{mint}/history:
+    get:
+      summary: get staking rate history
+      description: ''
+      operationId: getStakingRatesTokensByMintHistory
+      tags:
+      - Staking
+      parameters:
+      - in: path
+        name: mint
+        description: token address
+        schema:
+          type: string
+          example: mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So
+        required: true
+      - in: query
+        name: start
+        description: timestamp
+        schema:
+          type: string
+          example: 2024-01-01T00:00Z
+      - in: query
+        name: end
+        description: timestamp
+        schema:
+          type: string
+          example: 2024-02-01T01:00Z
+      - in: query
+        name: interpolate
+        description: interpolation flag
+        schema:
+          type: boolean
+          example: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    apy:
+                      type: integer
+                    epoch:
+                      type: integer
+                    startBlockTime:
+                      type: string
+                    endBlockTime:
+                      type: string
+                  required:
+                  - apy
+                  - epoch
+                  - startBlockTime
+                  - endBlockTime
+              examples:
+                example1:
+                  value:
+                  - - 1704067200000
+                    - '0.8636310820345713'
+                  - - 1704067500000
+                    - '0.8636310820345713'
+                  - - 1704067800000
+                    - '0.8636310820345713'
+      x-operation-id-source: derived
+externalDocs:
+  description: Kamino API documentation
+  url: https://github.com/kamino-finance/kamino-api-docs

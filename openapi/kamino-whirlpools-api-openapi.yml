@@ -1,0 +1,184 @@
+openapi: 3.2.0
+info:
+  title: Kamino Finance Public Whirlpools API
+  description: API for interacting with Kamino Finance — a Solana‑based DeFi platform offering automated liquidity vaults, lending/borrowing, leveraged strategies, and analytics.
+  termsOfService: https://docs.kamino.finance/v/risk
+  contact:
+    name: Kamino Finance Support
+    url: https://docs.kamino.finance
+    email: support@kamino.finance
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://api.kamino.finance
+  variables: {}
+tags:
+- name: Whirlpools
+  description: ''
+  externalDocs:
+    description: ''
+    url: ''
+paths:
+  /whirlpools/{whirlpool-pubkey}/history:
+    parameters:
+    - in: path
+      name: whirlpool-pubkey
+      description: whirlpool public key
+      schema:
+        type: string
+      required: true
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    - in: query
+      name: year
+      description: 'ex: 2022'
+      schema:
+        type: string
+    get:
+      summary: Get Orca whirlpool history for a specific year
+      description: ''
+      operationId: getWhirlpoolsByWhirlpoolPubkeyHistory
+      tags:
+      - Whirlpools
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    tvl:
+                      type: string
+                    pool:
+                      type: string
+                  required:
+                  - tvl
+                  - pool
+              examples:
+                example1:
+                  value:
+                  - tvl: '10628.86524130715'
+                    pool: 3BScXnPjT4hut1G5yJ5UGQWhUmoYxyBFQf3juLBeMH2S
+                  - tvl: '522635.86139358365'
+                    pool: 4nFbdT7DeXATvaRZfR3WqALGJnogMjqe9vf2H6C1WXBr
+      x-operation-id-source: derived
+  /whirlpools/tvl:
+    parameters:
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    get:
+      summary: Get whirlpools TVL
+      description: Get all unique Orca/Raydium pools from Kamino strategies and return their TVL
+      operationId: getWhirlpoolsTvl
+      tags:
+      - Whirlpools
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    fees:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          period:
+                            type: string
+                          amount:
+                            type: string
+                        required:
+                        - period
+                        - amount
+                  required:
+                  - fees
+              examples:
+                example1:
+                  value:
+                  - tvl: '10628.86524130715'
+                    pool: 3BScXnPjT4hut1G5yJ5UGQWhUmoYxyBFQf3juLBeMH2S
+                  - tvl: '522635.86139358365'
+                    pool: 4nFbdT7DeXATvaRZfR3WqALGJnogMjqe9vf2H6C1WXBr
+      x-operation-id-source: derived
+  /whirlpools/fees:
+    parameters:
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    get:
+      summary: Get whirlpool fees
+      description: Get all unique Orca/Raydium pools from Kamino strategies and return their fees
+      operationId: getWhirlpoolsFees
+      tags:
+      - Whirlpools
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    fees:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          period:
+                            type: string
+                          amount:
+                            type: string
+                        required:
+                        - period
+                        - amount
+                        - field_0
+                    pool:
+                      type: string
+                  required:
+                  - fees
+                  - pool
+              examples:
+                example1:
+                  value:
+                  - fees:
+                    - period: 24h
+                      amount: '0.13107745873661961'
+                    - period: 7d
+                      amount: '0.4323762174032862'
+                    - period: 30d
+                      amount: '0.52013355740328621'
+                    pool: H1fREbTWrkhCs2stH3tKANWJepmqeF9hww4nWRYrM7uV
+                  - fees:
+                    - period: 24h
+                      amount: '437.0303313444236'
+                    - period: 7d
+                      amount: '2578.2959811239195'
+                    - period: 30d
+                      amount: '7032.52314803323'
+                    pool: BVXNG6BrL2Tn3NmppnMeXHjBHTaQSnSnLE99JKwZSWPg
+      x-operation-id-source: derived
+externalDocs:
+  description: Kamino API documentation
+  url: https://github.com/kamino-finance/kamino-api-docs

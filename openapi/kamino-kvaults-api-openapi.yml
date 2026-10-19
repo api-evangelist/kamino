@@ -1,0 +1,315 @@
+openapi: 3.2.0
+info:
+  title: Kamino Finance Public Kvaults API
+  description: API for interacting with Kamino Finance — a Solana‑based DeFi platform offering automated liquidity vaults, lending/borrowing, leveraged strategies, and analytics.
+  termsOfService: https://docs.kamino.finance/v/risk
+  contact:
+    name: Kamino Finance Support
+    url: https://docs.kamino.finance
+    email: support@kamino.finance
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://api.kamino.finance
+  variables: {}
+tags:
+- name: Kvaults
+  description: ''
+  externalDocs:
+    description: ''
+    url: ''
+paths:
+  /kvaults/shareholders/{shareholder-pubkey}/transactions:
+    parameters:
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    - in: path
+      name: shareholder-pubkey
+      description: shareholder public key
+      schema:
+        type: string
+      required: true
+    get:
+      summary: Get all kvault user transactions
+      description: Get all instructions for the specified KVault shareholder.
+      operationId: getKvaultsShareholdersByShareholderPubkeyTransactions
+      tags:
+      - Kvaults
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /kvaults/{vault-pubkey}/allocation-transactions:
+    parameters:
+    - in: path
+      name: vault-pubkey
+      description: vault public key
+      schema:
+        type: string
+      required: true
+    get:
+      summary: Get all kvault allocation transactions
+      description: Get all allocation transactions (invest ixs) for the specified KVault. Positive token amounts represent deposits, negative mean withdraws from the kvault.
+      operationId: getKvaultsByVaultPubkeyAllocationTransactions
+      tags:
+      - Kvaults
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /kvaults/{vault-pubkey}/metrics:
+    parameters:
+    - in: path
+      name: vault-pubkey
+      description: vault pubkey
+      schema:
+        type: string
+      required: true
+      example: HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E
+    get:
+      summary: Get kvault metrics
+      description: Get real-time vault performance data including APY, total assets under management, share price, and utilization rates for earn vaults.
+      operationId: getKvaultsByVaultPubkeyMetrics
+      tags:
+      - Kvaults
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-mint:
+        content: 'Get current vault performance metrics for tracking APY, assets under management, and share price. Essential for building vault performance dashboards.
+
+
+          ## Example Usage
+
+
+          Use the **Steakhouse USDC Prime vault** for testing:
+
+          ```
+
+          HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E
+
+          ```
+
+
+          This endpoint returns current vault metrics essential for displaying vault performance in your application dashboard.'
+        code-samples:
+        - language: typescript
+          code: '// Get current vault metrics
+
+            const vaultAddress = ''HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E''; // Steakhouse USDC Prime
+
+            const response = await fetch(`https://api.kamino.finance/kvaults/${vaultAddress}/metrics`);
+
+            const metrics = await response.json();
+
+            console.log(''Current APY:'', metrics.apy);
+
+            console.log(''Total AUM:'', metrics.totalAssets);'
+        - language: curl
+          code: "curl --request GET \\\n  --url https://api.kamino.finance/kvaults/HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E/metrics"
+      x-operation-id-source: derived
+  /kvaults/{vault-pubkey}/metrics/history:
+    parameters:
+    - in: path
+      name: vault-pubkey
+      description: vault pubkey
+      schema:
+        type: string
+      required: true
+    - in: query
+      name: start
+      description: 'ex: 2025-07-03'
+      schema:
+        type: string
+    - in: query
+      name: end
+      description: 'ex: 2025-07-03'
+      schema:
+        type: string
+    get:
+      summary: Get kvault metrics history
+      description: Get time-series data for vault performance metrics over specified date ranges. Essential for building performance charts and historical analysis.
+      operationId: getKvaultsByVaultPubkeyMetricsHistory
+      tags:
+      - Kvaults
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-mint:
+        content: 'Get historical vault performance metrics for tracking APY trends, share price evolution, and AUM growth over time. Perfect for building performance charts and historical analysis.
+
+
+          ## Example Usage
+
+
+          Use the **Steakhouse USDC Prime vault** for testing:
+
+          ```
+
+          HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E
+
+          ```
+
+
+          **Sample query parameters:**
+
+          - `start=2024-01-01`
+
+          - `end=2024-12-31`
+
+
+          This endpoint returns historical data for APY tracking, share price trends, and AUM growth over time.'
+        code-samples:
+        - language: typescript
+          code: "// Get vault metrics history\nconst vaultAddress = 'HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E'; // Steakhouse USDC Prime\nconst response = await fetch(\n  `https://api.kamino.finance/kvaults/${vaultAddress}/metrics/history?start=2024-01-01&end=2024-12-31`\n);\nconst history = await response.json();\nconsole.log('Historical APY data:', history);"
+        - language: curl
+          code: "curl --request GET \\\n  --url 'https://api.kamino.finance/kvaults/HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E/metrics/history?start=2024-01-01&end=2024-12-31'"
+      x-operation-id-source: derived
+  /kvaults/{vault-pubkey}/allocation-volume/history:
+    parameters:
+    - in: path
+      name: vault-pubkey
+      description: vault public key
+      schema:
+        type: string
+      required: true
+    get:
+      summary: Get kvault allocation volume history
+      description: ''
+      operationId: getKvaultsByVaultPubkeyAllocationVolumeHistory
+      tags:
+      - Kvaults
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /kvaults/{vault-pubkey}/users/{user-pubkey}/metrics/history:
+    parameters:
+    - in: path
+      name: vault-pubkey
+      description: vault public key
+      schema:
+        type: string
+      required: true
+    - in: path
+      name: user-pubkey
+      description: user public key
+      schema:
+        type: string
+      required: true
+    - in: query
+      name: start
+      description: 'ex: 2025-01-14'
+      schema:
+        type: string
+    - in: query
+      name: end
+      description: 'ex: 2025-01-14'
+      schema:
+        type: string
+    get:
+      summary: Get user vault metrics history
+      description: Get timeseries of usd/sol/interest/apy... of specific kvault user position.
+      operationId: getKvaultsByVaultPubkeyUsersByUserPubkeyMetricsHistory
+      tags:
+      - Kvaults
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-mint:
+        content: 'Get timeseries data for a specific user''s vault position including USD value, SOL value, interest earned, and APY over time. Essential for tracking individual user performance.
+
+
+          ## Example Usage
+
+
+          **Vault:** Use Steakhouse USDC Prime vault for testing:
+
+          ```
+
+          HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E
+
+          ```
+
+
+          **User:** Provide your own wallet public key in the `user-pubkey` field.
+
+
+          **Sample query parameters:**
+
+          - `start=2024-01-01`
+
+          - `end=2024-12-31`
+
+
+          This endpoint returns personal yield tracking, deposit timing analysis, and share balance evolution for individual users.'
+        code-samples:
+        - language: typescript
+          code: "// Get user vault metrics history\nconst vaultAddress = 'HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E'; // Steakhouse USDC Prime\nconst userPubkey = 'YOUR_WALLET_PUBKEY'; // Replace with actual user pubkey\nconst response = await fetch(\n  `https://api.kamino.finance/kvaults/${vaultAddress}/users/${userPubkey}/metrics/history?start=2024-01-01&end=2024-12-31`\n);\nconst userMetrics = await response.json();\nconsole.log('User performance over time:', userMetrics);"
+        - language: curl
+          code: "curl --request GET \\\n  --url 'https://api.kamino.finance/kvaults/HDsayqAsDWy3QvANGqh2yNraqcD8Fnjgh73Mhb3WRS5E/users/YOUR_WALLET_PUBKEY/metrics/history?start=2024-01-01&end=2024-12-31'"
+      x-operation-id-source: derived
+  /kvaults/{vault-pubkey}/users/{user-pubkey}/pnl:
+    parameters:
+    - in: path
+      name: vault-pubkey
+      description: vault public key
+      schema:
+        type: string
+      required: true
+    - in: path
+      name: user-pubkey
+      description: user public key
+      schema:
+        type: string
+      required: true
+    get:
+      summary: Get user vault pnl
+      description: ''
+      operationId: getKvaultsByVaultPubkeyUsersByUserPubkeyPnl
+      tags:
+      - Kvaults
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /kvaults/{vault-pubkey}/users/{user-pubkey}/pnl/history:
+    parameters:
+    - in: path
+      name: vault-pubkey
+      description: vault public key
+      schema:
+        type: string
+      required: true
+    - in: path
+      name: user-pubkey
+      description: user public key
+      schema:
+        type: string
+      required: true
+    get:
+      summary: Get user vault pnl history
+      description: ''
+      operationId: getKvaultsByVaultPubkeyUsersByUserPubkeyPnlHistory
+      tags:
+      - Kvaults
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+externalDocs:
+  description: Kamino API documentation
+  url: https://github.com/kamino-finance/kamino-api-docs

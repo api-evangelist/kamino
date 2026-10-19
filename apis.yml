@@ -85,18 +85,6 @@ apis:
     url: openapi/kamino-airdrop-api-openapi.yml
   - type: APIReference
     url: https://kamino.com/build/api-reference/introduction
-- aid: kamino:kamino-farms-api
-  name: Kamino Farms API
-  description: The Farms API from Kamino — 3 operation(s) for farms.
-  humanURL: https://kamino.com/build/api-reference/introduction
-  baseURL: https://api.kamino.finance
-  tags:
-  - Farms
-  properties:
-  - type: OpenAPI
-    url: openapi/kamino-farms-api-openapi.yml
-  - type: APIReference
-    url: https://kamino.com/build/api-reference/introduction
 - aid: kamino:kamino-kamino-earn-deposit-api
   name: Kamino Earn Deposit API
   description: The Kamino Earn Deposit API from Kamino — 2 operation(s) for kamino earn deposit.
@@ -107,42 +95,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/kamino-kamino-earn-deposit-api-openapi.yml
-  - type: APIReference
-    url: https://kamino.com/build/api-reference/introduction
-- aid: kamino:kamino-kamino-earn-user-api
-  name: Kamino Earn User API
-  description: The Kamino Earn User API from Kamino — 8 operation(s) for kamino earn user.
-  humanURL: https://kamino.com/build/api-reference/introduction
-  baseURL: https://api.kamino.finance
-  tags:
-  - Kamino Earn User
-  properties:
-  - type: OpenAPI
-    url: openapi/kamino-kamino-earn-user-api-openapi.yml
-  - type: APIReference
-    url: https://kamino.com/build/api-reference/introduction
-- aid: kamino:kamino-kamino-earn-vault-metadata-api
-  name: Kamino Earn Vault Metadata API
-  description: The Kamino Earn Vault Metadata API from Kamino — 2 operation(s) for kamino earn vault metadata.
-  humanURL: https://kamino.com/build/api-reference/introduction
-  baseURL: https://api.kamino.finance
-  tags:
-  - Kamino Earn Vault Metadata
-  properties:
-  - type: OpenAPI
-    url: openapi/kamino-kamino-earn-vault-metadata-api-openapi.yml
-  - type: APIReference
-    url: https://kamino.com/build/api-reference/introduction
-- aid: kamino:kamino-kamino-earn-vaults-api
-  name: Kamino Earn Vaults API
-  description: The Kamino Earn Vaults API from Kamino — 8 operation(s) for kamino earn vaults.
-  humanURL: https://kamino.com/build/api-reference/introduction
-  baseURL: https://api.kamino.finance
-  tags:
-  - Kamino Earn Vaults
-  properties:
-  - type: OpenAPI
-    url: openapi/kamino-kamino-earn-vaults-api-openapi.yml
   - type: APIReference
     url: https://kamino.com/build/api-reference/introduction
 - aid: kamino:kamino-kamino-earn-withdraw-api
@@ -169,18 +121,6 @@ apis:
     url: openapi/kamino-kamino-lend-borrow-api-openapi.yml
   - type: APIReference
     url: https://kamino.com/build/api-reference/introduction
-- aid: kamino:kamino-kamino-lend-borrow-orders-api
-  name: Kamino Lend Borrow Orders API
-  description: The Kamino Lend Borrow Orders API from Kamino — 2 operation(s) for kamino lend borrow orders.
-  humanURL: https://kamino.com/build/api-reference/introduction
-  baseURL: https://api.kamino.finance
-  tags:
-  - Kamino Lend Borrow Orders
-  properties:
-  - type: OpenAPI
-    url: openapi/kamino-kamino-lend-borrow-orders-api-openapi.yml
-  - type: APIReference
-    url: https://kamino.com/build/api-reference/introduction
 - aid: kamino:kamino-kamino-lend-deposit-api
   name: Kamino Lend Deposit API
   description: The Kamino Lend Deposit API from Kamino — 2 operation(s) for kamino lend deposit.
@@ -191,18 +131,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/kamino-kamino-lend-deposit-api-openapi.yml
-  - type: APIReference
-    url: https://kamino.com/build/api-reference/introduction
-- aid: kamino:kamino-kamino-lend-markets-api
-  name: Kamino Lend Markets API
-  description: The Kamino Lend Markets API from Kamino — 7 operation(s) for kamino lend markets.
-  humanURL: https://kamino.com/build/api-reference/introduction
-  baseURL: https://api.kamino.finance
-  tags:
-  - Kamino Lend Markets
-  properties:
-  - type: OpenAPI
-    url: openapi/kamino-kamino-lend-markets-api-openapi.yml
   - type: APIReference
     url: https://kamino.com/build/api-reference/introduction
 - aid: kamino:kamino-kamino-lend-repay-api
@@ -217,30 +145,6 @@ apis:
     url: openapi/kamino-kamino-lend-repay-api-openapi.yml
   - type: APIReference
     url: https://kamino.com/build/api-reference/introduction
-- aid: kamino:kamino-kamino-lend-transactions-api
-  name: Kamino Lend Transactions API
-  description: The Kamino Lend Transactions API from Kamino — 7 operation(s) for kamino lend transactions.
-  humanURL: https://kamino.com/build/api-reference/introduction
-  baseURL: https://api.kamino.finance
-  tags:
-  - Kamino Lend Transactions
-  properties:
-  - type: OpenAPI
-    url: openapi/kamino-kamino-lend-transactions-api-openapi.yml
-  - type: APIReference
-    url: https://kamino.com/build/api-reference/introduction
-- aid: kamino:kamino-kamino-lend-user-loans-api
-  name: Kamino Lend User Loans API
-  description: The Kamino Lend User Loans API from Kamino — 4 operation(s) for kamino lend user loans.
-  humanURL: https://kamino.com/build/api-reference/introduction
-  baseURL: https://api.kamino.finance
-  tags:
-  - Kamino Lend User Loans
-  properties:
-  - type: OpenAPI
-    url: openapi/kamino-kamino-lend-user-loans-api-openapi.yml
-  - type: APIReference
-    url: https://kamino.com/build/api-reference/introduction
 - aid: kamino:kamino-kamino-lend-withdraw-api
   name: Kamino Lend Withdraw API
   description: The Kamino Lend Withdraw API from Kamino — 2 operation(s) for kamino lend withdraw.
@@ -253,103 +157,184 @@ apis:
     url: openapi/kamino-kamino-lend-withdraw-api-openapi.yml
   - type: APIReference
     url: https://kamino.com/build/api-reference/introduction
-- aid: kamino:kamino-kamino-lend-yield-api
-  name: Kamino Lend Yield API
-  description: The Kamino Lend Yield API from Kamino — 7 operation(s) for kamino lend yield.
+- aid: kamino:kamino-kamino-lending-api
+  name: Kamino Kamino Lending API
+  description: The Kamino Lending API from Kamino — 17 operation(s) for kamino lending.
   humanURL: https://kamino.com/build/api-reference/introduction
   baseURL: https://api.kamino.finance
   tags:
-  - Kamino Lend Yield
+  - Kamino Lending
   properties:
   - type: OpenAPI
-    url: openapi/kamino-kamino-lend-yield-api-openapi.yml
+    url: openapi/kamino-kamino-lending-api-openapi.yml
   - type: APIReference
     url: https://kamino.com/build/api-reference/introduction
-- aid: kamino:kamino-lookup-tables-api
-  name: Kamino Lookup Tables API
-  description: The Lookup Tables API from Kamino — 5 operation(s) for lookup tables.
+- aid: kamino:kamino-ktoken-api
+  name: Kamino Ktoken API
+  description: The Ktoken API from Kamino — 2 operation(s) for ktoken.
   humanURL: https://kamino.com/build/api-reference/introduction
   baseURL: https://api.kamino.finance
   tags:
-  - Lookup Tables
+  - Ktoken
   properties:
   - type: OpenAPI
-    url: openapi/kamino-lookup-tables-api-openapi.yml
+    url: openapi/kamino-ktoken-api-openapi.yml
   - type: APIReference
     url: https://kamino.com/build/api-reference/introduction
-- aid: kamino:kamino-other-api
-  name: Kamino Other API
-  description: The Other API from Kamino — 4 operation(s) for other.
-  humanURL: https://kamino.com/build/api-reference/introduction
-  baseURL: https://api.kamino.finance
-  tags: []
-  tags_raw:
-  - Other
-  properties:
-  - type: OpenAPI
-    url: openapi/kamino-other-api-openapi.yml
-  - type: APIReference
-    url: https://kamino.com/build/api-reference/introduction
-- aid: kamino:kamino-portfolio-api
-  name: Kamino Portfolio API
-  description: The Portfolio API from Kamino — 2 operation(s) for portfolio.
+- aid: kamino:kamino-kvaults-api
+  name: Kamino Kvaults API
+  description: The Kvaults API from Kamino — 8 operation(s) for kvaults.
   humanURL: https://kamino.com/build/api-reference/introduction
   baseURL: https://api.kamino.finance
   tags:
-  - Portfolio
+  - Kvaults
   properties:
   - type: OpenAPI
-    url: openapi/kamino-portfolio-api-openapi.yml
+    url: openapi/kamino-kvaults-api-openapi.yml
   - type: APIReference
     url: https://kamino.com/build/api-reference/introduction
-- aid: kamino:kamino-private-credit-api
-  name: Kamino Private Credit API
-  description: The Private Credit API from Kamino — 2 operation(s) for private credit.
+- aid: kamino:kamino-leaderboard-api
+  name: Kamino Leaderboard API
+  description: The Leaderboard API from Kamino — 2 operation(s) for leaderboard.
   humanURL: https://kamino.com/build/api-reference/introduction
   baseURL: https://api.kamino.finance
   tags:
-  - Private Credit
+  - Leaderboard
   properties:
   - type: OpenAPI
-    url: openapi/kamino-private-credit-api-openapi.yml
+    url: openapi/kamino-leaderboard-api-openapi.yml
   - type: APIReference
     url: https://kamino.com/build/api-reference/introduction
-- aid: kamino:kamino-season-rewards-api
-  name: Kamino Season Rewards API
-  description: The Season Rewards API from Kamino — 5 operation(s) for season rewards.
+- aid: kamino:kamino-limo-api
+  name: Kamino Limo API
+  description: The Limo API from Kamino — 8 operation(s) for limo.
   humanURL: https://kamino.com/build/api-reference/introduction
   baseURL: https://api.kamino.finance
   tags:
-  - Season Rewards
+  - Limo
   properties:
   - type: OpenAPI
-    url: openapi/kamino-season-rewards-api-openapi.yml
+    url: openapi/kamino-limo-api-openapi.yml
   - type: APIReference
     url: https://kamino.com/build/api-reference/introduction
-- aid: kamino:kamino-staking-yields-api
-  name: Kamino Staking Yields API
-  description: The Staking Yields API from Kamino — 3 operation(s) for staking yields.
+- aid: kamino:kamino-points-api
+  name: Kamino Points API
+  description: The Points API from Kamino — 4 operation(s) for points.
   humanURL: https://kamino.com/build/api-reference/introduction
   baseURL: https://api.kamino.finance
   tags:
-  - Staking Yields
+  - Points
   properties:
   - type: OpenAPI
-    url: openapi/kamino-staking-yields-api-openapi.yml
+    url: openapi/kamino-points-api-openapi.yml
   - type: APIReference
     url: https://kamino.com/build/api-reference/introduction
-- aid: kamino:kamino-yields-api
-  name: Kamino Yields API
-  description: The Yields API from Kamino — 2 operation(s) for yields.
+- aid: kamino:kamino-prices-api
+  name: Kamino Prices API
+  description: The Prices API from Kamino — 2 operation(s) for prices.
   humanURL: https://kamino.com/build/api-reference/introduction
   baseURL: https://api.kamino.finance
   tags:
-  - Yield
-  tags_raw:
-  - Yields
+  - Prices
   properties:
   - type: OpenAPI
-    url: openapi/kamino-yields-api-openapi.yml
+    url: openapi/kamino-prices-api-openapi.yml
+  - type: APIReference
+    url: https://kamino.com/build/api-reference/introduction
+- aid: kamino:kamino-raydium-api
+  name: Kamino Raydium API
+  description: The Raydium API from Kamino — 2 operation(s) for raydium.
+  humanURL: https://kamino.com/build/api-reference/introduction
+  baseURL: https://api.kamino.finance
+  tags:
+  - Raydium
+  properties:
+  - type: OpenAPI
+    url: openapi/kamino-raydium-api-openapi.yml
+  - type: APIReference
+    url: https://kamino.com/build/api-reference/introduction
+- aid: kamino:kamino-simulator-api
+  name: Kamino Simulator API
+  description: The Simulator API from Kamino — 1 operation(s) for simulator.
+  humanURL: https://kamino.com/build/api-reference/introduction
+  baseURL: https://api.kamino.finance
+  tags:
+  - Simulator
+  properties:
+  - type: OpenAPI
+    url: openapi/kamino-simulator-api-openapi.yml
+  - type: APIReference
+    url: https://kamino.com/build/api-reference/introduction
+- aid: kamino:kamino-staking-api
+  name: Kamino Staking API
+  description: The Staking API from Kamino — 7 operation(s) for staking.
+  humanURL: https://kamino.com/build/api-reference/introduction
+  baseURL: https://api.kamino.finance
+  tags:
+  - Staking
+  properties:
+  - type: OpenAPI
+    url: openapi/kamino-staking-api-openapi.yml
+  - type: APIReference
+    url: https://kamino.com/build/api-reference/introduction
+- aid: kamino:kamino-strategies-api
+  name: Kamino Strategies API
+  description: The Strategies API from Kamino — 25 operation(s) for strategies.
+  humanURL: https://kamino.com/build/api-reference/introduction
+  baseURL: https://api.kamino.finance
+  tags:
+  - Strategies
+  properties:
+  - type: OpenAPI
+    url: openapi/kamino-strategies-api-openapi.yml
+  - type: APIReference
+    url: https://kamino.com/build/api-reference/introduction
+- aid: kamino:kamino-tokens-api
+  name: Kamino Tokens API
+  description: The Tokens API from Kamino — 1 operation(s) for tokens.
+  humanURL: https://kamino.com/build/api-reference/introduction
+  baseURL: https://api.kamino.finance
+  tags:
+  - Tokens
+  properties:
+  - type: OpenAPI
+    url: openapi/kamino-tokens-api-openapi.yml
+  - type: APIReference
+    url: https://kamino.com/build/api-reference/introduction
+- aid: kamino:kamino-trades-api
+  name: Kamino Trades API
+  description: The Trades API from Kamino — 1 operation(s) for trades.
+  humanURL: https://kamino.com/build/api-reference/introduction
+  baseURL: https://api.kamino.finance
+  tags:
+  - Trades
+  properties:
+  - type: OpenAPI
+    url: openapi/kamino-trades-api-openapi.yml
+  - type: APIReference
+    url: https://kamino.com/build/api-reference/introduction
+- aid: kamino:kamino-transactions-api
+  name: Kamino Transactions API
+  description: The Transactions API from Kamino — 1 operation(s) for transactions.
+  humanURL: https://kamino.com/build/api-reference/introduction
+  baseURL: https://api.kamino.finance
+  tags:
+  - Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/kamino-transactions-api-openapi.yml
+  - type: APIReference
+    url: https://kamino.com/build/api-reference/introduction
+- aid: kamino:kamino-whirlpools-api
+  name: Kamino Whirlpools API
+  description: The Whirlpools API from Kamino — 3 operation(s) for whirlpools.
+  humanURL: https://kamino.com/build/api-reference/introduction
+  baseURL: https://api.kamino.finance
+  tags:
+  - Whirlpools
+  properties:
+  - type: OpenAPI
+    url: openapi/kamino-whirlpools-api-openapi.yml
   - type: APIReference
     url: https://kamino.com/build/api-reference/introduction
 maintainers:

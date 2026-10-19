@@ -1,0 +1,903 @@
+openapi: 3.2.0
+info:
+  title: Kamino Finance Public Strategies API
+  description: API for interacting with Kamino Finance — a Solana‑based DeFi platform offering automated liquidity vaults, lending/borrowing, leveraged strategies, and analytics.
+  termsOfService: https://docs.kamino.finance/v/risk
+  contact:
+    name: Kamino Finance Support
+    url: https://docs.kamino.finance
+    email: support@kamino.finance
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://api.kamino.finance
+  variables: {}
+tags:
+- name: Strategies
+  description: ''
+  externalDocs:
+    description: ''
+    url: ''
+paths:
+  /strategies:
+    parameters:
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    - in: query
+      name: type
+      description: "strategy type which can be: \nNON_PEGGED: e.g. SOL-BONK\nPEGGED: e.g. BSOL-JitoSOL\nSTABLE: e.g. USDH-USDC"
+      schema:
+        type: string
+    - in: query
+      name: status
+      description: 'strategyCreationStatus which can be:
+
+
+        IGNORED
+
+        SHADOW
+
+        LIVE
+
+        DEPRECATED
+
+        STAGING'
+      schema:
+        type: string
+    get:
+      summary: Get all strategies with filters
+      description: ''
+      operationId: getStrategies
+      tags:
+      - Strategies
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    apr:
+                      type: string
+                    apy:
+                      type: string
+                    totalReturn:
+                      type: string
+                    totalInvestment:
+                      type: string
+                    strategy:
+                      type: string
+                    token:
+                      type: string
+                    rewardsPerDay:
+                      type: string
+                    rewardsPerHour:
+                      type: string
+                    rewardsPerSecond:
+                      type: string
+                    rewardIsOption:
+                      type: boolean
+                  required:
+                  - apr
+                  - apy
+                  - totalReturn
+                  - totalInvestment
+                  - strategy
+                  - rewardsPerHour
+                  - rewardsPerDay
+                  - token
+                  - rewardsPerSecond
+                  - rewardIsOption
+              examples:
+                example1:
+                  value:
+                  - apr: '0.03089658127477581433161189171198501610943'
+                    apy: '0.031377485860868284369015169698693427029'
+                    totalReturn: '9959.75762697216'
+                    totalInvestment: '322357.9184504589828735999999999999999998'
+                    strategy: 2dczcMRpxWHZTcsiEjPT4YBcSseTaUmWFzw24HxYMFod
+                    token: RAY
+                    rewardsPerDay: '137.8944'
+                    rewardsPerHour: '5.7456'
+                    rewardsPerSecond: '0.001596'
+                    rewardIsOption: false
+                  - apr: '0.1837059453843344336978185004649421142565'
+                    apy: '0.201606883863164306468378664554523674214'
+                    totalReturn: '39084.02775504'
+                    totalInvestment: '212753.2000843610114423811349599999999999'
+                    strategy: 6K4jM79yijUEFxdFhCFZSjav1nZji1gsxUWQE6XrC8YD
+                    token: LDO
+                    rewardsPerDay: '48.386592'
+                    rewardsPerHour: '2.016108'
+                    rewardsPerSecond: '0.00056003'
+                    rewardIsOption: false
+      x-operation-id-source: derived
+  /strategies/enabled:
+    get:
+      summary: Get frontend-enabled strategies
+      description: You may use the env query param (mainnet-beta[default],devnet,localnet,testnet).
+      operationId: getStrategiesEnabled
+      tags:
+      - Strategies
+      parameters:
+      - in: query
+        name: env
+        description: environment (mainnet-beta[default],devnet,localnet,testnet)
+        schema:
+          type: string
+          example: mainnet-beta
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    apr:
+                      type: string
+                    apy:
+                      type: string
+                    totalReturn:
+                      type: string
+                    totalInvestment:
+                      type: string
+                    strategy:
+                      type: string
+                    token:
+                      type: string
+                    rewardsPerDay:
+                      type: string
+                    rewardsPerHour:
+                      type: string
+                    rewardsPerSecond:
+                      type: string
+                    rewardIsOption:
+                      type: string
+                  required:
+                  - apr
+                  - apy
+                  - totalReturn
+                  - totalInvestment
+                  - strategy
+                  - rewardsPerHour
+                  - rewardsPerDay
+                  - token
+                  - rewardsPerSecond
+                  - rewardIsOption
+              examples:
+                example1:
+                  value:
+                  - apr: '0.03089658127477581433161189171198501610943'
+                    apy: '0.031377485860868284369015169698693427029'
+                    totalReturn: '9959.75762697216'
+                    totalInvestment: '322357.9184504589828735999999999999999998'
+                    strategy: 2dczcMRpxWHZTcsiEjPT4YBcSseTaUmWFzw24HxYMFod
+                    token: RAY
+                    rewardsPerDay: '137.8944'
+                    rewardsPerHour: '5.7456'
+                    rewardsPerSecond: '0.001596'
+                    rewardIsOption: false
+                  - apr: '0.1837059453843344336978185004649421142565'
+                    apy: '0.201606883863164306468378664554523674214'
+                    totalReturn: '39084.02775504'
+                    totalInvestment: '212753.2000843610114423811349599999999999'
+                    strategy: 6K4jM79yijUEFxdFhCFZSjav1nZji1gsxUWQE6XrC8YD
+                    token: LDO
+                    rewardsPerDay: '48.386592'
+                    rewardsPerHour: '2.016108'
+                    rewardsPerSecond: '0.00056003'
+                    rewardIsOption: false
+      x-operation-id-source: derived
+  /strategies/{strategy-pubkey}/metrics:
+    get:
+      summary: Get specific strategy stats (tvl/pnl/shares)
+      description: ''
+      operationId: getStrategiesByStrategyPubkeyMetrics
+      tags:
+      - Strategies
+      parameters:
+      - in: path
+        name: strategy-pubkey
+        description: Strategy public key
+        required: true
+        schema:
+          type: string
+          example: ByXB4xCxVhmUEmQj3Ut7byZ1Hbva1zhKjaVcv3jBMN7E
+      - in: query
+        name: env
+        description: environment (mainnet-beta[default],devnet,localnet,testnet)
+        schema:
+          type: string
+          example: mainnet-beta
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    apr:
+                      type: string
+                    apy:
+                      type: string
+                    totalReturn:
+                      type: string
+                    totalInvestment:
+                      type: string
+                    strategy:
+                      type: string
+                    token:
+                      type: string
+                    rewardsPerDay:
+                      type: string
+                    rewardsPerHour:
+                      type: string
+                    rewardsPerSecond:
+                      type: string
+                    rewardIsOption:
+                      type: string
+                      description: boolean
+                  required:
+                  - apr
+                  - apy
+                  - totalReturn
+                  - token
+                  - strategy
+                  - totalInvestment
+                  - rewardsPerDay
+                  - rewardIsOption
+                  - rewardsPerSecond
+                  - rewardsPerHour
+              examples:
+                example1:
+                  value:
+                  - apr: '0.03089658127477581433161189171198501610943'
+                    apy: '0.031377485860868284369015169698693427029'
+                    totalReturn: '9959.75762697216'
+                    totalInvestment: '322357.9184504589828735999999999999999998'
+                    strategy: 2dczcMRpxWHZTcsiEjPT4YBcSseTaUmWFzw24HxYMFod
+                    token: RAY
+                    rewardsPerDay: '137.8944'
+                    rewardsPerHour: '5.7456'
+                    rewardsPerSecond: '0.001596'
+                    rewardIsOption: false
+                  - apr: '0.1837059453843344336978185004649421142565'
+                    apy: '0.201606883863164306468378664554523674214'
+                    totalReturn: '39084.02775504'
+                    totalInvestment: '212753.2000843610114423811349599999999999'
+                    strategy: 6K4jM79yijUEFxdFhCFZSjav1nZji1gsxUWQE6XrC8YD
+                    token: LDO
+                    rewardsPerDay: '48.386592'
+                    rewardsPerHour: '2.016108'
+                    rewardsPerSecond: '0.00056003'
+                    rewardIsOption: false
+      x-operation-id-source: derived
+  /strategies/metrics:
+    get:
+      summary: Get strategy stats for all frontend-enabled strategies
+      description: ''
+      operationId: getStrategiesMetrics
+      tags:
+      - Strategies
+      parameters:
+      - in: query
+        name: env
+        description: environment (mainnet-beta[default],devnet,localnet,testnet)
+        schema:
+          type: string
+          example: mainnet-beta
+      - in: query
+        name: status
+        description: status filter (IGNORED)
+        schema:
+          type: string
+          example: IGNORED
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /strategies/rewards:
+    get:
+      summary: Get strategy reward stats for all live strategies
+      description: ''
+      operationId: getStrategiesRewards
+      tags:
+      - Strategies
+      parameters:
+      - in: query
+        name: env
+        description: environment (mainnet-beta[default],devnet,localnet,testnet)
+        schema:
+          type: string
+          example: mainnet-beta
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /strategies/{strategy-pubkey}/rewards:
+    get:
+      summary: Get specific strategy stats for rewards
+      description: ''
+      operationId: getStrategiesByStrategyPubkeyRewards
+      tags:
+      - Strategies
+      parameters:
+      - in: path
+        name: strategy-pubkey
+        description: Strategy public key
+        required: true
+        schema:
+          type: string
+          example: ByXB4xCxVhmUEmQj3Ut7byZ1Hbva1zhKjaVcv3jBMN7E
+      - in: query
+        name: env
+        description: environment (mainnet-beta[default],devnet,localnet,testnet)
+        schema:
+          type: string
+          example: mainnet-beta
+      - in: query
+        name: start
+        description: start timestamp
+        schema:
+          type: string
+      - in: query
+        name: end
+        description: end timestamp
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /strategies/shareholders/{shareholder-pubkey}/rewards/history:
+    parameters:
+    - in: path
+      name: shareholder-pubkey
+      description: shareholder public key
+      schema:
+        type: string
+      required: true
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    get:
+      summary: Get amount of rewards for a specific Kamino shareholder
+      description: ''
+      operationId: getStrategiesShareholdersByShareholderPubkeyRewardsHistory
+      tags:
+      - Strategies
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /v2/strategies/{strategy-pubkey}/history:
+    parameters:
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    - in: query
+      name: year
+      description: ''
+      schema:
+        type: string
+    - in: query
+      name: start
+      description: timestamp
+      schema:
+        type: string
+    - in: query
+      name: end
+      description: timestamp
+      schema:
+        type: string
+    - in: query
+      name: frequency
+      description: 'variables allowed: hour, day'
+      schema:
+        type: string
+    - in: path
+      name: strategy-pubkey
+      description: strategy public key
+      schema:
+        type: string
+      required: true
+    get:
+      summary: Get strategy state history for a specific year
+      description: Get strategy state history aggregated by the hour for a specific year
+      operationId: getV2StrategiesByStrategyPubkeyHistory
+      tags:
+      - Strategies
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /owners/{owner-pubkey}/strategies/{strategy-pubkey}/shares/history:
+    parameters:
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    - in: query
+      name: year
+      description: ''
+      schema:
+        type: string
+    - in: path
+      name: owner-pubkey
+      description: user public key
+      schema:
+        type: string
+      required: true
+    - in: path
+      name: strategy-pubkey
+      description: strategy public key
+      schema:
+        type: string
+      required: true
+    get:
+      summary: Get user's shares history for a specific year
+      description: Get user's shares history aggregated by the hour for a specific year
+      operationId: getOwnersByOwnerPubkeyStrategiesByStrategyPubkeySharesHistory
+      tags:
+      - Strategies
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /strategies/{strategy-pubkey}/shareholders/{shareholder-pubkey}/fees-and-rewards:
+    parameters:
+    - in: path
+      name: strategy-pubkey
+      description: strategy public key
+      schema:
+        type: string
+      required: true
+    - in: path
+      name: shareholder-pubkey
+      description: shareholder public key
+      schema:
+        type: string
+      required: true
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    get:
+      summary: Get fees and rewards earned for a specific strategy shareholder
+      description: ''
+      operationId: getStrategiesByStrategyPubkeyShareholdersByShareholderPubkeyFeesAndRewards
+      tags:
+      - Strategies
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /strategies/{strategy-pubkey}/shareholders/{shareholder-pubkey}/fees-and-rewards/latest-position:
+    parameters:
+    - in: path
+      name: strategy-pubkey
+      description: strategy public key
+      schema:
+        type: string
+      required: true
+    - in: path
+      name: shareholder-pubkey
+      description: shareholder public key
+      schema:
+        type: string
+      required: true
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    get:
+      summary: Get latest fees and rewards earned for a strategy shareholder
+      description: Fetch strategy shareholder fees and rewards for only the latest position. This endpoint takes a look at when the user's position was last closed (fully withdrawn) and opened again and only calculates the fees and rewards after that time.
+      operationId: getStrategiesByStrategyPubkeyShareholdersByShareholderPubkeyFeesAndRewardsLatestPosition
+      tags:
+      - Strategies
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /strategies/fees-and-rewards:
+    parameters:
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    - in: query
+      name: period
+      description: time period for fees and rewards "24h" (default) | "7d" | "30d"
+      schema:
+        type: string
+    - in: query
+      name: status
+      description: strategy status "LIVE" (default) | "STAGING" | "SHADOW" | "IGNORED" | "DEPRECATED"
+      schema:
+        type: string
+    get:
+      summary: Get fees and rewards for strategies
+      description: ''
+      operationId: getStrategiesFeesAndRewards
+      tags:
+      - Strategies
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /strategies/{strategy-pubkey}/shareholders/{shareholder-pubkey}/pnl:
+    parameters:
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    - in: path
+      name: strategy-pubkey
+      description: strategy public key
+      schema:
+        type: string
+      required: true
+    - in: path
+      name: shareholder-pubkey
+      description: shareholder public key
+      schema:
+        type: string
+      required: true
+    get:
+      summary: Get PnL for a strategy shareholder position
+      description: ''
+      operationId: getStrategiesByStrategyPubkeyShareholdersByShareholderPubkeyPnl
+      tags:
+      - Strategies
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /strategies/{strategy-pubkey}/shareholders/{shareholder-pubkey}/pnl/history:
+    parameters:
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    - in: path
+      name: shareholder-pubkey
+      description: shareholder public key
+      schema:
+        type: string
+      required: true
+    - in: path
+      name: strategy-pubkey
+      description: strategy public key
+      schema:
+        type: string
+      required: true
+    - in: query
+      name: start
+      description: timestamp (inclusive)
+      schema:
+        type: string
+    - in: query
+      name: end
+      description: timestamp (exclusive)
+      schema:
+        type: string
+    get:
+      summary: Get PnL history for a strategy shareholder
+      description: ''
+      operationId: getStrategiesByStrategyPubkeyShareholdersByShareholderPubkeyPnlHistory
+      tags:
+      - Strategies
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /v2/strategies/volume:
+    parameters:
+    - in: query
+      name: status
+      description: 'status: strategy status "LIVE" (default) | "STAGING" | "SHADOW" | "IGNORED" | "DEPRECATED"'
+      schema:
+        type: string
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    get:
+      summary: Get volume for strategies
+      description: ''
+      operationId: getV2StrategiesVolume
+      tags:
+      - Strategies
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /v2/strategies/{strategy-pubkey}/volume:
+    parameters:
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    - in: path
+      name: strategy-pubkey
+      description: strategy public key
+      schema:
+        type: string
+      required: true
+    get:
+      summary: Get volume for specific strategy v2
+      description: ''
+      operationId: getV2StrategiesByStrategyPubkeyVolume
+      tags:
+      - Strategies
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /strategies/all-time-volume:
+    parameters:
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    get:
+      summary: Get all-time Kamino volume
+      description: ''
+      operationId: getStrategiesAllTimeVolume
+      tags:
+      - Strategies
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /strategies/all-time-fees-and-rewards:
+    parameters:
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    get:
+      summary: Get all-time Kamino fees and rewards
+      description: ''
+      operationId: getStrategiesAllTimeFeesAndRewards
+      tags:
+      - Strategies
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /strategies/all-time-fees-and-rewards/breakdown:
+    parameters:
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    get:
+      summary: Get all-time Kamino fees and rewards breakdown
+      description: ''
+      operationId: getStrategiesAllTimeFeesAndRewardsBreakdown
+      tags:
+      - Strategies
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /strategies/tvl:
+    parameters:
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    get:
+      summary: Get Kamino TVL
+      description: ''
+      operationId: getStrategiesTvl
+      tags:
+      - Strategies
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /strategies/tokens/{mint}/amounts:
+    parameters:
+    - in: path
+      name: mint
+      description: token address
+      schema:
+        type: string
+      required: true
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    get:
+      summary: Get total token amounts in live strategies
+      description: ''
+      operationId: getStrategiesTokensByMintAmounts
+      tags:
+      - Strategies
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /strategies/{strategy-pubkey}/ranges/history:
+    parameters:
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    - in: query
+      name: period
+      description: 'period: time period for fees and rewards "24h" (default) | "7d" | "30d"'
+      schema:
+        type: string
+    - in: query
+      name: start
+      description: timestamp (inclusive)
+      schema:
+        type: string
+    - in: query
+      name: end
+      description: timestamp (exclusive)
+      schema:
+        type: string
+    - in: path
+      name: strategy-pubkey
+      description: strategy public key
+      schema:
+        type: string
+      required: true
+    get:
+      summary: Get strategy historical ranges
+      description: ''
+      operationId: getStrategiesByStrategyPubkeyRangesHistory
+      tags:
+      - Strategies
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /strategies/{strategy-pubkey}/metrics/history:
+    parameters:
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    - in: query
+      name: start
+      description: timestamp  (inclusive)
+      schema:
+        type: string
+    - in: query
+      name: end
+      description: timestamp (exclusive)
+      schema:
+        type: string
+    - in: path
+      name: strategy-pubkey
+      description: strategy public key
+      schema:
+        type: string
+      required: true
+    get:
+      summary: Get specific strategy metrics history
+      description: ''
+      operationId: getStrategiesByStrategyPubkeyMetricsHistory
+      tags:
+      - Strategies
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /strategies/{strategy-pubkey}/shareholders/history:
+    parameters:
+    - in: path
+      name: strategy-pubkey
+      description: strategy public key
+      schema:
+        type: string
+      required: true
+    - in: query
+      name: start
+      description: timestamp (inclusive)
+      schema:
+        type: string
+    - in: query
+      name: end
+      description: timestamp (exclusive)
+      schema:
+        type: string
+    - in: query
+      name: frequency
+      description: frequency of the snapshots, e.g. "hour" (default) | "day"
+      schema:
+        type: string
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    get:
+      summary: Get strategy shareholders history
+      description: ''
+      operationId: getStrategiesByStrategyPubkeyShareholdersHistory
+      tags:
+      - Strategies
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /strategies/start-date-overrides:
+    parameters:
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    get:
+      summary: Get strategies start date overrides
+      description: ''
+      operationId: getStrategiesStartDateOverrides
+      tags:
+      - Strategies
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+externalDocs:
+  description: Kamino API documentation
+  url: https://github.com/kamino-finance/kamino-api-docs

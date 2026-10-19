@@ -1,0 +1,68 @@
+openapi: 3.2.0
+info:
+  title: Kamino Finance Public Ktoken API
+  description: API for interacting with Kamino Finance — a Solana‑based DeFi platform offering automated liquidity vaults, lending/borrowing, leveraged strategies, and analytics.
+  termsOfService: https://docs.kamino.finance/v/risk
+  contact:
+    name: Kamino Finance Support
+    url: https://docs.kamino.finance
+    email: support@kamino.finance
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://api.kamino.finance
+  variables: {}
+tags:
+- name: Ktoken
+  description: ''
+  externalDocs:
+    description: ''
+    url: ''
+paths:
+  /ktokens/{mint}/metadata:
+    parameters:
+    - in: path
+      name: mint
+      description: token address
+      schema:
+        type: string
+      required: true
+    get:
+      summary: Get kToken metadata for mint
+      description: All mints must be valid kToken mints
+      operationId: getKtokensByMintMetadata
+      tags:
+      - Ktoken
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+      x-operation-id-source: derived
+  /ktokens/{mint}/metadata/metadata/image.svg:
+    parameters:
+    - in: path
+      name: mint
+      description: token address
+      schema:
+        type: string
+      required: true
+    get:
+      summary: Get kToken image for mint
+      description: All mints must be valid kToken mints.
+      operationId: getKtokensByMintMetadataMetadataImageSvg
+      tags:
+      - Ktoken
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+externalDocs:
+  description: Kamino API documentation
+  url: https://github.com/kamino-finance/kamino-api-docs

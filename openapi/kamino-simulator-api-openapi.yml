@@ -1,0 +1,98 @@
+openapi: 3.2.0
+info:
+  title: Kamino Finance Public Simulator API
+  description: API for interacting with Kamino Finance — a Solana‑based DeFi platform offering automated liquidity vaults, lending/borrowing, leveraged strategies, and analytics.
+  termsOfService: https://docs.kamino.finance/v/risk
+  contact:
+    name: Kamino Finance Support
+    url: https://docs.kamino.finance
+    email: support@kamino.finance
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://api.kamino.finance
+  variables: {}
+tags:
+- name: Simulator
+  description: ''
+  externalDocs:
+    description: ''
+    url: ''
+paths:
+  /simulator/pools/{pool-pubkey}/history:
+    parameters:
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    - in: query
+      name: start
+      description: 'ex: 2023-05-01'
+      schema:
+        type: string
+    - in: query
+      name: end
+      description: 'ex:'
+      schema:
+        type: string
+    - in: path
+      name: pool-pubkey
+      description: pool public key
+      schema:
+        type: string
+      required: true
+    get:
+      summary: Get simulator pool history processed data
+      description: ''
+      operationId: getSimulatorPoolsByPoolPubkeyHistory
+      tags:
+      - Simulator
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    date:
+                      type: string
+                    liquidity:
+                      type: string
+                    tokenAPrice:
+                      type: string
+                    tokenBPrice:
+                      type: string
+                    priceAToB:
+                      type: string
+                    priceBToA:
+                      type: string
+                    sourceAmountAToB:
+                      type: string
+                    sourceAmountBToA:
+                      type: string
+                    destinationAmountAToB:
+                      type: string
+                    destinationAmountBToA:
+                      type: string
+                  required:
+                  - date
+                  - tokenBPrice
+                  - priceAToB
+                  - priceBToA
+                  - sourceAmountAToB
+                  - tokenAPrice
+                  - liquidity
+                  - destinationAmountAToB
+                  - sourceAmountBToA
+                  - destinationAmountBToA
+      x-operation-id-source: derived
+externalDocs:
+  description: Kamino API documentation
+  url: https://github.com/kamino-finance/kamino-api-docs

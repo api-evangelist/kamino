@@ -1,0 +1,76 @@
+openapi: 3.2.0
+info:
+  title: Kamino Finance Public Trades API
+  description: API for interacting with Kamino Finance — a Solana‑based DeFi platform offering automated liquidity vaults, lending/borrowing, leveraged strategies, and analytics.
+  termsOfService: https://docs.kamino.finance/v/risk
+  contact:
+    name: Kamino Finance Support
+    url: https://docs.kamino.finance
+    email: support@kamino.finance
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://api.kamino.finance
+  variables: {}
+tags:
+- name: Trades
+  description: ''
+  externalDocs:
+    description: ''
+    url: ''
+paths:
+  /trades:
+    parameters:
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    - in: query
+      name: source
+      description: trades fetched from source "hellomoon" (default)
+      schema:
+        type: string
+    post:
+      summary: Get trade history
+      description: Please note that the response will contain both "directions" (buys, sells) of the trade. For example, if you input tokenA/tokenB mints for SOL/USDC in the request body, the response will contain trades with (source = SOL, destination = USDC) or (source = USDC, destination = SOL).
+      operationId: postTrades
+      tags:
+      - Trades
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tokenAMint:
+                  type: string
+                  description: public key of the first mint
+                tokenBMint:
+                  type: string
+                  description: public key of the second mint
+                start:
+                  type: string
+                  description: 'start of the date range to fetch trades from, e.g. date ISO string: "2023-01-01T00:00Z" or epoch in ms: 1678381747854'
+                end:
+                  type: string
+                  description: 'end of the date range to fetch trades to, e.g. date ISO string: "2023-01-01T00:00Z" or epoch in ms: 1678381747854'
+                paginationToken:
+                  type: string
+                  description: pagination token to use for retrieving results. If the response contains a paginationToken JSON property, you can use that in the next request to fetch more data from the last trade onwards. If the property does not exist, you've reached the end.
+              required:
+              - tokenAMint
+              - tokenBMint
+              - start
+              - end
+              - paginationToken
+      x-operation-id-source: derived
+externalDocs:
+  description: Kamino API documentation
+  url: https://github.com/kamino-finance/kamino-api-docs

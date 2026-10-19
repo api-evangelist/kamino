@@ -1,0 +1,143 @@
+openapi: 3.2.0
+info:
+  title: Kamino Finance Public Prices API
+  description: API for interacting with Kamino Finance — a Solana‑based DeFi platform offering automated liquidity vaults, lending/borrowing, leveraged strategies, and analytics.
+  termsOfService: https://docs.kamino.finance/v/risk
+  contact:
+    name: Kamino Finance Support
+    url: https://docs.kamino.finance
+    email: support@kamino.finance
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://api.kamino.finance
+  variables: {}
+tags:
+- name: Prices
+  description: ''
+  externalDocs:
+    description: ''
+    url: ''
+paths:
+  /prices:
+    parameters:
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+      required: false
+    - in: query
+      name: source
+      description: price source ie. birdeye | scope
+      schema:
+        type: string
+    - in: query
+      name: token
+      description: token name
+      schema:
+        type: string
+    - in: query
+      name: mint
+      description: token address
+      schema:
+        type: string
+    - in: query
+      name: start
+      description: timestamp
+      schema:
+        type: string
+    - in: query
+      name: end
+      description: timestamp
+      schema:
+        type: string
+    - in: query
+      name: frequency
+      description: frequency of the prices, e.g. "minute" (default) | "hour" | "day"
+      schema:
+        type: string
+    - in: query
+      name: type
+      description: ' price type, e.g. "spot" (default) | "TWAP"'
+      schema:
+        type: string
+    get:
+      summary: Get all prices
+      description: Get all prices or prices for a specific token
+      operationId: getPrices
+      tags:
+      - Prices
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    usdPrice:
+                      type: string
+                    token:
+                      type: string
+                    mint:
+                      type: string
+                  required:
+                  - usdPrice
+                  - token
+                  - mint
+      x-operation-id-source: derived
+  /prices/moving-averages:
+    parameters:
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    - in: query
+      name: token
+      description: 'token name ex: "SOL"'
+      schema:
+        type: string
+      required: true
+    - in: query
+      name: durationInSec
+      description: time in seconds. default is 3600
+      schema:
+        type: string
+    get:
+      summary: Get token price moving averages
+      description: GET https://api.kamino.finance/prices/moving-averages?env={cluster:optional, default mainnet}&token={tokenName:required}&durationInSec={duration:optional, default 3600}
+      operationId: getPricesMovingAverages
+      tags:
+      - Prices
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    usdPrice:
+                      type: string
+                    token:
+                      type: string
+                    mint:
+                      type: string
+                  required:
+                  - usdPrice
+                  - token
+                  - mint
+      x-operation-id-source: derived
+externalDocs:
+  description: Kamino API documentation
+  url: https://github.com/kamino-finance/kamino-api-docs

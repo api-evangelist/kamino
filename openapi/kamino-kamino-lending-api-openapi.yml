@@ -1,0 +1,630 @@
+openapi: 3.2.0
+info:
+  title: Kamino Finance Public Kamino Lending API
+  description: API for interacting with Kamino Finance — a Solana‑based DeFi platform offering automated liquidity vaults, lending/borrowing, leveraged strategies, and analytics.
+  termsOfService: https://docs.kamino.finance/v/risk
+  contact:
+    name: Kamino Finance Support
+    url: https://docs.kamino.finance
+    email: support@kamino.finance
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://api.kamino.finance
+  variables: {}
+tags:
+- name: Kamino Lending
+  description: ''
+  externalDocs:
+    description: ''
+    url: ''
+paths:
+  /kamino-market:
+    parameters:
+    - in: query
+      name: programId
+      description: program Id
+      schema:
+        type: string
+      required: true
+    get:
+      summary: Get all Kamino Markets
+      description: ''
+      operationId: getKaminoMarket
+      tags:
+      - Kamino Lending
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /kamino-market/{market-pubkey}:
+    parameters:
+    - in: path
+      name: market-pubkey
+      description: market public key
+      schema:
+        type: string
+      required: true
+    - in: query
+      name: programId
+      description: program id
+      schema:
+        type: string
+      required: true
+    get:
+      summary: Get specific kamino market config
+      description: ''
+      operationId: getKaminoMarketByMarketPubkey
+      tags:
+      - Kamino Lending
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /kamino-market/{market-pubkey}/metrics/history:
+    parameters:
+    - in: path
+      name: market-pubkey
+      description: market public key
+      schema:
+        type: string
+      required: true
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    - in: query
+      name: start
+      description: 'timestamp ex: 2023-01-02'
+      schema:
+        type: string
+    - in: query
+      name: end
+      description: 'timestamp ex: 2023-01-02'
+      schema:
+        type: string
+    get:
+      summary: Get KLend Market metrics history
+      description: ''
+      operationId: getKaminoMarketByMarketPubkeyMetricsHistory
+      tags:
+      - Kamino Lending
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /kamino-market/{market-pubkey}/reserves/{reserve-pubkey}/metrics/history:
+    parameters:
+    - in: path
+      name: market-pubkey
+      description: market public key
+      schema:
+        type: string
+      required: true
+    - in: path
+      name: reserve-pubkey
+      description: reserve public key
+      schema:
+        type: string
+      required: true
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    - in: query
+      name: start
+      description: timestamp
+      schema:
+        type: string
+    - in: query
+      name: end
+      description: timestamp
+      schema:
+        type: string
+    - in: query
+      name: frequency
+      description: frequency of the snapshots, e.g. "hour" (default) | "day"
+      schema:
+        type: string
+    get:
+      summary: Get KLend reserve history
+      description: ''
+      operationId: getKaminoMarketByMarketPubkeyReservesByReservePubkeyMetricsHistory
+      tags:
+      - Kamino Lending
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /kamino-market/{market-pubkey}/reserves/{reserve-pubkey}/borrow-and-staking-apys/history:
+    parameters:
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    - in: query
+      name: start
+      description: timestamp
+      schema:
+        type: string
+    - in: query
+      name: end
+      description: timestamp
+      schema:
+        type: string
+    - in: path
+      name: market-pubkey
+      description: market public key
+      schema:
+        type: string
+      required: true
+    - in: path
+      name: reserve-pubkey
+      description: reserve public key
+      schema:
+        type: string
+      required: true
+    get:
+      summary: Get KLend reserve borrow APY and staking APY history
+      description: Get history of klend reserve borrow interest APY and staking APY. This will only return data for reserves that contain a LST token with staking yield.
+      operationId: getKaminoMarketByMarketPubkeyReservesByReservePubkeyBorrowAndStakingApysHistory
+      tags:
+      - Kamino Lending
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /kamino-market/{market-pubkey}/reserves/{reserve-pubkey}/borrow-and-staking-apys/history/median:
+    parameters:
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    - in: query
+      name: start
+      description: timestamp
+      schema:
+        type: string
+    - in: query
+      name: end
+      description: timestamp
+      schema:
+        type: string
+    - in: path
+      name: market-pubkey
+      description: market public key
+      schema:
+        type: string
+      required: true
+    - in: path
+      name: reserve-pubkey
+      description: reserve public key
+      schema:
+        type: string
+      required: true
+    get:
+      summary: Get KLend reserve borrow APY and staking APY history median
+      description: ''
+      operationId: getKaminoMarketByMarketPubkeyReservesByReservePubkeyBorrowAndStakingApysHistoryMedian
+      tags:
+      - Kamino Lending
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /kamino-market/{market-pubkey}/obligations/{obligation-pubkey}/metrics/history:
+    parameters:
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    - in: query
+      name: start
+      description: 'ex: 2023-01-01'
+      schema:
+        type: string
+    - in: query
+      name: end
+      description: 'ex: 2023-01-01'
+      schema:
+        type: string
+    - in: query
+      name: frequency
+      description: frequency of the snapshots, e.g. "hour" (default) | "day"
+      schema:
+        type: string
+    - in: path
+      name: market-pubkey
+      description: market public key
+      schema:
+        type: string
+      required: true
+    - in: path
+      name: obligation-pubkey
+      description: obligation public key
+      schema:
+        type: string
+      required: true
+    get:
+      summary: Get KLend obligation history
+      description: ''
+      operationId: getKaminoMarketByMarketPubkeyObligationsByObligationPubkeyMetricsHistory
+      tags:
+      - Kamino Lending
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /v2/kamino-market/{market-pubkey}/obligations/{obligation-pubkey}/metrics/history:
+    parameters:
+    - in: query
+      name: env
+      description: ''
+      schema:
+        type: string
+    - in: query
+      name: start
+      description: 'ex: 2023-01-01'
+      schema:
+        type: string
+    - in: query
+      name: end
+      description: 'ex: 2023-01-01'
+      schema:
+        type: string
+    - in: query
+      name: useStakeRateForObligation
+      description: true or false. Use stake rate to calc net sol value
+      schema:
+        type: string
+    - in: path
+      name: market-pubkey
+      description: market public key
+      schema:
+        type: string
+      required: true
+    - in: path
+      name: obligation-pubkey
+      description: obligation public key
+      schema:
+        type: string
+      required: true
+    get:
+      summary: Get KLend obligation history v2
+      description: ''
+      operationId: getV2KaminoMarketByMarketPubkeyObligationsByObligationPubkeyMetricsHistory
+      tags:
+      - Kamino Lending
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /kamino-market/{market-pubkey}/users/{user-pubkey}/obligations:
+    parameters:
+    - in: path
+      name: market-pubkey
+      description: market market public key
+      schema:
+        type: string
+      required: true
+    - in: path
+      name: user-pubkey
+      description: user public key
+      schema:
+        type: string
+      required: true
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    get:
+      summary: Get all user obligations
+      description: ''
+      operationId: getKaminoMarketByMarketPubkeyUsersByUserPubkeyObligations
+      tags:
+      - Kamino Lending
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /kamino-market/{market-pubkey}/users/{user-pubkey}/transactions:
+    parameters:
+    - in: path
+      name: market-pubkey
+      description: market public key
+      schema:
+        type: string
+      required: true
+    - in: path
+      name: user-pubkey
+      description: user public key
+      schema:
+        type: string
+      required: true
+    get:
+      summary: Get KLend tx history per user (for all obligations)
+      description: ''
+      operationId: getKaminoMarketByMarketPubkeyUsersByUserPubkeyTransactions
+      tags:
+      - Kamino Lending
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /kamino-market/{market-pubkey}/obligations/{obligation-pubkey}/transactions/:
+    parameters:
+    - in: path
+      name: market-pubkey
+      description: market public key
+      schema:
+        type: string
+      required: true
+    - in: path
+      name: obligation-pubkey
+      description: obligation public key
+      schema:
+        type: string
+      required: true
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    - in: query
+      name: useLogPrices
+      description: ''
+      schema:
+        type: string
+    get:
+      summary: Get KLend tx history per obligation
+      description: ''
+      operationId: getKaminoMarketByMarketPubkeyObligationsByObligationPubkeyTransactions
+      tags:
+      - Kamino Lending
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /v2/kamino-market/{market-pubkey}/obligations/{obligation-pubkey}/pnl/:
+    parameters:
+    - in: path
+      name: market-pubkey
+      description: market-public key
+      schema:
+        type: string
+      required: true
+    - in: path
+      name: obligation-pubkey
+      description: obligation public key
+      schema:
+        type: string
+      required: true
+    - in: query
+      name: positionMode
+      description: 'values allowed: obligation_all_time, current_obligation'
+      schema:
+        type: string
+    - in: query
+      name: useStakeRate
+      description: true or false
+      schema:
+        type: string
+    get:
+      summary: Get PnL per obligation v2
+      description: 'You can specify pnl mode with query param positionMode with one of these values: (obligation_all_time, current_obligation). By default, pnl mode is set to current_obligation position For xSOL pairs, useStakeRate query param can be set to true to calculate the PnL using the stake rate. By default, it is set to false.
+
+
+        These parameters specify whether we return the current position PnL or the accumulated PnL throughout the lifetime of the user''s obligation (even before they were closed).'
+      operationId: getV2KaminoMarketByMarketPubkeyObligationsByObligationPubkeyPnl
+      tags:
+      - Kamino Lending
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /kamino-market/{market-pubkey}/users/{user-pubkey}/pnl:
+    parameters:
+    - in: path
+      name: market-pubkey
+      description: market public key
+      schema:
+        type: string
+      required: true
+    - in: path
+      name: user-pubkey
+      description: user public key
+      schema:
+        type: string
+      required: true
+    - in: query
+      name: positionMode
+      description: 'values allowed: user_all_time | user_all_current_positions'
+      schema:
+        type: string
+    get:
+      summary: Get PnL per user
+      description: 'You can specify pnl mode with query param positionMode with one of these values: {user_all_time, user_all_current_positions}. By default, pnl mode is set to user_all_current_positions position
+
+
+        These parameters specify whether we return the current position PnL or the accumulated PnL throughout the lifetime of the user''s obligation (even before they were closed).'
+      operationId: getKaminoMarketByMarketPubkeyUsersByUserPubkeyPnl
+      tags:
+      - Kamino Lending
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /kamino-market/{market-pubkey}/obligations/{obligation-pubkey}/interest-fees:
+    parameters:
+    - in: path
+      name: market-pubkey
+      description: market public key
+      schema:
+        type: string
+      required: true
+    - in: path
+      name: obligation-pubkey
+      description: obligation public key
+      schema:
+        type: string
+      required: true
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    - in: query
+      name: start
+      description: 'ex: 2023-05-01'
+      schema:
+        type: string
+    - in: query
+      name: end
+      description: 'ex: 2023-05-01'
+      schema:
+        type: string
+    - in: query
+      name: frequency
+      description: frequency of the snapshots, e.g. "hour" (default) | "day"
+      schema:
+        type: string
+    - in: query
+      name: positionMode
+      description: 'values allowed: obligation_all_time" | current_obligation'
+      schema:
+        type: string
+    get:
+      summary: Get interest fees earned per obligation
+      description: ''
+      operationId: getKaminoMarketByMarketPubkeyObligationsByObligationPubkeyInterestFees
+      tags:
+      - Kamino Lending
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /kamino-market/{market-pubkey}/users/{user-pubkey}/interest-fees:
+    parameters:
+    - in: path
+      name: market-pubkey
+      description: market public key
+      schema:
+        type: string
+      required: true
+    - in: path
+      name: user-pubkey
+      description: user public key
+      schema:
+        type: string
+      required: true
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    - in: query
+      name: start
+      description: 'ex: 2023-05-01'
+      schema:
+        type: string
+    - in: query
+      name: end
+      description: 'ex: 2023-05-01'
+      schema:
+        type: string
+    - in: query
+      name: frequency
+      description: 'frequency of the snapshots, e.g. "hour" (default) | "day"
+
+        '
+      schema:
+        type: string
+    - in: query
+      name: positionMode
+      description: 'user_all_time | user_all_current_positions '
+      schema:
+        type: string
+    get:
+      summary: Get interest fees earned per user
+      description: ''
+      operationId: getKaminoMarketByMarketPubkeyUsersByUserPubkeyInterestFees
+      tags:
+      - Kamino Lending
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /kamino-market/{market-pubkey}/reserves/metrics:
+    parameters:
+    - in: path
+      name: market-pubkey
+      description: market public key
+      schema:
+        type: string
+      required: true
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    get:
+      summary: Get metrics for market reserves
+      description: ''
+      operationId: getKaminoMarketByMarketPubkeyReservesMetrics
+      tags:
+      - Kamino Lending
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+  /kamino-market/{market-pubkey}/leverage/metrics:
+    parameters:
+    - in: path
+      name: market-pubkey
+      description: market public key
+      schema:
+        type: string
+      required: true
+    - in: query
+      name: env
+      description: 'variables allowed: mainnet-beta, devnet, localnet'
+      schema:
+        type: string
+    get:
+      summary: Get metrics for leverage/multiply vaults
+      description: ''
+      operationId: getKaminoMarketByMarketPubkeyLeverageMetrics
+      tags:
+      - Kamino Lending
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      x-operation-id-source: derived
+externalDocs:
+  description: Kamino API documentation
+  url: https://github.com/kamino-finance/kamino-api-docs
